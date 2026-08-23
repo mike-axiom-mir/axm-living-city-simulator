@@ -15,6 +15,7 @@ for relative in [
     'src/households.js',
     'src/habitats.js',
     'src/object_use.js',
+    'src/object_use_audit.js',
     'src/stewardship.js',
     'src/family.js',
     'src/community.js',
