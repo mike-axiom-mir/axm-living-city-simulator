@@ -34,8 +34,11 @@ jobs:
       - name: Expanded 60-item catalogue
         run: npm run test:content
 
-      - name: Real TV and device interactions
+      - name: Deep household item interactions
         run: npm run test:item-interactions
+
+      - name: Furnishing rent pressure and no-decay
+        run: npm run test:housing-pressure
 
       - name: Object-use affordances
         run: npm run test:object-use
