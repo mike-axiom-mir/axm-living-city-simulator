@@ -56,15 +56,15 @@
 
   function objectKind(object) {
     const id = String(object?.catalogId || 'object');
-    if (/bed|mattress/.test(id)) return 'bed';
-    if (/chair|sofa/.test(id)) return 'seat';
-    if (/table|desk/.test(id)) return 'table';
+    if (/bed|mattress|futon/.test(id)) return 'bed';
+    if (/chair|sofa|loveseat/.test(id)) return 'seat';
+    if (/table|desk|workbench/.test(id)) return 'table';
     if (/lamp/.test(id)) return 'lamp';
-    if (/laptop|computer/.test(id)) return 'screen';
+    if (/laptop|computer|tv_screen|game_screen/.test(id)) return 'screen';
     if (/plant/.test(id)) return 'plant';
     if (/rug/.test(id)) return 'rug';
-    if (/shelf|crate/.test(id)) return 'storage';
-    if (/music/.test(id)) return 'music';
+    if (/shelf|crate|wardrobe/.test(id)) return 'storage';
+    if (/music|record/.test(id)) return 'music';
     if (/kitchen|stove|fridge/.test(id)) return 'kitchen';
     if (/sink|shower|bath|toilet/.test(id)) return 'water';
     if (/print|art/.test(id)) return 'wall';
@@ -299,33 +299,39 @@
     if (!selected) return null;
     const exterior = selected.exterior || {};
     const activeRecord = world.activeTravel ? AXM.Exteriors.recordById(world, world.activeTravel.recordId) : null;
-    const recentPublicRoutes = (world.travelRecords || []).filter((record) => record.status !== 'active').slice(-6);
+    const recentPublicRoutes = (world.travelRecords || []).filter((record) => record.status !== 'active' && record.route?.streetNames?.length).slice(-4).reverse();
     return {
       schema: VISUAL_SCHEMA,
       kind: 'street',
       requestedMode: options.requestedMode || 'street',
-      title: selected.exterior?.address?.street || 'Neighborhood street',
-      subtitle: selected.name,
+      title: exterior.addressLabel || selected.name,
+      subtitle: `${selected.name} · ${exterior.frontageLabel || 'street frontage'}`,
       placeId: selected.id,
-      facade: {
-        color: selected.color || '#758590',
-        windows: exterior.facade?.windowCount || 2,
-        roofline: exterior.facade?.roofline || 'flat',
-        doorColor: exterior.entrance?.doorColor || '#6d4d3c',
-        signText: exterior.facade?.signText || selected.name,
-        kind: selected.kind
+      style: selected.style || selected.type || selected.kind,
+      color: selected.color || '#73848c',
+      frontage: {
+        width: Number(exterior.frontageWidth) || Math.max(1, Number(selected.w) || 1),
+        windows: Number(exterior.windowCount) || Math.max(1, Number(selected.w) || 1),
+        doorSide: exterior.doorSide || 'center',
+        sign: exterior.signLabel || selected.name
       },
-      address: exterior.address?.label || selected.name,
-      playerHere: world.player.locationId === selected.id,
       activeTravel: activeRecord ? {
-        id: activeRecord.id,
-        progress: activeRecord.route?.nodeIds?.length > 1
-          ? activeRecord.currentNodeIndex / (activeRecord.route.nodeIds.length - 1)
-          : 1,
-        destination: activeRecord.intendedDestinationPlaceId
+        originPlaceId: activeRecord.originPlaceId,
+        destinationPlaceId: activeRecord.intendedDestinationPlaceId,
+        currentNodeIndex: activeRecord.currentNodeIndex,
+        nodeCount: activeRecord.route.nodeIds.length,
+        streetNames: activeRecord.route.streetNames.slice()
       } : null,
-      ambientRouteCount: recentPublicRoutes.length,
-      evidence: 'exterior identity + public route evidence',
+      recentPublicRoutes: recentPublicRoutes.map((record) => ({
+        actorId: record.actorId,
+        originPlaceId: record.originPlaceId,
+        destinationPlaceId: record.intendedDestinationPlaceId,
+        streetNames: record.route.streetNames.slice(),
+        completed: record.status === 'completed'
+      })),
+      actor: world.player.locationId === selected.id ? { id: 'player', name: world.player.name, ...actorAppearance(world.player) } : null,
+      evidence: 'persistent exterior + public route evidence',
+      noPrivateRoomTracking: true,
       noAuthority: true,
       noReward: true
     };
@@ -333,57 +339,61 @@
 
   function sceneFor(world, requestedMode = null) {
     ensureUiState(world);
-    const requested = MODES.includes(requestedMode) ? requestedMode : world.ui.visualSceneMode;
+    const request = MODES.includes(requestedMode) ? requestedMode : world.ui.visualSceneMode;
     const current = Presence.presenceFor(world, 'player');
-    let mode = requested;
-    if (mode === 'auto') {
-      if (world.activeIndoorMovement || current?.kind === 'building_route' || current?.kind === 'place_entry') mode = 'building';
-      else if (current?.kind === 'room') mode = 'room';
-      else mode = 'street';
-    }
-    const scene = mode === 'room'
-      ? roomScene(world, { requestedMode: requested, preferSelection: requested === 'room' })
-      : mode === 'building'
-        ? buildingScene(world, { requestedMode: requested })
-        : streetScene(world, { requestedMode: requested });
-    return scene || streetScene(world, { requestedMode: requested });
-  }
-
-  function describeScene(scene) {
-    if (!scene) return 'No visual scene is available.';
-    if (scene.kind === 'room') {
-      const actorText = scene.actors.length ? `${scene.actors.length} lawfully visible figure${scene.actors.length === 1 ? '' : 's'}` : 'no claimed present figure';
-      const momentText = scene.recentMoment ? ` Last completed moment: ${scene.recentMoment.label}.` : '';
-      return `${scene.title}: ${scene.objects.length} persistent objects, ${scene.activities.length} grounded choices, ${actorText}. ${scene.privacy}.${momentText}`;
-    }
-    if (scene.kind === 'building') {
-      return `${scene.title}: ${scene.storeys.length} storeys and ${scene.coarseOccupants} coarse occupants. No private room is exposed.`;
-    }
-    return `${scene.title}: the persistent exterior of ${scene.subtitle}, with ${scene.ambientRouteCount} recent public route traces available as atmosphere.`;
+    const actual = request === 'auto'
+      ? (current?.kind === 'room' ? 'room' : current?.kind === 'building_common' ? 'building' : 'street')
+      : request;
+    const options = { requestedMode: request, preferSelection: request === 'room' };
+    return actual === 'room' ? roomScene(world, options)
+      : actual === 'building' ? buildingScene(world, options)
+        : streetScene(world, options);
   }
 
   function validateScene(scene) {
     const errors = [];
-    if (!scene || scene.schema !== VISUAL_SCHEMA) errors.push('Visual scene has an invalid schema.');
-    if (!['room', 'building', 'street'].includes(scene?.kind)) errors.push('Visual scene has an invalid kind.');
-    if (scene?.noAuthority !== true || scene?.noReward !== true) errors.push('Visual scene must remain non-authoritative and reward-neutral.');
-    if (scene?.kind === 'room' && scene.actors.some((actor) => actor.exact !== true)) errors.push('Room scene contains an inexact actor presented as exact.');
-    if (scene?.kind === 'room' && scene.selectedObjectId && !scene.objects.some((object) => object.id === scene.selectedObjectId)) errors.push('Selected visual object is not present in the room.');
-    if (scene?.kind === 'room' && scene.recentMoment && (
-      scene.recentMoment.schema !== VISUAL_ACTIVITY_RECEIPT_SCHEMA
-      || scene.recentMoment.source !== 'completed_activity'
-      || scene.recentMoment.noExtraReward !== true
-      || scene.recentMoment.notCurrentPresence !== true
-    )) errors.push('Completed-moment echo is not grounded or reward-neutral.');
-    if (scene?.kind === 'room' && scene.recentMoment?.observedEffects && (
-      scene.recentMoment.observedEffects.effectsObserved !== true
-      || scene.recentMoment.observedEffects.noAddedEffect !== true
-      || scene.recentMoment.observedEffects.effectScope !== 'player_and_selected_home_context'
-      || !Number.isFinite(scene.recentMoment.observedEffects.timeMinutes)
-      || scene.recentMoment.observedEffects.timeMinutes < 0
-    )) errors.push('Completed-moment effect summary is not a bounded factual receipt.');
-    if (scene?.kind === 'building' && scene.noPrivateRoomTracking !== true) errors.push('Building scene does not preserve private-room coarsening.');
+    const add = (message) => { if (errors.length < 80) errors.push(message); };
+    if (!scene || scene.schema !== VISUAL_SCHEMA) return { ok: false, errors: ['Missing visual scene schema.'] };
+    if (!['room', 'building', 'street'].includes(scene.kind)) add(`Unknown visual kind ${String(scene.kind)}.`);
+    if (scene.noAuthority !== true || scene.noReward !== true) add('Visual scene must declare no authority and no reward.');
+    if (scene.kind === 'room') {
+      if (!scene.roomId || !scene.placeId) add('Room scene needs real room and place ids.');
+      if (!Array.isArray(scene.objects) || !Array.isArray(scene.actors) || !Array.isArray(scene.activities)) add('Room scene needs object, actor, and activity arrays.');
+      if (!scene.currentPresence && scene.actors.length) add('Browsing a non-current room cannot invent exact resident presence.');
+      if (scene.activities.some((entry) => !entry.id || entry.hours == null || entry.cost == null)) add('Room activity is missing authoritative activity metadata.');
+    }
+    if (scene.kind === 'building' && !scene.buildingId) add('Building scene needs a real building id.');
+    if (scene.kind === 'street' && !scene.placeId) add('Street scene needs a real place id.');
     return { ok: errors.length === 0, errors };
+  }
+
+  function completedMomentFor(world, context, result) {
+    if (!context || !result?.ok) return null;
+    const grounded = groundedActivityForRoom(world, context.roomId, context.actionId, context.objectId || null);
+    if (!grounded) return null;
+    const property = World.getProperty(world, world.player.homePropertyId);
+    if (!property || property.id !== context.placeId && context.placeId) return null;
+    return {
+      schema: VISUAL_ACTIVITY_RECEIPT_SCHEMA,
+      source: 'completed_activity',
+      actionId: grounded.id,
+      actionName: grounded.name,
+      placeId: property.id,
+      roomId: context.roomId,
+      objectId: grounded.objectId || null,
+      objectName: grounded.objectName || null,
+      completedDay: world.time.day,
+      completedHour: world.time.hour,
+      completedMinute: world.time.minute || 0,
+      noExtraReward: true,
+      notCurrentPresence: true,
+      noAuthority: true
+    };
+  }
+
+  function setVisualActivityReceipt(world, receipt) {
+    ensureUiState(world);
+    world.ui.lastVisualActivityReceipt = receipt ? Core.deepClone(receipt) : null;
   }
 
   AXM.Visuals = {
@@ -394,20 +404,14 @@
     ROOM_ACTIVITY_RULES,
     ensureUiState,
     motionLevel,
-    stableUnit,
     objectKind,
-    roomBounds,
     objectsInRoom,
     roomChoices,
     roomActivityOptions,
     groundedActivityForRoom,
-    recentMomentForRoom,
-    lawfulActors,
-    roomScene,
-    buildingScene,
-    streetScene,
     sceneFor,
-    describeScene,
-    validateScene
+    validateScene,
+    completedMomentFor,
+    setVisualActivityReceipt
   };
 }(typeof window !== 'undefined' ? window : globalThis));
