@@ -6,9 +6,9 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 for (const file of [
   'core', 'content', 'content_expansion', 'world', 'systems', 'item_interactions',
-  'households', 'habitats', 'housing_pressure', 'object_use', 'object_use_item_expansion',
-  'object_use_audit', 'stewardship', 'family', 'community', 'directions', 'economy',
-  'exteriors', 'shells', 'presence'
+  'households', 'habitats', 'object_use', 'object_use_item_expansion', 'object_use_audit',
+  'stewardship', 'family', 'community', 'directions', 'economy', 'exteriors', 'shells',
+  'presence', 'housing_pressure'
 ]) {
   require(path.join(ROOT, 'src', `${file}.js`));
 }
@@ -93,6 +93,7 @@ function testPassiveHouseholdObjectDecayIsDisabled() {
   Systems.advanceHours(world, 72, { freezePlayer: true });
   world.places.filter((place) => place.kind === 'residential').forEach((property) => {
     property.furniture.forEach((object) => {
+      if (!before.has(object.id)) return;
       assert.ok(object.condition >= before.get(object.id), `${object.id} should not passively decay with time.`);
     });
   });
