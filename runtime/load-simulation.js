@@ -11,7 +11,6 @@ const MODULE_ORDER = Object.freeze([
   'item_interactions',
   'households',
   'habitats',
-  'housing_pressure',
   'object_use',
   'object_use_item_expansion',
   'object_use_audit',
@@ -22,7 +21,8 @@ const MODULE_ORDER = Object.freeze([
   'economy',
   'exteriors',
   'shells',
-  'presence'
+  'presence',
+  'housing_pressure'
 ]);
 
 const REQUIRED_NAMESPACES = Object.freeze([
@@ -34,7 +34,6 @@ const REQUIRED_NAMESPACES = Object.freeze([
   'ItemInteractions',
   'Households',
   'Habitats',
-  'HousingPressure',
   'ObjectUse',
   'ObjectUseItemExpansion',
   'ObjectUseAudit',
@@ -45,7 +44,8 @@ const REQUIRED_NAMESPACES = Object.freeze([
   'Economy',
   'Exteriors',
   'Shells',
-  'Presence'
+  'Presence',
+  'HousingPressure'
 ]);
 
 function loadSimulation(options = {}) {
