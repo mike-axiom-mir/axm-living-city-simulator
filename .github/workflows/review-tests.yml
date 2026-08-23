@@ -40,6 +40,9 @@ jobs:
       - name: Furnishing rent pressure and no-decay
         run: npm run test:housing-pressure
 
+      - name: Historical 1980-2026 era progression
+        run: npm run test:historical-era
+
       - name: Object-use affordances
         run: npm run test:object-use
 
