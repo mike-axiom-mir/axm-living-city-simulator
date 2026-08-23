@@ -32,6 +32,8 @@ This pass implements that first seam without rewriting the world schema, executi
   - other-owned personal object -> permission required hint
   - object/use cells stay inside the authoritative room graph
   - unknown room -> no projection
+- headless runtime loader now includes `ObjectUse`, keeping this capability independent from browser APIs
+- headless intake test now checks that the projection validates and remains read-only without `window`, `document`, or `localStorage`
 - browser load order now includes `src/object_use.js`
 - standalone build recipe now includes `src/object_use.js`
 - `npm test` now includes the focused affordance test, plus `npm run test:object-use`
@@ -72,4 +74,4 @@ Browser render/click verification remains a separate check and must not be infer
 
 ## Steward assessment
 
-This is a bounded Stage-1 implementation of `LC-V120-LIVED-ROOMS`: it makes object-use spatially grounded and inspectable while preserving the existing one-life, autonomy, privacy, deterministic replay, no-hidden-reward, no-object-loss, and review-before-canon direction.
+This is a bounded Stage-1 implementation of `LC-V120-LIVED-ROOMS`: it makes object-use spatially grounded, headless-capable, and inspectable while preserving the existing one-life, autonomy, privacy, deterministic replay, no-hidden-reward, no-object-loss, and review-before-canon direction.
