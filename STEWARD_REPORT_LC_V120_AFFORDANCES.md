@@ -37,9 +37,10 @@ This steward branch implements and hardens that first seam without rewriting the
 
 - `src/object_use_audit.js`
   - separate read-only audit projection: `axm.living-city.object-use-audit/v0.12.0-draft`
-  - rechecks candidate use positions against the structural reachability graph
-  - filters conceptual use into spatially grounded affordances versus blocked candidates
+  - rechecks candidate object-use positions against the structural reachability graph
+  - filters conceptual object use into spatially grounded affordances versus blocked candidates
   - distinguishes exact persistent-object positioning from coarser reachable room-zone utility positioning
+  - room-level utilities use reachable room evidence without fabricating an exact free standing cell
   - reads existing room permission snapshots as evidence without refreshing, rewriting, or treating them as final authority
   - keeps object permission hints and room-permission evidence separate
   - marks permission resolution as deferred and explicitly grants no authority
@@ -69,6 +70,22 @@ This steward branch implements and hardens that first seam without rewriting the
   - focused simulation suite
   - standalone build smoke
 
+## Verification receipt
+
+The first CI execution did useful work rather than being hidden: headless checks and the base affordance suite passed, but the new audit test failed because a coarse bathroom utility was incorrectly being required to have an unoccupied exact standing cell. The audit model was repaired so room-level utility/zone evidence means **the room is structurally reachable**, while persistent-object use still requires an exact reachable approach position.
+
+GitHub Actions review run **#6** then completed successfully on the repaired source (`c0fa8470ae8c17f2926497afdc7232d6ac33cd1f`):
+
+- headless runtime intake: **17/17 checks passed**
+- object-use affordances: **6/6 passed**
+- object-use reachability/permission audit: **6/6 passed**
+- full focused simulation suite: **224/224 tests passed** across the existing and new focused suites
+- standalone one-file build smoke: **PASS**, generated HTML size **1,429,508 bytes**
+
+No browser render/click PASS is inferred from those Node/build results. That remains a separate verification class.
+
+The existing intake checksum receipt describes the sealed v0.11.3 source package. This review branch intentionally changes source, so old sealed checksums were not rewritten to manufacture a passing receipt.
+
 ## Intentionally not done
 
 - no active scene state yet
@@ -85,26 +102,6 @@ This steward branch implements and hardens that first seam without rewriting the
 
 These remain later merge-gated stages rather than being silently collapsed into this first pass.
 
-## Verification truth
-
-The source and tests were written on the review branch. A direct local checkout runner was not available from this chat runtime because outbound Git access was unavailable. A review CI workflow was therefore added to the repository so future branch/PR updates can produce independent execution receipts.
-
-At the time of this steward report update, GitHub had not attached a workflow run or commit status to the latest CI-definition commit. Therefore **no fresh PASS is claimed here**.
-
-Before merge, require actual execution evidence for at least:
-
-```text
-node tests/headless_runtime_intake_test.js
-npm run test:object-use
-npm run test:object-use-audit
-npm test
-python3 tools/build_standalone.py
-```
-
-The existing intake checksum receipt describes the sealed v0.11.3 source package. This review branch intentionally changes source, so old checksums were not rewritten to manufacture a passing receipt. Record fresh review/build evidence separately after the commands actually run.
-
-Browser render/click verification remains a separate check and must not be inferred from Node tests or the standalone build smoke.
-
 ## Steward assessment
 
-This remains a bounded Stage-1 implementation of `LC-V120-LIVED-ROOMS`, but it is materially stronger than the first draft: object-use is now conceptually grounded, structurally reachability-audited, permission-evidence-aware, headless-capable, and self-checking for read-only behavior. The branch still preserves the existing one-life, autonomy, privacy, deterministic replay, no-hidden-reward, no-object-loss, and review-before-canon direction.
+This remains a bounded Stage-1 implementation of `LC-V120-LIVED-ROOMS`, but it is materially stronger than the first draft: object-use is now conceptually grounded, structurally reachability-audited, permission-evidence-aware, headless-capable, self-checking for read-only behavior, and backed by an independent green CI receipt. The branch still preserves the existing one-life, autonomy, privacy, deterministic replay, no-hidden-reward, no-object-loss, and review-before-canon direction.
