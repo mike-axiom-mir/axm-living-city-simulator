@@ -49,6 +49,9 @@ jobs:
       - name: Engineering UI and reward-neutral prototype visuals
         run: npm run test:engineering-visuals
 
+      - name: Deeper jobs and transferable skill evidence
+        run: npm run test:career-skills
+
       - name: Object-use affordances
         run: npm run test:object-use
 
