@@ -9,7 +9,7 @@ globalThis.document = {
   addEventListener() {},
   getElementById() { return null; }
 };
-for (const file of ['core', 'content', 'content_expansion', 'world', 'systems', 'households', 'habitats', 'object_use', 'object_use_item_expansion', 'object_use_audit', 'stewardship', 'family', 'community', 'directions', 'economy', 'exteriors', 'shells', 'presence', 'visuals', 'game', 'ui']) {
+for (const file of ['core', 'content', 'content_expansion', 'world', 'systems', 'item_interactions', 'households', 'habitats', 'object_use', 'object_use_item_expansion', 'object_use_audit', 'stewardship', 'family', 'community', 'directions', 'economy', 'exteriors', 'shells', 'presence', 'visuals', 'item_visual_interactions', 'game', 'ui']) {
   require(path.join(ROOT, 'src', `${file}.js`));
 }
 
@@ -66,7 +66,7 @@ function testEveryNewDefinitionCanCreateARealPersistentObject() {
   });
 }
 
-function testNewComputerGroundsExistingGameplayWithoutNewRewardPath() {
+function testNewComputerGroundsItsPrecisePlayInteractionWithoutNewRewardPath() {
   const world = newWorld('CATALOGUE-COMPUTER-AFFORDANCE');
   const home = World.homeOf(world, 'player');
   const room = home.habitat.rooms.find((entry) => ['work', 'living', 'sleep'].includes(entry.purpose));
@@ -77,8 +77,9 @@ function testNewComputerGroundsExistingGameplayWithoutNewRewardPath() {
   });
   assert.equal(placed, true);
   const projection = ObjectUse.affordancesForRoom(world, home.id, room.id, 'player');
-  const play = projection.affordances.find((entry) => entry.actionId === 'play_pc' && entry.objectId === computer.id);
-  assert.ok(play, 'New computers should plug into the existing PC activity rather than inventing a second reward path.');
+  const play = projection.affordances.find((entry) => entry.actionId === 'play_device' && entry.objectId === computer.id);
+  assert.ok(play, 'New computers should ground the precise expanded-device play activity.');
+  assert.equal(projection.affordances.some((entry) => entry.actionId === 'play_pc' && entry.objectId === computer.id), false, 'Expanded laptop should not route through the legacy hardcoded PC gate.');
   assert.equal(play.noReward, true);
   assert.equal(play.noExecutionAuthority, true);
   assert.equal(ObjectUse.validateProjection(world, projection).ok, true);
@@ -97,7 +98,7 @@ const tests = [
   testEveryExistingCategoryGetsMoreVariety,
   testNewItemsKeepReadableBoundedDefinitions,
   testEveryNewDefinitionCanCreateARealPersistentObject,
-  testNewComputerGroundsExistingGameplayWithoutNewRewardPath,
+  testNewComputerGroundsItsPrecisePlayInteractionWithoutNewRewardPath,
   testExpansionDoesNotChangeWorldSchemaOrDeterminism
 ];
 
