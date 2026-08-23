@@ -90,7 +90,7 @@ Issues found during stewardship remain visible rather than hidden:
 
 ## Verification
 
-**Living City review tests #98: GREEN** on runtime head `2fdfe43425e28df1b488b8d0a001688b0425201c` before this receipt-only commit.
+**Final branch-head Living City review tests #100: GREEN** on current head `b99d07d12b01d980816e94002e944e3af496799b` before this receipt-only commit.
 
 Verified gates:
 
