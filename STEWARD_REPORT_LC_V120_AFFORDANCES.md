@@ -8,93 +8,97 @@ Base: `codex/living-city-simulator-intake-v0.11.3`
 
 Review branch: `steward/lc-v120-object-use-affordances`
 
-## Why this pass exists
+## Current steward result
 
-The v0.11.3 package already has truthful completed-action feedback and playable room browsing. The existing next-build queue identifies the first v0.12.0 step as mapping persistent objects to bounded actions and valid room/use positions before adding authoritative in-progress scene state.
+The review branch now combines grounded object-use, structural reachability auditing, a 24 -> 60 furniture catalogue expansion, and real interaction behavior for expanded computers, handheld gaming and television. The authoritative world schema remains unchanged.
 
-This steward branch implements and hardens that seam while also expanding the small starter object catalogue. It does not rewrite the world schema, silently replace existing objects, execute new gameplay authority, or turn visual observation into a reward channel.
+## 60-item catalogue
 
-## Grounding + audit foundation
+The original 24 items remain intact and 36 objects are added for **60 total** across seats, sleep, work/hobby, activity/electronics, lighting, storage, surfaces, decor and compact kitchen equipment.
 
-- `src/object_use.js` maps persistent furniture and room utility state to bounded existing activities.
-- `src/object_use_audit.js` rechecks exact object approaches against structural reachability and keeps room-permission evidence advisory rather than authoritative.
-- exact object use and coarse room-zone use remain distinguishable.
-- blocked candidates are reported rather than guessed through.
-- object identity, ownership hints, room evidence, no-reward and no-execution-authority boundaries remain explicit.
-- browser, standalone and headless runtimes all load the same object-use foundation.
+Existing saves and starter rooms are **not silently repopulated**. Existing object ids, placement and history remain untouched.
 
-## 60-item catalogue expansion
+## Real TV and computer interactions
 
-The original 24-item starter catalogue is preserved and extended with 36 additional objects for **60 total catalogue items**.
+A post-expansion cross-check found that catalogue depth had moved ahead of interaction depth:
 
-New variety includes:
+- expanded laptops could appear as computer-like room objects, but the legacy Play action still hardcoded only `old_laptop` and `fast_computer`;
+- study/creative use of expanded laptops did not record selected-object usage;
+- `tv_screen` was buyable/placeable/upgradable furniture but had no simulation activity.
 
-- seats: patched armchair, reading chair, loveseat sofa, modular sofa, kitchen chair
-- sleep: double bed, bunk bed, futon bed, reclaimed bed
-- work/hobby: writing desk, drawing desk, sewing table, maker workbench
-- electronics/activity: refurbished laptop, compact computer, TV screen, record player, handheld game system
-- lights: desk, paper-shade, clip and industrial floor lamps
-- storage: book shelf, metal shelf, wall shelf, drawer crate
-- surfaces: coffee, dining and side tables
-- decor: large and hanging plants, woven rug, photo wall print
-- food/kitchen: mini kitchen unit, induction stove, mini fridge
+This is corrected through modular extension files rather than rewriting the large core systems file.
 
-The expansion keeps the existing category model rather than creating a schema migration. Prices and stats intentionally overlap: cheap/secondhand, compact, expressive, durable and premium objects have different strengths rather than forming one universal best-item ladder.
+### Expanded computers / handheld
 
-New obvious functional objects join the precise object-use grammar:
+- `refurbished_laptop`, `compact_computer`, and `handheld_game_screen` ground and execute `play_device`.
+- `refurbished_laptop` and `compact_computer` ground study and creative time.
+- successful selected-device use records real `usageHours` and small bounded sentimental familiarity on that persistent object.
+- legacy `old_laptop` / `fast_computer` `play_pc` behavior remains intact.
 
-- refurbished laptop / compact computer / handheld game system -> existing PC-play grounding where appropriate
-- refurbished laptop / compact computer -> existing study grounding
-- refurbished laptop / compact computer / record player -> existing creative-time grounding
-- maker workbench -> existing repair-practice grounding
+### TV
 
-No new reward path is introduced.
+- `tv_screen` grounds and executes `watch_tv`.
+- Watch TV advances the ordinary simulation clock for two hours and applies bounded leisure need effects through the ordinary activity engine.
+- real persistent TV usage is recorded.
+- no TV means the activity is rejected rather than invented.
+- another resident's personal TV is not assumed usable without permission.
+- TV is deliberately not treated as a study computer or generic PC-play device.
 
-Existing saves and starter rooms are **not silently repopulated** with the new catalogue. Existing object IDs and histories stay intact; the added items become available through the normal catalogue/runtime paths and can be used by future systems without rewriting old world state.
+### Living View bridge
 
-## Steward correction: visual classifier tweak rejected
+`src/item_visual_interactions.js` extends the public visual activity projection while leaving the previously verified large `src/visuals.js` source untouched:
 
-After the green item-expansion run, a follow-up attempt was made to classify additional item IDs inside the older Living View visual grammar. Cross-checking immediately showed this was unsafe: the legacy visual quick-action grammar treats any `screen` broadly, so classifying a TV or handheld game device as a generic screen could accidentally present it as a study or creative computer.
+- legacy PCs retain their existing Play option;
+- expanded computers/handhelds receive precise Play-on-device options;
+- TVs receive Watch TV;
+- TV never gains Study or PC Play merely because it has a screen;
+- exact object identity is retained for completed-action receipts.
 
-That follow-up edit also touched a large source file through a replacement path that was not sufficiently narrow. Rather than keep or manually reconstruct it, the branch restores the **exact previously verified `src/visuals.js` blob** by its Git object SHA. The rejected visual-classifier experiment is not part of the intended result.
+## Object-use / authority boundaries
 
-Functional meaning for the new items therefore stays in the more precise `ObjectUse` extension instead of broadening the old visual classifier.
+- exact object approaches remain structurally reachability-audited;
+- room permission evidence remains advisory and separate from object ownership;
+- inspection grants no execution authority;
+- other-resident personal ownership is not silently overridden;
+- visual feedback remains reward-neutral;
+- item actions delegate their time/needs/skills simulation to the ordinary `Systems.performActivity` engine instead of creating a parallel progression path.
+
+## Steward corrections retained
+
+The branch keeps the issues found during stewardship visible rather than rewriting history:
+
+1. an early reachability audit over-constrained coarse bathroom utility use; the model was repaired and the test retained;
+2. a proposed broad visual screen classifier was rejected because it could make a TV imply computer actions; the exact previously verified `src/visuals.js` blob was restored;
+3. an accidental temporary connector file was deleted and is absent from the final diff;
+4. the first real-item CI attempt exposed a stale test module order after `item_interactions` became a required headless dependency; the test loader was corrected rather than bypassing the dependency.
 
 ## Verification
 
-Review CI is part of this branch. It first exposed and helped repair an audit-modeling bug rather than hiding it.
+**Living City review tests #62: GREEN** on runtime branch head `e16fa55bfb4d66bfa21bb314fc629ab2d9da4c78` before this documentation-only receipt commit.
 
-Verified item-expansion source run: **Living City review tests #26** on `6ed793942f3d21e34529b905f1e600599b168433`.
+Verified gates:
 
-PASS:
-
-- headless runtime intake: **17/17 checks**
-- expanded catalogue: **6/6 tests**
-- object-use affordances: **6/6 tests**
-- object-use reachability/permission audit: **6/6 tests**
-- complete focused simulation suite: **230/230 tests**
+- headless runtime intake: **17/17 checks passed**
+- expanded 60-item catalogue: **6/6 tests passed**
+- real TV / expanded-device interactions: **8/8 tests passed**
+- object-use affordances: **6/6 tests passed**
+- object-use reachability / permission audit: **6/6 tests passed**
+- complete focused simulation suite: **238/238 tests passed**
 - standalone one-file build smoke: **PASS**
-- verified generated standalone size: **1,445,280 bytes**
+- generated standalone size: **1,456,907 bytes**
 
-A documentation-only report commit then passed the same branch-head CI gates before the rejected visual-classifier experiment. After the exact visual blob restore, require the final branch-head CI receipt before merge; do not infer it from the earlier green run.
+Browser render/click QA remains a separate visual check and is not inferred from Node/build receipts.
 
-Browser render/click verification remains a separate check and is not inferred from Node/build checks.
+## Still held for later
 
-## Intentionally not done
+- authoritative active scene state
+- interruption / resume
+- autonomous resident object-use
+- final permission resolver
+- visible/compressed active-scene parity
+- scene-driven character/object animation
+- broader interaction catalogue for every furniture/decor type
+- world-schema migration
+- release / promotion / merge / CANON
 
-- no active scene state yet
-- no action interception or execution through the projection
-- no autonomous resident object-use yet
-- no final permission resolver yet
-- no interruption model yet
-- no visible/compressed scene parity yet
-- no scene-driven animation yet
-- no world-schema migration
-- no automatic replacement or injection of objects into existing saves
-- no broad legacy visual-classifier expansion for the new item types
-- no rewrite of sealed v0.11.3 intake checksums
-- no release, promotion, merge, or CANON decision
-
-## Steward assessment
-
-This remains a bounded review branch, but its floor is stronger: object-use is conceptually grounded, structurally audited, permission-evidence-aware and headless-capable, while the Build & Home catalogue now has substantially more room for different homes and personalities. The one-life, autonomy, privacy, deterministic replay, no-hidden-reward, no-object-loss, and review-before-canon direction remains preserved.
+The branch remains a review candidate for later local intake.
