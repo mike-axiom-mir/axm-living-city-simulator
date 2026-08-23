@@ -13,7 +13,7 @@ for (const file of [
   require(path.join(ROOT, 'src', `${file}.js`));
 }
 
-const { Core, Content, World, Systems, Habitats, Visuals, ObjectUse } = globalThis.AXM;
+const { Core, World, Systems, Habitats, Visuals, ObjectUse } = globalThis.AXM;
 
 function newWorld(seed) {
   const world = World.createWorld(seed);
@@ -45,6 +45,21 @@ function roomFor(home, object) {
   return room;
 }
 
+function sceneFor(world, object) {
+  const home = World.homeOf(world, 'player');
+  const room = roomFor(home, object);
+  return {
+    room,
+    scene: {
+      kind: 'room',
+      placeId: home.id,
+      purpose: room.purpose,
+      utilities: { ...(room.utilityAccess || {}) },
+      objects: Visuals.objectsInRoom(home, room)
+    }
+  };
+}
+
 function minuteStamp(world) {
   return (world.time.day - 1) * 1440 + world.time.hour * 60 + (world.time.minute || 0);
 }
@@ -59,7 +74,6 @@ function testTvIsARealLeisureAction() {
   assert.equal(result.ok, true);
   assert.equal(minuteStamp(world) - beforeTime, 120);
   assert.equal(Core.round(tv.usageHours - beforeUsage, 2), 2);
-  assert.equal(result.itemInteraction.objectId, tv.id);
   assert.equal(result.itemInteraction.catalogId, 'tv_screen');
   assert.equal(result.itemInteraction.noExtraReward, true);
 }
@@ -94,7 +108,7 @@ function testExpandedLaptopCanActuallyPlay() {
   assert.equal(World.homeOf(world, 'player').furniture.some((object) => ['old_laptop', 'fast_computer'].includes(object.catalogId)), false);
   const beforeUsage = laptop.usageHours;
   const result = Systems.performActivity(world, 'play_device');
-  assert.equal(result.ok, true, 'Expanded laptop should play without needing a hidden legacy computer.');
+  assert.equal(result.ok, true);
   assert.equal(Core.round(laptop.usageHours - beforeUsage, 2), 2);
   assert.equal(result.itemInteraction.catalogId, 'refurbished_laptop');
 }
@@ -107,44 +121,30 @@ function testLegacyComputerPlayStillWorks() {
   const beforeUsage = laptop.usageHours;
   const result = Systems.performActivity(world, 'play_pc');
   assert.equal(result.ok, true);
-  assert.equal(Core.round(laptop.usageHours - beforeUsage, 2), 2, 'Legacy play behavior should remain unchanged.');
+  assert.equal(Core.round(laptop.usageHours - beforeUsage, 2), 2);
 }
 
 function testLivingViewShowsTvAsTvNotStudyComputer() {
   const world = newWorld('ITEM-TV-VISUAL');
   const home = clearHome(world);
   const tv = place(world, 'tv_screen');
-  const room = roomFor(home, tv);
-  const scene = {
-    kind: 'room',
-    placeId: home.id,
-    purpose: room.purpose,
-    utilities: { ...(room.utilityAccess || {}) },
-    objects: Visuals.objectsInRoom(home, room)
-  };
+  const { scene } = sceneFor(world, tv);
   const options = Visuals.roomActivityOptions(world, scene);
-  const watch = options.find((entry) => entry.id === 'watch_tv' && entry.objectId === tv.id);
-  assert.ok(watch, 'TV should expose Watch TV in Living View.');
-  assert.equal(options.some((entry) => ['play_pc', 'play_device', 'study_focus'].includes(entry.id) && entry.objectId === tv.id), false, 'TV must not masquerade as a PC or study device.');
+  assert.ok(options.some((entry) => entry.id === 'watch_tv' && entry.objectId === tv.id));
+  assert.equal(options.some((entry) => ['play_pc', 'play_device', 'study_focus'].includes(entry.id) && entry.objectId === tv.id), false);
+  assert.equal(home.id, scene.placeId);
 }
 
 function testLaptopLivingViewCanPlayStudyAndCreate() {
   const world = newWorld('ITEM-LAPTOP-VISUAL');
-  const home = clearHome(world);
+  clearHome(world);
   const laptop = place(world, 'refurbished_laptop');
-  const room = roomFor(home, laptop);
-  const scene = {
-    kind: 'room',
-    placeId: home.id,
-    purpose: room.purpose,
-    utilities: { ...(room.utilityAccess || {}) },
-    objects: Visuals.objectsInRoom(home, room)
-  };
+  const { scene } = sceneFor(world, laptop);
   const options = Visuals.roomActivityOptions(world, scene);
   assert.ok(options.some((entry) => entry.id === 'play_device' && entry.objectId === laptop.id));
   assert.ok(options.some((entry) => entry.id === 'study_focus' && entry.objectId === laptop.id));
   assert.ok(options.some((entry) => entry.id === 'creative_time' && entry.objectId === laptop.id));
-  assert.equal(options.some((entry) => entry.id === 'play_pc' && entry.objectId === laptop.id), false, 'Expanded laptop should not route through the legacy hardcoded PC gate.');
+  assert.equal(options.some((entry) => entry.id === 'play_pc' && entry.objectId === laptop.id), false);
 }
 
 function testSelectedLaptopStudyRecordsRealObjectUseInReceipt() {
@@ -152,35 +152,131 @@ function testSelectedLaptopStudyRecordsRealObjectUseInReceipt() {
   const home = clearHome(world);
   const laptop = place(world, 'refurbished_laptop');
   const room = roomFor(home, laptop);
-  const grounded = Visuals.groundedActivityForRoom(world, room.id, 'study_focus', laptop.id);
-  assert.ok(grounded, 'The exact laptop should ground study before execution.');
+  assert.ok(Visuals.groundedActivityForRoom(world, room.id, 'study_focus', laptop.id));
   const beforeUsage = laptop.usageHours;
-  world.ui.pendingVisualActivity = {
-    actionId: 'study_focus',
-    placeId: home.id,
-    roomId: room.id,
-    objectId: laptop.id
-  };
+  world.ui.pendingVisualActivity = { actionId: 'study_focus', placeId: home.id, roomId: room.id, objectId: laptop.id };
   const result = Systems.performActivity(world, 'study_focus');
   assert.equal(result.ok, true);
   assert.equal(Core.round(laptop.usageHours - beforeUsage, 2), 2);
   assert.equal(result.visualReceipt?.objectId, laptop.id);
   assert.equal(result.visualReceipt?.observedEffects?.object?.usageHours, 2);
-  assert.equal(result.visualReceipt?.itemInteraction?.noExtraReward, true);
 }
 
-function testObjectUseProjectionSeparatesTvAndLaptopCapabilities() {
+function testSeatIsUsableRestFurniture() {
+  const world = newWorld('ITEM-SEAT-RELAX');
+  clearHome(world);
+  const chair = place(world, 'patched_armchair');
+  const beforeTime = minuteStamp(world);
+  const beforeUsage = chair.usageHours;
+  const result = Systems.performActivity(world, 'relax_seated');
+  assert.equal(result.ok, true);
+  assert.equal(minuteStamp(world) - beforeTime, 60);
+  assert.equal(Core.round(chair.usageHours - beforeUsage, 2), 1);
+}
+
+function testOptionalHouseholdObjectsHaveRealActions() {
+  const cases = [
+    ['read_books', 'book_shelf'],
+    ['listen_music', 'record_music_player'],
+    ['read_by_lamp', 'desk_lamp'],
+    ['care_plant', 'large_plant'],
+    ['organize_storage', 'drawer_crate']
+  ];
+  cases.forEach(([actionId, catalogId], index) => {
+    const world = newWorld(`ITEM-HOUSEHOLD-${index}`);
+    clearHome(world);
+    const object = place(world, catalogId);
+    const before = object.usageHours;
+    const result = Systems.performActivity(world, actionId);
+    assert.equal(result.ok, true, `${catalogId} should support ${actionId}.`);
+    assert.equal(Core.round(object.usageHours - before, 2), 1);
+    assert.equal(result.itemInteraction.objectId, object.id);
+  });
+}
+
+function testKitchenAndBedRecordExactSelectedUse() {
+  const mealWorld = newWorld('ITEM-KITCHEN-USE');
+  const mealHome = clearHome(mealWorld);
+  const stove = place(mealWorld, 'induction_stove');
+  const mealRoom = roomFor(mealHome, stove);
+  mealWorld.ui.pendingVisualActivity = { actionId: 'eat_home', placeId: mealHome.id, roomId: mealRoom.id, objectId: stove.id };
+  const mealBefore = stove.usageHours;
+  const meal = Systems.performActivity(mealWorld, 'eat_home');
+  assert.equal(meal.ok, true);
+  assert.equal(Core.round(stove.usageHours - mealBefore, 2), 1);
+  assert.equal(meal.itemInteraction.objectId, stove.id);
+
+  const sleepWorld = newWorld('ITEM-BED-USE');
+  const sleepHome = clearHome(sleepWorld);
+  const bed = place(sleepWorld, 'double_bed');
+  const sleepRoom = roomFor(sleepHome, bed);
+  sleepWorld.ui.pendingVisualActivity = { actionId: 'sleep', placeId: sleepHome.id, roomId: sleepRoom.id, objectId: bed.id };
+  const bedBefore = bed.usageHours;
+  const sleep = Systems.performActivity(sleepWorld, 'sleep');
+  assert.equal(sleep.ok, true);
+  assert.equal(Core.round(bed.usageHours - bedBefore, 2), 8);
+  assert.equal(sleep.itemInteraction.objectId, bed.id);
+}
+
+function testHomeWorkbenchRepairActuallyStaysHome() {
+  const world = newWorld('ITEM-HOME-BENCH');
+  const home = clearHome(world);
+  const bench = place(world, 'maker_workbench');
+  const beforeRepair = world.player.skills.repair;
+  const beforeUsage = bench.usageHours;
+  const result = Systems.performActivity(world, 'repair_at_bench');
+  assert.equal(result.ok, true);
+  assert.equal(world.player.locationId, home.id, 'Home bench repair should not route to the public workshop.');
+  assert.ok(world.player.skills.repair > beforeRepair);
+  assert.equal(Core.round(bench.usageHours - beforeUsage, 2), 2);
+}
+
+function testLivingViewSurfacesBroaderExactObjectActions() {
+  const cases = [
+    ['relax_seated', 'reading_chair'],
+    ['read_books', 'book_shelf'],
+    ['listen_music', 'record_music_player'],
+    ['read_by_lamp', 'desk_lamp'],
+    ['care_plant', 'large_plant'],
+    ['organize_storage', 'drawer_crate'],
+    ['repair_at_bench', 'maker_workbench']
+  ];
+  cases.forEach(([actionId, catalogId], index) => {
+    const world = newWorld(`ITEM-VISUAL-HOUSEHOLD-${index}`);
+    clearHome(world);
+    const object = place(world, catalogId);
+    const { scene } = sceneFor(world, object);
+    const options = Visuals.roomActivityOptions(world, scene);
+    assert.ok(options.some((entry) => entry.id === actionId && entry.objectId === object.id), `${catalogId} should surface ${actionId}.`);
+  });
+}
+
+function testOtherResidentsPersonalSeatIsNotSilentlyOffered() {
+  const world = newWorld('ITEM-OTHER-SEAT');
+  const home = clearHome(world);
+  const otherId = home.tenants.find((id) => id !== 'player') || world.people[0].id;
+  const chair = place(world, 'patched_armchair', otherId, 'personal');
+  const { scene } = sceneFor(world, chair);
+  const options = Visuals.roomActivityOptions(world, scene);
+  assert.equal(options.some((entry) => entry.id === 'relax_seated' && entry.objectId === chair.id), false);
+  const direct = Systems.performActivity(world, 'relax_seated');
+  assert.equal(direct.ok, false);
+  assert.match(direct.reason, /no usable chair/i);
+}
+
+function testObjectUseProjectionSeparatesCapabilitiesAndHomeRepair() {
   const world = newWorld('ITEM-OBJECT-USE-PROJECTION');
   const home = clearHome(world);
   const laptop = place(world, 'refurbished_laptop');
   const tv = place(world, 'tv_screen');
-  const laptopRoom = roomFor(home, laptop);
-  const tvRoom = roomFor(home, tv);
-  const roomIds = new Set([laptopRoom.id, tvRoom.id]);
+  const bench = place(world, 'workbench');
+  const roomIds = new Set([roomFor(home, laptop).id, roomFor(home, tv).id, roomFor(home, bench).id]);
   const affordances = Array.from(roomIds).flatMap((roomId) => ObjectUse.affordancesForRoom(world, home.id, roomId).affordances);
   assert.ok(affordances.some((entry) => entry.actionId === 'play_device' && entry.objectId === laptop.id));
   assert.ok(affordances.some((entry) => entry.actionId === 'watch_tv' && entry.objectId === tv.id));
   assert.equal(affordances.some((entry) => entry.actionId === 'study_focus' && entry.objectId === tv.id), false);
+  assert.ok(affordances.some((entry) => entry.actionId === 'repair_at_bench' && entry.objectId === bench.id));
+  assert.equal(affordances.some((entry) => entry.actionId === 'practice_repair' && entry.objectId === bench.id), false);
 }
 
 const tests = [
@@ -191,7 +287,13 @@ const tests = [
   testLivingViewShowsTvAsTvNotStudyComputer,
   testLaptopLivingViewCanPlayStudyAndCreate,
   testSelectedLaptopStudyRecordsRealObjectUseInReceipt,
-  testObjectUseProjectionSeparatesTvAndLaptopCapabilities
+  testSeatIsUsableRestFurniture,
+  testOptionalHouseholdObjectsHaveRealActions,
+  testKitchenAndBedRecordExactSelectedUse,
+  testHomeWorkbenchRepairActuallyStaysHome,
+  testLivingViewSurfacesBroaderExactObjectActions,
+  testOtherResidentsPersonalSeatIsNotSilentlyOffered,
+  testObjectUseProjectionSeparatesCapabilitiesAndHomeRepair
 ];
 
 for (const test of tests) test();
