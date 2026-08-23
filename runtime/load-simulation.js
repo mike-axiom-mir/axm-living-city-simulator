@@ -25,7 +25,8 @@ const MODULE_ORDER = Object.freeze([
   'housing_pressure',
   'historical_era',
   'engineering_ewaste',
-  'career_skills'
+  'career_skills',
+  'career_engineering_bridge'
 ]);
 
 const REQUIRED_NAMESPACES = Object.freeze([
@@ -51,7 +52,8 @@ const REQUIRED_NAMESPACES = Object.freeze([
   'HousingPressure',
   'HistoricalEra',
   'EngineeringEwaste',
-  'CareerSkills'
+  'CareerSkills',
+  'CareerEngineeringBridge'
 ]);
 
 function loadSimulation(options = {}) {
