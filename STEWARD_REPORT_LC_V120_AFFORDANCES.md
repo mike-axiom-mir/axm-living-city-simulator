@@ -1,4 +1,4 @@
-# Steward Report — LC-V120 Object-Use Affordances + Item Expansion
+# Steward Report — LC-V120 Living City Growth Pass
 
 Date: 2026-08-23
 
@@ -10,116 +10,142 @@ Review branch: `steward/lc-v120-object-use-affordances`
 
 ## Current steward result
 
-The review branch now combines grounded object-use, structural reachability auditing, a 24 -> 60 furniture catalogue expansion, increasingly Sims-like household object behavior, a choice-driven furnishing rent pressure model, and a compressed historical world timeline from **1980 through 2026**. The authoritative world schema remains unchanged and existing saves are not silently repopulated or stripped of objects.
+The branch now combines grounded object use, structural reachability auditing, a 60-item household catalogue, Sims-like object interactions, choice-driven furnishing-rent pressure, a compressed **1980 -> 2026** historical world timeline, and the first deterministic **e-waste -> engineering -> miniature robotica** foundation.
+
+The authoritative world schema remains unchanged. Existing saves are not silently stripped, repopulated or rewritten by read-only inspection.
 
 ## Historical world progression — 1980 -> 2026
 
-The city now ages through historical eras while the ordinary life simulation keeps its playable day/week rhythm.
-
 - Day 1 begins in **1980**.
-- One simulation week advances the historical era by one year.
+- One simulation week advances the historical world by one year.
 - Day 323 reaches **2026**.
-- Historical progression stops at 2026 rather than inventing future technology.
-- Header time now exposes the current historical year and era label.
-- Eras are grouped as Analog Eighties, Digital Nineties, Connected 2000s, Mobile 2010s and Present Era.
+- The clock stops at 2026 rather than inventing future history.
+- Era labels progress through Analog Eighties, Digital Nineties, Connected 2000s, Mobile 2010s and Present Era.
+- Historical progression is world context, **not forced player aging**.
 
-This is deliberately **world-era progression, not forced player aging**. Choice-based life chapters remain authoritative and historical time does not create an age countdown, deadline, death timer, or age-gated pressure.
-
-### Technology availability
-
-Most ordinary household furniture is available from 1980 onward. Era-sensitive technology enters later:
-
-- handheld game system: 1990
-- old laptop: 1995
-- refurbished laptop: 2000
-- fast computer: 2005
-- induction stove: 2005
-- compact computer: 2010
-
-A fresh 1980 world no longer starts with the anachronistic old laptop; that starter object is generated as a music player instead while keeping the six-object starter footprint. This adjustment happens only during new-world generation.
-
-Existing saves and already-owned future-tech objects are preserved. The era layer does **not** delete, downgrade or silently rewrite existing objects; it only controls new-world starting context and new purchases. By 2026 all 60 catalogue items are available.
+Selected technology becomes purchasable when its era arrives, while already-owned future-tech objects are preserved. Fresh 1980 worlds replace the old-laptop starter with a music player without changing the six-object starter footprint. By 2026 all 60 catalogue objects are available.
 
 ## Functional household objects
 
-The catalogue is no longer passive furniture-only content. Real placed objects unlock or ground bounded activities through the ordinary simulation clock/effects engine.
+Placed household objects now ground real bounded activities through the ordinary simulation engine: TV viewing, device play, study/creative work, sitting, books, music, reading lights, optional plant care, optional storage organization, exact bed/kitchen usage and home-workbench repair.
 
-- TV -> Watch TV
-- expanded laptops / compact computers / handheld -> Play
-- expanded computers -> Study / Creative
-- chairs / sofas -> Sit and unwind
-- book / story shelves -> Browse books
-- music players -> Listen to music
-- lamps -> Read under the light
-- plants -> optional care
-- storage furniture -> optional browse / organize
-- beds -> ordinary Sleep can record exact bed use
-- kitchen objects -> ordinary home meal can record exact kitchen-object use
-- home workbenches -> Repair at the home bench
-
-Plant and storage interactions deliberately create no daily maintenance streak, cleanliness quota, failure state, or hidden reward path.
+Precise use can retain `usageHours`, bounded familiarity/sentimental evidence and exact object identity. These remain object-history consequences rather than a second reward economy.
 
 ## Furnishing rent pressure instead of passive decay
 
-Household objects no longer passively lose condition merely because simulation time passes. Economic choice pressure now comes from how much personal stuff the player chooses to keep placed while renting.
+Residential furniture no longer loses condition simply because time passes. Economic pressure instead comes from the player's choices while renting:
 
-Rules:
-
-- the first **6 placed personal objects** are the starter allowance and add no furnishing surcharge;
-- additional placed personal objects add a small monthly amount based on item size and catalogue value;
-- the surcharge is capped at **25% of the home's base rent**, with a small absolute cap floor so the formula remains bounded on unusual test rents;
-- only the player's placed personal belongings count;
+- first **6 placed personal objects** add no furnishing surcharge;
+- additional placed personal objects add a small monthly amount based on size/value;
+- surcharge is capped at **25% of base rent**;
 - roommate belongings, property fixtures and stored objects are excluded;
-- storing an object lowers future furnishing pressure again;
-- the property's actual `currentRent` is not mutated, so one tenant buying a sofa cannot silently raise every roommate's rent;
-- owner-occupiers do not pay a furnishing-rent surcharge to themselves;
-- the surcharge is settled on weekly rent boundaries and written visibly to the housing ledger;
-- unpaid furnishing surcharge joins visible rent arrears but adds no second mood punishment and no late fee.
+- storing objects lowers future pressure;
+- `currentRent` is not mutated, so one tenant's purchases cannot silently raise roommates' rent;
+- owner-occupiers do not pay the furnishing surcharge to themselves;
+- unpaid furnishing surcharge becomes visible rent arrears without a second mood penalty or late fee.
 
-Purchasing, storing and replacing stored items return a housing-pressure receipt so the marginal monthly change is inspectable. The pressure summary is also exposed through simulation metrics for future UI and side-income systems.
+This keeps purchases meaningful without creating a decay or maintenance chore loop.
 
-This is intended to make furniture purchases meaningful without creating chore pressure: more stuff can make life nicer and unlock more activities, but a heavily furnished rented home asks for somewhat more income. Existing employed work and the local-economy `occasional_service` / enterprise paths can already offset that pressure, and later side-income additions can plug into the same economy rather than needing a separate mechanic.
+## E-waste and engineering foundation
 
-## Home workbench correction
+`src/engineering_ewaste.js` adds a bounded deterministic engineering layer connected directly to the historical timeline and normal player economy.
 
-The generic `practice_repair` activity routes to the public repair workshop. The old object-use projection could imply that a home workbench grounded an activity that actually happened elsewhere.
+### Era-sensitive e-waste
 
-That mismatch remains corrected:
+Electronic salvage exists from 1980 onward and grows with the city's technology history. Current source classes include:
 
-- `workbench` / `maker_workbench` ground `repair_at_bench`;
-- repair remains at the current home;
-- public-workshop `practice_repair` remains separate;
-- object-use no longer claims the public-workshop activity occurs at a home bench.
+- 1980: cassette player, motorized toy
+- 1985: CRT television
+- 1995: game console
+- 2000: retired desktop computer
+- 2005: router/network box and laptop
+- 2010: mobile phone and compact camera
 
-## Persistent-object evidence
+E-waste is **not generated passively**. Time passing creates no garbage meter, cleanup duty or maintenance obligation. A player must explicitly choose to collect a salvage lot, and the queue is bounded to six lots.
 
-Successful precise object use can add real `usageHours`, a small bounded sentimental/familiarity increment, and exact object identity in completed visual receipts when invoked through Living View. These are history/evidence-like consequences, not a second progression economy.
+Collection is deterministic from the world seed, era and engineering sequence without consuming the ordinary world RNG stream.
 
-## Permission / truth boundaries
+### Inspect before deciding
 
-- other residents' personal objects are not silently treated as player-usable;
-- property fixtures may remain usable where normal room access permits;
-- inspection grants no execution authority;
-- exact object approaches remain reachability-audited;
-- room permission evidence remains separate from object ownership;
-- visual feedback remains reward-neutral;
-- historical progression does not grant life-course authority;
-- no active-scene state is fabricated yet.
+Collected lots remain intact until explicitly acted on.
+
+Inspection reveals:
+
+- expected reusable components;
+- estimated refurbishment value;
+- source/provenance evidence.
+
+Inspection does **not** silently dismantle the device. After inspection the player can choose to keep it, refurbish it, or explicitly dismantle it for components.
+
+### Reuse as side income
+
+Refurbishment requires a real usable bench/workshop, time and a small consumables cost. The finished item becomes persistent refurbished stock with provenance. Selling it uses the existing player money and `lifetimeEarnings` accounting rather than inventing an engineering currency.
+
+This makes repair/reuse a genuine optional side-income path that can help fund rent, furniture and ordinary life.
+
+### Reclaimed engineering components
+
+Explicit dismantling yields component types such as:
+
+- wire
+- motors
+- boards
+- sensors
+- cells
+- optics
+- casings
+
+Dismantling is recorded as an explicit destructive choice. The source lot is not destroyed merely by inspecting it.
+
+Engineering skill grows only through explicit inspection, salvage, refurbishment or building work; an untouched player does not receive a hidden engineering progression path.
+
+## First miniature robotica seed
+
+Engineering blueprints currently form a small historical ladder:
+
+- **1985 — Bench Blinker:** simple reclaimed electronics
+- **2000 — Motor Bug:** small kinetic desk prototype
+- **2015 — Mini Scrap Crawler:** first miniature-robotica prototype
+
+The Mini Scrap Crawler requires real reclaimed **wire + two motors + board + sensor + casing** and engineering capability. Building it consumes those components and records its provenance.
+
+It is deliberately a **prototype object, not an autonomous resident**:
+
+- `autonomous: false`
+- `scheduleAuthority: false`
+
+No robot can currently invent tasks, schedules, movement authority or resident status. That remains a later gated design problem.
+
+## Physical authority boundaries
+
+Engineering work cannot happen remotely merely because the player owns a bench.
+
+- a home workbench is valid only while the player is physically at that home;
+- the public repair workshop is valid only while the player is physically at `place_workshop`;
+- being at a café while owning a home workbench does not grant remote engineering authority.
+
+This correction is covered by a retained regression test.
+
+## No-loss / future-state boundary
+
+Read-only engineering summaries do not silently add state to legacy worlds.
+
+If a world has no engineering state, the first explicit engineering action may initialize the bounded current state. If a world already contains an **unknown/future engineering schema**, current code refuses to overwrite or reinterpret it. Inspection leaves it byte-identical and mutation throws a clear refusal instead of clobbering future data.
 
 ## Steward corrections retained
 
 Issues found during stewardship remain visible rather than hidden:
 
 1. an early reachability audit over-constrained coarse bathroom utility use; repaired with the test retained;
-2. a proposed broad visual screen classifier was rejected because it could make TV imply computer actions; the exact verified `src/visuals.js` blob was restored;
-3. an accidental temporary connector file was deleted and is absent from the final diff;
-4. the first item-interaction CI attempt exposed a stale test module order after `item_interactions` became a required headless dependency; corrected;
-5. home-workbench repair routing was found semantically wrong and split from public-workshop repair;
-6. the first no-decay attempt was applied too early in module load order and one later simulation extension could still reduce object condition. The no-decay/rent-pressure layer was moved to the final simulation seam and the original failing test was retained.
+2. a broad visual screen classifier was rejected because TV could imply computer actions; verified `src/visuals.js` was restored and remains untouched by these later passes;
+3. home-workbench repair was separated from the public-workshop repair activity;
+4. passive object decay protection was moved to the final simulation seam after CI proved an earlier wrapper could be bypassed;
+5. the first engineering implementation could have interpreted/replaced an unknown future engineering state; this was tightened to refusal/no-loss;
+6. a home engineering bench initially lacked a physical-location check; remote bench use is now rejected and tested.
 
 ## Verification
 
-The historical runtime/content state was verified green by **Living City review tests #120**; this commit only updates the steward receipt.
+The exact engineering source head `841141bec8293e59ecef2788de14340f617a97be` passed **Living City review tests #140: GREEN** before this receipt-only documentation commit.
 
 Verified gates:
 
@@ -127,27 +153,26 @@ Verified gates:
 - expanded 60-item catalogue: **6/6**
 - deep household item interactions: **14/14**
 - furnishing rent pressure + no passive decay: **9/9**
-- historical 1980-2026 era progression: **9/9**
+- historical 1980-2026 progression: **9/9**
+- engineering / e-waste / miniature robotica: **12/12**
 - object-use affordances: **6/6**
 - object-use reachability / permission audit: **6/6**
-- complete focused simulation suite: **262/262**
+- complete focused simulation suite: **274/274**
 - standalone one-file build smoke: **PASS**
-- measured standalone size: **1,480,077 bytes**
+- measured standalone size: **1,500,520 bytes**
 
 Browser render/click QA remains a separate visual check and is not inferred from Node/build receipts.
 
 ## Still held for later
 
-- historical visual styling changes by decade
-- broader decade-specific economy / culture / vehicle / media content
-- authoritative active scene state
-- interruption / resume
-- autonomous resident object-use
-- final permission resolver
-- visible/compressed active-scene parity
-- scene-driven character/object animation
-- bespoke interactions for remaining purely decorative/specialized object types
-- additional side-income directions beyond the existing local-enterprise foundation
+- dedicated Engineering / Salvage UI
+- little prototype / robotica visual animations
+- broader era-specific e-waste and engineering content
+- placing engineering prototypes into the physical room as full interactive household objects
+- any miniature-robot autonomy, schedules or independent task selection
+- historical visual styling by decade
+- authoritative active scene state and interruption/resume
+- autonomous resident object use
 - world-schema migration
 - release / promotion / merge / CANON
 
