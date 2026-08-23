@@ -127,7 +127,7 @@ Issues found during stewardship remain visible rather than hidden:
 
 ## Verification
 
-The exact engineering source head `841141bec8293e59ecef2788de14340f617a97be` passed **Living City review tests #140: GREEN**. Later commits only update this steward receipt text.
+The exact engineering source head `841141bec8293e59ecef2788de14340f617a97be` passed **Living City review tests #140: GREEN**. Commits after that source head only update this steward report.
 
 Verified gates:
 
