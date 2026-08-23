@@ -28,6 +28,7 @@ for relative in [
     'src/shells.js',
     'src/presence.js',
     'src/housing_pressure.js',
+    'src/historical_era.js',
     'src/visuals.js',
     'src/item_visual_interactions.js',
     'src/game.js',
