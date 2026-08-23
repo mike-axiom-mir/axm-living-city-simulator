@@ -34,6 +34,9 @@ jobs:
       - name: Expanded 60-item catalogue
         run: npm run test:content
 
+      - name: Real TV and device interactions
+        run: npm run test:item-interactions
+
       - name: Object-use affordances
         run: npm run test:object-use
 
