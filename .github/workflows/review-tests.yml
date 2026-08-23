@@ -60,3 +60,6 @@ jobs:
 
       - name: Standalone build smoke
         run: python3 tools/build_standalone.py
+
+      - name: Browser QA harness syntax
+        run: python3 -m py_compile tests/browser_smoke_test.py
