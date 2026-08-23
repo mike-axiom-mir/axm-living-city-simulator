@@ -52,6 +52,9 @@ jobs:
       - name: Deeper jobs and transferable skill evidence
         run: npm run test:career-skills
 
+      - name: Engineering practice to career evidence bridge
+        run: npm run test:career-engineering-bridge
+
       - name: Object-use affordances
         run: npm run test:object-use
 
