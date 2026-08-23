@@ -64,16 +64,10 @@
   }
 
   function ensureState(world) {
-    if (!world.engineeringEwaste || world.engineeringEwaste.schema !== SCHEMA) {
-      const previous = world.engineeringEwaste;
-      world.engineeringEwaste = freshState();
-      if (previous && typeof previous === 'object') {
-        world.engineeringEwaste.history.push({
-          type: 'legacy_state_preserved_elsewhere',
-          note: 'An unrecognized engineering state was not silently interpreted as current data.'
-        });
-      }
+    if (world.engineeringEwaste && world.engineeringEwaste.schema !== SCHEMA) {
+      throw new Error(`Engineering state uses unrecognized schema ${String(world.engineeringEwaste.schema || 'unknown')}; refusing to overwrite it.`);
     }
+    if (!world.engineeringEwaste) world.engineeringEwaste = freshState();
     COMPONENT_KEYS.forEach((key) => {
       if (!Number.isFinite(world.engineeringEwaste.components[key])) world.engineeringEwaste.components[key] = 0;
     });
@@ -128,9 +122,16 @@
     const homeBench = (home?.furniture || []).find((object) => (
       ItemInteractions.objectMatchesAction(object, 'repair_at_bench') && ItemInteractions.directUseAllowed(object)
     )) || null;
-    if (homeBench) return { ok: true, mode: 'home_bench', placeId: home.id, objectId: homeBench.id };
-    if (world.player.locationId === 'place_workshop') return { ok: true, mode: 'public_workshop', placeId: 'place_workshop', objectId: null };
-    return { ok: false, mode: null, placeId: null, objectId: null, reason: 'Engineering salvage needs your usable home workbench or your physical presence at the public repair workshop.' };
+    if (homeBench && world.player.locationId === home.id) {
+      return { ok: true, mode: 'home_bench', placeId: home.id, objectId: homeBench.id };
+    }
+    if (world.player.locationId === 'place_workshop') {
+      return { ok: true, mode: 'public_workshop', placeId: 'place_workshop', objectId: null };
+    }
+    const reason = homeBench
+      ? 'Your workbench is at home; return home or go to the public repair workshop before engineering there.'
+      : 'Engineering salvage needs your usable home workbench or your physical presence at the public repair workshop.';
+    return { ok: false, mode: null, placeId: null, objectId: null, reason };
   }
 
   function advance(world, hours) {
