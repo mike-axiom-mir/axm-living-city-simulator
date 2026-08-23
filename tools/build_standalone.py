@@ -31,6 +31,7 @@ for relative in [
     'src/historical_era.js',
     'src/engineering_ewaste.js',
     'src/career_skills.js',
+    'src/career_engineering_bridge.js',
     'src/engineering_visuals.js',
     'src/visuals.js',
     'src/item_visual_interactions.js',
