@@ -48,14 +48,20 @@
     return new Set((entry?.useSpot?.objectCells || []).map((cell) => Habitats.cellKey(cell.x, cell.y)));
   }
 
-  function reachableFreeRoomCells(property, room, ignoreObjectId = null) {
+  function reachableRoomCells(property, room) {
     if (!property || !room) return [];
     const reachable = Habitats.reachableCells(property);
-    const occupied = occupiedCells(property, ignoreObjectId);
     return (room.cells || [])
-      .filter((key) => reachable.has(key) && !occupied.has(key))
+      .filter((key) => reachable.has(key))
       .map((key) => Habitats.parseCellKey(key))
       .sort((a, b) => (a.y - b.y) || (a.x - b.x));
+  }
+
+  function reachableFreeRoomCells(property, room, ignoreObjectId = null) {
+    if (!property || !room) return [];
+    const occupied = occupiedCells(property, ignoreObjectId);
+    return reachableRoomCells(property, room)
+      .filter((cell) => !occupied.has(Habitats.cellKey(cell.x, cell.y)));
   }
 
   function auditedApproachCells(property, room, entry) {
@@ -70,6 +76,16 @@
         const key = Habitats.cellKey(cell.x, cell.y);
         return roomCells.has(key) && reachable.has(key) && !occupied.has(key) && !blockedByOwnObject.has(key);
       }).sort((a, b) => (a.y - b.y) || (a.x - b.x));
+    }
+
+    // Room-level utility/zone affordances deliberately do not claim an exact
+    // standing position. Their spatial evidence is only that the room itself
+    // is structurally reachable. Requiring an unoccupied cell here would turn
+    // coarse room evidence into false object-level precision and could hide a
+    // legitimate bathroom/kitchen utility merely because furniture occupies
+    // every cell in a tiny room.
+    if (entry.source !== 'persistent_object') {
+      return reachableRoomCells(property, room).slice(0, 12);
     }
 
     return reachableFreeRoomCells(property, room, entry.objectId || null).slice(0, 12);
@@ -115,7 +131,9 @@
       actionId: entry.actionId,
       objectId: entry.objectId || null,
       source: entry.source,
-      reason: 'No structurally reachable free approach position was found inside the authoritative room graph.',
+      reason: entry.source === 'persistent_object'
+        ? 'No structurally reachable free approach position was found for this persistent object.'
+        : 'The authoritative room graph is not structurally reachable.',
       permission: entry.audit.permission,
       noExecutionAuthority: true
     }));
@@ -158,13 +176,13 @@
     (audit.affordances || []).forEach((entry) => {
       if (!entry.id || ids.has(entry.id)) add(`Duplicate or missing audited affordance id ${String(entry.id)}.`);
       ids.add(entry.id);
-      if (entry.audit?.spatiallyGrounded !== true) add(`${entry.id} was exposed without a grounded approach.`);
-      if (!Array.isArray(entry.audit?.approachCells) || !entry.audit.approachCells.length) add(`${entry.id} has no audited approach cells.`);
+      if (entry.audit?.spatiallyGrounded !== true) add(`${entry.id} was exposed without grounded room evidence.`);
+      if (!Array.isArray(entry.audit?.approachCells) || !entry.audit.approachCells.length) add(`${entry.id} has no audited spatial evidence cells.`);
       if (entry.audit?.permission?.requiresResolution !== true || entry.audit?.permission?.noAuthorityGranted !== true) add(`${entry.id} permission evidence overreaches.`);
       (entry.audit?.approachCells || []).forEach((cell) => {
         const key = Habitats.cellKey(cell.x, cell.y);
-        if (!roomCells.has(key)) add(`${entry.id} approach cell escaped the room.`);
-        if (!reachable.has(key)) add(`${entry.id} approach cell is not structurally reachable.`);
+        if (!roomCells.has(key)) add(`${entry.id} spatial evidence escaped the room.`);
+        if (!reachable.has(key)) add(`${entry.id} spatial evidence is not structurally reachable.`);
       });
     });
 
@@ -180,6 +198,7 @@
   AXM.ObjectUseAudit = {
     AUDIT_SCHEMA,
     roomPermissionEvidence,
+    reachableRoomCells,
     reachableFreeRoomCells,
     auditForRoom,
     validateAudit
