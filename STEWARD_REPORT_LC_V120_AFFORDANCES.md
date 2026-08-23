@@ -50,9 +50,7 @@ This keeps purchases meaningful without creating a decay or maintenance chore lo
 
 `src/engineering_ewaste.js` adds a bounded deterministic engineering layer connected directly to the historical timeline and normal player economy.
 
-### Era-sensitive e-waste
-
-Electronic salvage exists from 1980 onward and grows with the city's technology history. Current source classes include:
+Electronic salvage exists from 1980 onward and grows with the city's technology history:
 
 - 1980: cassette player, motorized toy
 - 1985: CRT television
@@ -61,25 +59,19 @@ Electronic salvage exists from 1980 onward and grows with the city's technology 
 - 2005: router/network box and laptop
 - 2010: mobile phone and compact camera
 
-E-waste is **not generated passively**. Time passing creates no garbage meter, cleanup duty or maintenance obligation. A player must explicitly choose to collect a salvage lot, and the queue is bounded to six lots.
-
-Collection is deterministic from the world seed, era and engineering sequence without consuming the ordinary world RNG stream.
+E-waste is **not generated passively**. Time passing creates no garbage meter, cleanup duty or maintenance obligation. A player must explicitly choose to collect a salvage lot, and the queue is bounded to six lots. Collection is deterministic from the world seed, era and engineering sequence without consuming the ordinary world RNG stream.
 
 ### Inspect before deciding
 
-Collected lots remain intact until explicitly acted on. Inspection reveals expected reusable components, estimated refurbishment value and source/provenance evidence. Inspection does **not** silently dismantle the device. After inspection the player can choose to keep it, refurbish it, or explicitly dismantle it for components.
+Collected lots remain intact until explicitly acted on. Inspection reveals expected reusable components, estimated refurbishment value and source/provenance evidence. Inspection does **not** silently dismantle the device. After inspection the player can keep it, refurbish it, or explicitly dismantle it for components.
 
 ### Reuse as side income
 
-Refurbishment requires a real usable bench/workshop, time and a small consumables cost. The finished item becomes persistent refurbished stock with provenance. Selling it uses the existing player money and `lifetimeEarnings` accounting rather than inventing an engineering currency.
-
-This makes repair/reuse a genuine optional side-income path that can help fund rent, furniture and ordinary life.
+Refurbishment requires a real usable bench/workshop, time and a small consumables cost. The finished item becomes persistent refurbished stock with provenance. Selling it uses normal player money and `lifetimeEarnings`, not a separate engineering currency.
 
 ### Reclaimed engineering components
 
-Explicit dismantling yields wire, motors, boards, sensors, cells, optics and casings. Dismantling is recorded as an explicit destructive choice; the source lot is not destroyed merely by inspecting it.
-
-Engineering skill grows only through explicit inspection, salvage, refurbishment or building work; an untouched player does not receive a hidden engineering progression path.
+Explicit dismantling yields wire, motors, boards, sensors, cells, optics and casings. Engineering skill grows only through explicit inspection, salvage, refurbishment or building work.
 
 ## First miniature robotica seed
 
@@ -89,45 +81,39 @@ Engineering blueprints currently form a small historical ladder:
 - **2000 — Motor Bug:** small kinetic desk prototype
 - **2015 — Mini Scrap Crawler:** first miniature-robotica prototype
 
-The Mini Scrap Crawler requires real reclaimed **wire + two motors + board + sensor + casing** and engineering capability. Building it consumes those components and records its provenance.
+The Mini Scrap Crawler requires reclaimed **wire + two motors + board + sensor + casing** plus enough engineering capability. Building it consumes those components and records provenance.
 
 It is deliberately a **prototype object, not an autonomous resident**:
 
 - `autonomous: false`
 - `scheduleAuthority: false`
 
-No robot can currently invent tasks, schedules, movement authority or resident status. That remains a later gated design problem.
+No robot can currently invent tasks, schedules, movement authority or resident status.
 
 ## Physical authority boundaries
 
-Engineering work cannot happen remotely merely because the player owns a bench.
+Engineering cannot happen remotely merely because the player owns a bench.
 
 - a home workbench is valid only while the player is physically at that home;
-- the public repair workshop is valid only while the player is physically at `place_workshop`;
-- being at a café while owning a home workbench does not grant remote engineering authority.
-
-This correction is covered by a retained regression test.
+- the public repair workshop is valid only while physically at `place_workshop`;
+- being elsewhere while owning a home workbench grants no remote engineering authority.
 
 ## No-loss / future-state boundary
 
-Read-only engineering summaries do not silently add state to legacy worlds.
-
-If a world has no engineering state, the first explicit engineering action may initialize the bounded current state. If a world already contains an **unknown/future engineering schema**, current code refuses to overwrite or reinterpret it. Inspection leaves it byte-identical and mutation throws a clear refusal instead of clobbering future data.
+Read-only engineering summaries do not silently add state to legacy worlds. If a world has no engineering state, the first explicit engineering action may initialize the current bounded state. If a world contains an **unknown/future engineering schema**, current code refuses to overwrite or reinterpret it; read-only inspection leaves it byte-identical and mutation throws a clear refusal.
 
 ## Steward corrections retained
 
-Issues found during stewardship remain visible rather than hidden:
-
-1. an early reachability audit over-constrained coarse bathroom utility use; repaired with the test retained;
+1. early reachability auditing over-constrained coarse bathroom utility use; repaired with the test retained;
 2. a broad visual screen classifier was rejected because TV could imply computer actions; verified `src/visuals.js` was restored and remains untouched by these later passes;
 3. home-workbench repair was separated from the public-workshop repair activity;
 4. passive object decay protection was moved to the final simulation seam after CI proved an earlier wrapper could be bypassed;
-5. the first engineering implementation could have interpreted/replaced an unknown future engineering state; this was tightened to refusal/no-loss;
-6. a home engineering bench initially lacked a physical-location check; remote bench use is now rejected and tested.
+5. engineering future-state handling was tightened to refuse unknown schemas instead of replacing them;
+6. home engineering benches now require physical player presence rather than remote ownership alone.
 
 ## Verification
 
-The exact engineering source head `841141bec8293e59ecef2788de14340f617a97be` passed **Living City review tests #140: GREEN**. Commits after that source head only update this steward report.
+The exact engineering source head `841141bec8293e59ecef2788de14340f617a97be` passed **Living City review tests #140: GREEN**. Commits after that source head are report-only documentation updates.
 
 Verified gates:
 
@@ -150,8 +136,8 @@ Browser render/click QA remains a separate visual check and is not inferred from
 - dedicated Engineering / Salvage UI
 - little prototype / robotica visual animations
 - broader era-specific e-waste and engineering content
-- placing engineering prototypes into the physical room as full interactive household objects
-- any miniature-robot autonomy, schedules or independent task selection
+- placing prototypes into physical rooms as full interactive household objects
+- miniature-robot autonomy, schedules or independent task selection
 - historical visual styling by decade
 - authoritative active scene state and interruption/resume
 - autonomous resident object use
