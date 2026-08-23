@@ -29,6 +29,7 @@ for relative in [
     'src/presence.js',
     'src/housing_pressure.js',
     'src/historical_era.js',
+    'src/engineering_ewaste.js',
     'src/visuals.js',
     'src/item_visual_interactions.js',
     'src/game.js',
