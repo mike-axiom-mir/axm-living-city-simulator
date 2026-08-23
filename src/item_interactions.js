@@ -31,6 +31,69 @@
       description: 'Watch something on a real TV in the room. It is leisure time, not a disguised study computer.',
       effects: { mood: 14, energy: -4, hunger: -3 },
       skill: {}
+    },
+    {
+      id: 'relax_seated',
+      name: 'Sit and unwind',
+      hours: 1,
+      cost: 0,
+      description: 'Spend a quiet hour on a real chair or sofa instead of treating seating as passive decoration.',
+      effects: { mood: 7, energy: 5 },
+      skill: {}
+    },
+    {
+      id: 'read_books',
+      name: 'Browse some books',
+      hours: 1,
+      cost: 0,
+      description: 'Read from a real book or story shelf already present in the room.',
+      effects: { mood: 5, energy: -2 },
+      skill: { focus: 0.45 }
+    },
+    {
+      id: 'listen_music',
+      name: 'Listen to music',
+      hours: 1,
+      cost: 0,
+      description: 'Put on music using a real music player or record player in the room.',
+      effects: { mood: 10, energy: 1 },
+      skill: { creativity: 0.2 }
+    },
+    {
+      id: 'read_by_lamp',
+      name: 'Read under the light',
+      hours: 1,
+      cost: 0,
+      description: 'Use a real lamp as a quiet reading light for an hour.',
+      effects: { mood: 4, energy: -1 },
+      skill: { focus: 0.3 }
+    },
+    {
+      id: 'care_plant',
+      name: 'Care for the plant',
+      hours: 1,
+      cost: 0,
+      description: 'Spend a little optional time tending a real house plant. Plants do not create a daily maintenance obligation.',
+      effects: { mood: 6, energy: -2 },
+      skill: {}
+    },
+    {
+      id: 'organize_storage',
+      name: 'Browse and organize',
+      hours: 1,
+      cost: 0,
+      description: 'Use a real shelf, wardrobe, chest, or drawer to sort things for a while. This is optional, not a cleanliness quota.',
+      effects: { mood: 2, energy: -3 },
+      skill: { focus: 0.2 }
+    },
+    {
+      id: 'repair_at_bench',
+      name: 'Repair at the home bench',
+      hours: 2,
+      cost: 2,
+      description: 'Practice a small repair at a real workbench in your current home instead of teleporting to the public workshop.',
+      effects: { mood: 2, energy: -9 },
+      skill: { repair: 1.5 }
     }
   ];
 
@@ -41,11 +104,49 @@
   const ACTION_CATALOGS = Object.freeze({
     play_device: Object.freeze(['refurbished_laptop', 'compact_computer', 'handheld_game_screen']),
     watch_tv: Object.freeze(['tv_screen']),
-    study_focus: Object.freeze(['refurbished_laptop', 'compact_computer']),
-    creative_time: Object.freeze(['refurbished_laptop', 'compact_computer', 'record_music_player'])
+    relax_seated: Object.freeze([
+      'secondhand_chair', 'folding_chair', 'deep_sofa', 'patched_armchair', 'reading_chair',
+      'loveseat_sofa', 'modular_sofa', 'kitchen_chair'
+    ]),
+    read_books: Object.freeze(['story_shelf', 'book_shelf']),
+    listen_music: Object.freeze(['music_player', 'record_music_player']),
+    read_by_lamp: Object.freeze(['basic_lamp', 'standing_lamp', 'desk_lamp', 'paper_lamp', 'clip_lamp', 'industrial_lamp']),
+    care_plant: Object.freeze(['plant', 'large_plant', 'hanging_plant']),
+    organize_storage: Object.freeze([
+      'crate_shelf', 'wardrobe', 'keepsake_chest', 'story_shelf', 'book_shelf',
+      'metal_shelf', 'wall_shelf', 'drawer_crate'
+    ]),
+    repair_at_bench: Object.freeze(['workbench', 'maker_workbench']),
+    sleep: Object.freeze(['simple_bed', 'floor_mattress', 'small_child_bed', 'double_bed', 'bunk_bed', 'futon_bed', 'reclaimed_bed']),
+    eat_home: Object.freeze(['kitchenette', 'mini_kitchen', 'induction_stove', 'mini_fridge']),
+    study_focus: Object.freeze([
+      'old_laptop', 'fast_computer', 'refurbished_laptop', 'compact_computer',
+      'tiny_desk', 'writing_desk', 'drawing_desk', 'small_table', 'family_table',
+      'dining_table', 'side_table', 'story_shelf', 'book_shelf'
+    ]),
+    creative_time: Object.freeze([
+      'old_laptop', 'fast_computer', 'refurbished_laptop', 'compact_computer',
+      'music_player', 'record_music_player', 'tiny_desk', 'writing_desk', 'drawing_desk',
+      'sewing_table', 'small_table', 'family_table', 'coffee_table', 'dining_table',
+      'side_table', 'story_shelf'
+    ])
   });
 
-  const REQUIRED_OBJECT_ACTIONS = new Set(['play_device', 'watch_tv']);
+  const REQUIRED_OBJECT_ACTIONS = new Set([
+    'play_device', 'watch_tv', 'relax_seated', 'read_books', 'listen_music',
+    'read_by_lamp', 'care_plant', 'organize_storage', 'repair_at_bench'
+  ]);
+  const REQUIRED_MESSAGES = Object.freeze({
+    play_device: 'There is no usable game-capable device in your current home.',
+    watch_tv: 'There is no usable TV in your current home.',
+    relax_seated: 'There is no usable chair or sofa in your current home.',
+    read_books: 'There is no usable book or story shelf in your current home.',
+    listen_music: 'There is no usable music player in your current home.',
+    read_by_lamp: 'There is no usable lamp in your current home.',
+    care_plant: 'There is no usable house plant in your current home.',
+    organize_storage: 'There is no usable storage object in your current home.',
+    repair_at_bench: 'There is no usable workbench in your current home.'
+  });
   const originalPerformActivity = Systems.performActivity;
 
   function objectInCurrentHome(world, objectId) {
@@ -72,7 +173,7 @@
     if (request?.objectId) {
       const selected = objectInCurrentHome(world, request.objectId);
       if (!selected || !objectMatchesAction(selected, actionId)) {
-        return { object: null, reason: REQUIRED_OBJECT_ACTIONS.has(actionId) ? 'The selected object cannot perform that activity.' : null };
+        return { object: null, reason: 'The selected object cannot perform that activity.' };
       }
       if (!directUseAllowed(selected)) {
         return { object: null, reason: 'That object is personal to another resident; permission is not assumed.' };
@@ -84,9 +185,7 @@
     if (candidate) return { object: candidate, reason: null };
     return {
       object: null,
-      reason: REQUIRED_OBJECT_ACTIONS.has(actionId)
-        ? actionId === 'watch_tv' ? 'There is no usable TV in your current home.' : 'There is no usable game-capable device in your current home.'
-        : null
+      reason: REQUIRED_OBJECT_ACTIONS.has(actionId) ? REQUIRED_MESSAGES[actionId] : null
     };
   }
 
@@ -97,12 +196,30 @@
     } : null;
   }
 
+  function familiarityFor(actionId) {
+    const values = {
+      play_device: 0.55,
+      watch_tv: 0.25,
+      relax_seated: 0.2,
+      read_books: 0.3,
+      listen_music: 0.3,
+      read_by_lamp: 0.12,
+      care_plant: 0.18,
+      organize_storage: 0.12,
+      repair_at_bench: 0.35,
+      sleep: 0.3,
+      eat_home: 0.2,
+      study_focus: 0.35,
+      creative_time: 0.35
+    };
+    return values[actionId] ?? 0.2;
+  }
+
   function recordUse(object, activity) {
     if (!object || !activity) return null;
     const before = usageSnapshot(object);
     object.usageHours = Core.round(before.usageHours + activity.hours, 2);
-    const familiarity = activity.id === 'watch_tv' ? 0.25 : activity.id === 'play_device' ? 0.55 : 0.35;
-    object.sentimental = Core.clamp(Core.round(before.sentimental + familiarity, 2), 0, 100);
+    object.sentimental = Core.clamp(Core.round(before.sentimental + familiarityFor(activity.id), 2), 0, 100);
     return {
       id: object.id,
       catalogId: object.catalogId,
@@ -165,6 +282,7 @@
     ACTION_CATALOGS,
     activities: Object.freeze(ACTIVITY_DEFINITIONS.map((entry) => entry.id)),
     objectMatchesAction,
-    resolveActionObject
+    resolveActionObject,
+    directUseAllowed
   });
 }(typeof window !== 'undefined' ? window : globalThis));
