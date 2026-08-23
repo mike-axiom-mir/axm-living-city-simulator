@@ -46,6 +46,9 @@ jobs:
       - name: Engineering e-waste and miniature robotica seed
         run: npm run test:engineering-ewaste
 
+      - name: Engineering UI and reward-neutral prototype visuals
+        run: npm run test:engineering-visuals
+
       - name: Object-use affordances
         run: npm run test:object-use
 
