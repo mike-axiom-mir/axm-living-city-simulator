@@ -31,6 +31,9 @@ jobs:
       - name: Headless boundary
         run: node tests/headless_runtime_intake_test.js
 
+      - name: Expanded 60-item catalogue
+        run: npm run test:content
+
       - name: Object-use affordances
         run: npm run test:object-use
 
