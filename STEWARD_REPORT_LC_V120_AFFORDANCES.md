@@ -1,4 +1,4 @@
-# Steward Report — LC-V120 Object-Use Affordances
+# Steward Report — LC-V120 Object-Use Affordances + Item Expansion
 
 Date: 2026-08-23
 
@@ -12,96 +12,78 @@ Review branch: `steward/lc-v120-object-use-affordances`
 
 The v0.11.3 package already has truthful completed-action feedback and playable room browsing. The existing next-build queue identifies the first v0.12.0 step as mapping persistent objects to bounded actions and valid room/use positions before adding authoritative in-progress scene state.
 
-This steward branch implements and hardens that first seam without rewriting the world schema, executing new gameplay, granting new authority, or turning visual observation into a reward channel.
+This steward branch implements and hardens that seam while also expanding the small starter object catalogue. It does not rewrite the world schema, silently replace existing objects, execute new gameplay authority, or turn visual observation into a reward channel.
 
-## Added — grounding layer
+## Grounding + audit foundation
 
-- `src/object_use.js`
-  - separate deterministic affordance projection: `axm.living-city.object-use-affordances/v0.12.0-draft`
-  - maps existing persistent furniture to existing activities
-  - derives object footprint cells and deterministic adjacent approach cells from the room graph
-  - exposes bathroom shower use from existing water + waste utility state without inventing a fixture
-  - keeps whole-room cleaning as a room-zone context rather than fabricating an object
-  - carries object identity, ownership mode, condition, usage, room, habitat revision, and evidence
-  - reports object permission hints but deliberately does **not** resolve or grant permission
-  - declares `noExecutionAuthority: true` and `noReward: true`
-- `tests/object_use_affordances_test.js`
-  - real bed -> grounded sleep affordance
-  - bathroom utility -> shower without invented object
-  - deterministic and read-only projection
-  - other-owned personal object -> permission required hint
-  - object/use cells stay inside the authoritative room graph
-  - unknown room -> no projection
+- `src/object_use.js` maps persistent furniture and room utility state to bounded existing activities.
+- `src/object_use_audit.js` rechecks exact object approaches against structural reachability and keeps room-permission evidence advisory rather than authoritative.
+- exact object use and coarse room-zone use remain distinguishable.
+- blocked candidates are reported rather than guessed through.
+- object identity, ownership hints, room evidence, no-reward and no-execution-authority boundaries remain explicit.
+- browser, standalone and headless runtimes all load the same object-use foundation.
 
-## Added — steward hardening layer
+## 60-item catalogue expansion
 
-- `src/object_use_audit.js`
-  - separate read-only audit projection: `axm.living-city.object-use-audit/v0.12.0-draft`
-  - rechecks candidate object-use positions against the structural reachability graph
-  - filters conceptual object use into spatially grounded affordances versus blocked candidates
-  - distinguishes exact persistent-object positioning from coarser reachable room-zone utility positioning
-  - room-level utilities use reachable room evidence without fabricating an exact free standing cell
-  - reads existing room permission snapshots as evidence without refreshing, rewriting, or treating them as final authority
-  - keeps object permission hints and room-permission evidence separate
-  - marks permission resolution as deferred and explicitly grants no authority
-  - checks its own before/after serialized world state to prove the audit stayed read-only
-- `tests/object_use_audit_test.js`
-  - sleeping-object approaches must be structurally reachable
-  - bathroom utility remains honestly room-zone based rather than pretending an exact fixture exists
-  - room permission snapshots remain evidence, not authority
-  - audit output is deterministic and read-only
-  - audited approaches stay inside the room and structural reachability graph
-  - unknown room -> no audit
+The original 24-item starter catalogue is preserved and extended with 36 additional objects for **60 total catalogue items**.
 
-## Runtime / verification integration
+New variety includes:
 
-- browser load order includes `src/object_use.js` and `src/object_use_audit.js`
-- standalone build recipe includes both modules
-- headless runtime loader requires both `ObjectUse` and `ObjectUseAudit`
-- headless intake test checks both projections and their read-only behavior without `window`, `document`, or `localStorage`
-- `npm test` includes both focused object-use suites
-- dedicated commands exist:
-  - `npm run test:object-use`
-  - `npm run test:object-use-audit`
-- `.github/workflows/review-tests.yml` adds a bounded review CI gate for steward/codex branches and pull requests:
-  - headless boundary test
-  - object-use affordance test
-  - object-use audit test
-  - focused simulation suite
-  - standalone build smoke
+- seats: patched armchair, reading chair, loveseat sofa, modular sofa, kitchen chair
+- sleep: double bed, bunk bed, futon bed, reclaimed bed
+- work/hobby: writing desk, drawing desk, sewing table, maker workbench
+- electronics/activity: refurbished laptop, compact computer, TV screen, record player, handheld game system
+- lights: desk, paper-shade, clip and industrial floor lamps
+- storage: book shelf, metal shelf, wall shelf, drawer crate
+- surfaces: coffee, dining and side tables
+- decor: large and hanging plants, woven rug, photo wall print
+- food/kitchen: mini kitchen unit, induction stove, mini fridge
 
-## Verification receipt
+The expansion keeps the existing category model rather than creating a schema migration. Prices and stats intentionally overlap: cheap/secondhand, compact, expressive, durable and premium objects have different strengths rather than forming one universal best-item ladder.
 
-The first CI execution did useful work rather than being hidden: headless checks and the base affordance suite passed, but the new audit test failed because a coarse bathroom utility was incorrectly being required to have an unoccupied exact standing cell. The audit model was repaired so room-level utility/zone evidence means **the room is structurally reachable**, while persistent-object use still requires an exact reachable approach position.
+New obvious functional objects also join the existing object-use grammar:
 
-GitHub Actions review run **#6** then completed successfully on the repaired source (`c0fa8470ae8c17f2926497afdc7232d6ac33cd1f`):
+- refurbished laptop / compact computer / handheld game system -> existing PC-play grounding where appropriate
+- refurbished laptop / compact computer -> existing study grounding
+- refurbished laptop / compact computer / record player -> existing creative-time grounding
+- maker workbench -> existing repair-practice grounding
 
-- headless runtime intake: **17/17 checks passed**
-- object-use affordances: **6/6 passed**
-- object-use reachability/permission audit: **6/6 passed**
-- full focused simulation suite: **224/224 tests passed** across the existing and new focused suites
-- standalone one-file build smoke: **PASS**, generated HTML size **1,429,508 bytes**
+No new reward path is introduced.
 
-No browser render/click PASS is inferred from those Node/build results. That remains a separate verification class.
+Existing saves and starter rooms are **not silently repopulated** with the new catalogue. Existing object IDs and histories stay intact; the added items become available through the normal catalogue/runtime paths and can be used by future systems without rewriting old world state.
 
-The existing intake checksum receipt describes the sealed v0.11.3 source package. This review branch intentionally changes source, so old sealed checksums were not rewritten to manufacture a passing receipt.
+## Verification
+
+Review CI is part of this branch. It first exposed and helped repair an audit-modeling bug rather than hiding it.
+
+Latest verified source run: **Living City review tests #26** on branch head `6ed793942f3d21e34529b905f1e600599b168433`.
+
+PASS:
+
+- headless runtime intake: **17/17 checks**
+- expanded catalogue: **6/6 tests**
+- object-use affordances: **6/6 tests**
+- object-use reachability/permission audit: **6/6 tests**
+- complete focused simulation suite: **230/230 tests**
+- standalone one-file build smoke: **PASS**
+- verified generated standalone size: **1,445,280 bytes**
+
+Browser render/click verification remains a separate check and is not inferred from Node/build checks.
 
 ## Intentionally not done
 
 - no active scene state yet
-- no action interception or execution through the new projection
+- no action interception or execution through the projection
 - no autonomous resident object-use yet
 - no final permission resolver yet
 - no interruption model yet
 - no visible/compressed scene parity yet
-- no new animation driven by this projection yet
+- no scene-driven animation yet
 - no world-schema migration
-- no update to sealed intake receipts/checksums
-- no generated standalone artifact committed from this chat runtime
+- no automatic replacement or injection of objects into existing saves
+- no rewrite of sealed v0.11.3 intake checksums
 - no release, promotion, merge, or CANON decision
-
-These remain later merge-gated stages rather than being silently collapsed into this first pass.
 
 ## Steward assessment
 
-This remains a bounded Stage-1 implementation of `LC-V120-LIVED-ROOMS`, but it is materially stronger than the first draft: object-use is now conceptually grounded, structurally reachability-audited, permission-evidence-aware, headless-capable, self-checking for read-only behavior, and backed by an independent green CI receipt. The branch still preserves the existing one-life, autonomy, privacy, deterministic replay, no-hidden-reward, no-object-loss, and review-before-canon direction.
+This remains a bounded review branch, but its floor is stronger: object-use is conceptually grounded, structurally audited, permission-evidence-aware and headless-capable, while the Build & Home catalogue now has substantially more room for different homes and personalities. The one-life, autonomy, privacy, deterministic replay, no-hidden-reward, no-object-loss, and review-before-canon direction remains preserved.
