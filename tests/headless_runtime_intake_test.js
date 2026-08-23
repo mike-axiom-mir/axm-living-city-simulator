@@ -35,6 +35,12 @@ try {
   check(Boolean(affordances) && first.axm.ObjectUse.validateProjection(first.world, affordances).ok, 'headless runtime exposes a valid object-use affordance projection');
   check(first.serialize() === beforeProjection, 'headless object-use inspection does not mutate authoritative world state');
 
+  const audit = headlessHome && headlessRoom
+    ? first.axm.ObjectUseAudit.auditForRoom(first.world, headlessHome.id, headlessRoom.id, 'player')
+    : null;
+  check(Boolean(audit) && first.axm.ObjectUseAudit.validateAudit(first.world, audit).ok, 'headless runtime exposes a valid object-use reachability and permission audit');
+  check(audit?.readOnly === true && first.serialize() === beforeProjection, 'headless object-use audit remains read-only');
+
   const initialFile = path.join(tempRoot, 'initial.json');
   SaveStore.writeNewSave(initialFile, first.serialize());
   check(fs.existsSync(initialFile), 'filesystem adapter writes an explicit save file');
