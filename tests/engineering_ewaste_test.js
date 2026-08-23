@@ -99,6 +99,20 @@ function testSalvageNeedsARealBenchOrWorkshopPresence() {
   assert.ok(EngineeringEwaste.engineeringLevel(world) > 0);
 }
 
+function testHomeWorkbenchCannotBeUsedRemotely() {
+  const world = newWorld('EWASTE-BENCH-PRESENCE');
+  const home = World.homeOf(world, 'player');
+  addPlayerBench(world);
+  const lot = firstInspectedLot(world);
+  world.player.locationId = 'place_cafe';
+  const remote = EngineeringEwaste.salvageEwaste(world, lot.id);
+  assert.equal(remote.ok, false);
+  assert.match(remote.reason, /workbench is at home|return home/i);
+  assert.equal(EngineeringEwaste.summary(world).queuedLots, 1, 'Remote refusal must leave the lot intact.');
+  world.player.locationId = home.id;
+  assert.equal(EngineeringEwaste.salvageEwaste(world, lot.id).ok, true);
+}
+
 function testRefurbishThenSellCreatesGroundedSideIncome() {
   const world = newWorld('EWASTE-REFURBISH');
   addPlayerBench(world);
@@ -173,17 +187,30 @@ function testInspectingLegacyWorldDoesNotSilentlyInstallState() {
   assert.equal(world.engineeringEwaste.schema, EngineeringEwaste.SCHEMA, 'Explicit engineering action may initialize its bounded state.');
 }
 
+function testUnknownEngineeringSchemaIsNeverOverwritten() {
+  const world = newWorld('EWASTE-FUTURE-SCHEMA');
+  world.engineeringEwaste = { schema: 'axm.living-city.engineering-ewaste/v99-future', sentinel: { keep: 'me' } };
+  const before = Core.serializeWorld(world);
+  const summary = EngineeringEwaste.summary(world);
+  assert.equal(summary.queuedLots, 0, 'Read-only summary may report an empty compatible projection.');
+  assert.equal(Core.serializeWorld(world), before, 'Read-only inspection must preserve unknown future state byte-for-byte.');
+  assert.throws(() => EngineeringEwaste.collectEwaste(world), /refusing to overwrite/i);
+  assert.equal(Core.serializeWorld(world), before, 'Explicit action must refuse rather than clobber an unknown engineering schema.');
+}
+
 const tests = [
   testFreshWorldStartsWithEmptyOptionalEngineeringState,
   testEraAppropriateSalvagePoolExpandsOverTime,
   testCollectionIsDeterministicAndExplicit,
   testInspectionRevealsChoiceWithoutAutoSalvaging,
   testSalvageNeedsARealBenchOrWorkshopPresence,
+  testHomeWorkbenchCannotBeUsedRemotely,
   testRefurbishThenSellCreatesGroundedSideIncome,
   testRoboticaBlueprintIsHistoricalAndCapabilityGated,
   testMiniScrapCrawlerConsumesRealReclaimedComponentsButGetsNoAutonomy,
   testTimePassingDoesNotCreateEwasteOrRobotChores,
-  testInspectingLegacyWorldDoesNotSilentlyInstallState
+  testInspectingLegacyWorldDoesNotSilentlyInstallState,
+  testUnknownEngineeringSchemaIsNeverOverwritten
 ];
 
 for (const test of tests) test();
