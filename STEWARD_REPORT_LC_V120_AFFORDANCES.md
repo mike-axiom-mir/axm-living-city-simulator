@@ -67,15 +67,7 @@ Collection is deterministic from the world seed, era and engineering sequence wi
 
 ### Inspect before deciding
 
-Collected lots remain intact until explicitly acted on.
-
-Inspection reveals:
-
-- expected reusable components;
-- estimated refurbishment value;
-- source/provenance evidence.
-
-Inspection does **not** silently dismantle the device. After inspection the player can choose to keep it, refurbish it, or explicitly dismantle it for components.
+Collected lots remain intact until explicitly acted on. Inspection reveals expected reusable components, estimated refurbishment value and source/provenance evidence. Inspection does **not** silently dismantle the device. After inspection the player can choose to keep it, refurbish it, or explicitly dismantle it for components.
 
 ### Reuse as side income
 
@@ -85,17 +77,7 @@ This makes repair/reuse a genuine optional side-income path that can help fund r
 
 ### Reclaimed engineering components
 
-Explicit dismantling yields component types such as:
-
-- wire
-- motors
-- boards
-- sensors
-- cells
-- optics
-- casings
-
-Dismantling is recorded as an explicit destructive choice. The source lot is not destroyed merely by inspecting it.
+Explicit dismantling yields wire, motors, boards, sensors, cells, optics and casings. Dismantling is recorded as an explicit destructive choice; the source lot is not destroyed merely by inspecting it.
 
 Engineering skill grows only through explicit inspection, salvage, refurbishment or building work; an untouched player does not receive a hidden engineering progression path.
 
@@ -145,7 +127,7 @@ Issues found during stewardship remain visible rather than hidden:
 
 ## Verification
 
-The exact engineering source head `841141bec8293e59ecef2788de14340f617a97be` passed **Living City review tests #140: GREEN** before this receipt-only documentation commit.
+The exact engineering source head `841141bec8293e59ecef2788de14340f617a97be` passed **Living City review tests #140: GREEN**. Later commits only update this steward receipt text.
 
 Verified gates:
 
