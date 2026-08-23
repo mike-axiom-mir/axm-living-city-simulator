@@ -74,7 +74,7 @@ The branch keeps the issues found during stewardship visible rather than rewriti
 
 ## Verification
 
-**Living City review tests #62: GREEN** on runtime branch head `e16fa55bfb4d66bfa21bb314fc629ab2d9da4c78` before this documentation-only receipt commit.
+**Living City review tests #64: GREEN** on branch head `1f21582537d96b095f1638b0995572b2663f402b` before this receipt-only commit.
 
 Verified gates:
 
@@ -85,7 +85,7 @@ Verified gates:
 - object-use reachability / permission audit: **6/6 tests passed**
 - complete focused simulation suite: **238/238 tests passed**
 - standalone one-file build smoke: **PASS**
-- generated standalone size: **1,456,907 bytes**
+- most recent measured standalone size from the identical runtime source: **1,456,907 bytes**
 
 Browser render/click QA remains a separate visual check and is not inferred from Node/build receipts.
 
