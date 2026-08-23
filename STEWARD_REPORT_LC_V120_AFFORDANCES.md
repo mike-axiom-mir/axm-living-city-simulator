@@ -90,7 +90,7 @@ Issues found during stewardship remain visible rather than hidden:
 
 ## Verification
 
-**Living City review tests #100: GREEN** on runtime-equivalent head `b99d07d12b01d980816e94002e944e3af496799b`; commits after it only update this receipt text.
+The runtime/content state was verified green by **Living City review tests #100**; subsequent commits are receipt-only documentation updates.
 
 Verified gates:
 
