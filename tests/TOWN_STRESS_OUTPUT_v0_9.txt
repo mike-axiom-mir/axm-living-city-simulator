@@ -1,0 +1,20 @@
+PASS multi-seed stress test: 12 deterministic towns × 365 days.
+{
+  "seeds": 12,
+  "daysPerSeed": 365,
+  "averages": {
+    "moves": 5.25,
+    "decorActions": 372.83,
+    "upgradeActions": 813.5,
+    "signatures": 13.92,
+    "changedHomes": 11.08,
+    "npcWealthAverage": 21787.17
+  },
+  "minimums": {
+    "moves": 2,
+    "decorActions": 325,
+    "upgradeActions": 759,
+    "signatures": 13,
+    "changedHomes": 10
+  }
+}

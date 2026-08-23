@@ -1,0 +1,22 @@
+AXM Living City v0.10 — Focused System Tests
+
+PASS: 174/174 focused tests.
+
+Completed suites:
+- Foundation simulation: 12/12
+- Household agreements: 13/13
+- Structural habitats: 19/19
+- Autonomous stewardship: 17/17
+- Family continuity: 21/21
+- Community adventures: 18/18
+- Personal directions: 16/16
+- Living local economy: 23/23
+- Walkable places: 17/17
+- Building shells and frontages: 18/18
+
+Execution evidence:
+- tests/SIMULATION_SMOKE_v0_10.txt
+- tests/HOUSEHOLD_AGREEMENT_v0_10.txt
+- tests/FOCUSED_SYSTEMS_B_v0_10.txt
+
+One earlier all-in-one convenience command exceeded the external command window after multiple completed suites. It was not counted as a complete aggregate pass. Every suite listed above was subsequently completed independently, and this file aggregates only completed outputs.

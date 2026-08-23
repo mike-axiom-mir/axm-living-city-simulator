@@ -1,0 +1,27 @@
+PASS AXM-LIVED-STRESS-06: 180 days, 5165 completed indoor movements, 350 stair uses.
+
+1/1 deterministic lived-building stress worlds passed twice.
+{
+  "schema": "axm.living-city.lived-buildings-stress/v0.11.0",
+  "seeds": 1,
+  "seedStart": 6,
+  "daysPerWorld": 180,
+  "deterministicReplays": 1,
+  "indoorMovementsStarted": 5165,
+  "indoorMovementsCompleted": 5165,
+  "visibleMovements": 0,
+  "compressedMovements": 24,
+  "scheduleMovements": 5141,
+  "indoorMinutes": 12818,
+  "stairUses": 350,
+  "lawfulArrivals": 12,
+  "lawfulDepartures": 12,
+  "roomTransitions": 8,
+  "encountersOffered": 38,
+  "encountersDeclined": 0,
+  "encountersPassed": 38,
+  "finalPresenceRecords": 600,
+  "finalPresenceSnapshots": 24,
+  "validationFailures": 0,
+  "exactReplayFailures": 0
+}

@@ -1,0 +1,47 @@
+PASS AXM-HOUSEHOLD-STRESS-05 · revision 11 · proposals 12 · conflicts 10
+
+1/1 deterministic household worlds passed 180 simulated days each.
+{
+  "daysPerSeed": 180,
+  "seedStart": 5,
+  "seeds": 1,
+  "totals": {
+    "day": 186,
+    "agreementRevision": 11,
+    "sharedReserve": 172.13,
+    "proposals": 12,
+    "accepted": 12,
+    "declined": 0,
+    "counteroffers": 0,
+    "conflicts": 10,
+    "repairs": 8,
+    "relocations": 1,
+    "npcInitiatives": 9,
+    "objectCount": 24,
+    "acceptedIncoming": 9,
+    "declinedIncoming": 0,
+    "relocationPrompts": 0,
+    "repairAttempts": 11
+  },
+  "reports": [
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-05",
+      "day": 186,
+      "agreementRevision": 11,
+      "sharedReserve": 172.13,
+      "proposals": 12,
+      "accepted": 12,
+      "declined": 0,
+      "counteroffers": 0,
+      "conflicts": 10,
+      "repairs": 8,
+      "relocations": 1,
+      "npcInitiatives": 9,
+      "objectCount": 24,
+      "acceptedIncoming": 9,
+      "declinedIncoming": 0,
+      "relocationPrompts": 0,
+      "repairAttempts": 11
+    }
+  ]
+}

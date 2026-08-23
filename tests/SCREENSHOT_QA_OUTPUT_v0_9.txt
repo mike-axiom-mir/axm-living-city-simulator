@@ -1,0 +1,64 @@
+PASS screenshot group desktop-core: captured 14 images
+- town_desktop.png
+- home_desktop.png
+- construction_planned_desktop.png
+- construction_completed_desktop.png
+- resident_interior_desktop.png
+- stewardship_request_desktop.png
+- stewardship_approved_saving_desktop.png
+- stewardship_completed_desktop.png
+- agreements_before_commitment_desktop.png
+- commitment_pending_desktop.png
+- agreements_active_separate_desktop.png
+- agreements_cohabiting_desktop.png
+- shared_home_room_permissions_desktop.png
+- agreements_ended_desktop.png
+PASS screenshot group desktop-family: captured 5 images
+- family_onboarding_desktop.png
+- family_active_desktop.png
+- family_dependent_agency_desktop.png
+- family_incoming_proposal_desktop.png
+- family_young_adult_transition_desktop.png
+PASS screenshot group desktop-community: captured 4 images
+- community_onboarding_desktop.png
+- community_freedom_loop_desktop.png
+- community_invitation_desktop.png
+- community_refusal_preserved_desktop.png
+PASS screenshot group desktop-directions: captured 5 images
+- directions_onboarding_desktop.png
+- directions_active_project_desktop.png
+- directions_no_age_pressure_desktop.png
+- directions_project_crosses_chapter_desktop.png
+- directions_paused_desktop.png
+PASS screenshot group desktop-economy: captured 4 images
+- economy_onboarding_desktop.png
+- economy_active_direction_desktop.png
+- economy_actual_customers_desktop.png
+- economy_entered_session_desktop.png
+PASS screenshot group desktop-walkable: captured 3 images
+- walkable_route_planner_desktop.png
+- walkable_visible_route_desktop.png
+- walkable_street_moment_desktop.png
+PASS screenshot group mobile-core: captured 4 images
+- town_mobile.png
+- home_mobile.png
+- stewardship_request_mobile.png
+- agreements_active_mobile.png
+PASS screenshot group mobile-family: captured 3 images
+- family_active_mobile.png
+- family_dependent_agency_mobile.png
+- family_incoming_proposal_mobile.png
+PASS screenshot group mobile-community: captured 2 images
+- community_freedom_loop_mobile.png
+- community_adventure_mobile.png
+PASS screenshot group mobile-directions: captured 3 images
+- directions_onboarding_mobile.png
+- directions_active_project_mobile.png
+- directions_life_context_mobile.png
+PASS screenshot group mobile-economy: captured 2 images
+- economy_onboarding_mobile.png
+- economy_active_direction_mobile.png
+PASS screenshot group mobile-walkable: captured 2 images
+- walkable_route_planner_mobile.png
+- walkable_visible_route_mobile.png
+PASS screenshot evidence: 51/51 expected desktop/mobile images; group runs reported zero page, console, and horizontal-overflow errors.

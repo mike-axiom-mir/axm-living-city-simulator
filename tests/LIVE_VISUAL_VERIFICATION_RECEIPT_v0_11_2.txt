@@ -1,0 +1,16 @@
+claim: The Room browser, persistent-object focus, and completed-activity echo are visibly distinct; Full motion advances; Still remains stable; drawing does not mutate simulation state.
+surface / route: v0.11.2 Living View canvas renderer; Room browse -> object focus -> completed Sleep echo -> Building -> Street -> Still.
+visual backend and fallback reason: repeated raster canvas capture fallback; browser primary unavailable because Python Playwright is not installed in this runtime.
+viewport / device / seat: logical 960x560 canvas; deterministic seed AXM-VISUAL-FRAME-QA.
+capture capability: repeated timestamped PNG frames plus direct visual inspection.
+baseline: Room, Building, and Street at timestamp 800 ms; completed Sleep echo at 900 ms; Still pair at different timestamps.
+authorized action: advance presentation timestamp and inject a validated after-completion visual receipt in a test world; no extra simulation action.
+observed sequence: room light/motes and bounded object accents moved; building and street atmosphere moved; the focused bed gained a clear ring and label; a translucent horizontal Sleep echo appeared separately from the current player; the canvas labeled it as a visual echo rather than current presence; Still remained stable.
+typed observation: ambient motion pairs and completed-moment pair had different SHA-256 hashes; Still pair shared one SHA-256; exact world serialization matched before and after every draw.
+verdict: PASS for canvas motion, object focus, completed-echo distinction, Still stability, and state isolation; UNKNOWN for live browser DOM layout, focus navigation, and responsive behavior.
+named seam: authoritative completed activity -> bounded presentation receipt -> AXM.Visuals scene -> UI canvas; no reward or authority return path.
+buffer digest: tests/VISUAL_FRAME_DIGESTS_v0_11_2.json
+temporary paths deleted: raw QA PNG frame directory removed after inspection.
+cleanup complete: yes
+next cheapest test: run npm run qa:visuals-browser in an environment with Python Playwright and Chromium.
+

@@ -1,0 +1,555 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.personal-project/v0.7.0",
+  "title": "AXM Living City Personal Project v0.7.0",
+  "description": "An undated, age-free, provenance-preserving personal direction that can be paused, reshaped, completed, released, or archived without a productivity ladder.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "ownerId",
+    "templateId",
+    "type",
+    "title",
+    "meaning",
+    "status",
+    "createdDay",
+    "createdHour",
+    "updatedDay",
+    "pausedDay",
+    "completedDay",
+    "releasedDay",
+    "archivedDay",
+    "noDeadline",
+    "noAgeGate",
+    "ageGate",
+    "lifeContext",
+    "target",
+    "tags",
+    "stageIndex",
+    "chapters",
+    "collaboratorIds",
+    "collaborationRequests",
+    "reshapes",
+    "evidence",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.personal-project/v0.7.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownerId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "templateId": {
+      "enum": [
+        "restoration",
+        "making",
+        "creative",
+        "collection",
+        "garden",
+        "research",
+        "local_journey",
+        "learning"
+      ]
+    },
+    "type": {
+      "enum": [
+        "restoration",
+        "making",
+        "creative",
+        "collection",
+        "garden",
+        "research",
+        "local_journey",
+        "learning"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "meaning": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 320
+    },
+    "status": {
+      "enum": [
+        "active",
+        "paused",
+        "completed",
+        "released",
+        "archived"
+      ]
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "updatedDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "pausedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "completedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "releasedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "archivedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "noDeadline": {
+      "const": true
+    },
+    "noAgeGate": {
+      "const": true
+    },
+    "ageGate": {
+      "type": "null"
+    },
+    "lifeContext": {
+      "type": "object",
+      "required": [
+        "stageAtCreation",
+        "modeAtCreation",
+        "exactAgeRequired"
+      ],
+      "properties": {
+        "stageAtCreation": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "infant",
+            "toddler",
+            "child",
+            "teen",
+            "young_adult",
+            "adult",
+            "elder",
+            null
+          ]
+        },
+        "modeAtCreation": {
+          "enum": [
+            "choice",
+            "calendar"
+          ]
+        },
+        "exactAgeRequired": {
+          "const": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "target": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "objectId",
+            "objectCatalogId",
+            "label",
+            "propertyId",
+            "storedAtCreation",
+            "ownershipAtCreation",
+            "provenance"
+          ],
+          "properties": {
+            "kind": {
+              "const": "object"
+            },
+            "objectId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "objectCatalogId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1
+            },
+            "propertyId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "storedAtCreation": {
+              "type": "boolean"
+            },
+            "ownershipAtCreation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "provenance": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "required": [
+            "kind",
+            "placeId",
+            "label",
+            "provenance"
+          ],
+          "properties": {
+            "kind": {
+              "const": "place"
+            },
+            "placeId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1
+            },
+            "provenance": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stageIndex": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "chapters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description",
+          "hours",
+          "money",
+          "materials",
+          "skillEffects",
+          "needEffects",
+          "status",
+          "completedDay",
+          "completedHour",
+          "contribution"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hours": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "money": {
+            "type": "number",
+            "minimum": 0
+          },
+          "materials": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "skillEffects": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "needEffects": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "objectEffects": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "status": {
+            "enum": [
+              "open",
+              "locked",
+              "completed"
+            ]
+          },
+          "completedDay": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "completedHour": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 23
+          },
+          "contribution": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "collaboratorIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "collaborationRequests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "personId",
+          "status",
+          "createdDay",
+          "createdHour",
+          "dueDay",
+          "responseDay",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "personId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "pending_npc",
+              "accepted",
+              "declined",
+              "withdrawn"
+            ]
+          },
+          "createdDay": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "createdHour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "dueDay": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "responseDay": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "evidence": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "reshapes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "meaning",
+          "day"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "meaning": {
+            "type": "string"
+          },
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "hoursWorked",
+        "moneySpent",
+        "materialsSpent",
+        "objectHistoryEntries",
+        "collaboratorHours"
+      ],
+      "properties": {
+        "hoursWorked": {
+          "type": "number",
+          "minimum": 0
+        },
+        "moneySpent": {
+          "type": "number",
+          "minimum": 0
+        },
+        "materialsSpent": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "objectHistoryEntries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "collaboratorHours": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "day",
+          "hour",
+          "type",
+          "message",
+          "actorIds",
+          "chapterId",
+          "causes",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actorIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "chapterId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "causes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

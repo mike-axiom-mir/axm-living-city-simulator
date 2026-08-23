@@ -1,0 +1,102 @@
+{
+  "schema": "axm.living-city-sim.walkable-places-example-report/v0.9.0",
+  "seed": "AXM-WALKABLE-PLACES-EXAMPLE-090",
+  "generatedBy": "tools/generate_examples.js",
+  "observerDaysBeforePlayerRoutes": 30,
+  "networkEvidence": {
+    "places": 27,
+    "exteriorPlaces": 27,
+    "uniqueAddresses": 27,
+    "nodes": 71,
+    "edges": 76,
+    "networkHash": "c5aaada9",
+    "residentRoutesBeforePlayer": 2233,
+    "residentRoutesAfterPlayer": 2233
+  },
+  "parityEvidence": {
+    "visibleRouteId": "travel_002234",
+    "visibleDurationMinutes": 11,
+    "visibleDistanceMeters": 422,
+    "remainingRouteCompressedByChoice": true,
+    "compressedRouteId": "travel_002236",
+    "compressedDurationMinutes": 8,
+    "compressedDistanceMeters": 331,
+    "compressionAlwaysAvailable": true,
+    "walkingObligatory": false,
+    "walkingStreakPresent": false
+  },
+  "observationEvidence": {
+    "momentId": "street_moment_002235",
+    "consequence": "observation_only",
+    "rewardPresent": false,
+    "penaltyPresent": false,
+    "text": "The same old object appeared in a different window, repaired again rather than replaced."
+  },
+  "exteriorEvidence": {
+    "placeId": "home_student",
+    "address": {
+      "number": 117,
+      "streetName": "Canal Backwalk",
+      "label": "117 Canal Backwalk"
+    },
+    "facade": {
+      "material": "painted plaster",
+      "windowStyle": "simple casement",
+      "windowCount": 6,
+      "roofline": "patched ridge",
+      "frontageType": "shared entry",
+      "signText": "117",
+      "signVisible": false
+    },
+    "entrance": {
+      "side": "south",
+      "position": {
+        "x": 2,
+        "y": 3
+      },
+      "access": "short ramp",
+      "doorColor": "#8f6b64",
+      "publicWhenOpen": false,
+      "doorNodeId": "door_home_student",
+      "accessNodeId": "street_north_walk_2"
+    },
+    "source": {
+      "kind": "deterministic_map_derivation",
+      "seed": "AXM-WALKABLE-PLACES-EXAMPLE-090",
+      "mapPosition": {
+        "x": 1,
+        "y": 1,
+        "w": 2,
+        "h": 2
+      }
+    }
+  },
+  "choiceFirstEvidence": {
+    "agePressure": false,
+    "playerAgeBefore": 21,
+    "playerAgeAfter": 21,
+    "playerStageBefore": "young_adult",
+    "playerStageAfter": "young_adult"
+  },
+  "finalMetrics": {
+    "exteriorPlaces": 27,
+    "addresses": 27,
+    "networkNodes": 71,
+    "networkEdges": 76,
+    "activeTravel": false,
+    "playerJourneys": 2,
+    "playerVisibleJourneys": 1,
+    "playerCompressedJourneys": 1,
+    "playerWalkingMinutes": 19,
+    "playerDistanceMeters": 753,
+    "npcRoutesObserved": 2233,
+    "recentNpcRoutes": 0,
+    "streetMoments": 1,
+    "compressionAllowed": true,
+    "walkingObligation": false
+  },
+  "validation": {
+    "ok": true,
+    "errors": []
+  }
+}

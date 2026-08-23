@@ -1,0 +1,5 @@
+
+> axm-living-city-sim-local-economy@0.8.0 build
+> python3 tools/build_standalone.py
+
+Built /mnt/data/living_city_build_v0_8/AXM_LIVING_CITY_SIM_LOCAL_ECONOMY_v0_8_0/standalone/AXM_LIVING_CITY_SIM_LOCAL_ECONOMY_v0_8_0.html (1,084,400 bytes)

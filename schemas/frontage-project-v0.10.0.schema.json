@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.frontage-project/v0.10.0",
+  "title": "AXM Resident Frontage Project v0.10.0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "proposalId",
+    "buildingId",
+    "placeId",
+    "actorId",
+    "status",
+    "requiredMoney",
+    "escrow",
+    "spent",
+    "phases",
+    "completedPhaseIds",
+    "createdAt",
+    "completedAt",
+    "failureReason",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.frontage-project/v0.10.0"
+    },
+    "id": {
+      "type": "string"
+    },
+    "proposalId": {
+      "type": "string"
+    },
+    "buildingId": {
+      "type": "string"
+    },
+    "placeId": {
+      "type": "string"
+    },
+    "actorId": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "saving",
+        "planned",
+        "active",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "requiredMoney": {
+      "type": "number",
+      "minimum": 0
+    },
+    "escrow": {
+      "type": "number",
+      "minimum": 0
+    },
+    "spent": {
+      "type": "number",
+      "minimum": 0
+    },
+    "phases": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "status",
+          "costShare"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "confirm_design",
+              "gather_materials",
+              "install_and_check"
+            ]
+          },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "completed"
+            ]
+          },
+          "costShare": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "completedAt": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "day",
+                  "hour",
+                  "minute"
+                ],
+                "properties": {
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "hour": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 23
+                  },
+                  "minute": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                },
+                "additionalProperties": true
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "completedPhaseIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "createdAt": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "minute"
+      ],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "minute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      },
+      "additionalProperties": true
+    },
+    "completedAt": {
+      "anyOf": [
+        {
+          "type": "object",
+          "required": [
+            "day",
+            "hour",
+            "minute"
+          ],
+          "properties": {
+            "day": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "hour": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 23
+            },
+            "minute": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 59
+            }
+          },
+          "additionalProperties": true
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "failureReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "day",
+          "hour",
+          "minute",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "day": {
+            "type": "integer"
+          },
+          "hour": {
+            "type": "integer"
+          },
+          "minute": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

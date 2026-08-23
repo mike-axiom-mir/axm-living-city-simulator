@@ -1,0 +1,79 @@
+{
+  "schema": "axm.living-city.travel-record/v0.9.0",
+  "id": "travel_002234",
+  "actorId": "player",
+  "originPlaceId": "home_student",
+  "destinationPlaceId": "place_market",
+  "intendedDestinationPlaceId": "place_market",
+  "mode": "visible",
+  "purpose": "player-chosen neighborhood travel",
+  "status": "completed",
+  "startedAt": {
+    "day": 31,
+    "hour": 7,
+    "minute": 3
+  },
+  "completedAt": {
+    "day": 31,
+    "hour": 7,
+    "minute": 14
+  },
+  "route": {
+    "nodeIds": [
+      "door_home_student",
+      "street_north_walk_2",
+      "street_north_walk_2_75",
+      "street_main_street_2_75",
+      "street_main_street_5",
+      "street_main_street_6_5",
+      "street_main_street_8_9",
+      "street_main_street_9",
+      "door_place_market"
+    ],
+    "edgeIds": [
+      "edge_50",
+      "edge_2",
+      "edge_41",
+      "edge_13",
+      "edge_14",
+      "edge_15",
+      "edge_16",
+      "edge_69"
+    ],
+    "streetNames": [
+      "Canal Backwalk",
+      "Courtyard Cut",
+      "Small Square Street"
+    ],
+    "distanceMeters": 422,
+    "durationMinutes": 11
+  },
+  "currentNodeIndex": 8,
+  "elapsedMinutes": 11,
+  "timeAccounting": "minute_level",
+  "observations": [
+    "street_moment_002235"
+  ],
+  "history": [
+    {
+      "at": {
+        "day": 31,
+        "hour": 7,
+        "minute": 4
+      },
+      "type": "segment",
+      "edgeId": "edge_50",
+      "streetName": "117 Canal Backwalk",
+      "minutes": 1
+    },
+    {
+      "at": {
+        "day": 31,
+        "hour": 7,
+        "minute": 14
+      },
+      "type": "remaining_route_compressed",
+      "minutes": 10
+    }
+  ]
+}

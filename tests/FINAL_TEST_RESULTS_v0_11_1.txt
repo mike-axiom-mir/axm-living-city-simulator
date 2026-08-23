@@ -1,0 +1,40 @@
+AXM LIVING CITY — ANIMATED PRESENCE v0.11.1
+FINAL COMPLETED EVIDENCE
+============================================================
+
+Overall result: PASS for deterministic, focused, stress, and raster evidence.
+Live browser QA for the new eighteenth view: UNKNOWN / NOT CLAIMED.
+
+FOCUSED TESTS
+- Inherited v0.11 systems: 194/194
+- Animated presence: 9/9
+- Total: 203/203
+
+STRESS
+- Town: 12 seeds × 365 days; 4,380 days; zero validation failures.
+- Household: 8 seeds × 180 days; exact replay; zero object loss.
+- Lived buildings: 8 seeds × 180 days; exact replay; 41,413 movements; 3,624 stair uses; zero validation failures.
+
+VISUAL FRAME QA
+- Room full-motion hashes differed across timestamps.
+- Building full-motion hashes differed across timestamps.
+- Street full-motion hashes differed across timestamps.
+- Still-mode room hashes were identical.
+- Exact world serialization remained unchanged around every raster draw.
+- Pure visual scene derivation preserved the simulation RNG.
+- Rendered frames were inspected; raw PNG buffers were then deleted.
+
+ROOTS PROVED
+- animation is atmosphere, not authoritative action evidence;
+- watching creates no time, need, skill, relationship, money, or progression change;
+- exact figures require lawful self-presence or co-presence;
+- private residents remain coarse;
+- Full/Gentle/Still and device reduced-motion remain supported;
+- v0.12 object-use scenes remain a separate held branch.
+
+EXECUTION HONESTY
+- Python Playwright was unavailable.
+- No Chromium executable was present.
+- The v0.11.1 browser harness exists but did not run here.
+- No browser pass, responsive-layout pass, or focus-navigation pass is fabricated.
+

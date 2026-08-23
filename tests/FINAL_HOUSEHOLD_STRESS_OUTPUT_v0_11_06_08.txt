@@ -1,0 +1,87 @@
+PASS AXM-HOUSEHOLD-STRESS-06 · revision 9 · proposals 13 · conflicts 11
+PASS AXM-HOUSEHOLD-STRESS-07 · revision 11 · proposals 13 · conflicts 10
+PASS AXM-HOUSEHOLD-STRESS-08 · revision 10 · proposals 13 · conflicts 9
+
+3/3 deterministic household worlds passed 180 simulated days each.
+{
+  "daysPerSeed": 180,
+  "seedStart": 6,
+  "seeds": 3,
+  "totals": {
+    "day": 557,
+    "agreementRevision": 30,
+    "sharedReserve": 526.6899999999999,
+    "proposals": 39,
+    "accepted": 33,
+    "declined": 6,
+    "counteroffers": 0,
+    "conflicts": 30,
+    "repairs": 24,
+    "relocations": 3,
+    "npcInitiatives": 30,
+    "objectCount": 54,
+    "acceptedIncoming": 24,
+    "declinedIncoming": 6,
+    "relocationPrompts": 0,
+    "repairAttempts": 32
+  },
+  "reports": [
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-06",
+      "day": 186,
+      "agreementRevision": 9,
+      "sharedReserve": 172.13,
+      "proposals": 13,
+      "accepted": 10,
+      "declined": 3,
+      "counteroffers": 0,
+      "conflicts": 11,
+      "repairs": 9,
+      "relocations": 1,
+      "npcInitiatives": 10,
+      "objectCount": 22,
+      "acceptedIncoming": 7,
+      "declinedIncoming": 3,
+      "relocationPrompts": 0,
+      "repairAttempts": 12
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-07",
+      "day": 185,
+      "agreementRevision": 11,
+      "sharedReserve": 173.41,
+      "proposals": 13,
+      "accepted": 12,
+      "declined": 1,
+      "counteroffers": 0,
+      "conflicts": 10,
+      "repairs": 8,
+      "relocations": 1,
+      "npcInitiatives": 10,
+      "objectCount": 9,
+      "acceptedIncoming": 9,
+      "declinedIncoming": 1,
+      "relocationPrompts": 0,
+      "repairAttempts": 9
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-08",
+      "day": 186,
+      "agreementRevision": 10,
+      "sharedReserve": 181.15,
+      "proposals": 13,
+      "accepted": 11,
+      "declined": 2,
+      "counteroffers": 0,
+      "conflicts": 9,
+      "repairs": 7,
+      "relocations": 1,
+      "npcInitiatives": 10,
+      "objectCount": 23,
+      "acceptedIncoming": 8,
+      "declinedIncoming": 2,
+      "relocationPrompts": 0,
+      "repairAttempts": 11
+    }
+  ]
+}

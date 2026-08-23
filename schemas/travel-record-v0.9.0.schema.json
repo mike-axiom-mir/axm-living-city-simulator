@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.travel-record/v0.9.0",
+  "title": "AXM Living City Travel Record v0.9.0",
+  "description": "Attributable route evidence for player-visible, player-compressed, autonomous schedule, or bundled travel. Travel creates no ownership or place authority.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "actorId",
+    "originPlaceId",
+    "destinationPlaceId",
+    "intendedDestinationPlaceId",
+    "mode",
+    "purpose",
+    "status",
+    "startedAt",
+    "completedAt",
+    "route",
+    "currentNodeIndex",
+    "elapsedMinutes",
+    "timeAccounting",
+    "observations",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.travel-record/v0.9.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actorId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "originPlaceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "destinationPlaceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "intendedDestinationPlaceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "enum": [
+        "visible",
+        "compressed",
+        "schedule",
+        "bundled"
+      ]
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "active",
+        "completed",
+        "ended_early"
+      ]
+    },
+    "startedAt": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "minute"
+      ],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "minute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      },
+      "additionalProperties": false
+    },
+    "completedAt": {
+      "anyOf": [
+        {
+          "type": "object",
+          "required": [
+            "day",
+            "hour",
+            "minute"
+          ],
+          "properties": {
+            "day": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "hour": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 23
+            },
+            "minute": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 59
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "route": {
+      "type": "object",
+      "required": [
+        "nodeIds",
+        "edgeIds",
+        "streetNames",
+        "distanceMeters",
+        "durationMinutes"
+      ],
+      "properties": {
+        "nodeIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "edgeIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "streetNames": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "distanceMeters": {
+          "type": "number",
+          "minimum": 0
+        },
+        "durationMinutes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "currentNodeIndex": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "elapsedMinutes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "timeAccounting": {
+      "enum": [
+        "minute_level",
+        "hourly_schedule_resolution",
+        "inside_existing_action_budget"
+      ]
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": false
+}

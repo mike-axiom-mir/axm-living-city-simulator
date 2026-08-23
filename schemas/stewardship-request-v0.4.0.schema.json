@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.stewardship-request/v0.4.0",
+  "title": "AXM Stewardship Request v0.4.0",
+  "description": "Exact, single-purpose authority request for a resident habitat change. Co-tenant, human owner, and external-owner decisions remain distinct and inspectable.",
+  "type": "object",
+  "required": [
+    "id",
+    "schema",
+    "intentionId",
+    "residentId",
+    "propertyId",
+    "createdDay",
+    "createdHour",
+    "status",
+    "summary",
+    "projectSpec",
+    "proposedOwnerContribution",
+    "acceptedOwnerContribution",
+    "authorities",
+    "response",
+    "history"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "schema": {
+      "const": "axm.stewardship-request/v0.4.0"
+    },
+    "intentionId": {
+      "type": "string"
+    },
+    "residentId": {
+      "type": "string"
+    },
+    "propertyId": {
+      "type": "string"
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "status": {
+      "enum": [
+        "pending_player",
+        "pending_external",
+        "approved",
+        "declined",
+        "withdrawn",
+        "completed",
+        "expired"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "projectSpec": {
+      "type": "object",
+      "required": [
+        "type",
+        "target"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "partition",
+            "surface",
+            "utility",
+            "repair"
+          ]
+        },
+        "target": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "proposedOwnerContribution": {
+      "type": "number",
+      "minimum": 0
+    },
+    "acceptedOwnerContribution": {
+      "type": "number",
+      "minimum": 0
+    },
+    "authorities": {
+      "type": "object",
+      "required": [
+        "coTenants",
+        "player",
+        "externalOwner"
+      ],
+      "properties": {
+        "coTenants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "personId",
+              "status",
+              "respondedDay",
+              "score",
+              "reason",
+              "evidence"
+            ],
+            "properties": {
+              "personId": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "approved",
+                  "declined",
+                  "pending"
+                ]
+              },
+              "respondedDay": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 1
+              },
+              "score": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "reason": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "player": {
+          "type": "object",
+          "required": [
+            "required",
+            "roles",
+            "status",
+            "respondedDay",
+            "response"
+          ],
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "enum": [
+                "pending",
+                "approved",
+                "declined",
+                "not_required",
+                "not_reached"
+              ]
+            },
+            "respondedDay": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "response": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "externalOwner": {
+          "type": "object",
+          "required": [
+            "required",
+            "ownerId",
+            "ownerLabel",
+            "status",
+            "dueDay",
+            "respondedDay",
+            "response",
+            "score",
+            "evidence"
+          ],
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "ownerId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "ownerLabel": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "pending",
+                "approved",
+                "declined",
+                "not_required",
+                "not_reached"
+              ]
+            },
+            "dueDay": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "respondedDay": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 1
+            },
+            "response": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "score": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "evidence": {}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "response": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string"
+          },
+          "evidence": {}
+        },
+        "additionalProperties": true
+      }
+    },
+    "completedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    }
+  },
+  "additionalProperties": false
+}

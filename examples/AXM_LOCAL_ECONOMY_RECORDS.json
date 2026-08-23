@@ -1,0 +1,2298 @@
+{
+  "localNeeds": [
+    {
+      "schema": "axm.living-city.local-need/v0.8.0",
+      "id": "need_repair_care",
+      "templateId": "repair_care",
+      "name": "Repair and object care",
+      "description": "Residents have useful things wearing out and would rather understand, maintain, or restore them than replace everything.",
+      "enterpriseTemplates": [
+        "repair_table",
+        "reuse_nook"
+      ],
+      "score": 93.4,
+      "satisfaction": 14.6,
+      "servedCount": 9,
+      "freeOrFlexibleCount": 4,
+      "lastServedDay": 1,
+      "updatedDay": 57,
+      "evidence": {
+        "score": 96,
+        "personIds": [
+          "npc_018",
+          "npc_003",
+          "npc_014",
+          "npc_005",
+          "npc_022",
+          "npc_020",
+          "npc_021",
+          "npc_006",
+          "npc_019",
+          "npc_004"
+        ],
+        "evidenceCount": 23,
+        "detail": {
+          "wornPersonalObjects": 143
+        }
+      },
+      "history": [
+        {
+          "day": 8,
+          "score": 93.4,
+          "evidenceCount": 18
+        },
+        {
+          "day": 15,
+          "score": 93.4,
+          "evidenceCount": 20
+        },
+        {
+          "day": 22,
+          "score": 93.4,
+          "evidenceCount": 19
+        },
+        {
+          "day": 29,
+          "score": 93.4,
+          "evidenceCount": 21
+        },
+        {
+          "day": 36,
+          "score": 93.4,
+          "evidenceCount": 23
+        },
+        {
+          "day": 43,
+          "score": 93.4,
+          "evidenceCount": 23
+        },
+        {
+          "day": 50,
+          "score": 93.4,
+          "evidenceCount": 23
+        },
+        {
+          "day": 57,
+          "score": 93.4,
+          "evidenceCount": 23
+        }
+      ]
+    },
+    {
+      "schema": "axm.living-city.local-need/v0.8.0",
+      "id": "need_affordable_food",
+      "templateId": "affordable_food",
+      "name": "Affordable food and warm pauses",
+      "description": "Some residents need simple food, a short place to sit, or a modest shared pause without premium pricing.",
+      "enterpriseTemplates": [
+        "warm_counter"
+      ],
+      "score": 45.6,
+      "satisfaction": 0,
+      "servedCount": 0,
+      "freeOrFlexibleCount": 0,
+      "lastServedDay": null,
+      "updatedDay": 57,
+      "evidence": {
+        "score": 45.6,
+        "personIds": [
+          "npc_004",
+          "npc_005",
+          "npc_006",
+          "npc_010",
+          "npc_012",
+          "npc_013",
+          "npc_014",
+          "npc_019"
+        ],
+        "evidenceCount": 8,
+        "detail": {
+          "lowHungerOrCooking": 8
+        }
+      },
+      "history": [
+        {
+          "day": 8,
+          "score": 45.6,
+          "evidenceCount": 8
+        },
+        {
+          "day": 15,
+          "score": 45.6,
+          "evidenceCount": 8
+        },
+        {
+          "day": 22,
+          "score": 45.6,
+          "evidenceCount": 8
+        },
+        {
+          "day": 29,
+          "score": 45.6,
+          "evidenceCount": 8
+        },
+        {
+          "day": 36,
+          "score": 45.6,
+          "evidenceCount": 8
+        },
+        {
+          "day": 43,
+          "score": 45.6,
+          "evidenceCount": 8
+        },
+        {
+          "day": 50,
+          "score": 45.6,
+          "evidenceCount": 8
+        },
+        {
+          "day": 57,
+          "score": 45.6,
+          "evidenceCount": 8
+        }
+      ]
+    },
+    {
+      "schema": "axm.living-city.local-need/v0.8.0",
+      "id": "need_practical_learning",
+      "templateId": "practical_learning",
+      "name": "Practical learning and source help",
+      "description": "Residents have questions, skills they want to grow, and moments where patient guidance is more useful than another opaque service.",
+      "enterpriseTemplates": [
+        "learning_table",
+        "creative_studio"
+      ],
+      "score": 58.4,
+      "satisfaction": 0,
+      "servedCount": 0,
+      "freeOrFlexibleCount": 0,
+      "lastServedDay": null,
+      "updatedDay": 57,
+      "evidence": {
+        "score": 58.4,
+        "personIds": [
+          "npc_001",
+          "npc_003",
+          "npc_004",
+          "npc_006",
+          "npc_010",
+          "npc_011",
+          "npc_012",
+          "npc_013",
+          "npc_015",
+          "npc_016"
+        ],
+        "evidenceCount": 14,
+        "detail": {
+          "peopleWithLearningFit": 14
+        }
+      },
+      "history": [
+        {
+          "day": 8,
+          "score": 71.4,
+          "evidenceCount": 19
+        },
+        {
+          "day": 15,
+          "score": 71.4,
+          "evidenceCount": 19
+        },
+        {
+          "day": 22,
+          "score": 71.4,
+          "evidenceCount": 19
+        },
+        {
+          "day": 29,
+          "score": 68.8,
+          "evidenceCount": 18
+        },
+        {
+          "day": 36,
+          "score": 66.2,
+          "evidenceCount": 17
+        },
+        {
+          "day": 43,
+          "score": 63.6,
+          "evidenceCount": 16
+        },
+        {
+          "day": 50,
+          "score": 61,
+          "evidenceCount": 15
+        },
+        {
+          "day": 57,
+          "score": 58.4,
+          "evidenceCount": 14
+        }
+      ]
+    },
+    {
+      "schema": "axm.living-city.local-need/v0.8.0",
+      "id": "need_creative_support",
+      "templateId": "creative_support",
+      "name": "Creative and visual support",
+      "description": "People have small ideas, rooms, events, stories, and projects that could use help becoming visible without becoming corporate products.",
+      "enterpriseTemplates": [
+        "creative_studio"
+      ],
+      "score": 74,
+      "satisfaction": 0,
+      "servedCount": 0,
+      "freeOrFlexibleCount": 0,
+      "lastServedDay": null,
+      "updatedDay": 57,
+      "evidence": {
+        "score": 74,
+        "personIds": [
+          "npc_001",
+          "npc_002",
+          "npc_003",
+          "npc_005",
+          "npc_006",
+          "npc_007",
+          "npc_008",
+          "npc_009",
+          "npc_010",
+          "npc_012"
+        ],
+        "evidenceCount": 20,
+        "detail": {
+          "peopleWithCreativeFit": 20
+        }
+      },
+      "history": [
+        {
+          "day": 8,
+          "score": 71.2,
+          "evidenceCount": 19
+        },
+        {
+          "day": 15,
+          "score": 71.2,
+          "evidenceCount": 19
+        },
+        {
+          "day": 22,
+          "score": 71.2,
+          "evidenceCount": 19
+        },
+        {
+          "day": 29,
+          "score": 74,
+          "evidenceCount": 20
+        },
+        {
+          "day": 36,
+          "score": 74,
+          "evidenceCount": 20
+        },
+        {
+          "day": 43,
+          "score": 74,
+          "evidenceCount": 20
+        },
+        {
+          "day": 50,
+          "score": 74,
+          "evidenceCount": 20
+        },
+        {
+          "day": 57,
+          "score": 74,
+          "evidenceCount": 20
+        }
+      ]
+    },
+    {
+      "schema": "axm.living-city.local-need/v0.8.0",
+      "id": "need_reuse_access",
+      "templateId": "reuse_access",
+      "name": "Reuse and low-cost useful goods",
+      "description": "The town contains underused objects and residents with limited budgets. Careful reuse can connect the two without artificial rarity.",
+      "enterpriseTemplates": [
+        "reuse_nook",
+        "repair_table"
+      ],
+      "score": 65.8,
+      "satisfaction": 0,
+      "servedCount": 0,
+      "freeOrFlexibleCount": 0,
+      "lastServedDay": null,
+      "updatedDay": 57,
+      "evidence": {
+        "score": 65.8,
+        "personIds": [
+          "npc_001",
+          "npc_002",
+          "npc_003",
+          "npc_004",
+          "npc_005",
+          "npc_007",
+          "npc_009",
+          "npc_011",
+          "npc_012",
+          "npc_013"
+        ],
+        "evidenceCount": 17,
+        "detail": {
+          "peopleWithReuseFit": 17
+        }
+      },
+      "history": [
+        {
+          "day": 8,
+          "score": 65.8,
+          "evidenceCount": 17
+        },
+        {
+          "day": 15,
+          "score": 65.8,
+          "evidenceCount": 17
+        },
+        {
+          "day": 22,
+          "score": 65.8,
+          "evidenceCount": 17
+        },
+        {
+          "day": 29,
+          "score": 65.8,
+          "evidenceCount": 17
+        },
+        {
+          "day": 36,
+          "score": 65.8,
+          "evidenceCount": 17
+        },
+        {
+          "day": 43,
+          "score": 65.8,
+          "evidenceCount": 17
+        },
+        {
+          "day": 50,
+          "score": 65.8,
+          "evidenceCount": 17
+        },
+        {
+          "day": 57,
+          "score": 65.8,
+          "evidenceCount": 17
+        }
+      ]
+    },
+    {
+      "schema": "axm.living-city.local-need/v0.8.0",
+      "id": "need_local_connection",
+      "templateId": "local_connection",
+      "name": "Small local connection",
+      "description": "Residents sometimes need a reason to cross paths, ask for help, or discover a nearby person without being trapped in engagement mechanics.",
+      "enterpriseTemplates": [
+        "neighborhood_desk",
+        "warm_counter",
+        "learning_table"
+      ],
+      "score": 43.2,
+      "satisfaction": 0,
+      "servedCount": 0,
+      "freeOrFlexibleCount": 0,
+      "lastServedDay": null,
+      "updatedDay": 57,
+      "evidence": {
+        "score": 43.2,
+        "personIds": [
+          "npc_001",
+          "npc_003",
+          "npc_008",
+          "npc_010",
+          "npc_011",
+          "npc_012",
+          "npc_016",
+          "npc_022"
+        ],
+        "evidenceCount": 8,
+        "detail": {
+          "peopleWithConnectionFit": 8
+        }
+      },
+      "history": [
+        {
+          "day": 8,
+          "score": 43.2,
+          "evidenceCount": 8
+        },
+        {
+          "day": 15,
+          "score": 49,
+          "evidenceCount": 10
+        },
+        {
+          "day": 22,
+          "score": 43.2,
+          "evidenceCount": 8
+        },
+        {
+          "day": 29,
+          "score": 40.3,
+          "evidenceCount": 7
+        },
+        {
+          "day": 36,
+          "score": 43.2,
+          "evidenceCount": 8
+        },
+        {
+          "day": 43,
+          "score": 51.9,
+          "evidenceCount": 11
+        },
+        {
+          "day": 50,
+          "score": 49,
+          "evidenceCount": 10
+        },
+        {
+          "day": 57,
+          "score": 43.2,
+          "evidenceCount": 8
+        }
+      ]
+    }
+  ],
+  "commercialPremises": [
+    {
+      "id": "place_lane_workroom",
+      "name": "Vacant Lane Workroom",
+      "x": 9,
+      "y": 8,
+      "w": 1,
+      "h": 1,
+      "color": "#7b6d5d",
+      "symbol": "LW",
+      "weeklyLease": 42,
+      "deposit": 84,
+      "utilityBase": 11,
+      "description": "A small street-level room with an honest window, one sink, and enough space for a very small direction.",
+      "schema": "axm.living-city.commercial-premise/v0.8.0",
+      "kind": "commercial",
+      "type": "commercial",
+      "ownerId": "town_commercial_trust",
+      "ownerLabel": "Town Commercial Trust",
+      "listedForLease": true,
+      "occupantEnterpriseId": null,
+      "condition": 77,
+      "maintenanceReserve": 447,
+      "history": [
+        {
+          "id": "premise_event_00001",
+          "day": 1,
+          "hour": 7,
+          "type": "foundation",
+          "message": "Vacant Lane Workroom entered the current town state as a real commercial room.",
+          "actorIds": [],
+          "enterpriseId": null,
+          "causes": [
+            "deterministic starting state"
+          ],
+          "evidence": {
+            "listedForLease": true,
+            "weeklyLease": 42
+          }
+        },
+        {
+          "id": "premise_event_00027",
+          "day": 1,
+          "hour": 10,
+          "type": "lease_started",
+          "message": "Keep-It-Going Table began using the room.",
+          "actorIds": [
+            "player"
+          ],
+          "enterpriseId": "enterprise_00019",
+          "causes": [
+            "signed in-simulation lease"
+          ],
+          "evidence": null
+        },
+        {
+          "id": "premise_event_00036",
+          "day": 1,
+          "hour": 13,
+          "type": "lease_ended",
+          "message": "Keep-It-Going Table released the room.",
+          "actorIds": [
+            "player"
+          ],
+          "enterpriseId": "enterprise_00019",
+          "causes": [
+            "chosen pause with room release"
+          ],
+          "evidence": {
+            "depositReturned": 84,
+            "conditionDeduction": 0
+          }
+        }
+      ],
+      "exterior": {
+        "schema": "axm.living-city.place-exterior/v0.9.0",
+        "placeId": "place_lane_workroom",
+        "address": {
+          "number": 377,
+          "streetName": "Old Lane",
+          "label": "377 Old Lane"
+        },
+        "streetId": "old_lane",
+        "entrance": {
+          "side": "south",
+          "position": {
+            "x": 9.5,
+            "y": 9
+          },
+          "access": "one low step",
+          "doorColor": "#6e8d74",
+          "publicWhenOpen": true,
+          "doorNodeId": "door_place_lane_workroom",
+          "accessNodeId": "street_old_lane_9_5"
+        },
+        "facade": {
+          "material": "weathered timber",
+          "windowStyle": "high workshop glass",
+          "windowCount": 3,
+          "roofline": "patched ridge",
+          "frontageType": "shopfront",
+          "signText": "Vacant Lane Workroom",
+          "signVisible": true
+        },
+        "source": {
+          "kind": "deterministic_map_derivation",
+          "seed": "AXM-LOCAL-ECONOMY-EXAMPLE-080",
+          "mapPosition": {
+            "x": 9,
+            "y": 8,
+            "w": 1,
+            "h": 1
+          }
+        },
+        "history": []
+      },
+      "shellRef": {
+        "buildingId": "building_place_lane_workroom",
+        "primaryStoreyId": "building_place_lane_workroom_s0_storey",
+        "storeyIds": [
+          "building_place_lane_workroom_s0_storey"
+        ],
+        "unitRouteNodeId": "building_place_lane_workroom_unit_place_lane_workroom",
+        "streetAccessNodeId": "building_place_lane_workroom_street_access_1"
+      }
+    },
+    {
+      "id": "place_square_kiosk",
+      "name": "Square Kiosk",
+      "x": 6,
+      "y": 6,
+      "w": 1,
+      "h": 1,
+      "color": "#8b7d53",
+      "symbol": "SK",
+      "weeklyLease": 31,
+      "deposit": 62,
+      "utilityBase": 8,
+      "description": "A compact kiosk beside the square. Good for occasional opening rather than endless operating hours.",
+      "schema": "axm.living-city.commercial-premise/v0.8.0",
+      "kind": "commercial",
+      "type": "commercial",
+      "ownerId": "town_commercial_trust",
+      "ownerLabel": "Town Commercial Trust",
+      "listedForLease": false,
+      "occupantEnterpriseId": "enterprise_00005",
+      "condition": 84,
+      "maintenanceReserve": 797,
+      "history": [
+        {
+          "id": "premise_event_00002",
+          "day": 1,
+          "hour": 7,
+          "type": "foundation",
+          "message": "Square Kiosk entered the current town state as a real commercial room.",
+          "actorIds": [],
+          "enterpriseId": null,
+          "causes": [
+            "deterministic starting state"
+          ],
+          "evidence": {
+            "listedForLease": true,
+            "weeklyLease": 31
+          }
+        },
+        {
+          "id": "premise_event_00013",
+          "day": 1,
+          "hour": 7,
+          "type": "lease_started",
+          "message": "Yara's Reuse Nook began using the room.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "enterpriseId": "enterprise_00005",
+          "causes": [
+            "signed in-simulation lease"
+          ],
+          "evidence": null
+        }
+      ],
+      "exterior": {
+        "schema": "axm.living-city.place-exterior/v0.9.0",
+        "placeId": "place_square_kiosk",
+        "address": {
+          "number": 252,
+          "streetName": "Small Square Street",
+          "label": "252 Small Square Street"
+        },
+        "streetId": "main_street",
+        "entrance": {
+          "side": "north",
+          "position": {
+            "x": 6.5,
+            "y": 6
+          },
+          "access": "short ramp",
+          "doorColor": "#6e8d74",
+          "publicWhenOpen": true,
+          "doorNodeId": "door_place_square_kiosk",
+          "accessNodeId": "street_main_street_6_5"
+        },
+        "facade": {
+          "material": "weathered timber",
+          "windowStyle": "high workshop glass",
+          "windowCount": 3,
+          "roofline": "stepped row",
+          "frontageType": "shopfront",
+          "signText": "Square Kiosk",
+          "signVisible": true
+        },
+        "source": {
+          "kind": "deterministic_map_derivation",
+          "seed": "AXM-LOCAL-ECONOMY-EXAMPLE-080",
+          "mapPosition": {
+            "x": 6,
+            "y": 6,
+            "w": 1,
+            "h": 1
+          }
+        },
+        "history": []
+      },
+      "shellRef": {
+        "buildingId": "building_place_square_kiosk",
+        "primaryStoreyId": "building_place_square_kiosk_s0_storey",
+        "storeyIds": [
+          "building_place_square_kiosk_s0_storey"
+        ],
+        "unitRouteNodeId": "building_place_square_kiosk_unit_place_square_kiosk",
+        "streetAccessNodeId": "building_place_square_kiosk_street_access_1"
+      }
+    },
+    {
+      "id": "place_arcade_room",
+      "name": "Old Arcade Room",
+      "x": 16,
+      "y": 8,
+      "w": 1,
+      "h": 1,
+      "color": "#6b7187",
+      "symbol": "AR",
+      "weeklyLease": 53,
+      "deposit": 106,
+      "utilityBase": 14,
+      "description": "A narrow former shop room with old marks on the walls and no obligation to become a chain.",
+      "schema": "axm.living-city.commercial-premise/v0.8.0",
+      "kind": "commercial",
+      "type": "commercial",
+      "ownerId": "town_commercial_trust",
+      "ownerLabel": "Town Commercial Trust",
+      "listedForLease": true,
+      "occupantEnterpriseId": null,
+      "condition": 78,
+      "maintenanceReserve": 872,
+      "history": [
+        {
+          "id": "premise_event_00003",
+          "day": 1,
+          "hour": 7,
+          "type": "foundation",
+          "message": "Old Arcade Room entered the current town state as a real commercial room.",
+          "actorIds": [],
+          "enterpriseId": null,
+          "causes": [
+            "deterministic starting state"
+          ],
+          "evidence": {
+            "listedForLease": true,
+            "weeklyLease": 53
+          }
+        }
+      ],
+      "exterior": {
+        "schema": "axm.living-city.place-exterior/v0.9.0",
+        "placeId": "place_arcade_room",
+        "address": {
+          "number": 433,
+          "streetName": "Old Lane",
+          "label": "433 Old Lane"
+        },
+        "streetId": "old_lane",
+        "entrance": {
+          "side": "south",
+          "position": {
+            "x": 16.5,
+            "y": 9
+          },
+          "access": "short ramp",
+          "doorColor": "#745c4f",
+          "publicWhenOpen": true,
+          "doorNodeId": "door_place_arcade_room",
+          "accessNodeId": "street_old_lane_16_5"
+        },
+        "facade": {
+          "material": "honest concrete",
+          "windowStyle": "deep sill",
+          "windowCount": 3,
+          "roofline": "small dormer line",
+          "frontageType": "shopfront",
+          "signText": "Old Arcade Room",
+          "signVisible": true
+        },
+        "source": {
+          "kind": "deterministic_map_derivation",
+          "seed": "AXM-LOCAL-ECONOMY-EXAMPLE-080",
+          "mapPosition": {
+            "x": 16,
+            "y": 8,
+            "w": 1,
+            "h": 1
+          }
+        },
+        "history": []
+      },
+      "shellRef": {
+        "buildingId": "building_place_arcade_room",
+        "primaryStoreyId": "building_place_arcade_room_s0_storey",
+        "storeyIds": [
+          "building_place_arcade_room_s0_storey"
+        ],
+        "unitRouteNodeId": "building_place_arcade_room_unit_place_arcade_room",
+        "streetAccessNodeId": "building_place_arcade_room_street_access_1"
+      }
+    },
+    {
+      "id": "place_river_workroom",
+      "name": "River Workroom",
+      "x": 16,
+      "y": 11,
+      "w": 1,
+      "h": 1,
+      "color": "#587d83",
+      "symbol": "RW",
+      "weeklyLease": 47,
+      "deposit": 94,
+      "utilityBase": 12,
+      "description": "A quiet room near the river suited to repair, making, learning, or something not easily categorized.",
+      "schema": "axm.living-city.commercial-premise/v0.8.0",
+      "kind": "commercial",
+      "type": "commercial",
+      "ownerId": "town_commercial_trust",
+      "ownerLabel": "Town Commercial Trust",
+      "listedForLease": true,
+      "occupantEnterpriseId": null,
+      "condition": 80,
+      "maintenanceReserve": 599,
+      "history": [
+        {
+          "id": "premise_event_00004",
+          "day": 1,
+          "hour": 7,
+          "type": "foundation",
+          "message": "River Workroom entered the current town state as a real commercial room.",
+          "actorIds": [],
+          "enterpriseId": null,
+          "causes": [
+            "deterministic starting state"
+          ],
+          "evidence": {
+            "listedForLease": true,
+            "weeklyLease": 47
+          }
+        }
+      ],
+      "exterior": {
+        "schema": "axm.living-city.place-exterior/v0.9.0",
+        "placeId": "place_river_workroom",
+        "address": {
+          "number": 533,
+          "streetName": "River Edge Walk",
+          "label": "533 River Edge Walk"
+        },
+        "streetId": "river_walk",
+        "entrance": {
+          "side": "south",
+          "position": {
+            "x": 16.5,
+            "y": 12
+          },
+          "access": "level threshold",
+          "doorColor": "#6e8d74",
+          "publicWhenOpen": true,
+          "doorNodeId": "door_place_river_workroom",
+          "accessNodeId": "street_river_walk_16_5"
+        },
+        "facade": {
+          "material": "reused tile",
+          "windowStyle": "high workshop glass",
+          "windowCount": 3,
+          "roofline": "small dormer line",
+          "frontageType": "shopfront",
+          "signText": "River Workroom",
+          "signVisible": true
+        },
+        "source": {
+          "kind": "deterministic_map_derivation",
+          "seed": "AXM-LOCAL-ECONOMY-EXAMPLE-080",
+          "mapPosition": {
+            "x": 16,
+            "y": 11,
+            "w": 1,
+            "h": 1
+          }
+        },
+        "history": []
+      },
+      "shellRef": {
+        "buildingId": "building_place_river_workroom",
+        "primaryStoreyId": "building_place_river_workroom_s0_storey",
+        "storeyIds": [
+          "building_place_river_workroom_s0_storey"
+        ],
+        "unitRouteNodeId": "building_place_river_workroom_unit_place_river_workroom",
+        "streetAccessNodeId": "building_place_river_workroom_street_access_1"
+      }
+    }
+  ],
+  "enterprises": [
+    {
+      "schema": "axm.living-city.enterprise/v0.8.0",
+      "id": "enterprise_00005",
+      "ownerId": "npc_004",
+      "name": "Yara's Reuse Nook",
+      "templateId": "reuse_nook",
+      "sourceProjectId": null,
+      "needId": "need_repair_care",
+      "path": "tiny_enterprise",
+      "status": "open",
+      "purpose": "A small existing direction in the starting town, connected to know the whole street.",
+      "createdDay": 1,
+      "updatedDay": 57,
+      "premiseId": "place_square_kiosk",
+      "pricing": {
+        "mode": "pay_what_fits",
+        "basePrice": 14
+      },
+      "schedule": {
+        "openDays": [
+          2,
+          5,
+          7
+        ],
+        "startHour": 17,
+        "durationHours": 3,
+        "sessionsPerWeekCap": 3
+      },
+      "funds": 0,
+      "reserveTarget": 42,
+      "reputation": {
+        "care": 50,
+        "reliability": 50,
+        "fit": 50
+      },
+      "equipment": [
+        {
+          "schema": "axm.living-city.enterprise-equipment/v0.8.0",
+          "id": "enterprise_equipment_00007",
+          "enterpriseId": "enterprise_00005",
+          "ownerId": "npc_004",
+          "catalogId": "crate_shelf",
+          "name": "Reused display shelves",
+          "acquiredDay": 1,
+          "acquisition": "starter kit purchased for this enterprise",
+          "condition": 64,
+          "usageSessions": 0,
+          "upgrades": {
+            "care": 0,
+            "reliability": 0,
+            "capacity": 0,
+            "efficiency": 0
+          },
+          "history": [
+            {
+              "id": "equipment_event_00008",
+              "day": 1,
+              "hour": 7,
+              "type": "acquired",
+              "message": "Reused display shelves became enterprise equipment without replacing an older object record.",
+              "actorId": "npc_004",
+              "causes": [
+                "starter kit purchased for this enterprise"
+              ],
+              "evidence": null
+            }
+          ]
+        },
+        {
+          "schema": "axm.living-city.enterprise-equipment/v0.8.0",
+          "id": "enterprise_equipment_00009",
+          "enterpriseId": "enterprise_00005",
+          "ownerId": "npc_004",
+          "catalogId": "small_table",
+          "name": "Assessment table",
+          "acquiredDay": 1,
+          "acquisition": "starter kit purchased for this enterprise",
+          "condition": 69,
+          "usageSessions": 0,
+          "upgrades": {
+            "care": 0,
+            "reliability": 0,
+            "capacity": 0,
+            "efficiency": 0
+          },
+          "history": [
+            {
+              "id": "equipment_event_00010",
+              "day": 1,
+              "hour": 7,
+              "type": "acquired",
+              "message": "Assessment table became enterprise equipment without replacing an older object record.",
+              "actorId": "npc_004",
+              "causes": [
+                "starter kit purchased for this enterprise"
+              ],
+              "evidence": null
+            }
+          ]
+        }
+      ],
+      "collaboratorIds": [],
+      "workerIds": [],
+      "workOfferIds": [],
+      "sessionIds": [],
+      "currentSessionId": null,
+      "customerHistory": [],
+      "totals": {
+        "sessions": 0,
+        "customers": 0,
+        "revenue": 0,
+        "costs": 465,
+        "wages": 0,
+        "freeOrFlexibleServices": 0,
+        "hours": 0,
+        "pausedDays": 0
+      },
+      "optional": true,
+      "noAgeGate": true,
+      "ageGate": null,
+      "noGrowthRequirement": true,
+      "noFailureLabel": true,
+      "history": [
+        {
+          "id": "enterprise_event_00006",
+          "day": 1,
+          "hour": 7,
+          "type": "created",
+          "message": "Yara Prins began Yara's Reuse Nook as Tiny Enterprise.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "chosen enterprise direction",
+            "optional local economy path",
+            "no age gate"
+          ],
+          "evidence": {
+            "sourceProjectId": null,
+            "needId": "need_repair_care",
+            "noGrowthRequirement": true
+          }
+        },
+        {
+          "id": "enterprise_event_00011",
+          "day": 1,
+          "hour": 7,
+          "type": "starter_kit",
+          "message": "Yara Prins funded a bounded starter kit.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit activation"
+          ],
+          "evidence": {
+            "cost": 60,
+            "equipmentIds": [
+              "enterprise_equipment_00007",
+              "enterprise_equipment_00009"
+            ]
+          }
+        },
+        {
+          "id": "enterprise_event_00012",
+          "day": 1,
+          "hour": 7,
+          "type": "premise_leased",
+          "message": "Yara's Reuse Nook lawfully leased Square Kiosk.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit premise choice",
+            "real vacancy"
+          ],
+          "evidence": {
+            "premiseId": "place_square_kiosk",
+            "deposit": 62,
+            "firstWeek": 31
+          }
+        },
+        {
+          "id": "enterprise_event_00044",
+          "day": 8,
+          "hour": 0,
+          "type": "premise_cost_supported",
+          "message": "Yara Prins covered the room-cost gap explicitly.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "enterprise funds below weekly cost"
+          ],
+          "evidence": {
+            "due": 39,
+            "fromFunds": 0,
+            "ownerContribution": 39
+          }
+        },
+        {
+          "id": "enterprise_event_00045",
+          "day": 15,
+          "hour": 0,
+          "type": "premise_cost_supported",
+          "message": "Yara Prins covered the room-cost gap explicitly.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "enterprise funds below weekly cost"
+          ],
+          "evidence": {
+            "due": 39,
+            "fromFunds": 0,
+            "ownerContribution": 39
+          }
+        },
+        {
+          "id": "enterprise_event_00046",
+          "day": 22,
+          "hour": 0,
+          "type": "premise_cost_supported",
+          "message": "Yara Prins covered the room-cost gap explicitly.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "enterprise funds below weekly cost"
+          ],
+          "evidence": {
+            "due": 39,
+            "fromFunds": 0,
+            "ownerContribution": 39
+          }
+        },
+        {
+          "id": "enterprise_event_00047",
+          "day": 29,
+          "hour": 0,
+          "type": "premise_cost_supported",
+          "message": "Yara Prins covered the room-cost gap explicitly.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "enterprise funds below weekly cost"
+          ],
+          "evidence": {
+            "due": 39,
+            "fromFunds": 0,
+            "ownerContribution": 39
+          }
+        },
+        {
+          "id": "enterprise_event_00048",
+          "day": 36,
+          "hour": 0,
+          "type": "premise_cost_supported",
+          "message": "Yara Prins covered the room-cost gap explicitly.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "enterprise funds below weekly cost"
+          ],
+          "evidence": {
+            "due": 39,
+            "fromFunds": 0,
+            "ownerContribution": 39
+          }
+        },
+        {
+          "id": "enterprise_event_00049",
+          "day": 43,
+          "hour": 0,
+          "type": "premise_cost_supported",
+          "message": "Yara Prins covered the room-cost gap explicitly.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "enterprise funds below weekly cost"
+          ],
+          "evidence": {
+            "due": 39,
+            "fromFunds": 0,
+            "ownerContribution": 39
+          }
+        },
+        {
+          "id": "enterprise_event_00050",
+          "day": 50,
+          "hour": 0,
+          "type": "premise_cost_supported",
+          "message": "Yara Prins covered the room-cost gap explicitly.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "enterprise funds below weekly cost"
+          ],
+          "evidence": {
+            "due": 39,
+            "fromFunds": 0,
+            "ownerContribution": 39
+          }
+        },
+        {
+          "id": "enterprise_event_00051",
+          "day": 57,
+          "hour": 0,
+          "type": "premise_cost_supported",
+          "message": "Yara Prins covered the room-cost gap explicitly.",
+          "actorIds": [
+            "npc_004"
+          ],
+          "customerIds": [],
+          "causes": [
+            "enterprise funds below weekly cost"
+          ],
+          "evidence": {
+            "due": 39,
+            "fromFunds": 0,
+            "ownerContribution": 39
+          }
+        }
+      ],
+      "lease": {
+        "depositHeld": 62,
+        "weeklyLease": 31,
+        "utilityBase": 8,
+        "startedDay": 1,
+        "arrears": 0
+      }
+    },
+    {
+      "schema": "axm.living-city.enterprise/v0.8.0",
+      "id": "enterprise_00014",
+      "ownerId": "npc_011",
+      "name": "Sam's Practical Learning Table",
+      "templateId": "learning_table",
+      "sourceProjectId": null,
+      "needId": "need_practical_learning",
+      "path": "occasional_service",
+      "status": "occasional",
+      "purpose": "A small existing direction in the starting town, connected to become excellent at a craft.",
+      "createdDay": 1,
+      "updatedDay": 1,
+      "premiseId": null,
+      "pricing": {
+        "mode": "pay_what_fits",
+        "basePrice": 12
+      },
+      "schedule": {
+        "openDays": [
+          2,
+          5,
+          7
+        ],
+        "startHour": 17,
+        "durationHours": 3,
+        "sessionsPerWeekCap": 3
+      },
+      "funds": 0,
+      "reserveTarget": 36,
+      "reputation": {
+        "care": 50,
+        "reliability": 50,
+        "fit": 50
+      },
+      "equipment": [
+        {
+          "schema": "axm.living-city.enterprise-equipment/v0.8.0",
+          "id": "enterprise_equipment_00016",
+          "enterpriseId": "enterprise_00014",
+          "ownerId": "npc_011",
+          "catalogId": "story_shelf",
+          "name": "Shared reference shelf",
+          "acquiredDay": 1,
+          "acquisition": "starter kit purchased for this enterprise",
+          "condition": 78,
+          "usageSessions": 0,
+          "upgrades": {
+            "care": 0,
+            "reliability": 0,
+            "capacity": 0,
+            "efficiency": 0
+          },
+          "history": [
+            {
+              "id": "equipment_event_00017",
+              "day": 1,
+              "hour": 7,
+              "type": "acquired",
+              "message": "Shared reference shelf became enterprise equipment without replacing an older object record.",
+              "actorId": "npc_011",
+              "causes": [
+                "starter kit purchased for this enterprise"
+              ],
+              "evidence": null
+            }
+          ]
+        }
+      ],
+      "collaboratorIds": [],
+      "workerIds": [],
+      "workOfferIds": [],
+      "sessionIds": [],
+      "currentSessionId": null,
+      "customerHistory": [],
+      "totals": {
+        "sessions": 0,
+        "customers": 0,
+        "revenue": 0,
+        "costs": 45,
+        "wages": 0,
+        "freeOrFlexibleServices": 0,
+        "hours": 0,
+        "pausedDays": 0
+      },
+      "optional": true,
+      "noAgeGate": true,
+      "ageGate": null,
+      "noGrowthRequirement": true,
+      "noFailureLabel": true,
+      "history": [
+        {
+          "id": "enterprise_event_00015",
+          "day": 1,
+          "hour": 7,
+          "type": "created",
+          "message": "Sam Vermeer began Sam's Practical Learning Table as Occasional Service.",
+          "actorIds": [
+            "npc_011"
+          ],
+          "customerIds": [],
+          "causes": [
+            "chosen enterprise direction",
+            "optional local economy path",
+            "no age gate"
+          ],
+          "evidence": {
+            "sourceProjectId": null,
+            "needId": "need_practical_learning",
+            "noGrowthRequirement": true
+          }
+        },
+        {
+          "id": "enterprise_event_00018",
+          "day": 1,
+          "hour": 7,
+          "type": "starter_kit",
+          "message": "Sam Vermeer funded a bounded starter kit.",
+          "actorIds": [
+            "npc_011"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit activation"
+          ],
+          "evidence": {
+            "cost": 45,
+            "equipmentIds": [
+              "enterprise_equipment_00016"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "schema": "axm.living-city.enterprise/v0.8.0",
+      "id": "enterprise_00019",
+      "ownerId": "player",
+      "name": "Keep-It-Going Table",
+      "templateId": "repair_table",
+      "sourceProjectId": "personal_project_00240",
+      "needId": "need_repair_care",
+      "path": "occasional_service",
+      "status": "occasional",
+      "purpose": "A small repair direction that may stay occasional, use actual resident customers, and close without becoming a failed life route.",
+      "createdDay": 1,
+      "updatedDay": 3,
+      "premiseId": null,
+      "pricing": {
+        "mode": "pay_what_fits",
+        "basePrice": 18
+      },
+      "schedule": {
+        "openDays": [
+          2,
+          5,
+          7
+        ],
+        "startHour": 17,
+        "durationHours": 3,
+        "sessionsPerWeekCap": 3
+      },
+      "funds": 114.66,
+      "reserveTarget": 54,
+      "reputation": {
+        "care": 60.8,
+        "reliability": 53.9,
+        "fit": 59.1
+      },
+      "equipment": [
+        {
+          "schema": "axm.living-city.enterprise-equipment/v0.8.0",
+          "id": "enterprise_equipment_00021",
+          "enterpriseId": "enterprise_00019",
+          "ownerId": "player",
+          "catalogId": "workbench",
+          "name": "Compact repair bench",
+          "acquiredDay": 1,
+          "acquisition": "starter kit purchased for this enterprise",
+          "condition": 88.8,
+          "usageSessions": 2,
+          "upgrades": {
+            "care": 0,
+            "reliability": 1,
+            "capacity": 0,
+            "efficiency": 0
+          },
+          "history": [
+            {
+              "id": "equipment_event_00022",
+              "day": 1,
+              "hour": 7,
+              "type": "acquired",
+              "message": "Compact repair bench became enterprise equipment without replacing an older object record.",
+              "actorId": "player",
+              "causes": [
+                "starter kit purchased for this enterprise"
+              ],
+              "evidence": null
+            },
+            {
+              "id": "equipment_event_00032",
+              "day": 1,
+              "hour": 13,
+              "type": "repaired",
+              "message": "Compact repair bench was repaired rather than replaced.",
+              "actorId": "player",
+              "causes": [
+                "explicit equipment care"
+              ],
+              "evidence": {
+                "cost": 13,
+                "condition": 88.8
+              }
+            },
+            {
+              "id": "equipment_event_00033",
+              "day": 1,
+              "hour": 13,
+              "type": "upgraded",
+              "message": "Compact repair bench gained reliability level 1/5 without losing its identity.",
+              "actorId": "player",
+              "causes": [
+                "explicit investment",
+                "upgrade without replacement"
+              ],
+              "evidence": {
+                "axis": "reliability",
+                "level": 1,
+                "cost": 34
+              }
+            }
+          ]
+        }
+      ],
+      "collaboratorIds": [],
+      "workerIds": [
+        "npc_001"
+      ],
+      "workOfferIds": [
+        "enterprise_work_offer_00034"
+      ],
+      "sessionIds": [
+        "enterprise_session_00024",
+        "enterprise_session_00029"
+      ],
+      "currentSessionId": null,
+      "customerHistory": [
+        {
+          "day": 1,
+          "sessionId": "enterprise_session_00024",
+          "personId": "npc_018",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 110.1,
+          "satisfaction": 87.9,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "bounded home-based session"
+          ]
+        },
+        {
+          "day": 1,
+          "sessionId": "enterprise_session_00024",
+          "personId": "npc_005",
+          "price": 12.97,
+          "needId": "need_repair_care",
+          "fit": 80.7,
+          "satisfaction": 79.6,
+          "flexibleOrFree": true,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "bounded home-based session"
+          ]
+        },
+        {
+          "day": 1,
+          "sessionId": "enterprise_session_00024",
+          "personId": "npc_008",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 76.2,
+          "satisfaction": 78.4,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "bounded home-based session"
+          ]
+        },
+        {
+          "day": 1,
+          "sessionId": "enterprise_session_00024",
+          "personId": "npc_015",
+          "price": 15.14,
+          "needId": "need_repair_care",
+          "fit": 67.8,
+          "satisfaction": 76,
+          "flexibleOrFree": true,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "bounded home-based session"
+          ]
+        },
+        {
+          "day": 1,
+          "sessionId": "enterprise_session_00029",
+          "personId": "npc_013",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 98.7,
+          "satisfaction": 85.9,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        },
+        {
+          "day": 1,
+          "sessionId": "enterprise_session_00029",
+          "personId": "npc_018",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 83.1,
+          "satisfaction": 81.4,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        },
+        {
+          "day": 1,
+          "sessionId": "enterprise_session_00029",
+          "personId": "npc_012",
+          "price": 13.52,
+          "needId": "need_repair_care",
+          "fit": 77.1,
+          "satisfaction": 79.7,
+          "flexibleOrFree": true,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        },
+        {
+          "day": 1,
+          "sessionId": "enterprise_session_00029",
+          "personId": "npc_001",
+          "price": 11.52,
+          "needId": "need_repair_care",
+          "fit": 74.4,
+          "satisfaction": 78.9,
+          "flexibleOrFree": true,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        },
+        {
+          "day": 1,
+          "sessionId": "enterprise_session_00029",
+          "personId": "npc_008",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 74.4,
+          "satisfaction": 79,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        }
+      ],
+      "totals": {
+        "sessions": 2,
+        "customers": 9,
+        "revenue": 143.15,
+        "costs": 286.49,
+        "wages": 0,
+        "freeOrFlexibleServices": 4,
+        "hours": 6,
+        "pausedDays": 0
+      },
+      "optional": true,
+      "noAgeGate": true,
+      "ageGate": null,
+      "noGrowthRequirement": true,
+      "noFailureLabel": true,
+      "history": [
+        {
+          "id": "enterprise_event_00020",
+          "day": 1,
+          "hour": 7,
+          "type": "created",
+          "message": "Player began Keep-It-Going Table as Occasional Service.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "chosen personal project connection",
+            "optional local economy path",
+            "no age gate"
+          ],
+          "evidence": {
+            "sourceProjectId": "personal_project_00240",
+            "needId": "need_repair_care",
+            "noGrowthRequirement": true
+          }
+        },
+        {
+          "id": "enterprise_event_00023",
+          "day": 1,
+          "hour": 7,
+          "type": "starter_kit",
+          "message": "Player funded a bounded starter kit.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit activation"
+          ],
+          "evidence": {
+            "cost": 85,
+            "equipmentIds": [
+              "enterprise_equipment_00021"
+            ]
+          }
+        },
+        {
+          "id": "enterprise_event_00025",
+          "day": 1,
+          "hour": 10,
+          "type": "session_completed",
+          "message": "Keep-It-Going Table completed a compressed session with 4 actual resident customers.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [
+            "npc_018",
+            "npc_005",
+            "npc_008",
+            "npc_015"
+          ],
+          "causes": [
+            "bounded session",
+            "actual resident demand",
+            "no spawned customer abstraction"
+          ],
+          "evidence": {
+            "sessionId": "enterprise_session_00024",
+            "revenue": 64.11,
+            "costs": 12.52,
+            "net": 51.59,
+            "avgSatisfaction": 80.5
+          }
+        },
+        {
+          "id": "enterprise_event_00026",
+          "day": 1,
+          "hour": 10,
+          "type": "premise_leased",
+          "message": "Keep-It-Going Table lawfully leased Vacant Lane Workroom.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit premise choice",
+            "real vacancy"
+          ],
+          "evidence": {
+            "premiseId": "place_lane_workroom",
+            "deposit": 84,
+            "firstWeek": 42
+          }
+        },
+        {
+          "id": "enterprise_event_00028",
+          "day": 1,
+          "hour": 10,
+          "type": "path_changed",
+          "message": "Keep-It-Going Table changed direction to Tiny Enterprise.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit owner choice",
+            "no growth ladder"
+          ],
+          "evidence": {
+            "path": "tiny_enterprise"
+          }
+        },
+        {
+          "id": "enterprise_event_00030",
+          "day": 1,
+          "hour": 10,
+          "type": "session_entered",
+          "message": "You entered a work session at Keep-It-Going Table.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit interactive-work choice"
+          ],
+          "evidence": {
+            "sessionId": "enterprise_session_00029"
+          }
+        },
+        {
+          "id": "enterprise_event_00031",
+          "day": 1,
+          "hour": 13,
+          "type": "session_completed",
+          "message": "Keep-It-Going Table completed a interactive session with 5 actual resident customers.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [
+            "npc_013",
+            "npc_018",
+            "npc_012",
+            "npc_001",
+            "npc_008"
+          ],
+          "causes": [
+            "bounded session",
+            "actual resident demand",
+            "no spawned customer abstraction"
+          ],
+          "evidence": {
+            "sessionId": "enterprise_session_00029",
+            "revenue": 79.04,
+            "costs": 15.97,
+            "net": 63.07,
+            "avgSatisfaction": 81
+          }
+        },
+        {
+          "id": "enterprise_event_00035",
+          "day": 1,
+          "hour": 13,
+          "type": "worker_invited",
+          "message": "Bram Bos was offered up to 1 session per week at €24 each.",
+          "actorIds": [
+            "player",
+            "npc_001"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit bounded offer",
+            "autonomous delayed response"
+          ],
+          "evidence": {
+            "offerId": "enterprise_work_offer_00034",
+            "wagePerSession": 24,
+            "sessionsPerWeek": 1
+          }
+        },
+        {
+          "id": "enterprise_event_00037",
+          "day": 1,
+          "hour": 13,
+          "type": "premise_released",
+          "message": "Keep-It-Going Table released Vacant Lane Workroom and received the attributable deposit remainder.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "chosen pause with room release"
+          ],
+          "evidence": {
+            "returnedDeposit": 84,
+            "conditionDeduction": 0
+          }
+        },
+        {
+          "id": "enterprise_event_00038",
+          "day": 1,
+          "hour": 13,
+          "type": "paused",
+          "message": "Keep-It-Going Table paused and released its commercial room, preserving its direction and stopping future room charges.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit owner choice",
+            "casual realism",
+            "stop ongoing room pressure"
+          ],
+          "evidence": {
+            "releasedRoom": true,
+            "returnedDeposit": 84,
+            "continuingWeeklyRoomCost": 0
+          }
+        },
+        {
+          "id": "enterprise_event_00039",
+          "day": 1,
+          "hour": 13,
+          "type": "resumed",
+          "message": "Keep-It-Going Table resumed on its owner’s timetable.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit owner choice",
+            "no streak requirement"
+          ],
+          "evidence": null
+        },
+        {
+          "id": "enterprise_event_00043",
+          "day": 3,
+          "hour": 0,
+          "type": "worker_accepted",
+          "message": "Bram Bos accepted the work offer.",
+          "actorIds": [
+            "player",
+            "npc_001"
+          ],
+          "customerIds": [],
+          "causes": [
+            "autonomous resident response"
+          ],
+          "evidence": {
+            "offerId": "enterprise_work_offer_00034",
+            "score": 50.4,
+            "roll": 7,
+            "relationshipPenalty": 0
+          }
+        }
+      ],
+      "lease": null,
+      "pausedDay": 1,
+      "pausePremisePolicy": "released"
+    },
+    {
+      "schema": "axm.living-city.enterprise/v0.8.0",
+      "id": "enterprise_00040",
+      "ownerId": "player",
+      "name": "Unpublished Window Notes",
+      "templateId": "creative_studio",
+      "sourceProjectId": null,
+      "needId": "need_practical_learning",
+      "path": "private_hobby",
+      "status": "closed",
+      "purpose": "A private practice that proves an economic-capable direction does not have to sell anything.",
+      "createdDay": 1,
+      "updatedDay": 1,
+      "premiseId": null,
+      "pricing": {
+        "mode": "pay_what_fits",
+        "basePrice": 24
+      },
+      "schedule": {
+        "openDays": [
+          2,
+          5,
+          7
+        ],
+        "startHour": 17,
+        "durationHours": 3,
+        "sessionsPerWeekCap": 3
+      },
+      "funds": 0,
+      "reserveTarget": 72,
+      "reputation": {
+        "care": 50,
+        "reliability": 50,
+        "fit": 50
+      },
+      "equipment": [],
+      "collaboratorIds": [],
+      "workerIds": [],
+      "workOfferIds": [],
+      "sessionIds": [],
+      "currentSessionId": null,
+      "customerHistory": [],
+      "totals": {
+        "sessions": 0,
+        "customers": 0,
+        "revenue": 0,
+        "costs": 0,
+        "wages": 0,
+        "freeOrFlexibleServices": 0,
+        "hours": 0,
+        "pausedDays": 0
+      },
+      "optional": true,
+      "noAgeGate": true,
+      "ageGate": null,
+      "noGrowthRequirement": true,
+      "noFailureLabel": true,
+      "history": [
+        {
+          "id": "enterprise_event_00041",
+          "day": 1,
+          "hour": 13,
+          "type": "created",
+          "message": "Player began Unpublished Window Notes as Private Hobby.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "chosen enterprise direction",
+            "optional local economy path",
+            "no age gate"
+          ],
+          "evidence": {
+            "sourceProjectId": null,
+            "needId": "need_practical_learning",
+            "noGrowthRequirement": true
+          }
+        },
+        {
+          "id": "enterprise_event_00042",
+          "day": 1,
+          "hour": 13,
+          "type": "closed",
+          "message": "Unpublished Window Notes closed by choice. Its work, equipment, customers, and reasons remain preserved without a failure label.",
+          "actorIds": [
+            "player"
+          ],
+          "customerIds": [],
+          "causes": [
+            "explicit closure",
+            "history preserved"
+          ],
+          "evidence": {
+            "returnedFunds": 0
+          }
+        }
+      ],
+      "closedDay": 1
+    }
+  ],
+  "enterpriseSessions": [
+    {
+      "schema": "axm.living-city.enterprise-session/v0.8.0",
+      "id": "enterprise_session_00024",
+      "enterpriseId": "enterprise_00019",
+      "ownerId": "player",
+      "actorId": "player",
+      "mode": "compressed",
+      "status": "completed",
+      "startedDay": 1,
+      "startedHour": 7,
+      "endedDay": 1,
+      "endedHour": 10,
+      "taskActions": [
+        "diagnose_first",
+        "restore_carefully",
+        "teach_owner"
+      ],
+      "customers": [
+        {
+          "personId": "npc_018",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 110.1,
+          "satisfaction": 87.9,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "bounded home-based session"
+          ]
+        },
+        {
+          "personId": "npc_005",
+          "price": 12.97,
+          "needId": "need_repair_care",
+          "fit": 80.7,
+          "satisfaction": 79.6,
+          "flexibleOrFree": true,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "bounded home-based session"
+          ]
+        },
+        {
+          "personId": "npc_008",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 76.2,
+          "satisfaction": 78.4,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "bounded home-based session"
+          ]
+        },
+        {
+          "personId": "npc_015",
+          "price": 15.14,
+          "needId": "need_repair_care",
+          "fit": 67.8,
+          "satisfaction": 76,
+          "flexibleOrFree": true,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "bounded home-based session"
+          ]
+        }
+      ],
+      "workerIds": [],
+      "workerOfferIds": [],
+      "wageReserve": 0,
+      "quality": 76,
+      "capacityBonus": 1,
+      "agencyBonus": 4,
+      "sessionSavings": 0,
+      "revenue": 64.11,
+      "costs": 12.52,
+      "hours": 3,
+      "history": [
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "task",
+          "actionId": "diagnose_first",
+          "quality": 10,
+          "capacity": 0,
+          "agency": 0
+        },
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "task",
+          "actionId": "restore_carefully",
+          "quality": 12,
+          "capacity": 1,
+          "agency": 0
+        },
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "task",
+          "actionId": "teach_owner",
+          "quality": 9,
+          "capacity": 0,
+          "agency": 4
+        },
+        {
+          "day": 1,
+          "hour": 10,
+          "type": "settled",
+          "customers": 4,
+          "revenue": 64.11,
+          "costs": 12.52,
+          "net": 51.59
+        }
+      ]
+    },
+    {
+      "schema": "axm.living-city.enterprise-session/v0.8.0",
+      "id": "enterprise_session_00029",
+      "enterpriseId": "enterprise_00019",
+      "ownerId": "player",
+      "actorId": "player",
+      "mode": "interactive",
+      "status": "completed",
+      "startedDay": 1,
+      "startedHour": 10,
+      "endedDay": 1,
+      "endedHour": 13,
+      "taskActions": [
+        "diagnose_first",
+        "restore_carefully",
+        "teach_owner"
+      ],
+      "customers": [
+        {
+          "personId": "npc_013",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 98.7,
+          "satisfaction": 85.9,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        },
+        {
+          "personId": "npc_018",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 83.1,
+          "satisfaction": 81.4,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        },
+        {
+          "personId": "npc_012",
+          "price": 13.52,
+          "needId": "need_repair_care",
+          "fit": 77.1,
+          "satisfaction": 79.7,
+          "flexibleOrFree": true,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        },
+        {
+          "personId": "npc_001",
+          "price": 11.52,
+          "needId": "need_repair_care",
+          "fit": 74.4,
+          "satisfaction": 78.9,
+          "flexibleOrFree": true,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        },
+        {
+          "personId": "npc_008",
+          "price": 18,
+          "needId": "need_repair_care",
+          "fit": 74.4,
+          "satisfaction": 79,
+          "flexibleOrFree": false,
+          "reasons": [
+            "actual resident need fit",
+            "pay_what_fits",
+            "real commercial room"
+          ]
+        }
+      ],
+      "workerIds": [],
+      "workerOfferIds": [],
+      "wageReserve": 0,
+      "quality": 81,
+      "capacityBonus": 1,
+      "agencyBonus": 4,
+      "sessionSavings": 0,
+      "revenue": 79.04,
+      "costs": 15.97,
+      "hours": 3,
+      "history": [
+        {
+          "day": 1,
+          "hour": 10,
+          "type": "task",
+          "actionId": "diagnose_first",
+          "quality": 10,
+          "capacity": 0,
+          "agency": 0
+        },
+        {
+          "day": 1,
+          "hour": 11,
+          "type": "task",
+          "actionId": "restore_carefully",
+          "quality": 12,
+          "capacity": 1,
+          "agency": 0
+        },
+        {
+          "day": 1,
+          "hour": 12,
+          "type": "task",
+          "actionId": "teach_owner",
+          "quality": 9,
+          "capacity": 0,
+          "agency": 4
+        },
+        {
+          "day": 1,
+          "hour": 13,
+          "type": "settled",
+          "customers": 5,
+          "revenue": 79.04,
+          "costs": 15.97,
+          "net": 63.07
+        }
+      ]
+    }
+  ],
+  "enterpriseWorkOffers": [
+    {
+      "schema": "axm.living-city.enterprise-work-offer/v0.8.0",
+      "id": "enterprise_work_offer_00034",
+      "enterpriseId": "enterprise_00019",
+      "offeredById": "player",
+      "personId": "npc_001",
+      "status": "accepted",
+      "createdDay": 1,
+      "createdHour": 13,
+      "dueDay": 3,
+      "expiresDay": 9,
+      "wagePerSession": 24,
+      "sessionsPerWeek": 1,
+      "sessionsWorkedThisWeek": 0,
+      "weekMarker": 0,
+      "lastWorkedDay": null,
+      "response": {
+        "day": 3,
+        "hour": 0,
+        "decision": "accepted",
+        "score": 50.4,
+        "roll": 7
+      },
+      "authority": {
+        "enterpriseWork": true,
+        "enterpriseOwnership": false,
+        "personalMoney": false,
+        "household": false,
+        "tenancy": false,
+        "propertyEdit": false,
+        "familyCare": false,
+        "lifeDirection": false
+      },
+      "history": [
+        {
+          "day": 1,
+          "hour": 13,
+          "type": "offered",
+          "message": "Bram Bos received a bounded enterprise-work offer."
+        },
+        {
+          "day": 3,
+          "hour": 0,
+          "type": "accepted",
+          "message": "Bram Bos accepted the bounded work offer.",
+          "evidence": {
+            "accepted": true,
+            "score": 50.4,
+            "roll": 7
+          }
+        }
+      ]
+    }
+  ]
+}

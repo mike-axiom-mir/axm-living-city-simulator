@@ -1,0 +1,72 @@
+{
+  "schema": "axm.next-build-queue/v1.0",
+  "packageId": "AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3",
+  "currentVersion": "0.11.3",
+  "recommendedBranch": {
+    "id": "LC-V120-LIVED-ROOMS",
+    "name": "Lived Rooms and Object-Use Scenes v0.12.0",
+    "whyNow": "The city now knows lawful presence and real room routes, and v0.11.3 makes completed home actions readable through measured effects, useful object details, sensible context, and distinct success-only echoes. The strongest next step is authoritative active object-use scene state beneath that grammar rather than mistaking feedback or after-the-fact animation for a scene in progress.",
+    "firstExperiment": "One student room, one shared bathroom, one small-house common room, and one shop or institution with real object-use spots, tiny sit/read/cook/repair/create/play/rest scenes, autonomous resident choice, and visible/compressed parity.",
+    "protectedOutcome": "Rooms and persistent objects become entertaining to observe and use while privacy, autonomy, casual realism, object identity, and no routine checklist remain intact."
+  },
+  "stages": [
+    {
+      "order": 1,
+      "id": "object-use-affordances",
+      "deliverable": "map existing objects to bounded actions and valid room/use positions without one best object"
+    },
+    {
+      "order": 2,
+      "id": "scene-state",
+      "deliverable": "one current optional scene with actor, object, room, action, time, and provenance"
+    },
+    {
+      "order": 3,
+      "id": "visible-compressed-scene-parity",
+      "deliverable": "watch or compress the same action with equal cost and outcome"
+    },
+    {
+      "order": 4,
+      "id": "autonomous-object-use",
+      "deliverable": "residents choose grounded activities from needs, personality, interests, schedules, and owned/shared objects"
+    },
+    {
+      "order": 5,
+      "id": "privacy-and-permission",
+      "deliverable": "private scenes remain undisclosed remotely and object use respects room/access/ownership authority"
+    },
+    {
+      "order": 6,
+      "id": "object-history",
+      "deliverable": "meaningful use may add bounded history without turning normal use into durability chores"
+    },
+    {
+      "order": 7,
+      "id": "low-graphic-animation",
+      "deliverable": "bind the existing low-graphic motion grammar to authoritative scene state only after affordance, permission, duration, privacy, and visible/compressed parity exist"
+    }
+  ],
+  "deferred": [
+    "perfect daily routines",
+    "mandatory needs servicing",
+    "continuous animation of every resident",
+    "relationship farming by watching",
+    "remote private-room scenes",
+    "high-detail 3D character rigs",
+    "object-use battle passes or artificial gating"
+  ],
+  "mergeGates": [
+    "one controlled life remains",
+    "agePressure remains false",
+    "no routine or social checklist",
+    "visible mode grants no hidden reward",
+    "compression remains valid",
+    "object identity is preserved",
+    "private scenes remain private",
+    "presence and object use grant no wider authority",
+    "autonomous residents remain autonomous",
+    "no object loss",
+    "local export remains inspectable",
+    "deterministic replay remains stable"
+  ]
+}

@@ -1,0 +1,4 @@
+PASS screenshot group desktop-walkable: captured 3 images
+- walkable_route_planner_desktop.png
+- walkable_visible_route_desktop.png
+- walkable_street_moment_desktop.png

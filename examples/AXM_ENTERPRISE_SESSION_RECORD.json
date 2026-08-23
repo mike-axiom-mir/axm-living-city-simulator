@@ -1,0 +1,120 @@
+{
+  "schema": "axm.living-city.enterprise-session/v0.8.0",
+  "id": "enterprise_session_00024",
+  "enterpriseId": "enterprise_00019",
+  "ownerId": "player",
+  "actorId": "player",
+  "mode": "compressed",
+  "status": "completed",
+  "startedDay": 1,
+  "startedHour": 7,
+  "endedDay": 1,
+  "endedHour": 10,
+  "taskActions": [
+    "diagnose_first",
+    "restore_carefully",
+    "teach_owner"
+  ],
+  "customers": [
+    {
+      "personId": "npc_018",
+      "price": 18,
+      "needId": "need_repair_care",
+      "fit": 110.1,
+      "satisfaction": 87.9,
+      "flexibleOrFree": false,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "bounded home-based session"
+      ]
+    },
+    {
+      "personId": "npc_005",
+      "price": 12.97,
+      "needId": "need_repair_care",
+      "fit": 80.7,
+      "satisfaction": 79.6,
+      "flexibleOrFree": true,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "bounded home-based session"
+      ]
+    },
+    {
+      "personId": "npc_008",
+      "price": 18,
+      "needId": "need_repair_care",
+      "fit": 76.2,
+      "satisfaction": 78.4,
+      "flexibleOrFree": false,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "bounded home-based session"
+      ]
+    },
+    {
+      "personId": "npc_015",
+      "price": 15.14,
+      "needId": "need_repair_care",
+      "fit": 67.8,
+      "satisfaction": 76,
+      "flexibleOrFree": true,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "bounded home-based session"
+      ]
+    }
+  ],
+  "workerIds": [],
+  "workerOfferIds": [],
+  "wageReserve": 0,
+  "quality": 76,
+  "capacityBonus": 1,
+  "agencyBonus": 4,
+  "sessionSavings": 0,
+  "revenue": 64.11,
+  "costs": 12.52,
+  "hours": 3,
+  "history": [
+    {
+      "day": 1,
+      "hour": 7,
+      "type": "task",
+      "actionId": "diagnose_first",
+      "quality": 10,
+      "capacity": 0,
+      "agency": 0
+    },
+    {
+      "day": 1,
+      "hour": 7,
+      "type": "task",
+      "actionId": "restore_carefully",
+      "quality": 12,
+      "capacity": 1,
+      "agency": 0
+    },
+    {
+      "day": 1,
+      "hour": 7,
+      "type": "task",
+      "actionId": "teach_owner",
+      "quality": 9,
+      "capacity": 0,
+      "agency": 4
+    },
+    {
+      "day": 1,
+      "hour": 10,
+      "type": "settled",
+      "customers": 4,
+      "revenue": 64.11,
+      "costs": 12.52,
+      "net": 51.59
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schema": "axm.living-city.local-need/v0.8.0",
+  "id": "need_repair_care",
+  "templateId": "repair_care",
+  "name": "Repair and object care",
+  "description": "Residents have useful things wearing out and would rather understand, maintain, or restore them than replace everything.",
+  "enterpriseTemplates": [
+    "repair_table",
+    "reuse_nook"
+  ],
+  "score": 93.4,
+  "satisfaction": 14.6,
+  "servedCount": 9,
+  "freeOrFlexibleCount": 4,
+  "lastServedDay": 1,
+  "updatedDay": 57,
+  "evidence": {
+    "score": 96,
+    "personIds": [
+      "npc_018",
+      "npc_003",
+      "npc_014",
+      "npc_005",
+      "npc_022",
+      "npc_020",
+      "npc_021",
+      "npc_006",
+      "npc_019",
+      "npc_004"
+    ],
+    "evidenceCount": 23,
+    "detail": {
+      "wornPersonalObjects": 143
+    }
+  },
+  "history": [
+    {
+      "day": 8,
+      "score": 93.4,
+      "evidenceCount": 18
+    },
+    {
+      "day": 15,
+      "score": 93.4,
+      "evidenceCount": 20
+    },
+    {
+      "day": 22,
+      "score": 93.4,
+      "evidenceCount": 19
+    },
+    {
+      "day": 29,
+      "score": 93.4,
+      "evidenceCount": 21
+    },
+    {
+      "day": 36,
+      "score": 93.4,
+      "evidenceCount": 23
+    },
+    {
+      "day": 43,
+      "score": 93.4,
+      "evidenceCount": 23
+    },
+    {
+      "day": 50,
+      "score": 93.4,
+      "evidenceCount": 23
+    },
+    {
+      "day": 57,
+      "score": 93.4,
+      "evidenceCount": 23
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.choice-first-life-course-extension/v0.7.0",
+  "title": "AXM Living City Choice-First Life Course Extension v0.7.0",
+  "description": "The v0.7 choice-first fields layered onto the preserved v0.5 life-course record. The stable record schema remains v0.5 so migration does not silently rewrite earlier provenance.",
+  "type": "object",
+  "required": [
+    "schema",
+    "ageDays",
+    "ageYears",
+    "stage",
+    "birthdayOffset",
+    "stageEnteredDay",
+    "chapterDays",
+    "mode",
+    "agePressure",
+    "exactAgeVisible",
+    "transitionHistory",
+    "chapterChoiceHistory",
+    "provenance"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.life-course/v0.5.0"
+    },
+    "ageDays": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "ageYears": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "stage": {
+      "enum": [
+        "infant",
+        "toddler",
+        "child",
+        "teen",
+        "young_adult",
+        "adult",
+        "elder"
+      ]
+    },
+    "birthdayOffset": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 364
+    },
+    "stageEnteredDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "chapterDays": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "mode": {
+      "enum": [
+        "choice",
+        "calendar"
+      ]
+    },
+    "agePressure": {
+      "const": false
+    },
+    "exactAgeVisible": {
+      "type": "boolean"
+    },
+    "transitionHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "from",
+          "to",
+          "age"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "from": {
+            "enum": [
+              "infant",
+              "toddler",
+              "child",
+              "teen",
+              "young_adult",
+              "adult",
+              "elder"
+            ]
+          },
+          "to": {
+            "enum": [
+              "infant",
+              "toddler",
+              "child",
+              "teen",
+              "young_adult",
+              "adult",
+              "elder"
+            ]
+          },
+          "age": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "mode": {
+            "enum": [
+              "choice",
+              "calendar"
+            ]
+          },
+          "chosenBy": {
+            "type": "string"
+          },
+          "noDeadline": {
+            "type": "boolean"
+          },
+          "noMissedWindow": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "chapterChoiceHistory": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "provenance": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": true
+}

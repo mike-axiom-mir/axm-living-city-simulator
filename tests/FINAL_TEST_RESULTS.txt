@@ -1,0 +1,90 @@
+AXM LIVING CITY — LIVED BUILDINGS AND EVERYDAY PRESENCE v0.11.0
+FINAL TEST RESULTS
+========================================================================
+Generated UTC: 2026-08-16T07:40:49Z
+Overall result: PASS for completed evidence; interrupted convenience runs excluded
+
+PROTECTED CENTER PROVED
+- One directly controlled life remains authoritative.
+- Autonomous residents remain people, not controllable household, property, worker, route, or encounter units.
+- Choice-first life remains active and agePressure is false.
+- Reaching an address does not invent interior entry.
+- Presence, ownership, or observation creates no wider authority.
+- Remote private rooms remain deliberately coarsened.
+- Visible and compressed indoor movement remain equally authoritative.
+- Greetings are optional; quiet, decline, and pass are valid.
+- Watching creates no hidden reward and distant presence remains schedule-scale.
+- Validation diagnoses corruption without silently repairing it.
+
+FOCUSED TESTS
+- Foundation: 12/12
+- Household agreements: 13/13
+- Structural habitats: 19/19
+- Autonomous stewardship: 17/17
+- Family continuity: 21/21
+- Community adventures: 18/18
+- Personal directions: 16/16
+- Living local economy: 23/23
+- Walkable places: 17/17
+- Building shells/frontages: 18/18
+- Lived buildings/presence: 20/20
+- Total: 194/194
+
+FULL-WORLD TOWN INTEGRATION
+- Worlds: 12 × 365 days (4380 primary days).
+- Average moves: 5.17.
+- Average autonomous décor actions: 375.92.
+- Average object upgrades: 803.25.
+- Average distinct home designs: 13.92.
+- Average visibly changed homes: 11.08.
+- Validation failures: 0.
+
+ADULT-HOUSEHOLD DETERMINISTIC STRESS
+- Worlds: 8 × 180 days; every seed executed twice with exact serialized equality.
+- Proposals: 105; accepted: 91; declined: 14.
+- Conflicts: 79; successful repairs: 65; relocations: 8.
+- Autonomous partner initiatives: 81.
+- Tracked member objects across final worlds: 151.
+- Validation failures: 0; object-loss failures: 0; exact-replay failures: 0.
+
+LIVED-BUILDING DETERMINISTIC STRESS
+- Worlds: 8 × 180 days; every seed executed twice with exact serialized equality.
+- Completed indoor movements: 41413.
+- Schedule-scale movements: 41221.
+- Compressed player movements: 192.
+- Grounded movement minutes: 103786.
+- Stair uses: 3624.
+- Lawful arrivals/departures: 96/96.
+- Room transitions: 64.
+- Optional encounters offered/passed: 310/310.
+- Focused and browser tests separately prove grants, greeting, quiet acknowledgment, and decline.
+- Validation failures: 0; object-loss failures: 0; exact-replay failures: 0.
+
+SCHEMAS AND EXAMPLES
+- Draft 2020-12 schema definitions: 56/56.
+- Complete v0.11 exported worlds: 11.
+- Independently validated v0.11-compatible records: 15,833.
+
+BROWSER AND VISUAL QA
+- Broad browser navigation and interaction: 17 views, PASS.
+- Targeted building-shell flow: PASS.
+- Targeted lived-building flow: PASS.
+- Page errors: 0; console errors: 0.
+- Broad screenshots: 58/58.
+- Targeted screenshots: 6.
+- Horizontal-overflow failures: 0.
+
+MEANINGFUL DEFECTS FOUND AND REPAIRED
+- Removed duplicate room-transition metric increment.
+- Made encounter decline truly residue-free, including no empty relationship record.
+- Preserved exact current-save round trips instead of normalizing exterior bookkeeping.
+- Updated inherited travel tests for lawful indoor departure before street movement.
+- Updated browser/visual QA from 16 to 17 views and repaired the intermediate capture harness.
+
+EXECUTION HONESTY
+- All 194 focused tests were rerun independently against the final source.
+- Town, household, and lived-building stress evidence completed and is machine-readable.
+- A slow inherited stewardship/family/community convenience batch exceeded the external window. Its partial stdout is explicitly marked and excluded.
+- The complete v0.10 package remains historical lineage evidence; no old metric is called a fresh v0.11 result.
+
+FINAL RESULT: PASS for the completed and explicitly scoped v0.11 evidence above.

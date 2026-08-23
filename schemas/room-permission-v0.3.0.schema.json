@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.room-permission/v0.3.0",
+  "title": "AXM Graph Room Permission v0.3.0",
+  "description": "Permission bound to a stable room identity rather than a cosmetic rectangle.",
+  "type": "object",
+  "required": [
+    "roomId",
+    "kind",
+    "label",
+    "holderIds",
+    "source"
+  ],
+  "properties": {
+    "roomId": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "player_private",
+        "common",
+        "partner_private"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "holderIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "source": {
+      "const": "room_graph"
+    }
+  },
+  "additionalProperties": false
+}

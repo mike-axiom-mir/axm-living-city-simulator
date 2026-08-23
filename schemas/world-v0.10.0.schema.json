@@ -1,0 +1,2941 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city-sim.world/v0.10.0",
+  "title": "AXM Living City World v0.10.0",
+  "description": "Deterministic local-first world state with building shells, storeys, resident-authored frontage projects, walkable places, and all preserved earlier systems.",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "seed",
+    "rngState",
+    "idCounter",
+    "time",
+    "map",
+    "settings",
+    "player",
+    "people",
+    "places",
+    "households",
+    "householdProposals",
+    "householdIssues",
+    "habitatIntentions",
+    "stewardshipRequests",
+    "familyUnits",
+    "familyProposals",
+    "careRecords",
+    "communityInstitutions",
+    "communityOpportunities",
+    "communityConnections",
+    "adventureThreads",
+    "personalProjects",
+    "ledger",
+    "tutorial",
+    "metrics",
+    "activeShift",
+    "ui",
+    "flags",
+    "localNeeds",
+    "enterprises",
+    "enterpriseSessions",
+    "enterpriseWorkOffers",
+    "activeEnterpriseSessionId",
+    "economyIdCounter",
+    "economyRngState",
+    "streetNetwork",
+    "travelRecords",
+    "streetMoments",
+    "exteriorState",
+    "activeTravel",
+    "exteriorIdCounter",
+    "buildings",
+    "frontageProposals",
+    "frontageProjects",
+    "shellState",
+    "shellIdCounter",
+    "shellRngState"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city-sim.world/v0.10.0"
+    },
+    "version": {
+      "const": "0.10.0"
+    },
+    "seed": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rngState": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "idCounter": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "time": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "minute"
+      ],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "minute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      },
+      "additionalProperties": true
+    },
+    "map": {
+      "type": "object"
+    },
+    "settings": {
+      "type": "object",
+      "required": [
+        "casualRealism",
+        "noDailyStreaks",
+        "opportunityExpiryPenalty",
+        "lifeCourseMode",
+        "showExactAges",
+        "agePressure",
+        "defaultTravelMode",
+        "travelCompressionAllowed",
+        "walkingObligation",
+        "facadeMaintenanceObligation",
+        "frontageDailyDecay",
+        "exteriorOptimizationScore"
+      ],
+      "properties": {
+        "casualRealism": {
+          "type": "boolean"
+        },
+        "noDailyStreaks": {
+          "const": true
+        },
+        "opportunityExpiryPenalty": {
+          "const": false
+        },
+        "lifeCourseMode": {
+          "enum": [
+            "choice",
+            "calendar"
+          ]
+        },
+        "showExactAges": {
+          "type": "boolean"
+        },
+        "agePressure": {
+          "const": false
+        },
+        "defaultTravelMode": {
+          "enum": [
+            "visible",
+            "compressed"
+          ]
+        },
+        "travelCompressionAllowed": {
+          "const": true
+        },
+        "walkingObligation": {
+          "const": false
+        },
+        "facadeMaintenanceObligation": {
+          "const": false
+        },
+        "frontageDailyDecay": {
+          "const": false
+        },
+        "exteriorOptimizationScore": {
+          "const": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "player": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "homePropertyId",
+        "householdId",
+        "money",
+        "relationships",
+        "storedFurniture",
+        "familyUnitId",
+        "lifeCourse",
+        "personalProjectIds",
+        "enterpriseIds",
+        "enterpriseCooldownUntil"
+      ],
+      "properties": {
+        "id": {
+          "const": "player"
+        },
+        "name": {
+          "type": "string"
+        },
+        "homePropertyId": {
+          "type": "string"
+        },
+        "householdId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "money": {
+          "type": "number"
+        },
+        "relationships": {
+          "type": "object"
+        },
+        "storedFurniture": {
+          "type": "array"
+        },
+        "familyUnitId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lifeCourse": {
+          "$ref": "#/$defs/lifeCourse"
+        },
+        "dependent": {
+          "type": "boolean"
+        },
+        "personalProjectIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "personalProjectCooldownUntil": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "enterpriseIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "enterpriseCooldownUntil": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lastTravelRecordId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "people": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "homePropertyId",
+          "householdId",
+          "money",
+          "relationships",
+          "storedFurniture",
+          "familyUnitId",
+          "lifeCourse",
+          "personalProjectIds",
+          "enterpriseIds",
+          "enterpriseCooldownUntil"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "homePropertyId": {
+            "type": "string"
+          },
+          "householdId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "money": {
+            "type": "number"
+          },
+          "relationships": {
+            "type": "object"
+          },
+          "storedFurniture": {
+            "type": "array"
+          },
+          "householdInitiativeCooldownUntil": {
+            "type": "integer"
+          },
+          "habitatIntentionCooldownUntil": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "stewardshipReliability": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "familyUnitId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "lifeCourse": {
+            "$ref": "#/$defs/lifeCourse"
+          },
+          "dependent": {
+            "type": "boolean"
+          },
+          "personalProjectIds": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "personalProjectCooldownUntil": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "enterpriseIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "enterpriseCooldownUntil": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "lastTravelRecordId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "places": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "name",
+          "exterior",
+          "shellRef"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tenants": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ownerId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "furniture": {
+            "type": "array"
+          },
+          "rentBasis": {
+            "enum": [
+              "per_tenant",
+              "whole_property"
+            ]
+          },
+          "utilitiesIncluded": {
+            "type": "boolean"
+          },
+          "weeklyUtilityBase": {
+            "type": "number",
+            "minimum": 0
+          },
+          "habitat": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "schema",
+                  "revision",
+                  "rooms",
+                  "partitions",
+                  "projects",
+                  "layoutHash"
+                ],
+                "properties": {
+                  "schema": {
+                    "const": "axm.structural-habitat/v0.4.0"
+                  },
+                  "revision": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "rooms": {
+                    "type": "array",
+                    "minItems": 1
+                  },
+                  "partitions": {
+                    "type": "array"
+                  },
+                  "projects": {
+                    "type": "array"
+                  },
+                  "layoutHash": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          },
+          "stewardship": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "schema",
+                  "policy",
+                  "requestIds",
+                  "completedIntentionIds",
+                  "history"
+                ],
+                "properties": {
+                  "schema": {
+                    "const": "axm.property-stewardship/v0.4.0"
+                  },
+                  "policy": {
+                    "type": "object"
+                  },
+                  "requestIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "completedIntentionIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "history": {
+                    "type": "array"
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          },
+          "schema": {
+            "type": "string"
+          },
+          "listedForLease": {
+            "type": "boolean"
+          },
+          "occupantEnterpriseId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "weeklyLease": {
+            "type": "number",
+            "minimum": 0
+          },
+          "deposit": {
+            "type": "number",
+            "minimum": 0
+          },
+          "utilityBase": {
+            "type": "number",
+            "minimum": 0
+          },
+          "condition": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "maintenanceReserve": {
+            "type": "number",
+            "minimum": 0
+          },
+          "history": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "exterior": {
+            "type": "object",
+            "required": [
+              "schema",
+              "placeId",
+              "address",
+              "streetId",
+              "entrance",
+              "facade",
+              "source",
+              "history"
+            ],
+            "properties": {
+              "schema": {
+                "const": "axm.living-city.place-exterior/v0.9.0"
+              },
+              "placeId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "address": {
+                "type": "object",
+                "required": [
+                  "number",
+                  "streetName",
+                  "label"
+                ]
+              },
+              "streetId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "entrance": {
+                "type": "object",
+                "required": [
+                  "side",
+                  "position",
+                  "access",
+                  "doorColor",
+                  "publicWhenOpen",
+                  "doorNodeId",
+                  "accessNodeId"
+                ]
+              },
+              "facade": {
+                "type": "object",
+                "required": [
+                  "material",
+                  "windowStyle",
+                  "windowCount",
+                  "roofline",
+                  "frontageType",
+                  "signText",
+                  "signVisible"
+                ]
+              },
+              "source": {
+                "type": "object",
+                "required": [
+                  "kind",
+                  "seed",
+                  "mapPosition"
+                ]
+              },
+              "history": {
+                "type": "array"
+              }
+            },
+            "additionalProperties": true
+          },
+          "shellRef": {
+            "type": "object",
+            "required": [
+              "buildingId",
+              "primaryStoreyId",
+              "storeyIds",
+              "unitRouteNodeId",
+              "streetAccessNodeId"
+            ],
+            "properties": {
+              "buildingId": {
+                "type": "string"
+              },
+              "primaryStoreyId": {
+                "type": "string"
+              },
+              "storeyIds": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "unitRouteNodeId": {
+                "type": "string"
+              },
+              "streetAccessNodeId": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": true,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "residential"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            "then": {
+              "required": [
+                "tenants",
+                "furniture",
+                "habitat",
+                "stewardship"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "commercial"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            "then": {
+              "required": [
+                "schema",
+                "ownerId",
+                "listedForLease",
+                "occupantEnterpriseId",
+                "weeklyLease",
+                "deposit",
+                "utilityBase",
+                "condition",
+                "maintenanceReserve",
+                "history"
+              ],
+              "properties": {
+                "schema": {
+                  "const": "axm.living-city.commercial-premise/v0.8.0"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "households": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/household"
+      }
+    },
+    "householdProposals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/proposal"
+      }
+    },
+    "householdIssues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/issue"
+      }
+    },
+    "ledger": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/historyEvent"
+      }
+    },
+    "tutorial": {
+      "type": "object"
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "activeShift": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "ui": {
+      "type": "object"
+    },
+    "flags": {
+      "type": "object"
+    },
+    "habitatIntentions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "schema",
+          "residentId",
+          "propertyId",
+          "status",
+          "kind",
+          "funding",
+          "history"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "schema": {
+            "const": "axm.habitat-intention/v0.4.0"
+          },
+          "residentId": {
+            "type": "string"
+          },
+          "propertyId": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "saving",
+              "awaiting_permission",
+              "approved_saving",
+              "ready",
+              "working",
+              "completed",
+              "declined",
+              "withdrawn",
+              "failed"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "surface",
+              "repair",
+              "utility",
+              "partition"
+            ]
+          },
+          "funding": {
+            "type": "object"
+          },
+          "history": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "stewardshipRequests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "schema",
+          "intentionId",
+          "residentId",
+          "propertyId",
+          "status",
+          "authorities",
+          "history"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "schema": {
+            "const": "axm.stewardship-request/v0.4.0"
+          },
+          "intentionId": {
+            "type": "string"
+          },
+          "residentId": {
+            "type": "string"
+          },
+          "propertyId": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending_player",
+              "pending_external",
+              "approved",
+              "declined",
+              "withdrawn",
+              "completed",
+              "expired"
+            ]
+          },
+          "authorities": {
+            "type": "object"
+          },
+          "history": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "familyUnits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "schema",
+          "status",
+          "members",
+          "carePlan",
+          "roomAssignments",
+          "history"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "schema": {
+            "const": "axm.living-city.family-unit/v0.5.0"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "continuing_separately",
+              "ended"
+            ]
+          },
+          "members": {
+            "type": "array",
+            "minItems": 2
+          },
+          "carePlan": {
+            "type": "object"
+          },
+          "roomAssignments": {
+            "type": "array"
+          },
+          "history": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "familyProposals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "schema",
+          "type",
+          "status",
+          "proposerId",
+          "recipientIds",
+          "terms",
+          "history"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "schema": {
+            "const": "axm.living-city.family-proposal/v0.5.0"
+          },
+          "type": {
+            "enum": [
+              "parenthood",
+              "care_plan",
+              "education_plan",
+              "room_plan",
+              "family_ritual"
+            ]
+          },
+          "status": {
+            "enum": [
+              "pending_npc",
+              "awaiting_player",
+              "accepted",
+              "declined",
+              "withdrawn",
+              "expired",
+              "waiting_space",
+              "implemented"
+            ]
+          },
+          "proposerId": {
+            "type": "string"
+          },
+          "recipientIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "terms": {
+            "type": "object"
+          },
+          "history": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "careRecords": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "schema",
+          "familyUnitId",
+          "personId",
+          "day",
+          "requiredHours",
+          "playerHours",
+          "partnerHours",
+          "communityHours",
+          "cost",
+          "actions",
+          "needsMet",
+          "environmentSupport",
+          "strainAdded",
+          "finalized"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "schema": {
+            "const": "axm.living-city.care-record/v0.5.0"
+          },
+          "familyUnitId": {
+            "type": "string"
+          },
+          "personId": {
+            "type": "string"
+          },
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "requiredHours": {
+            "type": "number",
+            "minimum": 0
+          },
+          "playerHours": {
+            "type": "number",
+            "minimum": 0
+          },
+          "partnerHours": {
+            "type": "number",
+            "minimum": 0
+          },
+          "communityHours": {
+            "type": "number",
+            "minimum": 0
+          },
+          "cost": {
+            "type": "number",
+            "minimum": 0
+          },
+          "actions": {
+            "type": "array"
+          },
+          "needsMet": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "environmentSupport": {
+            "type": "number",
+            "minimum": 0
+          },
+          "strainAdded": {
+            "type": "number",
+            "minimum": 0
+          },
+          "finalized": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "communityInstitutions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "name",
+          "kind",
+          "placeId",
+          "capacity",
+          "members",
+          "history"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.community-institution/v0.6.0"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string"
+          },
+          "placeId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "capacity": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "members": {
+            "type": "array"
+          },
+          "history": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "communityOpportunities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "kind",
+          "title",
+          "placeId",
+          "eventDay",
+          "startHour",
+          "durationHours",
+          "expiresDay",
+          "status",
+          "participantIds",
+          "authority",
+          "history"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.community-opportunity/v0.6.0"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "placeId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "eventDay": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "startHour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "durationHours": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "expiresDay": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string"
+          },
+          "participantIds": {
+            "type": "array"
+          },
+          "authority": {
+            "type": "object"
+          },
+          "history": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "communityConnections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "personIds",
+          "kind",
+          "warmth",
+          "trust",
+          "status",
+          "history"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.community-connection/v0.6.0"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "personIds": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "string"
+            }
+          },
+          "kind": {
+            "type": "string"
+          },
+          "warmth": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "trust": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "status": {
+            "type": "string"
+          },
+          "history": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "adventureThreads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "ownerId",
+          "templateId",
+          "title",
+          "status",
+          "stageIndex",
+          "stages",
+          "noDeadline",
+          "history"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.adventure-thread/v0.6.0"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ownerId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "templateId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "active",
+              "completed",
+              "released"
+            ]
+          },
+          "stageIndex": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "stages": {
+            "type": "array",
+            "minItems": 1
+          },
+          "noDeadline": {
+            "const": true
+          },
+          "history": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "personalProjects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/personalProject"
+      }
+    },
+    "localNeeds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.local-need/v0.8.0"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "enterprises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "ownerId",
+          "optional",
+          "noAgeGate",
+          "ageGate",
+          "noGrowthRequirement",
+          "noFailureLabel"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.enterprise/v0.8.0"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ownerId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "optional": {
+            "const": true
+          },
+          "noAgeGate": {
+            "const": true
+          },
+          "ageGate": {
+            "type": "null"
+          },
+          "noGrowthRequirement": {
+            "const": true
+          },
+          "noFailureLabel": {
+            "const": true
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "enterpriseSessions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "enterpriseId",
+          "customers"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.enterprise-session/v0.8.0"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "enterpriseId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "customers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "personId"
+              ],
+              "properties": {
+                "personId": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "enterpriseWorkOffers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "enterpriseId",
+          "personId",
+          "authority"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.enterprise-work-offer/v0.8.0"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "enterpriseId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "personId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authority": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "activeEnterpriseSessionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "economyIdCounter": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "economyRngState": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "streetNetwork": {
+      "type": "object",
+      "required": [
+        "schema",
+        "generatedFrom",
+        "lanes",
+        "connectors",
+        "nodes",
+        "edges",
+        "adjacency"
+      ],
+      "properties": {
+        "schema": {
+          "const": "axm.living-city.street-network/v0.9.0"
+        }
+      },
+      "additionalProperties": true
+    },
+    "travelRecords": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "actorId",
+          "originPlaceId",
+          "destinationPlaceId",
+          "mode",
+          "status",
+          "route",
+          "startedAt",
+          "completedAt",
+          "elapsedMinutes",
+          "observations",
+          "history"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.travel-record/v0.9.0"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "streetMoments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "day",
+          "hour",
+          "minute",
+          "nodeId",
+          "actorIds",
+          "text",
+          "consequence"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.street-moment/v0.9.0"
+          },
+          "consequence": {
+            "const": "observation_only"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "exteriorState": {
+      "type": "object",
+      "required": [
+        "networkHash",
+        "lastPlayerPlaceId"
+      ],
+      "properties": {
+        "networkHash": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lastPlayerPlaceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "activeTravel": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "recordId"
+          ],
+          "properties": {
+            "recordId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "exteriorIdCounter": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "buildings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "placeIds",
+          "storeys",
+          "frontages"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.building-shell/v0.10.0"
+          },
+          "id": {
+            "type": "string"
+          },
+          "placeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "storeys": {
+            "type": "array",
+            "minItems": 1
+          },
+          "frontages": {
+            "type": "array",
+            "minItems": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "frontageProposals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "buildingId",
+          "placeId",
+          "authorId",
+          "status",
+          "change",
+          "authority",
+          "finance",
+          "noRelationshipPenalty"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.frontage-proposal/v0.10.0"
+          },
+          "id": {
+            "type": "string"
+          },
+          "buildingId": {
+            "type": "string"
+          },
+          "placeId": {
+            "type": "string"
+          },
+          "authorId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "change": {
+            "type": "object"
+          },
+          "authority": {
+            "type": "object"
+          },
+          "finance": {
+            "type": "object"
+          },
+          "noRelationshipPenalty": {
+            "const": true
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "frontageProjects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "proposalId",
+          "buildingId",
+          "placeId",
+          "actorId",
+          "status",
+          "phases"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.frontage-project/v0.10.0"
+          },
+          "id": {
+            "type": "string"
+          },
+          "proposalId": {
+            "type": "string"
+          },
+          "buildingId": {
+            "type": "string"
+          },
+          "placeId": {
+            "type": "string"
+          },
+          "actorId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "phases": {
+            "type": "array"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "shellState": {
+      "type": "object"
+    },
+    "shellIdCounter": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "shellRngState": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "historyEvent": {
+      "type": "object",
+      "required": [
+        "id",
+        "day",
+        "hour",
+        "type",
+        "message"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "actorIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "actorId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "proposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "issueId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "causes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {},
+        "minute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      },
+      "additionalProperties": true
+    },
+    "zone": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "holderIds",
+        "rect"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "player_private",
+            "common",
+            "partner_private"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "holderIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "rect": {
+          "type": "object",
+          "required": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ],
+          "properties": {
+            "x": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "y": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "w": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "h": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "agreement": {
+      "type": "object",
+      "required": [
+        "commitment",
+        "finances",
+        "space",
+        "relocation",
+        "renovation",
+        "goals",
+        "dissolution"
+      ],
+      "properties": {
+        "commitment": {
+          "const": "partner"
+        },
+        "finances": {
+          "type": "object",
+          "required": [
+            "mode",
+            "shares",
+            "weeklyReserveTarget",
+            "personalAccountsRemainSeparate",
+            "sharedReserveRequiresMutualConsent"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "equal",
+                "income_weighted",
+                "player_covers_more",
+                "partner_covers_more",
+                "separate"
+              ]
+            },
+            "shares": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "weeklyReserveTarget": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 120
+            },
+            "personalAccountsRemainSeparate": {
+              "const": true
+            },
+            "sharedReserveRequiresMutualConsent": {
+              "const": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "space": {
+          "type": "object",
+          "required": [
+            "mode",
+            "editPolicy",
+            "zones"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "mostly_shared",
+                "private_edges_shared_center",
+                "strong_private"
+              ]
+            },
+            "editPolicy": {
+              "const": "owner_or_accepted_proposal"
+            },
+            "zones": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/zone"
+              }
+            }
+          },
+          "additionalProperties": true
+        },
+        "relocation": {
+          "type": "object",
+          "required": [
+            "requiresUnanimousConsent",
+            "noUnilateralDisplacement"
+          ],
+          "properties": {
+            "requiresUnanimousConsent": {
+              "const": true
+            },
+            "noUnilateralDisplacement": {
+              "const": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "renovation": {
+          "type": "object",
+          "required": [
+            "partnerObjectsRequireOwnerConsent",
+            "commonChangesRequireAcceptedProposal"
+          ],
+          "properties": {
+            "partnerObjectsRequireOwnerConsent": {
+              "const": true
+            },
+            "commonChangesRequireAcceptedProposal": {
+              "const": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "target",
+              "progress",
+              "status"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "shared_safety_fund",
+                  "improve_home",
+                  "move_to_better_home",
+                  "protect_free_time"
+                ]
+              },
+              "target": {
+                "type": "number",
+                "minimum": 0
+              },
+              "progress": {
+                "type": "number",
+                "minimum": 0
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "complete",
+                  "replaced"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "dissolution": {
+          "type": "object",
+          "required": [
+            "exitIsUnilateral",
+            "noForcedEviction",
+            "reserveRule"
+          ],
+          "properties": {
+            "exitIsUnilateral": {
+              "const": true
+            },
+            "noForcedEviction": {
+              "const": true
+            },
+            "reserveRule": {
+              "const": "recorded_contributions_or_equal"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "household": {
+      "type": "object",
+      "required": [
+        "id",
+        "memberIds",
+        "status",
+        "homePropertyId",
+        "createdDay",
+        "createdHour",
+        "revision",
+        "agreement",
+        "sharedReserve",
+        "strain",
+        "unresolvedIssueIds",
+        "history"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "memberIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "active",
+            "ended"
+          ]
+        },
+        "homePropertyId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "createdHour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "agreement": {
+          "$ref": "#/$defs/agreement"
+        },
+        "sharedReserve": {
+          "type": "number",
+          "minimum": 0
+        },
+        "strain": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "unresolvedIssueIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "lastConflictDay": {
+          "type": "integer"
+        },
+        "lastReviewDay": {
+          "type": "integer"
+        },
+        "nextNpcInitiativeDay": {
+          "type": "integer"
+        },
+        "lastReserveWeek": {
+          "type": "integer"
+        },
+        "completedRelocations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "endedDay": {
+          "type": "integer"
+        },
+        "endedHour": {
+          "type": "integer"
+        },
+        "endMode": {
+          "type": "string"
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyEvent"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "proposal": {
+      "type": "object",
+      "required": [
+        "id",
+        "householdId",
+        "type",
+        "proposerId",
+        "recipientIds",
+        "status",
+        "terms",
+        "createdDay",
+        "createdHour",
+        "dueDay",
+        "expiresDay",
+        "history"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "householdId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "enum": [
+            "commitment",
+            "cohabitation",
+            "finance",
+            "space",
+            "relocation",
+            "goal",
+            "renovation"
+          ]
+        },
+        "proposerId": {
+          "type": "string"
+        },
+        "recipientIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "pending_npc",
+            "awaiting_player",
+            "accepted",
+            "implemented",
+            "countered",
+            "declined",
+            "withdrawn",
+            "expired",
+            "failed"
+          ]
+        },
+        "terms": {
+          "type": "object"
+        },
+        "parentProposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "createdHour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "dueDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "expiresDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "response": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyEvent"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "id",
+        "householdId",
+        "type",
+        "status",
+        "severity",
+        "createdDay",
+        "createdHour",
+        "resolvedDay",
+        "repairAttempts",
+        "message",
+        "history"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "householdId": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "money",
+            "space",
+            "style",
+            "time",
+            "independence"
+          ]
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "closed"
+          ]
+        },
+        "severity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "createdDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "createdHour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "resolvedDay": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "repairAttempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "evidence": {},
+        "history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyEvent"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "lifeCourse": {
+      "type": "object",
+      "required": [
+        "schema",
+        "ageDays",
+        "ageYears",
+        "stage",
+        "birthdayOffset",
+        "stageEnteredDay",
+        "transitionHistory",
+        "provenance",
+        "chapterDays",
+        "mode",
+        "agePressure",
+        "exactAgeVisible",
+        "chapterChoiceHistory"
+      ],
+      "properties": {
+        "schema": {
+          "const": "axm.living-city.life-course/v0.5.0"
+        },
+        "ageDays": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ageYears": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stage": {
+          "enum": [
+            "infant",
+            "toddler",
+            "child",
+            "teen",
+            "young_adult",
+            "adult",
+            "elder"
+          ]
+        },
+        "birthdayOffset": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 364
+        },
+        "stageEnteredDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "transitionHistory": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "day",
+              "from",
+              "to",
+              "age"
+            ],
+            "properties": {
+              "day": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "from": {
+                "enum": [
+                  "infant",
+                  "toddler",
+                  "child",
+                  "teen",
+                  "young_adult",
+                  "adult",
+                  "elder"
+                ]
+              },
+              "to": {
+                "enum": [
+                  "infant",
+                  "toddler",
+                  "child",
+                  "teen",
+                  "young_adult",
+                  "adult",
+                  "elder"
+                ]
+              },
+              "age": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "provenance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "chapterDays": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mode": {
+          "enum": [
+            "choice",
+            "calendar"
+          ]
+        },
+        "agePressure": {
+          "const": false
+        },
+        "exactAgeVisible": {
+          "type": "boolean"
+        },
+        "chapterChoiceHistory": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "personalProject": {
+      "type": "object",
+      "required": [
+        "schema",
+        "id",
+        "ownerId",
+        "templateId",
+        "type",
+        "title",
+        "meaning",
+        "status",
+        "createdDay",
+        "createdHour",
+        "updatedDay",
+        "pausedDay",
+        "completedDay",
+        "releasedDay",
+        "archivedDay",
+        "noDeadline",
+        "noAgeGate",
+        "ageGate",
+        "lifeContext",
+        "target",
+        "tags",
+        "stageIndex",
+        "chapters",
+        "collaboratorIds",
+        "collaborationRequests",
+        "reshapes",
+        "evidence",
+        "history"
+      ],
+      "properties": {
+        "schema": {
+          "const": "axm.living-city.personal-project/v0.7.0"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "templateId": {
+          "enum": [
+            "restoration",
+            "making",
+            "creative",
+            "collection",
+            "garden",
+            "research",
+            "local_journey",
+            "learning"
+          ]
+        },
+        "type": {
+          "enum": [
+            "restoration",
+            "making",
+            "creative",
+            "collection",
+            "garden",
+            "research",
+            "local_journey",
+            "learning"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 320
+        },
+        "status": {
+          "enum": [
+            "active",
+            "paused",
+            "completed",
+            "released",
+            "archived"
+          ]
+        },
+        "createdDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "createdHour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "updatedDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pausedDay": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "completedDay": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "releasedDay": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "archivedDay": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "noDeadline": {
+          "const": true
+        },
+        "noAgeGate": {
+          "const": true
+        },
+        "ageGate": {
+          "type": "null"
+        },
+        "lifeContext": {
+          "type": "object",
+          "required": [
+            "stageAtCreation",
+            "modeAtCreation",
+            "exactAgeRequired"
+          ],
+          "properties": {
+            "stageAtCreation": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "infant",
+                "toddler",
+                "child",
+                "teen",
+                "young_adult",
+                "adult",
+                "elder",
+                null
+              ]
+            },
+            "modeAtCreation": {
+              "enum": [
+                "choice",
+                "calendar"
+              ]
+            },
+            "exactAgeRequired": {
+              "const": false
+            }
+          },
+          "additionalProperties": true
+        },
+        "target": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "objectId",
+                "objectCatalogId",
+                "label",
+                "propertyId",
+                "storedAtCreation",
+                "ownershipAtCreation",
+                "provenance"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "object"
+                },
+                "objectId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "objectCatalogId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "propertyId": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "storedAtCreation": {
+                  "type": "boolean"
+                },
+                "ownershipAtCreation": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "provenance": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": true
+            },
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "placeId",
+                "label",
+                "provenance"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "place"
+                },
+                "placeId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "provenance": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": true
+            }
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stageIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "chapters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "title",
+              "description",
+              "hours",
+              "money",
+              "materials",
+              "skillEffects",
+              "needEffects",
+              "status",
+              "completedDay",
+              "completedHour",
+              "contribution"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "hours": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "money": {
+                "type": "number",
+                "minimum": 0
+              },
+              "materials": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "skillEffects": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              },
+              "needEffects": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              },
+              "objectEffects": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              },
+              "status": {
+                "enum": [
+                  "open",
+                  "locked",
+                  "completed"
+                ]
+              },
+              "completedDay": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 1
+              },
+              "completedHour": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 23
+              },
+              "contribution": {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "collaboratorIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "collaborationRequests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "personId",
+              "status",
+              "createdDay",
+              "createdHour",
+              "dueDay",
+              "responseDay",
+              "evidence"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "personId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "pending_npc",
+                  "accepted",
+                  "declined",
+                  "withdrawn"
+                ]
+              },
+              "createdDay": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "createdHour": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 23
+              },
+              "dueDay": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "responseDay": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 1
+              },
+              "evidence": {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "reshapes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "meaning",
+              "day"
+            ],
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "meaning": {
+                "type": "string"
+              },
+              "day": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "required": [
+            "hoursWorked",
+            "moneySpent",
+            "materialsSpent",
+            "objectHistoryEntries",
+            "collaboratorHours"
+          ],
+          "properties": {
+            "hoursWorked": {
+              "type": "number",
+              "minimum": 0
+            },
+            "moneySpent": {
+              "type": "number",
+              "minimum": 0
+            },
+            "materialsSpent": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "objectHistoryEntries": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "collaboratorHours": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": true
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "day",
+              "hour",
+              "type",
+              "message",
+              "actorIds",
+              "chapterId",
+              "causes",
+              "evidence"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "day": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "hour": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 23
+              },
+              "type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1
+              },
+              "actorIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "chapterId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "causes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "evidence": {}
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

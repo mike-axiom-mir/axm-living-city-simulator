@@ -1,0 +1,181 @@
+{
+  "schema": "axm.living-city.indoor-movement/v0.11.0",
+  "id": "indoor_movement_000003",
+  "actorId": "player",
+  "kind": "arrival",
+  "mode": "visible",
+  "status": "completed",
+  "placeId": "home_rooftop",
+  "buildingId": "building_home_rooftop",
+  "startedAt": {
+    "day": 1,
+    "hour": 7,
+    "minute": 0
+  },
+  "completedAt": {
+    "day": 1,
+    "hour": 7,
+    "minute": 4
+  },
+  "currentStepIndex": 4,
+  "elapsedMinutes": 4,
+  "route": {
+    "buildingId": "building_home_rooftop",
+    "placeId": "home_rooftop",
+    "direction": "arrival",
+    "steps": [
+      {
+        "id": "arrival_building_home_rooftop_route_001",
+        "kind": "entry_passage",
+        "edgeId": "building_home_rooftop_route_001",
+        "fromNodeId": "building_home_rooftop_street_access_1",
+        "toNodeId": "building_home_rooftop_landing_0",
+        "minutes": 1,
+        "level": 0,
+        "label": "Move through Ground landing"
+      },
+      {
+        "id": "arrival_building_home_rooftop_route_002",
+        "kind": "stairs",
+        "edgeId": "building_home_rooftop_route_002",
+        "fromNodeId": "building_home_rooftop_landing_0",
+        "toNodeId": "building_home_rooftop_landing_1",
+        "minutes": 1,
+        "level": 1,
+        "label": "Climb the stairs to Upper floor"
+      },
+      {
+        "id": "arrival_building_home_rooftop_route_003",
+        "kind": "unit_entry",
+        "edgeId": "building_home_rooftop_route_003",
+        "fromNodeId": "building_home_rooftop_landing_1",
+        "toNodeId": "building_home_rooftop_unit_home_rooftop",
+        "minutes": 1,
+        "level": 1,
+        "label": "Reach Rooftop Walk-up"
+      },
+      {
+        "id": "arrival_room_room_home_rooftop_001",
+        "kind": "room_entry",
+        "edgeId": null,
+        "fromNodeId": "building_home_rooftop_unit_home_rooftop",
+        "toNodeId": null,
+        "minutes": 1,
+        "roomId": "room_home_rooftop_001",
+        "level": 1,
+        "label": "Enter Kitchen"
+      }
+    ],
+    "totalMinutes": 4,
+    "stairSteps": 1,
+    "sourceShellRoute": {
+      "buildingId": "building_home_rooftop",
+      "fromNodeId": "building_home_rooftop_street_access_1",
+      "toNodeId": "building_home_rooftop_unit_home_rooftop",
+      "nodeIds": [
+        "building_home_rooftop_street_access_1",
+        "building_home_rooftop_landing_0",
+        "building_home_rooftop_landing_1",
+        "building_home_rooftop_unit_home_rooftop"
+      ],
+      "edgeIds": [
+        "building_home_rooftop_route_001",
+        "building_home_rooftop_route_002",
+        "building_home_rooftop_route_003"
+      ],
+      "minutes": 1
+    }
+  },
+  "access": {
+    "basis": "accepted_presence_grant",
+    "sourceId": "presence_access_000001",
+    "authority": {
+      "tenancy": false,
+      "ownership": false,
+      "edit": false,
+      "storage": false,
+      "household": false,
+      "care": false,
+      "surveillance": false
+    }
+  },
+  "noWatchingReward": true,
+  "noAuthorityFromPresence": true,
+  "history": [
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 0
+      },
+      "type": "created",
+      "message": "Arrival route created in visible mode."
+    },
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 1
+      },
+      "type": "step",
+      "stepId": "arrival_building_home_rooftop_route_001",
+      "kind": "entry_passage",
+      "minutes": 1,
+      "message": "Move through Ground landing"
+    },
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 2
+      },
+      "type": "step",
+      "stepId": "arrival_building_home_rooftop_route_002",
+      "kind": "stairs",
+      "minutes": 1,
+      "message": "Climb the stairs to Upper floor"
+    },
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 3
+      },
+      "type": "step",
+      "stepId": "arrival_building_home_rooftop_route_003",
+      "kind": "unit_entry",
+      "minutes": 1,
+      "message": "Reach Rooftop Walk-up"
+    },
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 4
+      },
+      "type": "step",
+      "stepId": "arrival_room_room_home_rooftop_001",
+      "kind": "room_entry",
+      "minutes": 1,
+      "message": "Enter Kitchen"
+    },
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 4
+      },
+      "type": "remaining_route_compressed",
+      "message": "The remaining lawful indoor route was compressed with unchanged time, stair, presence, and encounter evidence."
+    },
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 4
+      },
+      "type": "completed",
+      "message": "Arrival completed without changing legal home, ownership, or authority."
+    }
+  ]
+}

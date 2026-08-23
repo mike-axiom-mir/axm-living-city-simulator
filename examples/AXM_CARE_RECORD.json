@@ -1,0 +1,30 @@
+{
+  "id": "care_00301",
+  "schema": "axm.living-city.care-record/v0.5.0",
+  "familyUnitId": "family_00270",
+  "personId": "dependent_00273",
+  "day": 1,
+  "requiredHours": 2,
+  "playerHours": 1,
+  "partnerHours": 0,
+  "communityHours": 0,
+  "cost": 0,
+  "actions": [
+    {
+      "actionId": "listen_check_in",
+      "actorId": "player",
+      "accepted": true,
+      "hours": 1,
+      "cost": 0,
+      "evidence": {
+        "accepted": true,
+        "score": 92.8,
+        "roll": 68
+      }
+    }
+  ],
+  "needsMet": false,
+  "environmentSupport": 68.8,
+  "strainAdded": 0.65,
+  "finalized": true
+}

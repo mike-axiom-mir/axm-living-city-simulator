@@ -1,0 +1,378 @@
+{
+  "schema": "axm.module-registry/v1.0",
+  "packageId": "AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3",
+  "version": "0.11.3",
+  "modules": [
+    {
+      "id": "living-city.core",
+      "namespace": "AXM.Core",
+      "source": "src/core.js",
+      "status": "implemented",
+      "role": "deterministic utilities, IDs, hashes, serialization, ledger, and object/place history"
+    },
+    {
+      "id": "living-city.world",
+      "namespace": "AXM.World",
+      "source": "src/world.js",
+      "status": "implemented",
+      "role": "authoritative people, places, objects, time, settings, metrics, and seeded generation"
+    },
+    {
+      "id": "living-city.systems",
+      "namespace": "AXM.Systems",
+      "source": "src/systems.js",
+      "status": "implemented",
+      "role": "minute/hour/day time, needs, jobs, housing, schedules, migration, and cross-system validation"
+    },
+    {
+      "id": "single-life-autonomy",
+      "namespace": "AXM.World + AXM.Systems",
+      "source": "src/world.js",
+      "status": "implemented",
+      "role": "one directly controlled player among autonomous residents"
+    },
+    {
+      "id": "upgrade-without-replacement",
+      "namespace": "AXM.Systems",
+      "source": "src/systems.js",
+      "status": "implemented",
+      "role": "object growth without forced catalogue convergence or identity loss"
+    },
+    {
+      "id": "household-agreement-engine",
+      "namespace": "AXM.Households",
+      "source": "src/households.js",
+      "status": "implemented",
+      "role": "adult consent, cohabitation, finance, boundaries, conflict, repair, and exit"
+    },
+    {
+      "id": "structural-habitat-engine",
+      "namespace": "AXM.Habitats",
+      "source": "src/habitats.js",
+      "status": "implemented",
+      "role": "rooms, walls, doors, surfaces, utilities, projects, validation, and rollback"
+    },
+    {
+      "id": "autonomous-habitat-shaper",
+      "namespace": "AXM.Stewardship",
+      "source": "src/stewardship.js",
+      "status": "implemented",
+      "role": "resident intentions, funding, permission, phased interior construction, and property history"
+    },
+    {
+      "id": "family-continuity",
+      "namespace": "AXM.Family",
+      "source": "src/family.js",
+      "status": "implemented",
+      "role": "dependents, care, education, family graph, choice-first chapter and housing continuity"
+    },
+    {
+      "id": "community-adventure-engine",
+      "namespace": "AXM.Community",
+      "source": "src/community.js",
+      "status": "implemented",
+      "role": "institutions, waitlists, invitations, visits, connections, and no-deadline adventures"
+    },
+    {
+      "id": "personal-directions-engine",
+      "namespace": "AXM.Directions",
+      "source": "src/directions.js",
+      "status": "implemented",
+      "role": "undated projects, restoration, collaboration, reshape, release, and provenance"
+    },
+    {
+      "id": "living-local-economy",
+      "namespace": "AXM.Economy",
+      "source": "src/economy.js",
+      "status": "implemented",
+      "role": "optional enterprise connected to actual residents, places, money, work, and projects"
+    },
+    {
+      "id": "deterministic-place-exteriorizer",
+      "namespace": "AXM.Exteriors",
+      "source": "src/exteriors.js",
+      "status": "implemented",
+      "role": "stable seeded addresses, fa\u00e7ades, windows, rooflines, doors, access, signs, and source provenance"
+    },
+    {
+      "id": "entrance-street-graph",
+      "namespace": "AXM.Exteriors",
+      "source": "src/exteriors.js",
+      "status": "implemented",
+      "role": "connected place doors, lanes, passages, distances, durations, and adjacency"
+    },
+    {
+      "id": "travel-compression-parity",
+      "namespace": "AXM.Exteriors + AXM.Systems",
+      "source": "src/exteriors.js",
+      "status": "implemented",
+      "role": "visible, segmented, compressed, and early-end travel with equal grounded costs"
+    },
+    {
+      "id": "observation-only-street-moments",
+      "namespace": "AXM.Exteriors",
+      "source": "src/exteriors.js",
+      "status": "implemented",
+      "role": "street atmosphere without forced interaction, reward, penalty, or authority"
+    },
+    {
+      "id": "nonserialized-route-cache",
+      "namespace": "AXM.Exteriors",
+      "source": "src/exteriors.js",
+      "status": "implemented",
+      "role": "runtime WeakMap cache for pure route results, excluded from saves and authority"
+    },
+    {
+      "id": "deterministic-place-to-building-grouper",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "assigns every place exactly once while allowing multiple places to share one persistent shell"
+    },
+    {
+      "id": "low-graphic-storey-envelope",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "closed storey wall graph with stable nodes, wall edges, typed windows and external doors"
+    },
+    {
+      "id": "vertical-continuity-router",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "street access, landings, unit entries, stairs, and verified upper-floor reachability"
+    },
+    {
+      "id": "interior-exterior-continuity-bridge",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "links exterior entrance and building route to an existing habitat entry room without granting authority"
+    },
+    {
+      "id": "resident-authored-frontage-proposals",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "exact before/after frontage ideas with scoped owner decision and refusal-neutral evidence"
+    },
+    {
+      "id": "proposal-not-construction-gate",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "separates idea, permission, funding, phases, mutation, validation, and rollback"
+    },
+    {
+      "id": "resident-frontage-escrow",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "attributable personal saving toward exact accepted frontage work"
+    },
+    {
+      "id": "snapshot-shell-validator",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "post-mutation validation with state rollback and preserved failure evidence"
+    },
+    {
+      "id": "isolated-shell-random-stream",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "deterministic shell autonomy without shifting unrelated subsystem random outcomes"
+    },
+    {
+      "id": "no-facade-chore-root",
+      "namespace": "AXM.Shells",
+      "source": "src/shells.js",
+      "status": "implemented",
+      "role": "machine-verifiable absence of maintenance obligation, daily decay, and optimization score"
+    },
+    {
+      "id": "buildings-interface",
+      "namespace": "AXM.UI",
+      "source": "src/ui.js",
+      "status": "implemented",
+      "role": "sixteenth view for shells, storeys, openings, roofs, routes, frontages, requests, and projects"
+    },
+    {
+      "id": "lawful-presence-snapshot",
+      "namespace": "AXM.Presence",
+      "source": "src/presence.js",
+      "status": "implemented",
+      "role": "one current lawful snapshot per person with threshold, route, room, or private-coarse state"
+    },
+    {
+      "id": "street-threshold-not-entry-gate",
+      "namespace": "AXM.Presence + AXM.Exteriors",
+      "source": "src/presence.js",
+      "status": "implemented",
+      "role": "separates reaching an address from lawful interior access"
+    },
+    {
+      "id": "shell-to-room-presence-router",
+      "namespace": "AXM.Presence",
+      "source": "src/presence.js",
+      "status": "implemented",
+      "role": "uses shell landings/stairs/unit entries and habitat rooms for arrival/departure"
+    },
+    {
+      "id": "indoor-compression-parity",
+      "namespace": "AXM.Presence",
+      "source": "src/presence.js",
+      "status": "implemented",
+      "role": "visible, compressed, and compress-remainder routes retain equal time, stairs, access, and destination"
+    },
+    {
+      "id": "schedule-scale-presence-resolver",
+      "namespace": "AXM.Presence + AXM.Systems",
+      "source": "src/presence.js",
+      "status": "implemented",
+      "role": "autonomous indoor movement evidence without continuous minute-by-minute tracking"
+    },
+    {
+      "id": "privacy-bounded-presence-disclosure",
+      "namespace": "AXM.Presence + AXM.UI",
+      "source": "src/presence.js",
+      "status": "implemented",
+      "role": "exact visibility only through lawful co-presence; remote private interiors remain coarse"
+    },
+    {
+      "id": "ordinary-encounter-refusal-root",
+      "namespace": "AXM.Presence",
+      "source": "src/presence.js",
+      "status": "implemented",
+      "role": "greet, quiet, decline, or pass with explicit side-effect contracts"
+    },
+    {
+      "id": "bounded-presence-access-grant",
+      "namespace": "AXM.Presence",
+      "source": "src/presence.js",
+      "status": "implemented",
+      "role": "shared-space visit access without tenancy, storage, edit, family, work, or surveillance authority"
+    },
+    {
+      "id": "queued-indoor-street-handoff",
+      "namespace": "AXM.Presence + AXM.Exteriors",
+      "source": "src/presence.js",
+      "status": "implemented",
+      "role": "lawful indoor departure completes before queued visible street travel"
+    },
+    {
+      "id": "lived-buildings-interface",
+      "namespace": "AXM.UI",
+      "source": "src/ui.js",
+      "status": "implemented",
+      "role": "seventeenth view for lawful presence, routes, stairs, privacy, encounters, grants, and compression"
+    },
+    {
+      "id": "privacy-bounded-visual-scene-deriver",
+      "namespace": "AXM.Visuals",
+      "source": "src/visuals.js",
+      "status": "implemented",
+      "role": "pure ephemeral room/building/street projections from existing state without RNG consumption or world mutation"
+    },
+    {
+      "id": "lawful-actor-visual-projector",
+      "namespace": "AXM.Visuals + AXM.Presence",
+      "source": "src/visuals.js",
+      "status": "implemented",
+      "role": "draws exact people only through player presence or lawful co-presence while leaving private residents coarse"
+    },
+    {
+      "id": "reward-neutral-motion-policy",
+      "namespace": "AXM.Visuals + AXM.UI",
+      "source": "src/visuals.js",
+      "status": "implemented",
+      "role": "Full, Gentle, and Still presentation modes with device reduced-motion enforcement and no observer reward"
+    },
+    {
+      "id": "living-view-interface",
+      "namespace": "AXM.UI",
+      "source": "src/ui.js",
+      "status": "implemented",
+      "role": "eighteenth view rendering low-graphic room, building, and street animation with visible truth boundaries"
+    },
+    {
+      "id": "deterministic-visual-frame-verifier",
+      "namespace": "QA",
+      "source": "tests/render_visual_frames.js",
+      "status": "implemented",
+      "role": "proves ambient and completed-moment frames change pixels, Still remains byte-stable, and raster drawing preserves world serialization"
+    },
+    {
+      "id": "playable-interior-room-browser",
+      "namespace": "AXM.Visuals + AXM.UI",
+      "source": "src/visuals.js",
+      "status": "implemented",
+      "role": "browses real rooms in the player's current home without writing movement or current presence"
+    },
+    {
+      "id": "grounded-visual-activity-dock",
+      "namespace": "AXM.Visuals + AXM.Systems + AXM.UI",
+      "source": "src/systems.js",
+      "status": "implemented",
+      "role": "offers room/object-grounded shortcuts through the existing authoritative activity engine with exact gameplay parity"
+    },
+    {
+      "id": "completed-moment-receipts",
+      "namespace": "AXM.Systems + AXM.Visuals",
+      "source": "src/systems.js",
+      "status": "implemented",
+      "role": "creates a no-extra-reward presentation receipt only after a valid existing activity completes"
+    },
+    {
+      "id": "decluttered-interior-renderer",
+      "namespace": "AXM.UI",
+      "source": "src/ui.js",
+      "status": "implemented",
+      "role": "renders clearer object placement, focus labels, room finishes, bounded interior motion, and after-the-fact echoes"
+    },
+    {
+      "id": "playable-interiors-verifier",
+      "namespace": "QA",
+      "source": "tests/playable_interiors_test.js",
+      "status": "implemented",
+      "role": "proves room privacy, grounding, ordinary-engine parity, success-only receipts, presentation-only focus, and migration honesty"
+    },
+    {
+      "id": "factual-activity-effect-receipt",
+      "namespace": "AXM.Systems + AXM.UI",
+      "source": "src/systems.js",
+      "status": "implemented",
+      "role": "measures bounded before/after activity deltas after ordinary completion and presents them without applying a second effect"
+    },
+    {
+      "id": "contextual-room-sense-filter",
+      "namespace": "AXM.Visuals",
+      "source": "src/visuals.js",
+      "status": "implemented",
+      "role": "removes implausible bathroom suggestions while keeping contextual choices optional rather than prescriptive"
+    },
+    {
+      "id": "focused-object-detail-bridge",
+      "namespace": "AXM.UI",
+      "source": "src/ui.js",
+      "status": "implemented",
+      "role": "shows persistent object identity details and opens the same object in Build & Home without widening authority"
+    },
+    {
+      "id": "distinct-completed-action-echoes",
+      "namespace": "AXM.UI",
+      "source": "src/ui.js",
+      "status": "implemented",
+      "role": "draws distinct meal, computer, study, creative, sleep, shower, and cleaning echoes after successful completion"
+    },
+    {
+      "id": "lived-rooms-object-use-scenes",
+      "namespace": "future",
+      "source": null,
+      "status": "recommended_next",
+      "role": "visible/compressed everyday object-use scenes in real rooms without routine chores or privacy loss"
+    }
+  ]
+}

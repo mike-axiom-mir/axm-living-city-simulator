@@ -1,0 +1,3 @@
+PASS screenshot group mobile-economy: captured 2 images
+- economy_onboarding_mobile.png
+- economy_active_direction_mobile.png

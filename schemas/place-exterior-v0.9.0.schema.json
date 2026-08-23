@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.place-exterior/v0.9.0",
+  "title": "AXM Living City Place Exterior v0.9.0",
+  "description": "Deterministically derived exterior identity for a persistent place. It describes address and visible frontage but grants no tenancy, ownership, entry, edit, or construction authority.",
+  "type": "object",
+  "required": [
+    "schema",
+    "placeId",
+    "address",
+    "streetId",
+    "entrance",
+    "facade",
+    "source",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.place-exterior/v0.9.0"
+    },
+    "placeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "address": {
+      "type": "object",
+      "required": [
+        "number",
+        "streetName",
+        "label"
+      ],
+      "properties": {
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "streetName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "streetId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entrance": {
+      "type": "object",
+      "required": [
+        "side",
+        "position",
+        "access",
+        "doorColor",
+        "publicWhenOpen",
+        "doorNodeId",
+        "accessNodeId"
+      ],
+      "properties": {
+        "side": {
+          "enum": [
+            "north",
+            "south",
+            "east",
+            "west"
+          ]
+        },
+        "position": {
+          "type": "object",
+          "required": [
+            "x",
+            "y"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "access": {
+          "type": "string",
+          "minLength": 1
+        },
+        "doorColor": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "publicWhenOpen": {
+          "type": "boolean"
+        },
+        "doorNodeId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "accessNodeId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "facade": {
+      "type": "object",
+      "required": [
+        "material",
+        "windowStyle",
+        "windowCount",
+        "roofline",
+        "frontageType",
+        "signText",
+        "signVisible"
+      ],
+      "properties": {
+        "material": {
+          "type": "string",
+          "minLength": 1
+        },
+        "windowStyle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "windowCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "roofline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frontageType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signText": {
+          "type": "string"
+        },
+        "signVisible": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "kind",
+        "seed",
+        "mapPosition"
+      ],
+      "properties": {
+        "kind": {
+          "const": "deterministic_map_derivation"
+        },
+        "seed": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapPosition": {
+          "type": "object",
+          "required": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "w": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "h": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,36 @@
+AXM Living City v0.10 — Community Adventures Stress
+
+PASS: 8 deterministic community worlds × 240 days, each run twice with exact serialized equality.
+
+The eight deterministic worlds were run as four completed two-seed commands to remain inside the external command window. Each seed was internally executed twice and required exact serialized equality.
+
+Totals:
+- acceptedInvites: 103
+- adventureCompletions: 569
+- adventureReleases: 13
+- adventureStages: 220
+- adventureThreads: 630
+- adventuresDiscovered: 88
+- adventuresReleased: 13
+- checkpoints: 95
+- connections: 1959
+- declinedInvites: 43
+- expiries: 2634
+- mentorLinks: 470
+- npcParticipations: 6794
+- opportunities: 2698
+- outgoingInvites: 52
+- playerJoins: 60
+- playerLeaves: 40
+- playerParticipations: 136
+- visits: 4
+
+Per-seed evidence:
+- AXM-COMMUNITY-STRESS-01: npc participations=869, expiries=334, connections=279, adventures completed=75, releases=3
+- AXM-COMMUNITY-STRESS-02: npc participations=907, expiries=337, connections=240, adventures completed=72, releases=2
+- AXM-COMMUNITY-STRESS-03: npc participations=827, expiries=327, connections=218, adventures completed=71, releases=3
+- AXM-COMMUNITY-STRESS-04: npc participations=844, expiries=321, connections=254, adventures completed=65, releases=1
+- AXM-COMMUNITY-STRESS-05: npc participations=800, expiries=327, connections=243, adventures completed=71, releases=2
+- AXM-COMMUNITY-STRESS-06: npc participations=838, expiries=323, connections=260, adventures completed=75, releases=1
+- AXM-COMMUNITY-STRESS-07: npc participations=851, expiries=346, connections=207, adventures completed=73, releases=1
+- AXM-COMMUNITY-STRESS-08: npc participations=858, expiries=319, connections=258, adventures completed=67, releases=0

@@ -1,0 +1,52 @@
+{
+  "schema": "axm.visual-frame-qa/v1.0",
+  "seed": "AXM-VISUAL-FRAME-QA",
+  "result": "PASS",
+  "claims": {
+    "fullMotionChangesPixels": true,
+    "stillModeStable": true,
+    "authoritativeWorldUnchanged": true
+  },
+  "captures": [
+    {
+      "filename": "room_0800.png",
+      "sha256": "da2f3692afa4d07682c9679cd12bbfaf8f5c8ebbcac53cf3dd70e3a3daf87013",
+      "bytes": 58498
+    },
+    {
+      "filename": "room_2400.png",
+      "sha256": "5601a754bae3b4a19291d3da78c4a0f9aeb8a605fc0bc053f087adac26573a95",
+      "bytes": 58293
+    },
+    {
+      "filename": "building_0800.png",
+      "sha256": "90333c8474694c0607d703237f5d55bb087bf669743c0ffaeff34a041a6e7227",
+      "bytes": 36989
+    },
+    {
+      "filename": "building_2400.png",
+      "sha256": "99cb4888a1a82ecf857b0f1c49209bbc86b6545dde1fddfd5222f2169efac945",
+      "bytes": 37101
+    },
+    {
+      "filename": "street_0800.png",
+      "sha256": "e0189a61221496c6b8ab853f1d331da57b7e1f93c1d39a6bffe326f7173d1845",
+      "bytes": 37818
+    },
+    {
+      "filename": "street_2400.png",
+      "sha256": "7e84b13b817d5ef576c320f30abe3ae6476cd1861955480e0a9ea127a1fe9d58",
+      "bytes": 37504
+    },
+    {
+      "filename": "room_still_a.png",
+      "sha256": "06a28b989a9523b9d2d72b2bbe25e68465e5214749d116d8b397da476d020c4f",
+      "bytes": 57451
+    },
+    {
+      "filename": "room_still_b.png",
+      "sha256": "06a28b989a9523b9d2d72b2bbe25e68465e5214749d116d8b397da476d020c4f",
+      "bytes": 57451
+    }
+  ]
+}

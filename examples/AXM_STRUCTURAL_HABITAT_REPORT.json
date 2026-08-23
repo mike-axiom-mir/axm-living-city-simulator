@@ -1,0 +1,494 @@
+{
+  "schema": "axm.living-city-sim.structural-example-report/v0.5.0",
+  "seed": "AXM-STRUCTURAL-HABITAT-EXAMPLE",
+  "generatedBy": "tools/generate_examples.js",
+  "setupDisclosure": {
+    "developerGrantUsed": true,
+    "preparedPropertyId": "home_garden_2",
+    "relocatedResidents": [
+      {
+        "tenantId": "npc_001",
+        "destinationPropertyId": "home_courtyard_2"
+      },
+      {
+        "tenantId": "npc_012",
+        "destinationPropertyId": "home_rooftop"
+      }
+    ],
+    "note": "This is a deterministic QA/example setup, not claimed normal progression balance."
+  },
+  "before": {
+    "propertyId": "home_garden_2",
+    "propertyName": "Brick End House",
+    "ownerId": "player",
+    "revision": 1,
+    "layoutHash": "8acdebff",
+    "structuralCondition": 73,
+    "rooms": [
+      {
+        "id": "room_home_garden_2_001",
+        "name": "Kitchen",
+        "purpose": "kitchen",
+        "area": 81,
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "utilityAccess": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      {
+        "id": "room_home_garden_2_002",
+        "name": "Bathroom",
+        "purpose": "bathroom",
+        "area": 9,
+        "floorFinishId": "small_tile",
+        "wallFinishId": "soft_white",
+        "utilityAccess": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      {
+        "id": "room_home_garden_2_003",
+        "name": "Entry",
+        "purpose": "entry",
+        "area": 16,
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "utilityAccess": {
+          "power": true,
+          "water": false,
+          "waste": false
+        }
+      },
+      {
+        "id": "room_home_garden_2_004",
+        "name": "Work or Study Room",
+        "purpose": "work",
+        "area": 16,
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "utilityAccess": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      {
+        "id": "room_home_garden_2_005",
+        "name": "Sleeping Room 1",
+        "purpose": "sleep",
+        "area": 28,
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "utilityAccess": {
+          "power": true,
+          "water": false,
+          "waste": false
+        }
+      }
+    ],
+    "partitions": 32,
+    "doors": 5,
+    "projects": [],
+    "facilityEvidence": {
+      "allRoomsReachable": true,
+      "reachableCellCount": 150,
+      "totalCellCount": 150,
+      "bathroom": {
+        "roomId": "room_home_garden_2_002",
+        "reachable": true,
+        "utilities": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      "kitchen": {
+        "roomId": "room_home_garden_2_001",
+        "reachable": true,
+        "utilities": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      "sleepObjectsReachable": true
+    }
+  },
+  "after": {
+    "propertyId": "home_garden_2",
+    "propertyName": "Brick End House",
+    "ownerId": "player",
+    "revision": 2,
+    "layoutHash": "984e3956",
+    "structuralCondition": 100,
+    "rooms": [
+      {
+        "id": "room_home_garden_2_001",
+        "name": "Kitchen",
+        "purpose": "kitchen",
+        "area": 81,
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "utilityAccess": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      {
+        "id": "room_home_garden_2_002",
+        "name": "Bathroom",
+        "purpose": "bathroom",
+        "area": 9,
+        "floorFinishId": "small_tile",
+        "wallFinishId": "soft_white",
+        "utilityAccess": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      {
+        "id": "room_home_garden_2_003",
+        "name": "Hobby room",
+        "purpose": "hobby",
+        "area": 16,
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "night_blue",
+        "utilityAccess": {
+          "power": true,
+          "water": false,
+          "waste": false
+        }
+      },
+      {
+        "id": "room_home_garden_2_004",
+        "name": "Work or Study Room",
+        "purpose": "work",
+        "area": 16,
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "utilityAccess": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      {
+        "id": "room_home_garden_2_005",
+        "name": "Sleeping Room 1",
+        "purpose": "sleep",
+        "area": 28,
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "utilityAccess": {
+          "power": true,
+          "water": false,
+          "waste": false
+        }
+      }
+    ],
+    "partitions": 33,
+    "doors": 6,
+    "projects": [
+      {
+        "id": "construction_00255",
+        "type": "surface",
+        "summary": "Night blue on Hobby room walls",
+        "status": "completed",
+        "authority": {
+          "mode": "direct",
+          "householdId": null,
+          "proposalId": null,
+          "requestId": null,
+          "evidence": null
+        },
+        "completedPhases": 4,
+        "phaseCount": 4,
+        "spent": {
+          "money": 18,
+          "materials": {
+            "paint": 2
+          }
+        },
+        "completedDay": 1,
+        "failureReason": null
+      },
+      {
+        "id": "construction_00261",
+        "type": "utility",
+        "summary": "Water access for Work or Study Room",
+        "status": "completed",
+        "authority": {
+          "mode": "direct",
+          "householdId": null,
+          "proposalId": null,
+          "requestId": null,
+          "evidence": null
+        },
+        "completedPhases": 4,
+        "phaseCount": 4,
+        "spent": {
+          "money": 56,
+          "materials": {
+            "parts": 3,
+            "metal": 1
+          }
+        },
+        "completedDay": 1,
+        "failureReason": null
+      },
+      {
+        "id": "construction_00271",
+        "type": "utility",
+        "summary": "Waste access for Work or Study Room",
+        "status": "completed",
+        "authority": {
+          "mode": "direct",
+          "householdId": null,
+          "proposalId": null,
+          "requestId": null,
+          "evidence": null
+        },
+        "completedPhases": 4,
+        "phaseCount": 4,
+        "spent": {
+          "money": 56,
+          "materials": {
+            "parts": 3,
+            "metal": 1
+          }
+        },
+        "completedDay": 2,
+        "failureReason": null
+      },
+      {
+        "id": "construction_00318",
+        "type": "partition",
+        "summary": "Door at H:0:1",
+        "status": "completed",
+        "authority": {
+          "mode": "direct",
+          "householdId": null,
+          "proposalId": null,
+          "requestId": null,
+          "evidence": null
+        },
+        "completedPhases": 5,
+        "phaseCount": 5,
+        "spent": {
+          "money": 41,
+          "materials": {
+            "wood": 1,
+            "metal": 1,
+            "parts": 1,
+            "paint": 1
+          }
+        },
+        "completedDay": 2,
+        "failureReason": null
+      },
+      {
+        "id": "construction_00324",
+        "type": "repair",
+        "summary": "Structural repair",
+        "status": "completed",
+        "authority": {
+          "mode": "direct",
+          "householdId": null,
+          "proposalId": null,
+          "requestId": null,
+          "evidence": null
+        },
+        "completedPhases": 4,
+        "phaseCount": 4,
+        "spent": {
+          "money": 50,
+          "materials": {
+            "wood": 2,
+            "metal": 1,
+            "paint": 1,
+            "parts": 1
+          }
+        },
+        "completedDay": 2,
+        "failureReason": null
+      }
+    ],
+    "facilityEvidence": {
+      "allRoomsReachable": true,
+      "reachableCellCount": 150,
+      "totalCellCount": 150,
+      "bathroom": {
+        "roomId": "room_home_garden_2_002",
+        "reachable": true,
+        "utilities": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      "kitchen": {
+        "roomId": "room_home_garden_2_001",
+        "reachable": true,
+        "utilities": {
+          "power": true,
+          "water": true,
+          "waste": true
+        }
+      },
+      "sleepObjectsReachable": true
+    }
+  },
+  "completedProjectIds": [
+    "construction_00255",
+    "construction_00261",
+    "construction_00271",
+    "construction_00318",
+    "construction_00324"
+  ],
+  "objectIdentityEvidence": {
+    "placedObjectIds": [
+      "object_00100",
+      "object_00101",
+      "object_00127",
+      "object_00128",
+      "object_00129",
+      "object_00130",
+      "object_00131",
+      "object_00132"
+    ],
+    "playerStoredObjectIds": []
+  },
+  "metrics": {
+    "day": 2,
+    "population": 24,
+    "residentialProperties": 14,
+    "occupiedProperties": 11,
+    "fullyVacantProperties": 3,
+    "availableHousingSlots": 10,
+    "occupancyRate": 78.6,
+    "furnitureObjects": 135,
+    "objectUpgradeLevels": 4,
+    "averageUpgradeLevel": 0.03,
+    "decorSignatureCount": 14,
+    "colorVariety": 12,
+    "furnitureTypeVariety": 17,
+    "npcWealthAverage": 1652,
+    "npcWealthSpread": 613,
+    "moves": 3,
+    "npcDecorActions": 3,
+    "npcUpgradeActions": 4,
+    "autonomousSocialEvents": 2,
+    "playerFriends": 0,
+    "playerMoney": 52999,
+    "playerOwnedProperties": 1,
+    "oldestPlayerObjectAge": 1,
+    "activeHouseholds": 0,
+    "pendingHouseholdProposals": 0,
+    "openHouseholdIssues": 0,
+    "sharedReserve": 0,
+    "householdAgreementRevision": 0,
+    "householdSeparations": 0,
+    "habitatRooms": 42,
+    "habitatDoors": 40,
+    "habitatProjectsPlanned": 5,
+    "habitatProjectsCompleted": 5,
+    "structuralChanges": 1,
+    "surfaceProjects": 1,
+    "utilityProjects": 2,
+    "habitatIntentionsActive": 6,
+    "stewardshipPendingPlayer": 0,
+    "stewardshipPendingExternal": 0,
+    "stewardshipCompleted": 0,
+    "stewardshipDeclined": 0,
+    "stewardshipWorking": 0,
+    "stewardshipEscrow": 0,
+    "stewardshipResidentSavings": 0,
+    "stewardshipOwnerContributions": 0,
+    "stewardshipProjectPhases": 0,
+    "familyActiveUnits": 0,
+    "familyActiveDependents": 0,
+    "familyCareCoverage": 0,
+    "familyLifeStageTransitions": 0,
+    "communityInstitutions": 5,
+    "communityActiveMemberships": 23,
+    "communityWaitingMemberships": 0,
+    "communityOpenOpportunities": 6,
+    "communityAwaitingPlayer": 0,
+    "communityPlayerConnections": 0,
+    "communityMentorLinks": 0,
+    "communityActiveAdventures": 0,
+    "communityCompletedAdventures": 0,
+    "communityVisitsCompleted": 0,
+    "personalProjectsOpen": 0,
+    "personalProjectsCompleted": 0,
+    "personalProjectsReleased": 0,
+    "personalProjectCollaborationsPending": 0,
+    "npcPersonalProjectsOpen": 1,
+    "npcPersonalProjectsCompleted": 0,
+    "playerEnterprises": 0,
+    "playerPrivateEnterprises": 0,
+    "playerOccasionalEnterprises": 0,
+    "playerOpenEnterprises": 0,
+    "playerPausedEnterprises": 0,
+    "npcEnterprises": 2,
+    "localEconomyNeeds": 6,
+    "localEconomyHighestNeed": 84.8,
+    "commercialPremises": 4,
+    "vacantCommercialPremises": 3,
+    "enterpriseCustomersServed": 6,
+    "enterpriseRevenue": 84,
+    "enterpriseFlexibleServices": 0,
+    "activeEnterpriseSession": false,
+    "exteriorPlaces": 27,
+    "streetNetworkNodes": 71,
+    "streetNetworkEdges": 76,
+    "activeTravel": false,
+    "playerJourneys": 0,
+    "playerWalkingMinutes": 0,
+    "playerWalkingDistanceMeters": 0,
+    "npcRoutesObserved": 103,
+    "streetMoments": 0,
+    "buildingShells": 26,
+    "multiStoreyBuildings": 4,
+    "buildingStoreys": 30,
+    "buildingWallEdges": 120,
+    "buildingWindows": 147,
+    "buildingStairs": 4,
+    "pendingFrontageRequests": 0,
+    "completedFrontageProjects": 0,
+    "trackedLivedBuildings": 6,
+    "currentPresenceSnapshots": 24,
+    "playerInsideBuilding": true,
+    "playerPresenceKind": "room",
+    "visibleCoPresentPeople": 0,
+    "exactCoPresentPeople": 0,
+    "privacyCoarsenedPeople": 0,
+    "activeIndoorMovement": false,
+    "indoorMovementsCompleted": 35,
+    "indoorStairUses": 5,
+    "pendingOrdinaryEncounters": 0,
+    "ordinaryEncountersOffered": 0,
+    "ordinaryEncountersDeclined": 0,
+    "indoorMovementCompressionAllowed": true,
+    "presenceGrantsAuthority": false,
+    "compulsoryGreetings": false,
+    "presenceSurveillance": false,
+    "minuteByMinutePresenceTax": false,
+    "facadeMaintenanceObligation": false,
+    "travelCompressionAllowed": true,
+    "walkingObligation": false,
+    "lifeCourseMode": "choice",
+    "agePressure": false
+  },
+  "validation": {
+    "ok": true,
+    "errors": []
+  }
+}

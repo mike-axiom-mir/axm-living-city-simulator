@@ -1,0 +1,13 @@
+# AXM Lived Buildings — Presence, Privacy, and Ordinary Encounter Evidence Ledger
+Seed: AXM-LIVED-BUILDINGS-EXAMPLE-0110
+Schema: axm.living-city-sim.world/v0.11.0
+Final simulation time: Monday, day 1 · 07:04
+Invariant status: PASS
+
+[Day 1, 07:00] [enterprise] Zeno Vermeer began Zeno's Reuse Nook. It may remain private, become occasional work, grow, pause, pivot, or close without being labeled a failed life path. | causes: optional enterprise choice; no age pressure
+[Day 1, 07:00] [enterprise] Nika Bos began Nika's Practical Learning Table. It may remain private, become occasional work, grow, pause, pivot, or close without being labeled a failed life path. | causes: optional enterprise choice; no age pressure
+[Day 1, 07:00] [foundation] The living city began from a reproducible seed. Buildings are occupied by residents rather than waiting as player menu slots. | causes: seed:AXM-LIVED-BUILDINGS-EXAMPLE-0110
+[Day 1, 07:00] [player] You begin in one room of the Canal Student House with a shared bathroom, a part-time job, and no direct control over anyone else. | causes: single-life starting rule
+[Day 1, 07:00] [research] A labeled lived-building experiment prepared a bounded accepted visit to an occupied upper walk-up and placed the player outside its real entrance route. No tenancy, ownership, edit, storage, household, care, or surveillance authority was granted. | causes: explicit QA shortcut; real stair route; refusal-safe encounter test
+[Day 1, 07:02] [ordinary_encounter] Liv Jacobs and Player briefly shared the same ordinary space. A greeting was optional and created no authority. | causes: shared indoor route moment; no compulsory greeting
+[Day 1, 07:04] [lived_presence] Player completed arrival through Rooftop Walk-up using 1 stair link. | causes: visible indoor route chosen; presence creates no authority; watching grants no reward

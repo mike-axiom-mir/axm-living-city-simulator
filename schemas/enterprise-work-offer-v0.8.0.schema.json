@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.enterprise-work-offer/v0.8.0",
+  "title": "AXM Living City Enterprise Work Offer v0.8.0",
+  "description": "A delayed, bounded resident work offer that grants enterprise work only after acceptance and never transfers ownership, tenancy, household, family, or life-direction authority.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "enterpriseId",
+    "offeredById",
+    "personId",
+    "status",
+    "createdDay",
+    "createdHour",
+    "dueDay",
+    "expiresDay",
+    "wagePerSession",
+    "sessionsPerWeek",
+    "sessionsWorkedThisWeek",
+    "weekMarker",
+    "lastWorkedDay",
+    "response",
+    "authority",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.enterprise-work-offer/v0.8.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "enterpriseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "offeredById": {
+      "type": "string",
+      "minLength": 1
+    },
+    "personId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "pending_npc",
+        "accepted",
+        "declined",
+        "withdrawn",
+        "ended"
+      ]
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "dueDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "expiresDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "wagePerSession": {
+      "type": "number",
+      "minimum": 0
+    },
+    "sessionsPerWeek": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3
+    },
+    "sessionsWorkedThisWeek": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "weekMarker": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "lastWorkedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "response": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "enterpriseWork",
+        "enterpriseOwnership",
+        "personalMoney",
+        "household",
+        "tenancy",
+        "propertyEdit",
+        "familyCare",
+        "lifeDirection"
+      ],
+      "properties": {
+        "enterpriseWork": {
+          "const": true
+        },
+        "enterpriseOwnership": {
+          "const": false
+        },
+        "personalMoney": {
+          "const": false
+        },
+        "household": {
+          "const": false
+        },
+        "tenancy": {
+          "const": false
+        },
+        "propertyEdit": {
+          "const": false
+        },
+        "familyCare": {
+          "const": false
+        },
+        "lifeDirection": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string"
+          },
+          "evidence": {}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "axm.final-test-results/v1.0",
+  "packageId": "AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3",
+  "version": "0.11.3",
+  "date": "2026-08-22",
+  "result": "PASS_WITH_NAMED_ENVIRONMENT_HOLDS",
+  "focused": { "passed": 212, "total": 212 },
+  "longStress": {
+    "commandsPassed": 10,
+    "commandsTotal": 10,
+    "townDays": 4380,
+    "townValidationFailures": 0,
+    "exactReplaySuitesPassed": true
+  },
+  "visual": {
+    "repeatedFrameResult": "PASS",
+    "completedMomentKinds": ["sleep", "shower", "eat_home", "play_pc", "study_focus", "creative_time", "clean_home"],
+    "stillModeStable": true,
+    "authoritativeWorldUnchanged": true,
+    "liveBrowser": "UNKNOWN_MISSING_PLAYWRIGHT"
+  },
+  "schemas": "UNKNOWN_FRESH_RUN_MISSING_JSONSCHEMA_UNCHANGED_FILES",
+  "examples": "PASS",
+  "interruptedRunsCounted": 0
+}

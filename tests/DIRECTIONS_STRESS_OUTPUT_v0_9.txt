@@ -1,0 +1,150 @@
+PASS AXM-DIRECTIONS-STRESS-01 · 77 projects · 213 chapters · exact replay
+PASS AXM-DIRECTIONS-STRESS-02 · 85 projects · 242 chapters · exact replay
+PASS AXM-DIRECTIONS-STRESS-03 · 81 projects · 236 chapters · exact replay
+PASS AXM-DIRECTIONS-STRESS-04 · 80 projects · 225 chapters · exact replay
+PASS AXM-DIRECTIONS-STRESS-05 · 80 projects · 229 chapters · exact replay
+PASS AXM-DIRECTIONS-STRESS-06 · 74 projects · 219 chapters · exact replay
+PASS AXM-DIRECTIONS-STRESS-07 · 76 projects · 223 chapters · exact replay
+PASS AXM-DIRECTIONS-STRESS-08 · 72 projects · 196 chapters · exact replay
+
+{
+  "schema": "axm.living-city.personal-directions-stress/v0.7.0",
+  "seeds": 8,
+  "daysPerSeed": 240,
+  "deterministicRuns": 16,
+  "totalSimulatedDays": 3840,
+  "totals": {
+    "day": 1928,
+    "projects": 625,
+    "npcOpen": 43,
+    "npcCompleted": 582,
+    "npcReleased": 0,
+    "npcPaused": 0,
+    "chapters": 1783,
+    "restorationProjects": 63,
+    "objectHistoryEntries": 169,
+    "validationErrors": 0
+  },
+  "reports": [
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-01",
+      "day": 241,
+      "projects": 77,
+      "npcOpen": 10,
+      "npcCompleted": 67,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 213,
+      "restorationProjects": 7,
+      "objectHistoryEntries": 21,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-02",
+      "day": 241,
+      "projects": 85,
+      "npcOpen": 6,
+      "npcCompleted": 79,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 242,
+      "restorationProjects": 7,
+      "objectHistoryEntries": 19,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-03",
+      "day": 241,
+      "projects": 81,
+      "npcOpen": 5,
+      "npcCompleted": 76,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 236,
+      "restorationProjects": 10,
+      "objectHistoryEntries": 27,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-04",
+      "day": 241,
+      "projects": 80,
+      "npcOpen": 7,
+      "npcCompleted": 73,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 225,
+      "restorationProjects": 11,
+      "objectHistoryEntries": 27,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-05",
+      "day": 241,
+      "projects": 80,
+      "npcOpen": 4,
+      "npcCompleted": 76,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 229,
+      "restorationProjects": 7,
+      "objectHistoryEntries": 15,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-06",
+      "day": 241,
+      "projects": 74,
+      "npcOpen": 1,
+      "npcCompleted": 73,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 219,
+      "restorationProjects": 8,
+      "objectHistoryEntries": 21,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-07",
+      "day": 241,
+      "projects": 76,
+      "npcOpen": 2,
+      "npcCompleted": 74,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 223,
+      "restorationProjects": 7,
+      "objectHistoryEntries": 21,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-08",
+      "day": 241,
+      "projects": 72,
+      "npcOpen": 8,
+      "npcCompleted": 64,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 196,
+      "restorationProjects": 6,
+      "objectHistoryEntries": 18,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    }
+  ]
+}

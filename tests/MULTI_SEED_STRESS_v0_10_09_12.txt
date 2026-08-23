@@ -1,0 +1,5 @@
+PASS AXM-STRESS-009 · moves 5 · décor 402 · upgrades 758 · shells 26
+PASS AXM-STRESS-010 · moves 3 · décor 361 · upgrades 818 · shells 26
+PASS AXM-STRESS-011 · moves 8 · décor 380 · upgrades 805 · shells 26
+PASS AXM-STRESS-012 · moves 5 · décor 358 · upgrades 845 · shells 26
+WROTE tests/MULTI_SEED_STRESS_v0_10_09_12.json

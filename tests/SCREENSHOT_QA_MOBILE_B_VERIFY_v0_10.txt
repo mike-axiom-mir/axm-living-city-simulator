@@ -1,0 +1,11 @@
+PASS screenshot group mobile-directions: captured 3 images
+- directions_onboarding_mobile.png
+- directions_active_project_mobile.png
+- directions_life_context_mobile.png
+PASS screenshot group mobile-economy: captured 2 images
+- economy_onboarding_mobile.png
+- economy_active_direction_mobile.png
+PASS screenshot group mobile-walkable: captured 2 images
+- walkable_route_planner_mobile.png
+- walkable_visible_route_mobile.png
+PASS screenshot evidence: 51/51 expected desktop/mobile images; group runs reported zero page, console, and horizontal-overflow errors.

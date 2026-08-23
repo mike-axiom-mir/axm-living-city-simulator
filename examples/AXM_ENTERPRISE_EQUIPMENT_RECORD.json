@@ -1,0 +1,64 @@
+{
+  "schema": "axm.living-city.enterprise-equipment/v0.8.0",
+  "id": "enterprise_equipment_00021",
+  "enterpriseId": "enterprise_00019",
+  "ownerId": "player",
+  "catalogId": "workbench",
+  "name": "Compact repair bench",
+  "acquiredDay": 1,
+  "acquisition": "starter kit purchased for this enterprise",
+  "condition": 88.8,
+  "usageSessions": 2,
+  "upgrades": {
+    "care": 0,
+    "reliability": 1,
+    "capacity": 0,
+    "efficiency": 0
+  },
+  "history": [
+    {
+      "id": "equipment_event_00022",
+      "day": 1,
+      "hour": 7,
+      "type": "acquired",
+      "message": "Compact repair bench became enterprise equipment without replacing an older object record.",
+      "actorId": "player",
+      "causes": [
+        "starter kit purchased for this enterprise"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "equipment_event_00032",
+      "day": 1,
+      "hour": 13,
+      "type": "repaired",
+      "message": "Compact repair bench was repaired rather than replaced.",
+      "actorId": "player",
+      "causes": [
+        "explicit equipment care"
+      ],
+      "evidence": {
+        "cost": 13,
+        "condition": 88.8
+      }
+    },
+    {
+      "id": "equipment_event_00033",
+      "day": 1,
+      "hour": 13,
+      "type": "upgraded",
+      "message": "Compact repair bench gained reliability level 1/5 without losing its identity.",
+      "actorId": "player",
+      "causes": [
+        "explicit investment",
+        "upgrade without replacement"
+      ],
+      "evidence": {
+        "axis": "reliability",
+        "level": 1,
+        "cost": 34
+      }
+    }
+  ]
+}

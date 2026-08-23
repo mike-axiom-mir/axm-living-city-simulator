@@ -1,0 +1,54 @@
+PASS AXM-DIRECTIONS-STRESS-07 · 72 projects · 210 chapters · exact replay
+PASS AXM-DIRECTIONS-STRESS-08 · 73 projects · 208 chapters · exact replay
+
+{
+  "schema": "axm.living-city.personal-directions-stress/v0.7.0",
+  "seeds": 2,
+  "daysPerSeed": 240,
+  "deterministicRuns": 4,
+  "totalSimulatedDays": 960,
+  "totals": {
+    "day": 482,
+    "projects": 145,
+    "npcOpen": 8,
+    "npcCompleted": 137,
+    "npcReleased": 0,
+    "npcPaused": 0,
+    "chapters": 418,
+    "restorationProjects": 14,
+    "objectHistoryEntries": 39,
+    "validationErrors": 0
+  },
+  "reports": [
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-07",
+      "day": 241,
+      "projects": 72,
+      "npcOpen": 2,
+      "npcCompleted": 70,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 210,
+      "restorationProjects": 8,
+      "objectHistoryEntries": 21,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-DIRECTIONS-STRESS-08",
+      "day": 241,
+      "projects": 73,
+      "npcOpen": 6,
+      "npcCompleted": 67,
+      "npcReleased": 0,
+      "npcPaused": 0,
+      "chapters": 208,
+      "restorationProjects": 6,
+      "objectHistoryEntries": 18,
+      "playerAgeStable": true,
+      "allTrackedAgesStable": true,
+      "validationErrors": 0
+    }
+  ]
+}

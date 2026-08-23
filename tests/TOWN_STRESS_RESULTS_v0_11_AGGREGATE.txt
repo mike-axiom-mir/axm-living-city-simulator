@@ -1,0 +1,25 @@
+AXM Living City v0.11 — Town Stress Aggregate
+Worlds: 12
+Days per world: 365
+Total simulated days: 4380
+Validation failures: 0
+Average moves: 5.17
+Average décor actions: 375.92
+Average object upgrades: 803.25
+Average distinct home signatures: 13.92
+Average changed homes: 11.08
+Average indoor movements completed: 9919.42
+Minimum changed homes: 10
+
+AXM-STRESS-001: moves 5; décor 349; upgrades 823; signatures 14; changed homes 10; indoor 11042
+AXM-STRESS-002: moves 4; décor 405; upgrades 790; signatures 14; changed homes 11; indoor 10324
+AXM-STRESS-003: moves 2; décor 409; upgrades 781; signatures 14; changed homes 11; indoor 9631
+AXM-STRESS-004: moves 6; décor 374; upgrades 800; signatures 14; changed homes 11; indoor 9735
+AXM-STRESS-005: moves 6; décor 363; upgrades 799; signatures 14; changed homes 11; indoor 10594
+AXM-STRESS-006: moves 6; décor 407; upgrades 783; signatures 14; changed homes 12; indoor 10173
+AXM-STRESS-007: moves 8; décor 361; upgrades 808; signatures 14; changed homes 11; indoor 10743
+AXM-STRESS-008: moves 4; décor 342; upgrades 829; signatures 14; changed homes 11; indoor 9543
+AXM-STRESS-009: moves 5; décor 402; upgrades 758; signatures 14; changed homes 11; indoor 11009
+AXM-STRESS-010: moves 3; décor 361; upgrades 818; signatures 13; changed homes 11; indoor 8907
+AXM-STRESS-011: moves 8; décor 380; upgrades 805; signatures 14; changed homes 12; indoor 8355
+AXM-STRESS-012: moves 5; décor 358; upgrades 845; signatures 14; changed homes 11; indoor 8977

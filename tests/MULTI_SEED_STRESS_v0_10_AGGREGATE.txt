@@ -1,0 +1,42 @@
+AXM Living City v0.10 — Multi-Seed Town Stress
+
+PASS: 12 deterministic towns × 365 days (4,380 simulated days).
+
+Execution note:
+The canonical all-seed command exceeded the external command window before printing its final aggregate. The identical seed set was rerun in three completed four-seed chunks with the full v0.10 shell module loaded; this file aggregates those completed outputs.
+
+Averages:
+- moves: 5.17
+- decorActions: 375.92
+- upgradeActions: 803.25
+- signatures: 13.92
+- changedHomes: 11.08
+- npcWealthAverage: 21773.25
+- shellBuildings: 26.0
+- frontageProposals: 42.42
+- frontageProjects: 28.42
+
+Minimums:
+- moves: 2
+- decorActions: 342
+- upgradeActions: 758
+- signatures: 13
+- changedHomes: 10
+- npcWealthAverage: 20375
+- shellBuildings: 26
+- frontageProposals: 33
+- frontageProjects: 22
+
+Per-seed evidence:
+- AXM-STRESS-001: moves=5, decor=349, upgrades=823, signatures=14, changedHomes=10, shells=26, frontageProposals=45, frontageProjects=33
+- AXM-STRESS-002: moves=4, decor=405, upgrades=790, signatures=14, changedHomes=11, shells=26, frontageProposals=48, frontageProjects=27
+- AXM-STRESS-003: moves=2, decor=409, upgrades=781, signatures=14, changedHomes=11, shells=26, frontageProposals=47, frontageProjects=35
+- AXM-STRESS-004: moves=6, decor=374, upgrades=800, signatures=14, changedHomes=11, shells=26, frontageProposals=50, frontageProjects=30
+- AXM-STRESS-005: moves=6, decor=363, upgrades=799, signatures=14, changedHomes=11, shells=26, frontageProposals=38, frontageProjects=23
+- AXM-STRESS-006: moves=6, decor=407, upgrades=783, signatures=14, changedHomes=12, shells=26, frontageProposals=33, frontageProjects=22
+- AXM-STRESS-007: moves=8, decor=361, upgrades=808, signatures=14, changedHomes=11, shells=26, frontageProposals=41, frontageProjects=25
+- AXM-STRESS-008: moves=4, decor=342, upgrades=829, signatures=14, changedHomes=11, shells=26, frontageProposals=39, frontageProjects=30
+- AXM-STRESS-009: moves=5, decor=402, upgrades=758, signatures=14, changedHomes=11, shells=26, frontageProposals=46, frontageProjects=32
+- AXM-STRESS-010: moves=3, decor=361, upgrades=818, signatures=13, changedHomes=11, shells=26, frontageProposals=38, frontageProjects=26
+- AXM-STRESS-011: moves=8, decor=380, upgrades=805, signatures=14, changedHomes=12, shells=26, frontageProposals=39, frontageProjects=26
+- AXM-STRESS-012: moves=5, decor=358, upgrades=845, signatures=14, changedHomes=11, shells=26, frontageProposals=45, frontageProjects=32

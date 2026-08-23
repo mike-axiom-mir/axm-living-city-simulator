@@ -1,0 +1,332 @@
+# AXM Personal Directions — Choice-First 120-Day Evidence Ledger
+Seed: AXM-PERSONAL-DIRECTIONS-EXAMPLE-120D
+Schema: axm.living-city-sim.world/v0.11.0
+Final simulation time: Thursday, day 123 · 13:00
+Invariant status: PASS
+
+[Day 1, 07:00] [enterprise] Wes de Wit began Wes's Reuse Nook. It may remain private, become occasional work, grow, pause, pivot, or close without being labeled a failed life path. | causes: optional enterprise choice; no age pressure
+[Day 1, 07:00] [enterprise] Cleo Prins began Cleo's Practical Learning Table. It may remain private, become occasional work, grow, pause, pivot, or close without being labeled a failed life path. | causes: optional enterprise choice; no age pressure
+[Day 1, 07:00] [foundation] The living city began from a reproducible seed. Buildings are occupied by residents rather than waiting as player menu slots. | causes: seed:AXM-PERSONAL-DIRECTIONS-EXAMPLE-120D
+[Day 1, 07:00] [player] You begin in one room of the Canal Student House with a shared bathroom, a part-time job, and no direct control over anyone else. | causes: single-life starting rule
+[Day 1, 07:00] [direction] Player began The chair that came with me. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 2, 00:00] [stewardship] Lena Jacobs formed a habitat intention at Brick End House: Warm clay on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 22/100; preferred color family mustard
+[Day 2, 00:00] [stewardship] Bo Visser formed a habitat intention at Station Apartment A: Warm clay on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 29/100; preferred color family mustard
+[Day 2, 00:00] [stewardship] Elin Meijer formed a habitat intention at Brick End House: Plum limewash on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 61/100; preferred color family plum
+[Day 2, 00:00] [stewardship] Daan Groen formed a habitat intention at Old Lane House 2: Soft white on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 40/100; preferred color family white
+[Day 2, 00:00] [direction] Sven Kuiper began Sven Kuiper — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 3, 00:00] [stewardship] Wes de Wit formed a habitat intention at Station Apartment A: Soft white on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 47/100; preferred color family cream
+[Day 3, 00:00] [stewardship] Sven Kuiper formed a habitat intention at Old Lane House 1: Night blue on Sleeping Room floor. | causes: Sleeping Room contains the strongest share of the resident's belongings; creativity 91/100; preferred color family night
+[Day 3, 00:00] [stewardship] Uma Koster formed a habitat intention at Courtyard Studio 1: Plum limewash on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 43/100; preferred color family plum
+[Day 3, 00:00] [stewardship] Bram van Dijk formed a habitat intention at Old Lane House 1: Plum limewash on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 37/100; preferred color family copper
+[Day 3, 00:00] [stewardship] Quin Hendriks formed a habitat intention at Flat Above the Bakery: Soft white on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 66/100; preferred color family cream
+[Day 3, 00:00] [direction] Quin Hendriks began Quin Hendriks — Help a small living place grow. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 3, 00:00] [direction] Farah Vermeer began Farah Vermeer — Restore something that matters. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 3, 08:00] [life_course] Player opened the Adult life chapter by choice. | causes: choice-first life course; identity and history preserved
+[Day 3, 13:00] [direction] Player completed The chair that keeps changing with me. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 3, 13:00] [direction] Player began A story I may never owe anyone. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 3, 13:00] [research] Observer mode began for 120 autonomous days. Player needs and rent were frozen so this remains a simulation experiment, not a hidden punishment. | causes: explicit observer command
+[Day 4, 00:00] [stewardship] Zeno Vermeer formed a habitat intention at Flat Above the Bakery: Plum limewash on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 18/100; preferred color family lilac
+[Day 4, 00:00] [stewardship] Imani Dekker formed a habitat intention at Rooftop Walk-up: Soft white on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 79/100; preferred color family cream
+[Day 4, 00:00] [stewardship] Sam Vos formed a habitat intention at Old Lane House 2: Structural repair. | causes: structure 72.9/100; property condition 72.7/100; maintenance need
+[Day 4, 00:00] [stewardship] Iris Bakker formed a habitat intention at Small Garden Home: Night blue on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 36/100; preferred color family night
+[Day 4, 00:00] [stewardship] Ayla Jacobs formed a habitat intention at Old Lane House 3: Plum limewash on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 74/100; preferred color family plum
+[Day 4, 00:00] [direction] Joost Martens began Joost Martens — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 5, 00:00] [stewardship] Daan Groen's request for Soft white on Kitchen walls was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 5, 00:00] [stewardship] Jules Hendriks formed a habitat intention at Small Garden Home: Plum limewash on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 58/100; preferred color family plum
+[Day 5, 00:00] [stewardship] Kian Mulder formed a habitat intention at Small Garden Home: Reclaimed wood on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 34/100; preferred color family copper
+[Day 5, 00:00] [stewardship] Cleo Prins formed a habitat intention at Old Lane House 3: Night blue on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 81/100; preferred color family mustard
+[Day 5, 00:00] [stewardship] Liv Smit formed a habitat intention at Old Lane House 3: Structural repair. | causes: structure 74.9/100; property condition 79/100; personal goal favors restoration
+[Day 5, 00:00] [stewardship] Viktor Bos formed a habitat intention at Old Lane House 1: Night blue on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 26/100; preferred color family night
+[Day 5, 00:00] [stewardship] Noah Jansen formed a habitat intention at Small Garden Home: Soft white on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 13/100; preferred color family cream
+[Day 7, 00:00] [direction] Viktor Bos began Viktor Bos — Help a small living place grow. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 8, 00:00] [stewardship] Elin Meijer requested permission for Plum limewash on Kitchen walls at Brick End House. | causes: visible savings threshold reached; authority cannot be invented
+[Day 8, 00:00] [stewardship] Sven Kuiper requested permission for Night blue on Sleeping Room floor at Old Lane House 1. | causes: visible savings threshold reached; authority cannot be invented
+[Day 8, 00:00] [direction] Mara de Boer began Mara de Boer — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 9, 00:00] [stewardship] Sam Vos requested permission for Structural repair at Old Lane House 2. | causes: visible savings threshold reached; authority cannot be invented
+[Day 10, 00:00] [stewardship] Elin Meijer's habitat request was approved at Brick End House: Plum limewash on Kitchen walls. | causes: explicit approval
+[Day 10, 00:00] [stewardship] Town Housing Network declined Sven Kuiper's request for Night blue on Sleeping Room floor. | causes: deterministic owner policy decision
+[Day 10, 00:00] [stewardship] Uma Koster requested permission for Plum limewash on Kitchen walls at Courtyard Studio 1. | causes: visible savings threshold reached; authority cannot be invented
+[Day 10, 00:00] [stewardship] Liv Smit requested permission for Structural repair at Old Lane House 3. | causes: visible savings threshold reached; authority cannot be invented
+[Day 10, 00:00] [stewardship] Viktor Bos requested permission for Night blue on Kitchen walls at Old Lane House 1. | causes: visible savings threshold reached; authority cannot be invented
+[Day 11, 00:00] [stewardship] Sam Vos's habitat request was approved at Old Lane House 2: Structural repair. | causes: explicit approval
+[Day 11, 00:00] [stewardship] Bram van Dijk requested permission for Plum limewash on Kitchen floor at Old Lane House 1. | causes: visible savings threshold reached; authority cannot be invented
+[Day 11, 00:00] [stewardship] Ayla Jacobs requested permission for Plum limewash on Kitchen walls at Old Lane House 3. | causes: visible savings threshold reached; authority cannot be invented
+[Day 11, 00:00] [stewardship] Cleo Prins requested permission for Night blue on Kitchen walls at Old Lane House 3. | causes: visible savings threshold reached; authority cannot be invented
+[Day 12, 00:00] [stewardship] Uma Koster's habitat request was approved at Courtyard Studio 1: Plum limewash on Kitchen walls. | causes: explicit approval
+[Day 12, 00:00] [stewardship] Liv Smit's habitat request was approved at Old Lane House 3: Structural repair. | causes: explicit approval
+[Day 12, 00:00] [stewardship] Viktor Bos's habitat request was approved at Old Lane House 1: Night blue on Kitchen walls. | causes: explicit approval
+[Day 12, 00:00] [stewardship] Lena Jacobs requested permission for Warm clay on Kitchen floor at Brick End House. | causes: visible savings threshold reached; authority cannot be invented
+[Day 12, 00:00] [stewardship] Bo Visser requested permission for Warm clay on Kitchen floor at Station Apartment A. | causes: visible savings threshold reached; authority cannot be invented
+[Day 12, 00:00] [stewardship] Imani Dekker requested permission for Soft white on Kitchen floor at Rooftop Walk-up. | causes: visible savings threshold reached; authority cannot be invented
+[Day 12, 00:00] [stewardship] Iris Bakker's request for Night blue on Kitchen walls was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 12, 00:00] [stewardship] Kian Mulder's request for Reclaimed wood on Kitchen walls was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 13, 00:00] [housing] Elin Meijer moved from Brick End House to Rooftop Walk-up. | causes: lower housing cost; shorter commute; voluntary change
+[Day 13, 00:00] [stewardship] Bram van Dijk's habitat request was approved at Old Lane House 1: Plum limewash on Kitchen floor. | causes: explicit approval
+[Day 13, 00:00] [stewardship] Town Housing Network declined Ayla Jacobs's request for Plum limewash on Kitchen walls. | causes: deterministic owner policy decision
+[Day 13, 00:00] [stewardship] Cleo Prins's habitat request was approved at Old Lane House 3: Night blue on Kitchen walls. | causes: explicit approval
+[Day 13, 00:00] [stewardship] Wes de Wit's request for Soft white on Kitchen walls was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 13, 00:00] [stewardship] Quin Hendriks requested permission for Soft white on Kitchen floor at Flat Above the Bakery. | causes: visible savings threshold reached; authority cannot be invented
+[Day 13, 00:00] [stewardship] Zeno Vermeer requested permission for Plum limewash on Kitchen floor at Flat Above the Bakery. | causes: visible savings threshold reached; authority cannot be invented
+[Day 13, 00:00] [stewardship] Jules Hendriks requested permission for Plum limewash on Kitchen walls at Small Garden Home. | causes: visible savings threshold reached; authority cannot be invented
+[Day 13, 00:00] [stewardship] Noah Jansen requested permission for Soft white on Kitchen walls at Small Garden Home. | causes: visible savings threshold reached; authority cannot be invented
+[Day 14, 00:00] [stewardship] Lena Jacobs's habitat request was approved at Brick End House: Warm clay on Kitchen floor. | causes: explicit approval
+[Day 14, 00:00] [stewardship] Bo Visser's habitat request was approved at Station Apartment A: Warm clay on Kitchen floor. | causes: explicit approval
+[Day 14, 00:00] [stewardship] Town Housing Network declined Imani Dekker's request for Soft white on Kitchen floor. | causes: deterministic owner policy decision
+[Day 14, 00:00] [habitat] Structural repair was added to Old Lane House 2's construction queue for Sam Vos. | causes: phased construction; no silent structure rewrite
+[Day 14, 00:00] [habitat] Structural repair was added to Old Lane House 3's construction queue for Liv Smit. | causes: phased construction; no silent structure rewrite
+[Day 15, 00:00] [stewardship] Quin Hendriks's habitat request was approved at Flat Above the Bakery: Soft white on Kitchen floor. | causes: explicit approval
+[Day 15, 00:00] [stewardship] Zeno Vermeer's habitat request was approved at Flat Above the Bakery: Plum limewash on Kitchen floor. | causes: explicit approval
+[Day 15, 00:00] [stewardship] Town Housing Network declined Jules Hendriks's request for Plum limewash on Kitchen walls. | causes: deterministic owner policy decision
+[Day 15, 00:00] [stewardship] Noah Jansen's habitat request was approved at Small Garden Home: Soft white on Kitchen walls. | causes: explicit approval
+[Day 16, 00:00] [building_shell] Sven Kuiper formed an exact frontage proposal for Old Lane House 1. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 18, 00:00] [building_shell] Cleo Prins formed an exact frontage proposal for Old Lane House 3. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 19, 00:00] [habitat] Structural repair completed at Old Lane House 2 through Sam Vos's recorded work. | causes: validated construction completion
+[Day 19, 00:00] [stewardship] Sam Vos completed Structural repair at Old Lane House 2. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 19, 00:00] [habitat] Night blue on Kitchen walls was added to Old Lane House 1's construction queue for Viktor Bos. | causes: phased construction; no silent structure rewrite
+[Day 19, 00:00] [direction] Liv Smit began Liv Smit — Follow a local thread. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 20, 00:00] [habitat] Structural repair completed at Old Lane House 3 through Liv Smit's recorded work. | causes: validated construction completion
+[Day 20, 00:00] [stewardship] Liv Smit completed Structural repair at Old Lane House 3. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 20, 00:00] [direction] Quin Hendriks completed Quin Hendriks — Help a small living place grow. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 20, 00:00] [building_shell] The frontage proposal for Old Lane House 3 was declined without changing the façade or silently punishing the relationship. | causes: bounded authority; refusal preserved
+[Day 21, 00:00] [work] Jules Hendriks left Repair Workshop for Parcel Depot. | causes: better skill fit; autonomous career decision
+[Day 21, 00:00] [habitat] Night blue on Kitchen walls was added to Old Lane House 3's construction queue for Cleo Prins. | causes: phased construction; no silent structure rewrite
+[Day 21, 00:00] [direction] Viktor Bos completed Viktor Bos — Help a small living place grow. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 22, 00:00] [direction] Joost Martens completed Joost Martens — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 23, 00:00] [housing] Lena Jacobs moved from Brick End House to Old Lane House 2. | causes: lower housing cost; shorter commute; voluntary change
+[Day 23, 00:00] [work] Bo Visser left Neighborhood Library for Parcel Depot. | causes: better skill fit; autonomous career decision
+[Day 23, 00:00] [work] Uma Koster left Corner Café for Parcel Depot. | causes: better pay; autonomous career decision
+[Day 23, 00:00] [direction] Mara de Boer completed Mara de Boer — Follow a question deeply. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 24, 00:00] [direction] Farah Vermeer completed Farah Vermeer — Restore something that matters. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 25, 00:00] [work] Iris Bakker left Corner Café for Repair Workshop. | causes: better pay; autonomous career decision
+[Day 25, 00:00] [habitat] Night blue on Kitchen walls completed at Old Lane House 1 through Viktor Bos's recorded work. | causes: validated construction completion
+[Day 25, 00:00] [stewardship] Viktor Bos completed Night blue on Kitchen walls at Old Lane House 1. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 25, 00:00] [direction] Uma Koster began Uma Koster — Learn in your own direction. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 27, 00:00] [habitat] Plum limewash on Kitchen walls was added to Courtyard Studio 1's construction queue for Uma Koster. | causes: phased construction; no silent structure rewrite
+[Day 27, 00:00] [habitat] Night blue on Kitchen walls completed at Old Lane House 3 through Cleo Prins's recorded work. | causes: validated construction completion
+[Day 27, 00:00] [stewardship] Cleo Prins completed Night blue on Kitchen walls at Old Lane House 3. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 27, 00:00] [direction] Sam Vos began Sam Vos — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 28, 00:00] [habitat] Plum limewash on Kitchen floor was added to Old Lane House 1's construction queue for Bram van Dijk. | causes: phased construction; no silent structure rewrite
+[Day 28, 00:00] [direction] Wes de Wit began Wes de Wit — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 28, 00:00] [direction] Sven Kuiper completed Sven Kuiper — Follow a question deeply. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 29, 00:00] [habitat] Soft white on Kitchen walls was added to Small Garden Home's construction queue for Noah Jansen. | causes: phased construction; no silent structure rewrite
+[Day 29, 00:00] [building_shell] Sven Kuiper completed a frontage change at Old Lane House 1; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 29, 00:00] [building_shell] Lena Jacobs formed an exact frontage proposal for Old Lane House 2. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 30, 00:00] [stewardship] Daan Groen formed a habitat intention at Old Lane House 2: Soft white on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 40/100; preferred color family white
+[Day 30, 00:00] [direction] Liv Smit completed Liv Smit — Follow a local thread. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 31, 00:00] [habitat] Warm clay on Kitchen floor was added to Station Apartment A's construction queue for Bo Visser. | causes: phased construction; no silent structure rewrite
+[Day 31, 00:00] [direction] Bo Visser began Bo Visser — Restore something that matters. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 32, 00:00] [habitat] Soft white on Kitchen floor was added to Flat Above the Bakery's construction queue for Quin Hendriks. | causes: phased construction; no silent structure rewrite
+[Day 33, 00:00] [habitat] Plum limewash on Kitchen walls completed at Courtyard Studio 1 through Uma Koster's recorded work. | causes: validated construction completion
+[Day 33, 00:00] [stewardship] Uma Koster completed Plum limewash on Kitchen walls at Courtyard Studio 1. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 34, 00:00] [habitat] Plum limewash on Kitchen floor completed at Old Lane House 1 through Bram van Dijk's recorded work. | causes: validated construction completion
+[Day 34, 00:00] [stewardship] Bram van Dijk completed Plum limewash on Kitchen floor at Old Lane House 1. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 34, 00:00] [habitat] Soft white on Kitchen walls completed at Small Garden Home through Noah Jansen's recorded work. | causes: validated construction completion
+[Day 34, 00:00] [stewardship] Noah Jansen completed Soft white on Kitchen walls at Small Garden Home. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 34, 00:00] [stewardship] Elin Meijer formed a habitat intention at Rooftop Walk-up: Moss wash on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 61/100; preferred color family plum
+[Day 35, 00:00] [stewardship] Daan Groen requested permission for Soft white on Kitchen floor at Old Lane House 2. | causes: visible savings threshold reached; authority cannot be invented
+[Day 35, 00:00] [building_shell] Quin Hendriks formed an exact frontage proposal for Flat Above the Bakery. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 36, 00:00] [building_shell] Wes de Wit formed an exact frontage proposal for Square Kiosk. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 37, 00:00] [stewardship] Daan Groen's habitat request was approved at Old Lane House 2: Soft white on Kitchen floor. | causes: explicit approval
+[Day 37, 00:00] [habitat] Warm clay on Kitchen floor completed at Station Apartment A through Bo Visser's recorded work. | causes: validated construction completion
+[Day 37, 00:00] [stewardship] Bo Visser completed Warm clay on Kitchen floor at Station Apartment A. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 37, 00:00] [habitat] Soft white on Kitchen floor completed at Flat Above the Bakery through Quin Hendriks's recorded work. | causes: validated construction completion
+[Day 37, 00:00] [stewardship] Quin Hendriks completed Soft white on Kitchen floor at Flat Above the Bakery. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 37, 00:00] [stewardship] Jules Hendriks formed a habitat intention at Small Garden Home: Plum limewash on Sleeping Room 1 walls. | causes: Sleeping Room 1 contains some of the resident's belongings; creativity 58/100; preferred color family plum
+[Day 37, 00:00] [direction] Imani Dekker began Imani Dekker — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 37, 00:00] [building_shell] Mara de Boer formed an exact frontage proposal for Canal Student House. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 38, 00:00] [building_shell] Lena Jacobs completed a frontage change at Old Lane House 2; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 39, 00:00] [work] Kian Mulder left Parcel Depot for Neighborhood Library. | causes: better pay; autonomous career decision
+[Day 39, 00:00] [work] Sven Kuiper left Corner Café for Parcel Depot. | causes: better pay; autonomous career decision
+[Day 39, 00:00] [direction] Sam Vos completed Sam Vos — Follow a question deeply. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 39, 00:00] [building_shell] The frontage proposal for Square Kiosk was declined without changing the façade or silently punishing the relationship. | causes: bounded authority; refusal preserved
+[Day 39, 00:00] [building_shell] The frontage proposal for Canal Student House was declined without changing the façade or silently punishing the relationship. | causes: bounded authority; refusal preserved
+[Day 40, 00:00] [stewardship] Jules Hendriks's request for Plum limewash on Sleeping Room 1 walls was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 40, 00:00] [direction] Uma Koster completed Uma Koster — Learn in your own direction. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 42, 00:00] [work] Noah Jansen left Parcel Depot for Corner Café. | causes: better skill fit; autonomous career decision
+[Day 42, 00:00] [work] Ayla Jacobs left Repair Workshop for Parcel Depot. | causes: better skill fit; autonomous career decision
+[Day 42, 00:00] [stewardship] Elin Meijer requested permission for Moss wash on Kitchen walls at Rooftop Walk-up. | causes: visible savings threshold reached; authority cannot be invented
+[Day 43, 00:00] [stewardship] Sven Kuiper formed a habitat intention at Old Lane House 1: Night blue on Living Room walls. | causes: Living Room contains some of the resident's belongings; creativity 91/100; preferred color family night
+[Day 43, 00:00] [direction] Daan Groen began Daan Groen — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 43, 00:00] [building_shell] Elin Meijer formed an exact frontage proposal for Rooftop Walk-up. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 44, 00:00] [relationship] Cleo Prins and Ayla Jacobs have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 44, 00:00] [stewardship] Elin Meijer's habitat request was approved at Rooftop Walk-up: Moss wash on Kitchen walls. | causes: explicit approval
+[Day 44, 00:00] [stewardship] Iris Bakker formed a habitat intention at Small Garden Home: Night blue on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 36/100; preferred color family night
+[Day 45, 00:00] [stewardship] Kian Mulder formed a habitat intention at Small Garden Home: Warm clay on Sleeping Room 1 floor. | causes: Sleeping Room 1 contains some of the resident's belongings; creativity 34/100; preferred color family copper
+[Day 45, 00:00] [building_shell] Quin Hendriks completed a frontage change at Flat Above the Bakery; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 46, 00:00] [stewardship] Sven Kuiper requested permission for Night blue on Living Room walls at Old Lane House 1. | causes: visible savings threshold reached; authority cannot be invented
+[Day 46, 00:00] [stewardship] Lena Jacobs formed a habitat intention at Old Lane House 2: Warm clay on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 22/100; preferred color family mustard
+[Day 47, 00:00] [work] Sam Vos left Neighborhood Library for Repair Workshop. | causes: better pay; autonomous career decision
+[Day 47, 00:00] [direction] Bo Visser completed Bo Visser — Restore something that matters. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 48, 00:00] [stewardship] Town Housing Network declined Sven Kuiper's request for Night blue on Living Room walls. | causes: deterministic owner policy decision
+[Day 48, 00:00] [habitat] Soft white on Kitchen floor was added to Old Lane House 2's construction queue for Daan Groen. | causes: phased construction; no silent structure rewrite
+[Day 48, 00:00] [building_shell] Uma Koster formed an exact frontage proposal for Courtyard Studio 1. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 49, 00:00] [direction] Imani Dekker completed Imani Dekker — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 50, 00:00] [stewardship] Kian Mulder requested permission for Warm clay on Sleeping Room 1 floor at Small Garden Home. | causes: visible savings threshold reached; authority cannot be invented
+[Day 51, 00:00] [building_shell] The frontage proposal for Courtyard Studio 1 was declined without changing the façade or silently punishing the relationship. | causes: bounded authority; refusal preserved
+[Day 52, 00:00] [relationship] Bo Visser and Wes de Wit have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 52, 00:00] [stewardship] Kian Mulder's habitat request was approved at Small Garden Home: Warm clay on Sleeping Room 1 floor. | causes: explicit approval
+[Day 52, 00:00] [stewardship] Iris Bakker requested permission for Night blue on Kitchen walls at Small Garden Home. | causes: visible savings threshold reached; authority cannot be invented
+[Day 52, 00:00] [stewardship] Lena Jacobs requested permission for Warm clay on Kitchen walls at Old Lane House 2. | causes: visible savings threshold reached; authority cannot be invented
+[Day 52, 00:00] [stewardship] Imani Dekker formed a habitat intention at Rooftop Walk-up: Soft white on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 79/100; preferred color family cream
+[Day 52, 00:00] [stewardship] Ayla Jacobs formed a habitat intention at Old Lane House 3: Plum limewash on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 74/100; preferred color family plum
+[Day 53, 00:00] [direction] Zeno Vermeer began Zeno Vermeer — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 53, 00:00] [direction] Daan Groen completed Daan Groen — Build a collection with a reason. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 54, 00:00] [work] Joost Martens left Parcel Depot for Neighborhood Library. | causes: better pay; autonomous career decision
+[Day 54, 00:00] [stewardship] Iris Bakker's habitat request was approved at Small Garden Home: Night blue on Kitchen walls. | causes: explicit approval
+[Day 54, 00:00] [stewardship] Town Housing Network declined Lena Jacobs's request for Warm clay on Kitchen walls. | causes: deterministic owner policy decision
+[Day 54, 00:00] [habitat] Soft white on Kitchen floor completed at Old Lane House 2 through Daan Groen's recorded work. | causes: validated construction completion
+[Day 54, 00:00] [stewardship] Daan Groen completed Soft white on Kitchen floor at Old Lane House 2. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 54, 00:00] [direction] Iris Bakker began Iris Bakker — Learn in your own direction. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 54, 00:00] [direction] Wes de Wit completed Wes de Wit — Follow a question deeply. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 54, 00:00] [building_shell] Cleo Prins formed an exact frontage proposal for Old Lane House 3. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 55, 00:00] [habitat] Moss wash on Kitchen walls was added to Rooftop Walk-up's construction queue for Elin Meijer. | causes: phased construction; no silent structure rewrite
+[Day 55, 00:00] [stewardship] Wes de Wit formed a habitat intention at Station Apartment A: Soft white on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 47/100; preferred color family cream
+[Day 56, 00:00] [habitat] Warm clay on Sleeping Room 1 floor was added to Small Garden Home's construction queue for Kian Mulder. | causes: phased construction; no silent structure rewrite
+[Day 59, 00:00] [building_shell] Elin Meijer completed a frontage change at Rooftop Walk-up; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 60, 00:00] [direction] Ayla Jacobs began Ayla Jacobs — Help a small living place grow. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 61, 00:00] [habitat] Moss wash on Kitchen walls completed at Rooftop Walk-up through Elin Meijer's recorded work. | causes: validated construction completion
+[Day 61, 00:00] [stewardship] Elin Meijer completed Moss wash on Kitchen walls at Rooftop Walk-up. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 61, 00:00] [habitat] Warm clay on Sleeping Room 1 floor completed at Small Garden Home through Kian Mulder's recorded work. | causes: validated construction completion
+[Day 61, 00:00] [stewardship] Kian Mulder completed Warm clay on Sleeping Room 1 floor at Small Garden Home. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 61, 00:00] [direction] Jules Hendriks began Jules Hendriks — Follow a local thread. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 61, 00:00] [direction] Bram van Dijk began Bram van Dijk — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 62, 00:00] [direction] Bo Visser began Bo Visser — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 62, 00:00] [direction] Viktor Bos began Viktor Bos — Follow a local thread. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 62, 00:00] [direction] Zeno Vermeer completed Zeno Vermeer — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 63, 00:00] [stewardship] Ayla Jacobs's request for Plum limewash on Kitchen floor was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 63, 00:00] [building_shell] Cleo Prins completed a frontage change at Old Lane House 3; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 64, 00:00] [stewardship] Imani Dekker requested permission for Soft white on Kitchen floor at Rooftop Walk-up. | causes: visible savings threshold reached; authority cannot be invented
+[Day 64, 00:00] [stewardship] Zeno Vermeer formed a habitat intention at Flat Above the Bakery: Plum limewash on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 18/100; preferred color family lilac
+[Day 64, 00:00] [direction] Sven Kuiper began Sven Kuiper — Restore something that matters. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 64, 00:00] [direction] Bram van Dijk completed Bram van Dijk — Build a collection with a reason. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 64, 00:00] [building_shell] Sven Kuiper formed an exact frontage proposal for Old Lane House 1. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 65, 00:00] [stewardship] Wes de Wit requested permission for Soft white on Kitchen walls at Station Apartment A. | causes: visible savings threshold reached; authority cannot be invented
+[Day 65, 00:00] [stewardship] Jules Hendriks formed a habitat intention at Small Garden Home: Plum limewash on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 58/100; preferred color family plum
+[Day 66, 00:00] [stewardship] Imani Dekker's habitat request was approved at Rooftop Walk-up: Soft white on Kitchen floor. | causes: explicit approval
+[Day 66, 00:00] [building_shell] The frontage proposal for Old Lane House 1 was declined without changing the façade or silently punishing the relationship. | causes: bounded authority; refusal preserved
+[Day 66, 00:00] [building_shell] Mara de Boer formed an exact frontage proposal for Canal Student House. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 67, 00:00] [stewardship] Wes de Wit's habitat request was approved at Station Apartment A: Soft white on Kitchen walls. | causes: explicit approval
+[Day 67, 00:00] [building_shell] The frontage proposal for Canal Student House was declined without changing the façade or silently punishing the relationship. | causes: bounded authority; refusal preserved
+[Day 68, 00:00] [habitat] Night blue on Kitchen walls was added to Small Garden Home's construction queue for Iris Bakker. | causes: phased construction; no silent structure rewrite
+[Day 68, 00:00] [direction] Kian Mulder began Kian Mulder — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 70, 00:00] [stewardship] Zeno Vermeer requested permission for Plum limewash on Kitchen walls at Flat Above the Bakery. | causes: visible savings threshold reached; authority cannot be invented
+[Day 72, 00:00] [stewardship] Zeno Vermeer's habitat request was approved at Flat Above the Bakery: Plum limewash on Kitchen walls. | causes: explicit approval
+[Day 72, 00:00] [direction] Bo Visser completed Bo Visser — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 74, 00:00] [habitat] Night blue on Kitchen walls completed at Small Garden Home through Iris Bakker's recorded work. | causes: validated construction completion
+[Day 74, 00:00] [stewardship] Iris Bakker completed Night blue on Kitchen walls at Small Garden Home. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 74, 00:00] [direction] Mara de Boer began Mara de Boer — Learn in your own direction. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 75, 00:00] [relationship] Kian Mulder and Iris Bakker have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 75, 00:00] [direction] Jules Hendriks completed Jules Hendriks — Follow a local thread. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 75, 00:00] [direction] Viktor Bos completed Viktor Bos — Follow a local thread. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 76, 00:00] [stewardship] Jules Hendriks's request for Plum limewash on Kitchen floor was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 77, 00:00] [stewardship] Liv Smit formed a habitat intention at Old Lane House 3: Soft white on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 62/100; preferred color family white
+[Day 78, 00:00] [relationship] Farah Vermeer and Mara de Boer have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 78, 00:00] [building_shell] Elin Meijer formed an exact frontage proposal for Rooftop Walk-up. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 79, 00:00] [relationship] Daan Groen and Sam Vos have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 79, 00:00] [direction] Iris Bakker completed Iris Bakker — Learn in your own direction. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 79, 00:00] [building_shell] Wes de Wit formed an exact frontage proposal for Station Apartment A. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 80, 00:00] [stewardship] Sam Vos formed a habitat intention at Old Lane House 2: Warm clay on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 25/100; preferred color family mustard
+[Day 81, 00:00] [direction] Ayla Jacobs completed Ayla Jacobs — Help a small living place grow. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 82, 00:00] [stewardship] Lena Jacobs formed a habitat intention at Old Lane House 2: Warm clay on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 22/100; preferred color family mustard
+[Day 82, 00:00] [direction] Sam Vos began Sam Vos — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 83, 00:00] [stewardship] Sven Kuiper formed a habitat intention at Old Lane House 1: Warm clay on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 91/100; preferred color family night
+[Day 83, 00:00] [direction] Lena Jacobs began Lena Jacobs — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 83, 00:00] [direction] Sven Kuiper completed Sven Kuiper — Restore something that matters. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 84, 00:00] [habitat] Plum limewash on Kitchen walls was added to Flat Above the Bakery's construction queue for Zeno Vermeer. | causes: phased construction; no silent structure rewrite
+[Day 84, 00:00] [building_shell] Elin Meijer completed a frontage change at Rooftop Walk-up; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 84, 00:00] [building_shell] Cleo Prins formed an exact frontage proposal for Old Lane House 3. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 85, 00:00] [stewardship] Liv Smit's request for Soft white on Kitchen floor was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 85, 00:00] [direction] Joost Martens began Joost Martens — Learn in your own direction. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 85, 00:00] [direction] Quin Hendriks began Quin Hendriks — Learn in your own direction. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 85, 00:00] [direction] Mara de Boer completed Mara de Boer — Learn in your own direction. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 86, 00:00] [habitat] Soft white on Kitchen walls was added to Station Apartment A's construction queue for Wes de Wit. | causes: phased construction; no silent structure rewrite
+[Day 86, 00:00] [stewardship] Sam Vos requested permission for Warm clay on Kitchen walls at Old Lane House 2. | causes: visible savings threshold reached; authority cannot be invented
+[Day 86, 00:00] [stewardship] Bo Visser formed a habitat intention at Station Apartment A: Plum limewash on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 29/100; preferred color family mustard
+[Day 86, 00:00] [direction] Liv Smit began Liv Smit — Follow a local thread. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 86, 00:00] [building_shell] Wes de Wit completed a frontage change at Station Apartment A; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 86, 00:00] [building_shell] Iris Bakker formed an exact frontage proposal for Small Garden Home. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 87, 00:00] [stewardship] Lena Jacobs's request for Warm clay on Kitchen walls was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 87, 00:00] [stewardship] Sven Kuiper requested permission for Warm clay on Kitchen walls at Old Lane House 1. | causes: visible savings threshold reached; authority cannot be invented
+[Day 87, 00:00] [stewardship] Uma Koster formed a habitat intention at Courtyard Studio 1: Plum limewash on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 43/100; preferred color family plum
+[Day 88, 00:00] [stewardship] Sam Vos's habitat request was approved at Old Lane House 2: Warm clay on Kitchen walls. | causes: explicit approval
+[Day 88, 00:00] [habitat] Soft white on Kitchen floor was added to Rooftop Walk-up's construction queue for Imani Dekker. | causes: phased construction; no silent structure rewrite
+[Day 89, 00:00] [stewardship] Sven Kuiper's habitat request was approved at Old Lane House 1: Warm clay on Kitchen walls. | causes: explicit approval
+[Day 89, 00:00] [stewardship] Cleo Prins formed a habitat intention at Old Lane House 3: Warm clay on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 81/100; preferred color family mustard
+[Day 90, 00:00] [relationship] Zeno Vermeer and Quin Hendriks have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 90, 00:00] [habitat] Plum limewash on Kitchen walls completed at Flat Above the Bakery through Zeno Vermeer's recorded work. | causes: validated construction completion
+[Day 90, 00:00] [stewardship] Zeno Vermeer completed Plum limewash on Kitchen walls at Flat Above the Bakery. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 90, 00:00] [stewardship] Daan Groen formed a habitat intention at Old Lane House 2: Soft white on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 40/100; preferred color family white
+[Day 90, 00:00] [direction] Kian Mulder completed Kian Mulder — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 91, 00:00] [habitat] Soft white on Kitchen walls completed at Station Apartment A through Wes de Wit's recorded work. | causes: validated construction completion
+[Day 91, 00:00] [stewardship] Wes de Wit completed Soft white on Kitchen walls at Station Apartment A. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 91, 00:00] [stewardship] Quin Hendriks formed a habitat intention at Flat Above the Bakery: Soft white on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 66/100; preferred color family cream
+[Day 91, 00:00] [building_shell] Iris Bakker completed a frontage change at Small Garden Home; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 91, 00:00] [building_shell] Sven Kuiper formed an exact frontage proposal for Old Lane House 1. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 93, 00:00] [stewardship] Viktor Bos formed a habitat intention at Old Lane House 1: Night blue on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 26/100; preferred color family night
+[Day 93, 00:00] [stewardship] Noah Jansen formed a habitat intention at Small Garden Home: Soft white on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 13/100; preferred color family cream
+[Day 93, 00:00] [direction] Liv Smit completed Liv Smit — Follow a local thread. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 93, 00:00] [building_shell] Cleo Prins completed a frontage change at Old Lane House 3; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 94, 00:00] [habitat] Soft white on Kitchen floor completed at Rooftop Walk-up through Imani Dekker's recorded work. | causes: validated construction completion
+[Day 94, 00:00] [stewardship] Imani Dekker completed Soft white on Kitchen floor at Rooftop Walk-up. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 94, 00:00] [habitat] Warm clay on Kitchen walls was added to Old Lane House 1's construction queue for Sven Kuiper. | causes: phased construction; no silent structure rewrite
+[Day 94, 00:00] [stewardship] Daan Groen requested permission for Soft white on Kitchen walls at Old Lane House 2. | causes: visible savings threshold reached; authority cannot be invented
+[Day 95, 00:00] [direction] Imani Dekker began Imani Dekker — Help a small living place grow. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 96, 00:00] [stewardship] Town Housing Network declined Daan Groen's request for Soft white on Kitchen walls. | causes: deterministic owner policy decision
+[Day 96, 00:00] [stewardship] Bo Visser requested permission for Plum limewash on Kitchen floor at Station Apartment A. | causes: visible savings threshold reached; authority cannot be invented
+[Day 97, 00:00] [stewardship] Uma Koster requested permission for Plum limewash on Kitchen floor at Courtyard Studio 1. | causes: visible savings threshold reached; authority cannot be invented
+[Day 97, 00:00] [direction] Sam Vos completed Sam Vos — Build a collection with a reason. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 97, 00:00] [direction] Lena Jacobs completed Lena Jacobs — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 98, 00:00] [stewardship] Town Housing Network declined Bo Visser's request for Plum limewash on Kitchen floor. | causes: deterministic owner policy decision
+[Day 98, 00:00] [habitat] Warm clay on Kitchen walls was added to Old Lane House 2's construction queue for Sam Vos. | causes: phased construction; no silent structure rewrite
+[Day 99, 00:00] [stewardship] Uma Koster's habitat request was approved at Courtyard Studio 1: Plum limewash on Kitchen floor. | causes: explicit approval
+[Day 99, 00:00] [stewardship] Bram van Dijk formed a habitat intention at Old Lane House 1: Reclaimed wood on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 37/100; preferred color family copper
+[Day 100, 00:00] [relationship] Liv Smit and Cleo Prins have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 100, 00:00] [habitat] Warm clay on Kitchen walls completed at Old Lane House 1 through Sven Kuiper's recorded work. | causes: validated construction completion
+[Day 100, 00:00] [stewardship] Sven Kuiper completed Warm clay on Kitchen walls at Old Lane House 1. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 100, 00:00] [stewardship] Cleo Prins's request for Warm clay on Kitchen floor was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 100, 00:00] [stewardship] Quin Hendriks requested permission for Soft white on Kitchen walls at Flat Above the Bakery. | causes: visible savings threshold reached; authority cannot be invented
+[Day 100, 00:00] [stewardship] Viktor Bos requested permission for Night blue on Kitchen floor at Old Lane House 1. | causes: visible savings threshold reached; authority cannot be invented
+[Day 100, 00:00] [stewardship] Ayla Jacobs formed a habitat intention at Old Lane House 3: Plum limewash on Living Room floor. | causes: Living Room contains some of the resident's belongings; creativity 74/100; preferred color family plum
+[Day 101, 00:00] [stewardship] Jules Hendriks formed a habitat intention at Small Garden Home: Plum limewash on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 58/100; preferred color family plum
+[Day 101, 00:00] [direction] Farah Vermeer began Farah Vermeer — Follow a local thread. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 102, 00:00] [relationship] Liv Smit and Ayla Jacobs have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 102, 00:00] [stewardship] Quin Hendriks's habitat request was approved at Flat Above the Bakery: Soft white on Kitchen walls. | causes: explicit approval
+[Day 102, 00:00] [stewardship] Town Housing Network declined Viktor Bos's request for Night blue on Kitchen floor. | causes: deterministic owner policy decision
+[Day 102, 00:00] [direction] Imani Dekker completed Imani Dekker — Help a small living place grow. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 103, 00:00] [habitat] Warm clay on Kitchen walls completed at Old Lane House 2 through Sam Vos's recorded work. | causes: validated construction completion
+[Day 103, 00:00] [stewardship] Sam Vos completed Warm clay on Kitchen walls at Old Lane House 2. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 103, 00:00] [direction] Jules Hendriks began Jules Hendriks — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 103, 00:00] [building_shell] Sven Kuiper completed a frontage change at Old Lane House 1; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 104, 00:00] [stewardship] Noah Jansen requested permission for Soft white on Kitchen floor at Small Garden Home. | causes: visible savings threshold reached; authority cannot be invented
+[Day 105, 00:00] [stewardship] Ayla Jacobs's request for Plum limewash on Living Room floor was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 106, 00:00] [stewardship] Noah Jansen's habitat request was approved at Small Garden Home: Soft white on Kitchen floor. | causes: explicit approval
+[Day 106, 00:00] [stewardship] Elin Meijer formed a habitat intention at Rooftop Walk-up: Plum limewash on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 61/100; preferred color family plum
+[Day 108, 00:00] [relationship] Sven Kuiper and Viktor Bos have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 108, 00:00] [direction] Quin Hendriks completed Quin Hendriks — Learn in your own direction. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 108, 00:00] [direction] Farah Vermeer completed Farah Vermeer — Follow a local thread. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 108, 00:00] [building_shell] Uma Koster formed an exact frontage proposal for Courtyard Studio 1. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 110, 00:00] [direction] Mara de Boer began Mara de Boer — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 111, 00:00] [stewardship] Bram van Dijk requested permission for Reclaimed wood on Kitchen floor at Old Lane House 1. | causes: visible savings threshold reached; authority cannot be invented
+[Day 111, 00:00] [direction] Elin Meijer began Elin Meijer — Follow a local thread. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 113, 00:00] [stewardship] Bram van Dijk's habitat request was approved at Old Lane House 1: Reclaimed wood on Kitchen floor. | causes: explicit approval
+[Day 113, 00:00] [habitat] Plum limewash on Kitchen floor was added to Courtyard Studio 1's construction queue for Uma Koster. | causes: phased construction; no silent structure rewrite
+[Day 114, 00:00] [stewardship] Elin Meijer's request for Plum limewash on Kitchen walls was declined by a co-tenant. The exact refusal remains visible and no relationship punishment flag was added. | causes: explicit co-tenant refusal
+[Day 114, 00:00] [stewardship] Lena Jacobs formed a habitat intention at Old Lane House 2: Warm clay on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 22/100; preferred color family mustard
+[Day 115, 00:00] [stewardship] Jules Hendriks requested permission for Plum limewash on Kitchen floor at Small Garden Home. | causes: visible savings threshold reached; authority cannot be invented
+[Day 116, 00:00] [building_shell] Elin Meijer formed an exact frontage proposal for Rooftop Walk-up. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 117, 00:00] [relationship] Viktor Bos and Bram van Dijk have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 117, 00:00] [stewardship] Jules Hendriks's habitat request was approved at Small Garden Home: Plum limewash on Kitchen floor. | causes: explicit approval
+[Day 117, 00:00] [stewardship] Kian Mulder formed a habitat intention at Small Garden Home: Reclaimed wood on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 34/100; preferred color family copper
+[Day 117, 00:00] [stewardship] Liv Smit formed a habitat intention at Old Lane House 3: Soft white on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 62/100; preferred color family white
+[Day 117, 00:00] [direction] Uma Koster began Uma Koster — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 117, 00:00] [direction] Daan Groen began Daan Groen — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 118, 00:00] [habitat] Soft white on Kitchen walls was added to Flat Above the Bakery's construction queue for Quin Hendriks. | causes: phased construction; no silent structure rewrite
+[Day 118, 00:00] [stewardship] Daan Groen formed a habitat intention at Old Lane House 2: Painted concrete on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 40/100; preferred color family white
+[Day 118, 00:00] [direction] Joost Martens completed Joost Martens — Learn in your own direction. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 119, 00:00] [habitat] Plum limewash on Kitchen floor completed at Courtyard Studio 1 through Uma Koster's recorded work. | causes: validated construction completion
+[Day 119, 00:00] [stewardship] Uma Koster completed Plum limewash on Kitchen floor at Courtyard Studio 1. | causes: resident-authored intention; saved resources; recorded permissions; phased validated work
+[Day 120, 00:00] [stewardship] Lena Jacobs requested permission for Warm clay on Kitchen floor at Old Lane House 2. | causes: visible savings threshold reached; authority cannot be invented
+[Day 121, 00:00] [building_shell] Uma Koster completed a frontage change at Courtyard Studio 1; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 122, 00:00] [stewardship] Lena Jacobs's habitat request was approved at Old Lane House 2: Warm clay on Kitchen floor. | causes: explicit approval
+[Day 123, 00:00] [stewardship] Liv Smit requested permission for Soft white on Kitchen walls at Old Lane House 3. | causes: visible savings threshold reached; authority cannot be invented
+[Day 123, 13:00] [research] Observer mode completed 120 days with 0 invariant errors; 10 homes changed visible state. | causes: deterministic batch simulation

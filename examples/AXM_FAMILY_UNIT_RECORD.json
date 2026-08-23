@@ -1,0 +1,647 @@
+{
+  "id": "family_00270",
+  "schema": "axm.living-city.family-unit/v0.5.0",
+  "status": "active",
+  "linkedHouseholdId": "household_00242",
+  "homePropertyId": "home_garden_2",
+  "createdDay": 1,
+  "createdHour": 9,
+  "revision": 4,
+  "members": [
+    {
+      "personId": "player",
+      "role": "adult_guardian",
+      "joinedDay": 1,
+      "leftDay": null,
+      "agency": "self-directed"
+    },
+    {
+      "personId": "npc_023",
+      "role": "adult_partner",
+      "joinedDay": 1,
+      "leftDay": null,
+      "agency": "self-directed"
+    },
+    {
+      "personId": "dependent_00273",
+      "role": "dependent",
+      "joinedDay": 1,
+      "leftDay": null,
+      "agency": "autonomous_dependent"
+    },
+    {
+      "personId": "dependent_00288",
+      "role": "dependent",
+      "joinedDay": 1,
+      "leftDay": null,
+      "agency": "autonomous_dependent"
+    }
+  ],
+  "carePlan": {
+    "mode": "balanced",
+    "playerTargetHours": 2,
+    "partnerTargetHours": 2,
+    "communitySupportAllowed": true,
+    "weeklyBudget": 55,
+    "educationMode": "home_project_mix",
+    "lastAcceptedProposalId": "family_proposal_00305"
+  },
+  "pendingArrival": null,
+  "pressure": {
+    "rollingUnmetHours": 10.82,
+    "consecutiveStrainDays": 1,
+    "lastDayRequired": 6,
+    "lastDayProvided": 2.49,
+    "lastDayCost": 0,
+    "lastReviewDay": 125
+  },
+  "roomAssignments": [
+    {
+      "id": "family_room_00274",
+      "roomId": "room_home_garden_2_004",
+      "personId": "dependent_00273",
+      "kind": "dependent_private",
+      "label": "Joost Bakker's personal room",
+      "createdDay": 1,
+      "provenance": "explicit labeled experiment"
+    },
+    {
+      "id": "family_room_00289",
+      "roomId": "room_home_garden_2_005",
+      "personId": "dependent_00288",
+      "kind": "dependent_private",
+      "label": "Hana Bakker's personal room",
+      "createdDay": 1,
+      "provenance": "explicit labeled experiment"
+    }
+  ],
+  "separation": null,
+  "history": [
+    {
+      "id": "family_event_00272",
+      "day": 1,
+      "hour": 9,
+      "type": "created",
+      "message": "Player and Daan Bakker created a family-continuity agreement without transferring control over either adult.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted adult agreement",
+        "separate family graph",
+        "no household ownership"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "family_event_00283",
+      "day": 1,
+      "hour": 9,
+      "type": "dependent_joined",
+      "message": "Joost Bakker joined the family as an autonomous Teen.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": "dependent_00273",
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "explicit labeled experiment",
+        "lawful home capacity",
+        "dependent remains non-playable"
+      ],
+      "evidence": {
+        "age": 17,
+        "stage": "teen",
+        "roomId": "room_home_garden_2_004",
+        "objectIds": [
+          "object_00275",
+          "object_00277",
+          "object_00279",
+          "object_00281"
+        ]
+      }
+    },
+    {
+      "id": "family_event_00286",
+      "day": 1,
+      "hour": 9,
+      "type": "experiment_prepared",
+      "message": "A labeled teen family-continuity experiment was prepared through real household, movement, capacity, object, and room systems.",
+      "actorIds": [
+        "player",
+        "npc_023",
+        "dependent_00273"
+      ],
+      "personId": "dependent_00273",
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "explicit developer experiment",
+        "not normal progression"
+      ],
+      "evidence": {
+        "variant": "teen",
+        "householdId": "household_00242"
+      }
+    },
+    {
+      "id": "family_event_00298",
+      "day": 1,
+      "hour": 9,
+      "type": "dependent_joined",
+      "message": "Hana Bakker joined the family as an autonomous Toddler.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": "dependent_00288",
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "explicit labeled experiment",
+        "lawful home capacity",
+        "dependent remains non-playable"
+      ],
+      "evidence": {
+        "age": 4,
+        "stage": "toddler",
+        "roomId": "room_home_garden_2_005",
+        "objectIds": [
+          "object_00290",
+          "object_00292",
+          "object_00294",
+          "object_00296"
+        ]
+      }
+    },
+    {
+      "id": "family_event_00358",
+      "day": 2,
+      "hour": 0,
+      "type": "education_plan_implemented",
+      "message": "The accepted Education Plan plan became active.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": "family_proposal_00305",
+      "propertyId": "home_garden_2",
+      "causes": [
+        "mutual adult acceptance",
+        "visible terms"
+      ],
+      "evidence": {
+        "mode": "home_project_mix"
+      }
+    },
+    {
+      "id": "family_event_00619",
+      "day": 8,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_00919",
+      "day": 15,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_01189",
+      "day": 22,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_01492",
+      "day": 29,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_01735",
+      "day": 36,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_01978",
+      "day": 43,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_02253",
+      "day": 50,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_02530",
+      "day": 57,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_02758",
+      "day": 64,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_02993",
+      "day": 71,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_03219",
+      "day": 78,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_03479",
+      "day": 85,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_03691",
+      "day": 92,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_03928",
+      "day": 99,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_04209",
+      "day": 106,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_04465",
+      "day": 113,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    },
+    {
+      "id": "family_event_04697",
+      "day": 120,
+      "hour": 0,
+      "type": "weekly_support",
+      "message": "The family funded €120 of €120 in visible weekly support costs.",
+      "actorIds": [
+        "player",
+        "npc_023"
+      ],
+      "personId": null,
+      "proposalId": null,
+      "propertyId": "home_garden_2",
+      "causes": [
+        "accepted care plan",
+        "support cost met"
+      ],
+      "evidence": {
+        "budget": 120,
+        "playerDue": 60,
+        "playerPaid": 60,
+        "partnerDue": 60,
+        "partnerPaid": 60,
+        "shortfall": 0
+      }
+    }
+  ]
+}

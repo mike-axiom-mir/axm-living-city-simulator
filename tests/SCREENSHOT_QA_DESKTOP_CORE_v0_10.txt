@@ -1,0 +1,15 @@
+PASS screenshot group desktop-core: captured 14 images
+- town_desktop.png
+- home_desktop.png
+- construction_planned_desktop.png
+- construction_completed_desktop.png
+- resident_interior_desktop.png
+- stewardship_request_desktop.png
+- stewardship_approved_saving_desktop.png
+- stewardship_completed_desktop.png
+- agreements_before_commitment_desktop.png
+- commitment_pending_desktop.png
+- agreements_active_separate_desktop.png
+- agreements_cohabiting_desktop.png
+- shared_home_room_permissions_desktop.png
+- agreements_ended_desktop.png

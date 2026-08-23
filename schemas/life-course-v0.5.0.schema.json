@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.life-course/v0.5.0",
+  "title": "AXM Living City Life Course v0.5.0",
+  "description": "A deterministic age and stage record that preserves identity across life transitions without inventing family ties.",
+  "type": "object",
+  "required": [
+    "schema",
+    "ageDays",
+    "ageYears",
+    "stage",
+    "birthdayOffset",
+    "stageEnteredDay",
+    "transitionHistory",
+    "provenance"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.life-course/v0.5.0"
+    },
+    "ageDays": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "ageYears": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "stage": {
+      "enum": [
+        "infant",
+        "toddler",
+        "child",
+        "teen",
+        "young_adult",
+        "adult",
+        "elder"
+      ]
+    },
+    "birthdayOffset": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 364
+    },
+    "stageEnteredDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "transitionHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "from",
+          "to",
+          "age"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "from": {
+            "enum": [
+              "infant",
+              "toddler",
+              "child",
+              "teen",
+              "young_adult",
+              "adult",
+              "elder"
+            ]
+          },
+          "to": {
+            "enum": [
+              "infant",
+              "toddler",
+              "child",
+              "teen",
+              "young_adult",
+              "adult",
+              "elder"
+            ]
+          },
+          "age": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "provenance": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": true
+}

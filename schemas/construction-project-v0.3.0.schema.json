@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.construction-project/v0.3.0",
+  "title": "AXM Construction Project v0.3.0",
+  "description": "A phased construction record. Planning or proposal acceptance does not mutate the habitat; completion occurs only after all phases and invariant validation.",
+  "type": "object",
+  "required": [
+    "id",
+    "schema",
+    "propertyId",
+    "creatorId",
+    "createdDay",
+    "createdHour",
+    "status",
+    "spec",
+    "summary",
+    "targetKey",
+    "authority",
+    "layoutRevisionAtPlan",
+    "phaseIndex",
+    "phases",
+    "completedPhaseIds",
+    "spent",
+    "completedDay",
+    "failureReason",
+    "history"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema": {
+      "const": "axm.construction-project/v0.3.0"
+    },
+    "propertyId": {
+      "type": "string"
+    },
+    "creatorId": {
+      "const": "player"
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "active",
+        "completed",
+        "cancelled",
+        "failed"
+      ]
+    },
+    "spec": {
+      "type": "object",
+      "required": [
+        "type",
+        "target"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "partition",
+            "surface",
+            "utility",
+            "repair"
+          ]
+        },
+        "target": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "string"
+    },
+    "targetKey": {
+      "type": "string"
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "mode",
+        "householdId",
+        "proposalId",
+        "evidence"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "direct",
+            "approved_proposal"
+          ]
+        },
+        "householdId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "proposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {}
+      },
+      "additionalProperties": false
+    },
+    "layoutRevisionAtPlan": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "phaseIndex": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "phases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "hours",
+          "money",
+          "materials",
+          "note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "money": {
+            "type": "number",
+            "minimum": 0
+          },
+          "materials": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "completedPhaseIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "spent": {
+      "type": "object",
+      "required": [
+        "money",
+        "materials"
+      ],
+      "properties": {
+        "money": {
+          "type": "number",
+          "minimum": 0
+        },
+        "materials": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "completedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "failureReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/historyEvent"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "historyEvent": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "type",
+        "message"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "actorId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "actorIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "projectId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "causes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {}
+      },
+      "additionalProperties": true
+    }
+  }
+}

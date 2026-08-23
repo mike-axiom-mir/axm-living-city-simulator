@@ -1,0 +1,3 @@
+PASS screenshot group mobile-walkable: captured 2 images
+- walkable_route_planner_mobile.png
+- walkable_visible_route_mobile.png

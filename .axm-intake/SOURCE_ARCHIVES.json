@@ -1,0 +1,26 @@
+{
+  "schema": "axm.living-city-source-archives/v1",
+  "current": {
+    "file": "AXM_LIVING_CITY_SIM_LOCAL_INTAKE_v0_11_3.zip",
+    "bytes": 46396879,
+    "sha256": "59b37d7cf9f3640f51d5b7c00c8241fa274babd833607f5aff8081d7a9fdeea2",
+    "role": "CURRENT_CUMULATIVE_LOCAL_INTAKE"
+  },
+  "continuity": {
+    "file": "AXM_LIVING_CITY_SIM_CURRENT_HANDOFF_v0_11_0(1).zip",
+    "bytes": 45727991,
+    "sha256": "4f6f05733e3a28ac8edc64480b2a5c09854f0a77a456b16a7719f86449b9de71",
+    "role": "SEALED_V0_11_0_HANDOFF"
+  },
+  "history": {
+    "file": "AXM_LIVING_CITY_SIM_FULL_HISTORY_ARCHIVE_v0_11_0(1).zip",
+    "bytes": 227252884,
+    "sha256": "a62dce40aa8c456e9f8b22bfb832df965b829a91d44e36ab554da4b9ee3de7f7",
+    "role": "SEALED_V0_1_0_THROUGH_V0_11_0_HISTORY"
+  },
+  "relationships": {
+    "currentHandoffMatchesHistoryCopy": true,
+    "historyCopiedIntoRepository": false,
+    "archivesRequiredAtRuntime": false
+  }
+}

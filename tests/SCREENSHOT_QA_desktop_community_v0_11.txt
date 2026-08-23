@@ -1,0 +1,5 @@
+PASS screenshot group desktop-community: captured 4 images
+- community_onboarding_desktop.png
+- community_freedom_loop_desktop.png
+- community_invitation_desktop.png
+- community_refusal_preserved_desktop.png

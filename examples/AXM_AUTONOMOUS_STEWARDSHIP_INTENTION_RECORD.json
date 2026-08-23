@@ -1,0 +1,367 @@
+{
+  "id": "habitat_intention_00239",
+  "schema": "axm.habitat-intention/v0.4.0",
+  "residentId": "npc_001",
+  "propertyId": "home_courtyard_1",
+  "createdDay": 1,
+  "createdHour": 7,
+  "status": "completed",
+  "kind": "surface",
+  "summary": "Warm clay on Kitchen walls",
+  "projectSpec": {
+    "type": "surface",
+    "target": {
+      "roomId": "room_home_courtyard_1_001",
+      "surface": "walls",
+      "finishId": "warm_clay"
+    }
+  },
+  "reasons": [
+    "explicit labeled experiment setup"
+  ],
+  "scoreEvidence": {
+    "score": 100,
+    "generatedDay": 1
+  },
+  "funding": {
+    "budget": {
+      "phases": [
+        {
+          "id": "measure",
+          "name": "Measure and preserve room state",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Record objects, permissions, and surface history."
+        },
+        {
+          "id": "prepare",
+          "name": "Prepare the existing surface",
+          "hours": 1,
+          "money": 20,
+          "materials": {
+            "paint": 3
+          },
+          "note": "Repair rather than erase the surface."
+        },
+        {
+          "id": "apply",
+          "name": "Apply Warm clay",
+          "hours": 2,
+          "money": 65,
+          "materials": {
+            "paint": 5
+          },
+          "note": "Appearance changes without forcing a stat-optimal room."
+        },
+        {
+          "id": "cure",
+          "name": "Let the finish settle",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Complete a visible construction phase."
+        }
+      ],
+      "phaseMoney": 85,
+      "materialMoney": 80,
+      "totalMoney": 165,
+      "materials": {
+        "paint": 8
+      },
+      "hours": 5
+    },
+    "requestThreshold": 49.5,
+    "escrow": {
+      "money": 0,
+      "materials": {
+        "wood": 0,
+        "metal": 0,
+        "fabric": 0,
+        "parts": 0,
+        "paint": 0
+      }
+    },
+    "contributionTotals": {
+      "resident": 145.2,
+      "propertyReserve": 19.8
+    },
+    "history": [
+      {
+        "day": 1,
+        "source": "player_property_reserve",
+        "amount": 19.8,
+        "totalEscrow": 89.1
+      },
+      {
+        "day": 2,
+        "amount": 9.89,
+        "total": 98.99,
+        "milestone": 50
+      },
+      {
+        "day": 5,
+        "amount": 9.83,
+        "total": 128.54,
+        "milestone": 75
+      },
+      {
+        "day": 9,
+        "amount": 6.76,
+        "total": 165,
+        "milestone": 100
+      }
+    ],
+    "lastMilestone": 100,
+    "materialsPurchased": true,
+    "materialPurchaseEvidence": {
+      "day": 9,
+      "cost": 80,
+      "unitPrices": {
+        "wood": 14,
+        "metal": 18,
+        "fabric": 12,
+        "parts": 20,
+        "paint": 10
+      },
+      "materials": {
+        "paint": 8
+      }
+    }
+  },
+  "requestId": "stewardship_request_00242",
+  "projectId": "construction_00591",
+  "nextActionDay": 1,
+  "deadlineDay": 121,
+  "completedDay": 14,
+  "failureReason": null,
+  "history": [
+    {
+      "day": 1,
+      "hour": 7,
+      "type": "formed",
+      "message": "Elin Vos formed the intention: Warm clay on Kitchen walls.",
+      "evidence": {
+        "reasons": [
+          "explicit labeled experiment setup"
+        ],
+        "budget": {
+          "phases": [
+            {
+              "id": "measure",
+              "name": "Measure and preserve room state",
+              "hours": 1,
+              "money": 0,
+              "materials": {},
+              "note": "Record objects, permissions, and surface history."
+            },
+            {
+              "id": "prepare",
+              "name": "Prepare the existing surface",
+              "hours": 1,
+              "money": 20,
+              "materials": {
+                "paint": 3
+              },
+              "note": "Repair rather than erase the surface."
+            },
+            {
+              "id": "apply",
+              "name": "Apply Warm clay",
+              "hours": 2,
+              "money": 65,
+              "materials": {
+                "paint": 5
+              },
+              "note": "Appearance changes without forcing a stat-optimal room."
+            },
+            {
+              "id": "cure",
+              "name": "Let the finish settle",
+              "hours": 1,
+              "money": 0,
+              "materials": {},
+              "note": "Complete a visible construction phase."
+            }
+          ],
+          "phaseMoney": 85,
+          "materialMoney": 80,
+          "totalMoney": 165,
+          "materials": {
+            "paint": 8
+          },
+          "hours": 5
+        },
+        "score": 100
+      }
+    },
+    {
+      "day": 1,
+      "hour": 7,
+      "type": "permission_requested",
+      "message": "Elin Vos requested permission after saving a visible first share of the budget.",
+      "evidence": {
+        "requestId": "stewardship_request_00242"
+      }
+    },
+    {
+      "day": 1,
+      "hour": 7,
+      "type": "approved",
+      "message": "The exact request was approved. Approval did not skip saving, material acquisition, or construction phases.",
+      "evidence": {
+        "requestId": "stewardship_request_00242",
+        "ownerContribution": 19.8
+      }
+    },
+    {
+      "day": 2,
+      "hour": 0,
+      "type": "funding_milestone",
+      "message": "Elin Vos's visible project reserve reached 50% of the target.",
+      "evidence": {
+        "day": 2,
+        "amount": 9.89,
+        "total": 98.99,
+        "milestone": 50
+      }
+    },
+    {
+      "day": 5,
+      "hour": 0,
+      "type": "funding_milestone",
+      "message": "Elin Vos's visible project reserve reached 75% of the target.",
+      "evidence": {
+        "day": 5,
+        "amount": 9.83,
+        "total": 128.54,
+        "milestone": 75
+      }
+    },
+    {
+      "day": 9,
+      "hour": 0,
+      "type": "funding_milestone",
+      "message": "Elin Vos's visible project reserve reached 100% of the target.",
+      "evidence": {
+        "day": 9,
+        "amount": 6.76,
+        "total": 165,
+        "milestone": 100
+      }
+    },
+    {
+      "day": 9,
+      "hour": 0,
+      "type": "materials_acquired",
+      "message": "Elin Vos acquired the exact recorded material bundle for the approved project.",
+      "evidence": {
+        "day": 9,
+        "cost": 80,
+        "unitPrices": {
+          "wood": 14,
+          "metal": 18,
+          "fabric": 12,
+          "parts": 20,
+          "paint": 10
+        },
+        "materials": {
+          "paint": 8
+        }
+      }
+    },
+    {
+      "day": 9,
+      "hour": 0,
+      "type": "construction_started",
+      "message": "Elin Vos began phased work.",
+      "evidence": {
+        "projectId": "construction_00591",
+        "phases": [
+          "measure",
+          "prepare",
+          "apply",
+          "cure"
+        ]
+      }
+    },
+    {
+      "day": 9,
+      "hour": 0,
+      "type": "phase_completed",
+      "message": "Elin Vos completed Measure and preserve room state.",
+      "evidence": {
+        "projectId": "construction_00591",
+        "phaseId": "measure",
+        "phaseIndex": 1,
+        "status": "active"
+      }
+    },
+    {
+      "day": 10,
+      "hour": 0,
+      "type": "phase_completed",
+      "message": "Elin Vos completed Prepare the existing surface.",
+      "evidence": {
+        "projectId": "construction_00591",
+        "phaseId": "prepare",
+        "phaseIndex": 2,
+        "status": "active"
+      }
+    },
+    {
+      "day": 12,
+      "hour": 0,
+      "type": "phase_completed",
+      "message": "Elin Vos completed Apply Warm clay.",
+      "evidence": {
+        "projectId": "construction_00591",
+        "phaseId": "apply",
+        "phaseIndex": 3,
+        "status": "active"
+      }
+    },
+    {
+      "day": 14,
+      "hour": 0,
+      "type": "phase_completed",
+      "message": "Elin Vos completed the final validation phase.",
+      "evidence": {
+        "projectId": "construction_00591",
+        "phaseId": null,
+        "phaseIndex": 4,
+        "status": "completed"
+      }
+    },
+    {
+      "day": 14,
+      "hour": 0,
+      "type": "escrow_released",
+      "message": "Remaining project resources were released after validated completion.",
+      "evidence": {
+        "residentShare": 0,
+        "reserveShare": 0,
+        "materialGross": 0,
+        "materialValue": 0,
+        "loss": 0,
+        "resaleRate": 1
+      }
+    },
+    {
+      "day": 14,
+      "hour": 0,
+      "type": "completed",
+      "message": "Elin Vos completed Warm clay on Kitchen walls.",
+      "evidence": {
+        "projectId": "construction_00591",
+        "refund": {
+          "cash": 0,
+          "residentShare": 0,
+          "reserveShare": 0,
+          "materialValue": 0,
+          "loss": 0
+        }
+      }
+    }
+  ]
+}

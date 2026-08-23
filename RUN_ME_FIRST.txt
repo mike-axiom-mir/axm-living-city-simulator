@@ -1,0 +1,55 @@
+AXM LIVING CITY — INTERIOR FEEDBACK STEWARD PASS v0.11.3
+
+FASTEST START
+1. Open: standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+2. The game opens in Living View and Room mode.
+3. Browse rooms, focus a persistent object, and choose a grounded item under Things to do here.
+4. After success, inspect What actually changed and the focused-object details.
+5. Use Open in Build & Home to continue with that real object.
+6. Compare Full, Gentle, and Still motion, then inspect Building, Street, or Follow presence.
+
+NO INSTALLATION OR INTERNET IS REQUIRED.
+
+TRUTH BOUNDARY
+- The ordinary activity engine applies the action once.
+- The feedback card reports measured changes; it creates none.
+- A completed echo is after-the-fact, not current presence.
+- Room browsing and object focus do not move the player or widen authority.
+- Older v0.11.2 receipts may have no observed deltas; the UI must not invent them.
+
+ROOTS TO PRESERVE
+- one controlled life and autonomous residents;
+- casual realism without chores or age pressure;
+- presence is evidence, not authority;
+- private rooms are not remotely exposed;
+- visible and compressed paths remain equally valid;
+- no watching reward, routine checklist, or compulsory greeting;
+- object identity, scoped authority, diagnostic-only validation, and local export remain intact.
+
+VERIFY
+npm run build
+npm test
+npm run test:stress
+npm run test:household-stress
+npm run test:stewardship-stress
+npm run test:family-stress
+npm run test:community-stress
+npm run test:directions-stress
+npm run test:economy-stress
+npm run test:walkable-stress
+npm run test:shells-stress
+npm run test:presence-stress
+npm run examples
+npm run qa:schemas
+npm run qa:visuals-browser
+
+READ
+- DESIGN_ROOTS.md
+- ACTION_REPORT.md
+- CURRENT_BUILD_STATUS.md
+- MACHINE_HANDOFF.md
+- docs/INTERIOR_FEEDBACK_AND_ACTION_ECHOES_v0_11_3.md
+- docs/MIGRATION_v0_11_2_TO_v0_11_3.md
+- tests/INTERIOR_FEEDBACK_TEST_RESULTS_v0_11_3.txt
+- tests/LIVE_VISUAL_VERIFICATION_RECEIPT_v0_11_3.txt
+- tests/FINAL_TEST_RESULTS_v0_11_3.txt

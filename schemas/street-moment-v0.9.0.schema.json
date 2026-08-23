@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.street-moment/v0.9.0",
+  "title": "AXM Living City Street Moment v0.9.0",
+  "description": "An optional observation made while visibly traveling. It is explicitly observation-only and carries no reward, punishment, streak, ranking, or obligation.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "day",
+    "hour",
+    "minute",
+    "nodeId",
+    "streetName",
+    "actorIds",
+    "text",
+    "consequence"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.street-moment/v0.9.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "day": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "hour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "minute": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 59
+    },
+    "nodeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "streetName": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "actorIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "consequence": {
+      "const": "observation_only"
+    }
+  },
+  "additionalProperties": false,
+  "not": {
+    "anyOf": [
+      {
+        "required": [
+          "reward"
+        ]
+      },
+      {
+        "required": [
+          "penalty"
+        ]
+      },
+      {
+        "required": [
+          "score"
+        ]
+      },
+      {
+        "required": [
+          "streak"
+        ]
+      }
+    ]
+  }
+}

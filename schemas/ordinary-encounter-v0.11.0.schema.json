@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.ordinary-encounter/v0.11.0",
+  "title": "AXM Ordinary Encounter v0.11.0",
+  "description": "An optional refusal-safe co-presence moment. No response is required and presence grants no authority.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "kind",
+    "title",
+    "text",
+    "actorIds",
+    "placeId",
+    "buildingId",
+    "roomId",
+    "routeNodeId",
+    "offeredAt",
+    "status",
+    "response",
+    "resolvedAt",
+    "noResponseRequired",
+    "noRelationshipPenalty",
+    "noWatchingReward",
+    "authority",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.ordinary-encounter/v0.11.0"
+    },
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "actorIds": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "placeId": {
+      "type": "string"
+    },
+    "buildingId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "roomId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "routeNodeId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "offeredAt": {
+      "$ref": "#/$defs/time"
+    },
+    "status": {
+      "enum": [
+        "awaiting_player",
+        "greeted",
+        "quietly_acknowledged",
+        "declined",
+        "passed"
+      ]
+    },
+    "response": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resolvedAt": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "noResponseRequired": {
+      "const": true
+    },
+    "noRelationshipPenalty": {
+      "const": true
+    },
+    "noWatchingReward": {
+      "const": true
+    },
+    "authority": {
+      "$ref": "#/$defs/authority"
+    },
+    "history": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "time": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "minute"
+      ],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "minute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      },
+      "additionalProperties": true
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "tenancy",
+        "ownership",
+        "edit",
+        "storage",
+        "household",
+        "care",
+        "surveillance"
+      ],
+      "properties": {
+        "tenancy": {
+          "const": false
+        },
+        "ownership": {
+          "const": false
+        },
+        "edit": {
+          "const": false
+        },
+        "storage": {
+          "const": false
+        },
+        "household": {
+          "const": false
+        },
+        "care": {
+          "const": false
+        },
+        "surveillance": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

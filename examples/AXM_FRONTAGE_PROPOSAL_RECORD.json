@@ -1,0 +1,74 @@
+{
+  "schema": "axm.living-city.frontage-proposal/v0.10.0",
+  "id": "frontage_proposal_000027",
+  "buildingId": "building_home_garden_1",
+  "placeId": "home_garden_1",
+  "authorId": "npc_006",
+  "createdAt": {
+    "day": 1,
+    "hour": 7,
+    "minute": 0
+  },
+  "decisionDueDay": 2,
+  "status": "completed",
+  "change": {
+    "type": "window_boxes",
+    "before": false,
+    "after": true,
+    "description": "Window Boxes: false → true"
+  },
+  "authority": {
+    "ownerId": "player",
+    "decisionMode": "player_owner_response",
+    "decision": "approved",
+    "decidedAt": {
+      "day": 1,
+      "hour": 7,
+      "minute": 0
+    },
+    "reason": "player approved the exact resident-authored request"
+  },
+  "finance": {
+    "totalCost": 48,
+    "authorEscrow": 48,
+    "ownerContribution": 0,
+    "refunded": 0
+  },
+  "noRelationshipPenalty": true,
+  "projectId": "frontage_project_000030",
+  "history": [
+    {
+      "id": "shell_event_000028",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "created",
+      "message": "Nika Martens proposed window boxes: false → true for Small Garden Home.",
+      "actorIds": [
+        "npc_006"
+      ],
+      "causes": [
+        "explicit v0.10 resident-authored shell experiment"
+      ],
+      "evidence": {
+        "status": "awaiting_player",
+        "ownerId": "player"
+      }
+    },
+    {
+      "id": "shell_event_000029",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "approved",
+      "message": "The exact frontage request was approved: player approved the exact resident-authored request.",
+      "actorIds": [
+        "npc_006"
+      ],
+      "causes": [
+        "specific project authority only"
+      ],
+      "evidence": null
+    }
+  ]
+}

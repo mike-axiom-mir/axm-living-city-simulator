@@ -1,0 +1,15 @@
+PASS screenshot group desktop-directions: captured 5 images
+- directions_onboarding_desktop.png
+- directions_active_project_desktop.png
+- directions_no_age_pressure_desktop.png
+- directions_project_crosses_chapter_desktop.png
+- directions_paused_desktop.png
+PASS screenshot group desktop-economy: captured 4 images
+- economy_onboarding_desktop.png
+- economy_active_direction_desktop.png
+- economy_actual_customers_desktop.png
+- economy_entered_session_desktop.png
+PASS screenshot group desktop-walkable: captured 3 images
+- walkable_route_planner_desktop.png
+- walkable_visible_route_desktop.png
+- walkable_street_moment_desktop.png

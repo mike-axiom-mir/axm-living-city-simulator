@@ -1,0 +1,19 @@
+{
+  "schema": "axm.property-stewardship/v0.4.0",
+  "policy": {
+    "id": "player_steward",
+    "name": "Human owner decision",
+    "ownerMode": "player_decides",
+    "responseDelayDays": 0,
+    "generosity": 46,
+    "alterationTolerance": 51,
+    "repairPriority": 72
+  },
+  "requestIds": [
+    "stewardship_request_00242"
+  ],
+  "completedIntentionIds": [
+    "habitat_intention_00239"
+  ],
+  "history": []
+}

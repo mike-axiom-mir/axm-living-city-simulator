@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.presence-access-grant/v0.11.0",
+  "title": "AXM Presence Access Grant v0.11.0",
+  "description": "A bounded accepted shared-space visit grant that explicitly grants no tenancy, ownership, storage, edit, household, care, or surveillance authority.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "hostId",
+    "guestId",
+    "placeId",
+    "status",
+    "createdAt",
+    "expiresAt",
+    "purpose",
+    "sharedRoomPurposes",
+    "authority",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.presence-access-grant/v0.11.0"
+    },
+    "id": {
+      "type": "string"
+    },
+    "hostId": {
+      "type": "string"
+    },
+    "guestId": {
+      "type": "string"
+    },
+    "placeId": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "accepted",
+        "withdrawn",
+        "expired",
+        "used"
+      ]
+    },
+    "createdAt": {
+      "$ref": "#/$defs/time"
+    },
+    "expiresAt": {
+      "$ref": "#/$defs/time"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "sharedRoomPurposes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authority": {
+      "$ref": "#/$defs/authority"
+    },
+    "history": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "time": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "minute"
+      ],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "minute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      },
+      "additionalProperties": true
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "tenancy",
+        "ownership",
+        "edit",
+        "storage",
+        "household",
+        "care",
+        "surveillance"
+      ],
+      "properties": {
+        "tenancy": {
+          "const": false
+        },
+        "ownership": {
+          "const": false
+        },
+        "edit": {
+          "const": false
+        },
+        "storage": {
+          "const": false
+        },
+        "household": {
+          "const": false
+        },
+        "care": {
+          "const": false
+        },
+        "surveillance": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

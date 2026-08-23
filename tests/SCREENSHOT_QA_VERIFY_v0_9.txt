@@ -1,0 +1,1 @@
+PASS screenshot evidence: 51/51 expected desktop/mobile images; group runs reported zero page, console, and horizontal-overflow errors.

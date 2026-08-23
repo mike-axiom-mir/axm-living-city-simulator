@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city-sim.observer-report/v0.2.0",
+  "title": "AXM Living City Observer Report v0.2.0",
+  "type": "object",
+  "required": [
+    "before",
+    "after",
+    "changedPropertyCount",
+    "changedPropertyIds",
+    "changedProperties",
+    "validation"
+  ],
+  "properties": {
+    "before": {
+      "type": "object"
+    },
+    "after": {
+      "type": "object"
+    },
+    "changedPropertyCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "changedPropertyIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "changedProperties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "beforeSignature",
+          "afterSignature"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "beforeSignature": {
+            "type": "string"
+          },
+          "afterSignature": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "ok",
+        "errors"
+      ],
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

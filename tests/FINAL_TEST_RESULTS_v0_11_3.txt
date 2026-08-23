@@ -1,0 +1,22 @@
+AXM Living City v0.11.3 — final verification summary
+Date: 2026-08-22
+
+PASS standalone build: AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html (1,409,599 bytes)
+PASS focused deterministic regression: 212/212
+PASS town stress: 12 seeds x 365 days; 4,380 days; zero validation failures
+PASS household stress: 8 seeds x 180 days; exact replay
+PASS stewardship stress: 8 seeds x 240 days; exact replay
+PASS family stress: 8 seeds x 180 loops; exact replay
+PASS community stress: 8 seeds x 240 days; exact replay
+PASS personal-directions stress: 8 seeds x 240 days; exact replay
+PASS local-economy stress: 8 seeds; exact replay
+PASS walkable-place stress: 8 seeds; exact replay
+PASS building-shell stress: 8 seeds x 180 days; exact replay
+PASS lived-building presence stress: 8 seeds x 90 days; exact replay; 20,629 completed movements; 1,741 stair uses
+PASS deterministic example regeneration
+PASS repeated-frame QA: room/building/street motion, seven completed-action kinds, Still stability, and authoritative-state isolation
+
+UNKNOWN fresh schema validation: Python jsonschema package unavailable; schema files unchanged; sealed earlier 56/56 result retained separately
+UNKNOWN live browser DOM/focus/responsive QA: Python Playwright package unavailable; harness included
+
+No interrupted run is counted as a pass.

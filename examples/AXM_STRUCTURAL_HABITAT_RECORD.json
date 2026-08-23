@@ -1,0 +1,1853 @@
+{
+  "schema": "axm.structural-habitat/v0.4.0",
+  "revision": 2,
+  "nextRoomCounter": 5,
+  "entrance": {
+    "x": 0,
+    "y": 9,
+    "side": "west",
+    "kind": "exterior_door"
+  },
+  "structuralCondition": 100,
+  "partitions": [
+    {
+      "id": "H:0:1",
+      "key": "H:0:1",
+      "kind": "door",
+      "materialId": "reclaimed_timber",
+      "condition": 100,
+      "loadBearing": false,
+      "createdDay": 2,
+      "door": {
+        "styleId": "simple",
+        "open": true,
+        "lockPolicy": "household_members",
+        "condition": 84
+      },
+      "history": []
+    },
+    {
+      "id": "H:0:6",
+      "key": "H:0:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:1:6",
+      "key": "H:1:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:10:6",
+      "key": "H:10:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:11:6",
+      "key": "H:11:6",
+      "kind": "door",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": {
+        "styleId": "simple",
+        "open": true,
+        "lockPolicy": "household_members",
+        "condition": 84
+      },
+      "history": []
+    },
+    {
+      "id": "H:12:3",
+      "key": "H:12:3",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:12:6",
+      "key": "H:12:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:13:3",
+      "key": "H:13:3",
+      "kind": "door",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": {
+        "styleId": "simple",
+        "open": true,
+        "lockPolicy": "household_members",
+        "condition": 84
+      },
+      "history": []
+    },
+    {
+      "id": "H:13:6",
+      "key": "H:13:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:14:3",
+      "key": "H:14:3",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:14:6",
+      "key": "H:14:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:2:6",
+      "key": "H:2:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:3:6",
+      "key": "H:3:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:4:6",
+      "key": "H:4:6",
+      "kind": "door",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": {
+        "styleId": "simple",
+        "open": true,
+        "lockPolicy": "household_members",
+        "condition": 84
+      },
+      "history": []
+    },
+    {
+      "id": "H:5:6",
+      "key": "H:5:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:6:6",
+      "key": "H:6:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:7:6",
+      "key": "H:7:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:8:6",
+      "key": "H:8:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "H:9:6",
+      "key": "H:9:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:12:0",
+      "key": "V:12:0",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:12:1",
+      "key": "V:12:1",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:12:2",
+      "key": "V:12:2",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:4:6",
+      "key": "V:4:6",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:4:7",
+      "key": "V:4:7",
+      "kind": "door",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": {
+        "styleId": "simple",
+        "open": true,
+        "lockPolicy": "household_members",
+        "condition": 84
+      },
+      "history": []
+    },
+    {
+      "id": "V:4:8",
+      "key": "V:4:8",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:4:9",
+      "key": "V:4:9",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:8:3",
+      "key": "V:8:3",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:8:4",
+      "key": "V:8:4",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:8:5",
+      "key": "V:8:5",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:8:6",
+      "key": "V:8:6",
+      "kind": "door",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": {
+        "styleId": "simple",
+        "open": true,
+        "lockPolicy": "household_members",
+        "condition": 84
+      },
+      "history": []
+    },
+    {
+      "id": "V:8:7",
+      "key": "V:8:7",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:8:8",
+      "key": "V:8:8",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    },
+    {
+      "id": "V:8:9",
+      "key": "V:8:9",
+      "kind": "wall",
+      "materialId": "timber_frame",
+      "condition": 73,
+      "loadBearing": false,
+      "createdDay": 1,
+      "door": null,
+      "history": []
+    }
+  ],
+  "rooms": [
+    {
+      "id": "room_home_garden_2_001",
+      "name": "Kitchen",
+      "purpose": "kitchen",
+      "purposeSource": "inferred",
+      "cells": [
+        "0,0",
+        "1,0",
+        "2,0",
+        "3,0",
+        "4,0",
+        "5,0",
+        "6,0",
+        "7,0",
+        "8,0",
+        "9,0",
+        "10,0",
+        "11,0",
+        "0,1",
+        "1,1",
+        "2,1",
+        "3,1",
+        "4,1",
+        "5,1",
+        "6,1",
+        "7,1",
+        "8,1",
+        "9,1",
+        "10,1",
+        "11,1",
+        "0,2",
+        "1,2",
+        "2,2",
+        "3,2",
+        "4,2",
+        "5,2",
+        "6,2",
+        "7,2",
+        "8,2",
+        "9,2",
+        "10,2",
+        "11,2",
+        "0,3",
+        "1,3",
+        "2,3",
+        "3,3",
+        "4,3",
+        "5,3",
+        "6,3",
+        "7,3",
+        "8,3",
+        "9,3",
+        "10,3",
+        "11,3",
+        "12,3",
+        "13,3",
+        "14,3",
+        "0,4",
+        "1,4",
+        "2,4",
+        "3,4",
+        "4,4",
+        "5,4",
+        "6,4",
+        "7,4",
+        "8,4",
+        "9,4",
+        "10,4",
+        "11,4",
+        "12,4",
+        "13,4",
+        "14,4",
+        "0,5",
+        "1,5",
+        "2,5",
+        "3,5",
+        "4,5",
+        "5,5",
+        "6,5",
+        "7,5",
+        "8,5",
+        "9,5",
+        "10,5",
+        "11,5",
+        "12,5",
+        "13,5",
+        "14,5"
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 15,
+        "h": 6
+      },
+      "area": 81,
+      "centroid": {
+        "x": 6.33,
+        "y": 2.67
+      },
+      "finish": {
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "condition": 77.975
+      },
+      "utilityAccess": {
+        "power": true,
+        "water": true,
+        "waste": true
+      },
+      "permissionSnapshot": {
+        "kind": "resident_shared",
+        "holderIds": [],
+        "source": "property"
+      },
+      "history": []
+    },
+    {
+      "id": "room_home_garden_2_002",
+      "name": "Bathroom",
+      "purpose": "bathroom",
+      "purposeSource": "inferred",
+      "cells": [
+        "12,0",
+        "13,0",
+        "14,0",
+        "12,1",
+        "13,1",
+        "14,1",
+        "12,2",
+        "13,2",
+        "14,2"
+      ],
+      "anchor": {
+        "x": 12,
+        "y": 0
+      },
+      "bounds": {
+        "x": 12,
+        "y": 0,
+        "w": 3,
+        "h": 3
+      },
+      "area": 9,
+      "centroid": {
+        "x": 13,
+        "y": 1
+      },
+      "finish": {
+        "floorFinishId": "small_tile",
+        "wallFinishId": "soft_white",
+        "condition": 84
+      },
+      "utilityAccess": {
+        "power": true,
+        "water": true,
+        "waste": true
+      },
+      "permissionSnapshot": {
+        "kind": "resident_shared",
+        "holderIds": [],
+        "source": "property"
+      },
+      "history": []
+    },
+    {
+      "id": "room_home_garden_2_003",
+      "name": "Hobby room",
+      "purpose": "hobby",
+      "purposeSource": "player",
+      "cells": [
+        "0,6",
+        "1,6",
+        "2,6",
+        "3,6",
+        "0,7",
+        "1,7",
+        "2,7",
+        "3,7",
+        "0,8",
+        "1,8",
+        "2,8",
+        "3,8",
+        "0,9",
+        "1,9",
+        "2,9",
+        "3,9"
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 6
+      },
+      "bounds": {
+        "x": 0,
+        "y": 6,
+        "w": 4,
+        "h": 4
+      },
+      "area": 16,
+      "centroid": {
+        "x": 1.5,
+        "y": 7.5
+      },
+      "finish": {
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "night_blue",
+        "condition": 85.975
+      },
+      "utilityAccess": {
+        "power": true,
+        "water": false,
+        "waste": false
+      },
+      "permissionSnapshot": {
+        "kind": "resident_shared",
+        "holderIds": [],
+        "source": "property"
+      },
+      "history": [
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "purpose",
+          "message": "Room purpose changed from Entry to Hobby room.",
+          "actorId": "player",
+          "evidence": {
+            "source": "explicit_player_choice"
+          }
+        },
+        {
+          "day": 1,
+          "hour": 12,
+          "type": "surface",
+          "message": "walls changed from Warm clay to Night blue.",
+          "projectId": "construction_00255"
+        }
+      ]
+    },
+    {
+      "id": "room_home_garden_2_004",
+      "name": "Work or Study Room",
+      "purpose": "work",
+      "purposeSource": "inferred",
+      "cells": [
+        "4,6",
+        "5,6",
+        "6,6",
+        "7,6",
+        "4,7",
+        "5,7",
+        "6,7",
+        "7,7",
+        "4,8",
+        "5,8",
+        "6,8",
+        "7,8",
+        "4,9",
+        "5,9",
+        "6,9",
+        "7,9"
+      ],
+      "anchor": {
+        "x": 4,
+        "y": 6
+      },
+      "bounds": {
+        "x": 4,
+        "y": 6,
+        "w": 4,
+        "h": 4
+      },
+      "area": 16,
+      "centroid": {
+        "x": 5.5,
+        "y": 7.5
+      },
+      "finish": {
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "condition": 77.975
+      },
+      "utilityAccess": {
+        "power": true,
+        "water": true,
+        "waste": true
+      },
+      "permissionSnapshot": {
+        "kind": "resident_shared",
+        "holderIds": [],
+        "source": "property"
+      },
+      "history": [
+        {
+          "day": 1,
+          "hour": 18,
+          "type": "utility",
+          "message": "Water access was added.",
+          "projectId": "construction_00261"
+        },
+        {
+          "day": 2,
+          "hour": 0,
+          "type": "utility",
+          "message": "Waste access was added.",
+          "projectId": "construction_00271"
+        }
+      ]
+    },
+    {
+      "id": "room_home_garden_2_005",
+      "name": "Sleeping Room 1",
+      "purpose": "sleep",
+      "purposeSource": "inferred",
+      "cells": [
+        "8,6",
+        "9,6",
+        "10,6",
+        "11,6",
+        "12,6",
+        "13,6",
+        "14,6",
+        "8,7",
+        "9,7",
+        "10,7",
+        "11,7",
+        "12,7",
+        "13,7",
+        "14,7",
+        "8,8",
+        "9,8",
+        "10,8",
+        "11,8",
+        "12,8",
+        "13,8",
+        "14,8",
+        "8,9",
+        "9,9",
+        "10,9",
+        "11,9",
+        "12,9",
+        "13,9",
+        "14,9"
+      ],
+      "anchor": {
+        "x": 8,
+        "y": 6
+      },
+      "bounds": {
+        "x": 8,
+        "y": 6,
+        "w": 7,
+        "h": 4
+      },
+      "area": 28,
+      "centroid": {
+        "x": 11,
+        "y": 7.5
+      },
+      "finish": {
+        "floorFinishId": "reclaimed_wood",
+        "wallFinishId": "warm_clay",
+        "condition": 77.975
+      },
+      "utilityAccess": {
+        "power": true,
+        "water": false,
+        "waste": false
+      },
+      "permissionSnapshot": {
+        "kind": "resident_shared",
+        "holderIds": [],
+        "source": "property"
+      },
+      "history": []
+    }
+  ],
+  "roomConnections": [
+    {
+      "id": "connection_H:11:6",
+      "edgeKey": "H:11:6",
+      "kind": "door",
+      "roomIds": [
+        "room_home_garden_2_001",
+        "room_home_garden_2_005"
+      ],
+      "passable": true,
+      "lockPolicy": "household_members"
+    },
+    {
+      "id": "connection_H:13:3",
+      "edgeKey": "H:13:3",
+      "kind": "door",
+      "roomIds": [
+        "room_home_garden_2_001",
+        "room_home_garden_2_002"
+      ],
+      "passable": true,
+      "lockPolicy": "household_members"
+    },
+    {
+      "id": "connection_H:4:6",
+      "edgeKey": "H:4:6",
+      "kind": "door",
+      "roomIds": [
+        "room_home_garden_2_001",
+        "room_home_garden_2_004"
+      ],
+      "passable": true,
+      "lockPolicy": "household_members"
+    },
+    {
+      "id": "connection_V:4:7",
+      "edgeKey": "V:4:7",
+      "kind": "door",
+      "roomIds": [
+        "room_home_garden_2_003",
+        "room_home_garden_2_004"
+      ],
+      "passable": true,
+      "lockPolicy": "household_members"
+    },
+    {
+      "id": "connection_V:8:6",
+      "edgeKey": "V:8:6",
+      "kind": "door",
+      "roomIds": [
+        "room_home_garden_2_004",
+        "room_home_garden_2_005"
+      ],
+      "passable": true,
+      "lockPolicy": "household_members"
+    }
+  ],
+  "utilities": {
+    "serviceEntry": {
+      "x": 0,
+      "y": 9
+    },
+    "services": {
+      "power": {
+        "level": 1,
+        "condition": 75,
+        "capacity": 6
+      },
+      "water": {
+        "level": 1,
+        "condition": 71,
+        "capacity": 4
+      },
+      "waste": {
+        "level": 1,
+        "condition": 69,
+        "capacity": 4
+      }
+    },
+    "history": []
+  },
+  "projects": [
+    {
+      "id": "construction_00255",
+      "schema": "axm.construction-project/v0.4.0",
+      "propertyId": "home_garden_2",
+      "creatorId": "player",
+      "createdDay": 1,
+      "createdHour": 7,
+      "status": "completed",
+      "spec": {
+        "type": "surface",
+        "target": {
+          "roomId": "room_home_garden_2_003",
+          "surface": "walls",
+          "finishId": "night_blue"
+        }
+      },
+      "summary": "Night blue on Hobby room walls",
+      "targetKey": "room_home_garden_2_003:surface:walls",
+      "authority": {
+        "mode": "direct",
+        "householdId": null,
+        "proposalId": null,
+        "requestId": null,
+        "evidence": null
+      },
+      "resourceMode": "player_inventory",
+      "stewardshipIntentionId": null,
+      "stewardshipRequestId": null,
+      "layoutRevisionAtPlan": 1,
+      "phaseIndex": 4,
+      "phases": [
+        {
+          "id": "measure",
+          "name": "Measure and preserve room state",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Record objects, permissions, and surface history."
+        },
+        {
+          "id": "prepare",
+          "name": "Prepare the existing surface",
+          "hours": 1,
+          "money": 4,
+          "materials": {
+            "paint": 1
+          },
+          "note": "Repair rather than erase the surface."
+        },
+        {
+          "id": "apply",
+          "name": "Apply Night blue",
+          "hours": 2,
+          "money": 14,
+          "materials": {
+            "paint": 1
+          },
+          "note": "Appearance changes without forcing a stat-optimal room."
+        },
+        {
+          "id": "cure",
+          "name": "Let the finish settle",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Complete a visible construction phase."
+        }
+      ],
+      "completedPhaseIds": [
+        "measure",
+        "prepare",
+        "apply",
+        "cure"
+      ],
+      "spent": {
+        "money": 18,
+        "materials": {
+          "paint": 2
+        }
+      },
+      "completedDay": 1,
+      "failureReason": null,
+      "history": [
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "planned",
+          "message": "Night blue on Hobby room walls entered the construction queue.",
+          "evidence": {
+            "authority": {
+              "mode": "direct",
+              "householdId": null,
+              "proposalId": null,
+              "requestId": null,
+              "evidence": null
+            },
+            "layoutRevision": 1,
+            "creatorId": "player",
+            "resourceMode": "player_inventory"
+          }
+        },
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "phase_completed",
+          "message": "Measure and preserve room state completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 1,
+          "hour": 8,
+          "type": "phase_completed",
+          "message": "Prepare the existing surface completed.",
+          "evidence": {
+            "money": 4,
+            "materials": {
+              "paint": 1
+            },
+            "hours": 1
+          }
+        },
+        {
+          "day": 1,
+          "hour": 9,
+          "type": "phase_completed",
+          "message": "Apply Night blue completed.",
+          "evidence": {
+            "money": 14,
+            "materials": {
+              "paint": 1
+            },
+            "hours": 2
+          }
+        },
+        {
+          "day": 1,
+          "hour": 11,
+          "type": "phase_completed",
+          "message": "Let the finish settle completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 1,
+          "hour": 12,
+          "type": "completed",
+          "message": "Night blue on Hobby room walls completed with room, path, permission, and no-loss validation.",
+          "evidence": {
+            "reflow": {
+              "moved": 0,
+              "stored": 0
+            },
+            "layoutRevision": 1,
+            "layoutHash": "8acdebff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "construction_00261",
+      "schema": "axm.construction-project/v0.4.0",
+      "propertyId": "home_garden_2",
+      "creatorId": "player",
+      "createdDay": 1,
+      "createdHour": 12,
+      "status": "completed",
+      "spec": {
+        "type": "utility",
+        "target": {
+          "roomId": "room_home_garden_2_004",
+          "utilityType": "water"
+        }
+      },
+      "summary": "Water access for Work or Study Room",
+      "targetKey": "room_home_garden_2_004:utility:water",
+      "authority": {
+        "mode": "direct",
+        "householdId": null,
+        "proposalId": null,
+        "requestId": null,
+        "evidence": null
+      },
+      "resourceMode": "player_inventory",
+      "stewardshipIntentionId": null,
+      "stewardshipRequestId": null,
+      "layoutRevisionAtPlan": 1,
+      "phaseIndex": 4,
+      "phases": [
+        {
+          "id": "survey",
+          "name": "Map the service route",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Check the room graph before cutting anything."
+        },
+        {
+          "id": "route",
+          "name": "Route water",
+          "hours": 2,
+          "money": 24,
+          "materials": {
+            "parts": 1,
+            "metal": 1
+          },
+          "note": "Add a bounded service path."
+        },
+        {
+          "id": "connect",
+          "name": "Connect room water",
+          "hours": 2,
+          "money": 32,
+          "materials": {
+            "parts": 2
+          },
+          "note": "Make the room utility-capable."
+        },
+        {
+          "id": "test",
+          "name": "Test capacity and safety",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Validate that the service is explicit and reachable."
+        }
+      ],
+      "completedPhaseIds": [
+        "survey",
+        "route",
+        "connect",
+        "test"
+      ],
+      "spent": {
+        "money": 56,
+        "materials": {
+          "parts": 3,
+          "metal": 1
+        }
+      },
+      "completedDay": 1,
+      "failureReason": null,
+      "history": [
+        {
+          "day": 1,
+          "hour": 12,
+          "type": "planned",
+          "message": "Water access for Work or Study Room entered the construction queue.",
+          "evidence": {
+            "authority": {
+              "mode": "direct",
+              "householdId": null,
+              "proposalId": null,
+              "requestId": null,
+              "evidence": null
+            },
+            "layoutRevision": 1,
+            "creatorId": "player",
+            "resourceMode": "player_inventory"
+          }
+        },
+        {
+          "day": 1,
+          "hour": 12,
+          "type": "phase_completed",
+          "message": "Map the service route completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 1,
+          "hour": 13,
+          "type": "phase_completed",
+          "message": "Route water completed.",
+          "evidence": {
+            "money": 24,
+            "materials": {
+              "parts": 1,
+              "metal": 1
+            },
+            "hours": 2
+          }
+        },
+        {
+          "day": 1,
+          "hour": 15,
+          "type": "phase_completed",
+          "message": "Connect room water completed.",
+          "evidence": {
+            "money": 32,
+            "materials": {
+              "parts": 2
+            },
+            "hours": 2
+          }
+        },
+        {
+          "day": 1,
+          "hour": 17,
+          "type": "phase_completed",
+          "message": "Test capacity and safety completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 1,
+          "hour": 18,
+          "type": "completed",
+          "message": "Water access for Work or Study Room completed with room, path, permission, and no-loss validation.",
+          "evidence": {
+            "reflow": {
+              "moved": 0,
+              "stored": 0
+            },
+            "layoutRevision": 1,
+            "layoutHash": "8acdebff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "construction_00271",
+      "schema": "axm.construction-project/v0.4.0",
+      "propertyId": "home_garden_2",
+      "creatorId": "player",
+      "createdDay": 1,
+      "createdHour": 18,
+      "status": "completed",
+      "spec": {
+        "type": "utility",
+        "target": {
+          "roomId": "room_home_garden_2_004",
+          "utilityType": "waste"
+        }
+      },
+      "summary": "Waste access for Work or Study Room",
+      "targetKey": "room_home_garden_2_004:utility:waste",
+      "authority": {
+        "mode": "direct",
+        "householdId": null,
+        "proposalId": null,
+        "requestId": null,
+        "evidence": null
+      },
+      "resourceMode": "player_inventory",
+      "stewardshipIntentionId": null,
+      "stewardshipRequestId": null,
+      "layoutRevisionAtPlan": 1,
+      "phaseIndex": 4,
+      "phases": [
+        {
+          "id": "survey",
+          "name": "Map the service route",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Check the room graph before cutting anything."
+        },
+        {
+          "id": "route",
+          "name": "Route waste",
+          "hours": 2,
+          "money": 24,
+          "materials": {
+            "parts": 1,
+            "metal": 1
+          },
+          "note": "Add a bounded service path."
+        },
+        {
+          "id": "connect",
+          "name": "Connect room waste",
+          "hours": 2,
+          "money": 32,
+          "materials": {
+            "parts": 2
+          },
+          "note": "Make the room utility-capable."
+        },
+        {
+          "id": "test",
+          "name": "Test capacity and safety",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Validate that the service is explicit and reachable."
+        }
+      ],
+      "completedPhaseIds": [
+        "survey",
+        "route",
+        "connect",
+        "test"
+      ],
+      "spent": {
+        "money": 56,
+        "materials": {
+          "parts": 3,
+          "metal": 1
+        }
+      },
+      "completedDay": 2,
+      "failureReason": null,
+      "history": [
+        {
+          "day": 1,
+          "hour": 18,
+          "type": "planned",
+          "message": "Waste access for Work or Study Room entered the construction queue.",
+          "evidence": {
+            "authority": {
+              "mode": "direct",
+              "householdId": null,
+              "proposalId": null,
+              "requestId": null,
+              "evidence": null
+            },
+            "layoutRevision": 1,
+            "creatorId": "player",
+            "resourceMode": "player_inventory"
+          }
+        },
+        {
+          "day": 1,
+          "hour": 18,
+          "type": "phase_completed",
+          "message": "Map the service route completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 1,
+          "hour": 19,
+          "type": "phase_completed",
+          "message": "Route waste completed.",
+          "evidence": {
+            "money": 24,
+            "materials": {
+              "parts": 1,
+              "metal": 1
+            },
+            "hours": 2
+          }
+        },
+        {
+          "day": 1,
+          "hour": 21,
+          "type": "phase_completed",
+          "message": "Connect room waste completed.",
+          "evidence": {
+            "money": 32,
+            "materials": {
+              "parts": 2
+            },
+            "hours": 2
+          }
+        },
+        {
+          "day": 1,
+          "hour": 23,
+          "type": "phase_completed",
+          "message": "Test capacity and safety completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 2,
+          "hour": 0,
+          "type": "completed",
+          "message": "Waste access for Work or Study Room completed with room, path, permission, and no-loss validation.",
+          "evidence": {
+            "reflow": {
+              "moved": 0,
+              "stored": 0
+            },
+            "layoutRevision": 1,
+            "layoutHash": "8acdebff"
+          }
+        }
+      ]
+    },
+    {
+      "id": "construction_00318",
+      "schema": "axm.construction-project/v0.4.0",
+      "propertyId": "home_garden_2",
+      "creatorId": "player",
+      "createdDay": 2,
+      "createdHour": 0,
+      "status": "completed",
+      "spec": {
+        "type": "partition",
+        "target": {
+          "edgeKey": "H:0:1",
+          "kind": "door",
+          "materialId": "reclaimed_timber"
+        }
+      },
+      "summary": "Door at H:0:1",
+      "targetKey": "H:0:1",
+      "authority": {
+        "mode": "direct",
+        "householdId": null,
+        "proposalId": null,
+        "requestId": null,
+        "evidence": null
+      },
+      "resourceMode": "player_inventory",
+      "stewardshipIntentionId": null,
+      "stewardshipRequestId": null,
+      "layoutRevisionAtPlan": 1,
+      "phaseIndex": 5,
+      "phases": [
+        {
+          "id": "survey",
+          "name": "Trace structure and services",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Record the existing layout revision."
+        },
+        {
+          "id": "protect",
+          "name": "Protect objects and prepare floor",
+          "hours": 1,
+          "money": 7,
+          "materials": {},
+          "note": "Move loose items out of the work edge."
+        },
+        {
+          "id": "rough",
+          "name": "Frame the doorway",
+          "hours": 2,
+          "money": 22,
+          "materials": {
+            "wood": 1,
+            "metal": 1,
+            "parts": 1
+          },
+          "note": "Create the real partition without replacing objects."
+        },
+        {
+          "id": "surface",
+          "name": "Close and finish the partition",
+          "hours": 1,
+          "money": 12,
+          "materials": {
+            "paint": 1
+          },
+          "note": "Give both sides a usable finish."
+        },
+        {
+          "id": "inspect",
+          "name": "Validate rooms and paths",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Recompute room identity and reachability."
+        }
+      ],
+      "completedPhaseIds": [
+        "survey",
+        "protect",
+        "rough",
+        "surface",
+        "inspect"
+      ],
+      "spent": {
+        "money": 41,
+        "materials": {
+          "wood": 1,
+          "metal": 1,
+          "parts": 1,
+          "paint": 1
+        }
+      },
+      "completedDay": 2,
+      "failureReason": null,
+      "history": [
+        {
+          "day": 2,
+          "hour": 0,
+          "type": "planned",
+          "message": "Door at H:0:1 entered the construction queue.",
+          "evidence": {
+            "authority": {
+              "mode": "direct",
+              "householdId": null,
+              "proposalId": null,
+              "requestId": null,
+              "evidence": null
+            },
+            "layoutRevision": 1,
+            "creatorId": "player",
+            "resourceMode": "player_inventory"
+          }
+        },
+        {
+          "day": 2,
+          "hour": 0,
+          "type": "phase_completed",
+          "message": "Trace structure and services completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 2,
+          "hour": 1,
+          "type": "phase_completed",
+          "message": "Protect objects and prepare floor completed.",
+          "evidence": {
+            "money": 7,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 2,
+          "hour": 2,
+          "type": "phase_completed",
+          "message": "Frame the doorway completed.",
+          "evidence": {
+            "money": 22,
+            "materials": {
+              "wood": 1,
+              "metal": 1,
+              "parts": 1
+            },
+            "hours": 2
+          }
+        },
+        {
+          "day": 2,
+          "hour": 4,
+          "type": "phase_completed",
+          "message": "Close and finish the partition completed.",
+          "evidence": {
+            "money": 12,
+            "materials": {
+              "paint": 1
+            },
+            "hours": 1
+          }
+        },
+        {
+          "day": 2,
+          "hour": 5,
+          "type": "phase_completed",
+          "message": "Validate rooms and paths completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 2,
+          "hour": 6,
+          "type": "completed",
+          "message": "Door at H:0:1 completed with room, path, permission, and no-loss validation.",
+          "evidence": {
+            "reflow": {
+              "moved": 0,
+              "stored": 0,
+              "objectIds": [
+                "object_00100",
+                "object_00101",
+                "object_00127",
+                "object_00128",
+                "object_00129",
+                "object_00130",
+                "object_00131",
+                "object_00132"
+              ]
+            },
+            "layoutRevision": 2,
+            "layoutHash": "984e3956"
+          }
+        }
+      ]
+    },
+    {
+      "id": "construction_00324",
+      "schema": "axm.construction-project/v0.4.0",
+      "propertyId": "home_garden_2",
+      "creatorId": "player",
+      "createdDay": 2,
+      "createdHour": 6,
+      "status": "completed",
+      "spec": {
+        "type": "repair",
+        "target": {
+          "structure": "whole_habitat"
+        }
+      },
+      "summary": "Structural repair",
+      "targetKey": "structure",
+      "authority": {
+        "mode": "direct",
+        "householdId": null,
+        "proposalId": null,
+        "requestId": null,
+        "evidence": null
+      },
+      "resourceMode": "player_inventory",
+      "stewardshipIntentionId": null,
+      "stewardshipRequestId": null,
+      "layoutRevisionAtPlan": 2,
+      "phaseIndex": 4,
+      "phases": [
+        {
+          "id": "inspect",
+          "name": "Inspect structural condition",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Find the causes rather than buying a replacement building."
+        },
+        {
+          "id": "stabilize",
+          "name": "Stabilize weak structure",
+          "hours": 2,
+          "money": 35,
+          "materials": {
+            "wood": 2,
+            "metal": 1
+          },
+          "note": "Repair the underlying frame."
+        },
+        {
+          "id": "seal",
+          "name": "Seal and finish repaired areas",
+          "hours": 1,
+          "money": 15,
+          "materials": {
+            "paint": 1,
+            "parts": 1
+          },
+          "note": "Restore condition while preserving the home identity."
+        },
+        {
+          "id": "verify",
+          "name": "Verify the whole habitat",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Run structural and reachability validation."
+        }
+      ],
+      "completedPhaseIds": [
+        "inspect",
+        "stabilize",
+        "seal",
+        "verify"
+      ],
+      "spent": {
+        "money": 50,
+        "materials": {
+          "wood": 2,
+          "metal": 1,
+          "paint": 1,
+          "parts": 1
+        }
+      },
+      "completedDay": 2,
+      "failureReason": null,
+      "history": [
+        {
+          "day": 2,
+          "hour": 6,
+          "type": "planned",
+          "message": "Structural repair entered the construction queue.",
+          "evidence": {
+            "authority": {
+              "mode": "direct",
+              "householdId": null,
+              "proposalId": null,
+              "requestId": null,
+              "evidence": null
+            },
+            "layoutRevision": 2,
+            "creatorId": "player",
+            "resourceMode": "player_inventory"
+          }
+        },
+        {
+          "day": 2,
+          "hour": 6,
+          "type": "phase_completed",
+          "message": "Inspect structural condition completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 2,
+          "hour": 7,
+          "type": "phase_completed",
+          "message": "Stabilize weak structure completed.",
+          "evidence": {
+            "money": 35,
+            "materials": {
+              "wood": 2,
+              "metal": 1
+            },
+            "hours": 2
+          }
+        },
+        {
+          "day": 2,
+          "hour": 9,
+          "type": "phase_completed",
+          "message": "Seal and finish repaired areas completed.",
+          "evidence": {
+            "money": 15,
+            "materials": {
+              "paint": 1,
+              "parts": 1
+            },
+            "hours": 1
+          }
+        },
+        {
+          "day": 2,
+          "hour": 10,
+          "type": "phase_completed",
+          "message": "Verify the whole habitat completed.",
+          "evidence": {
+            "money": 0,
+            "materials": {},
+            "hours": 1
+          }
+        },
+        {
+          "day": 2,
+          "hour": 11,
+          "type": "completed",
+          "message": "Structural repair completed with room, path, permission, and no-loss validation.",
+          "evidence": {
+            "reflow": {
+              "moved": 0,
+              "stored": 0
+            },
+            "layoutRevision": 2,
+            "layoutHash": "984e3956"
+          }
+        }
+      ]
+    }
+  ],
+  "layoutHash": "984e3956",
+  "migratedFromZones": false,
+  "history": [
+    {
+      "id": "habitat_event_00163",
+      "day": 1,
+      "hour": 7,
+      "type": "migration",
+      "message": "Brick End House received a deterministic wall, door, room, surface, and utility graph.",
+      "evidence": {
+        "rooms": 5,
+        "partitions": 32,
+        "reflow": {
+          "moved": 0,
+          "stored": 0,
+          "objectIds": [
+            "object_00100",
+            "object_00101",
+            "object_00102",
+            "object_00103",
+            "object_00104",
+            "object_00105",
+            "object_00106",
+            "object_00107",
+            "object_00108",
+            "object_00109",
+            "object_00110"
+          ]
+        }
+      }
+    },
+    {
+      "id": "habitat_event_00258",
+      "day": 1,
+      "hour": 12,
+      "type": "construction_completed",
+      "message": "Night blue on Hobby room walls",
+      "projectId": "construction_00255",
+      "evidence": {
+        "reflow": {
+          "moved": 0,
+          "stored": 0
+        }
+      }
+    },
+    {
+      "id": "habitat_event_00268",
+      "day": 1,
+      "hour": 18,
+      "type": "construction_completed",
+      "message": "Water access for Work or Study Room",
+      "projectId": "construction_00261",
+      "evidence": {
+        "reflow": {
+          "moved": 0,
+          "stored": 0
+        }
+      }
+    },
+    {
+      "id": "habitat_event_00315",
+      "day": 2,
+      "hour": 0,
+      "type": "construction_completed",
+      "message": "Waste access for Work or Study Room",
+      "projectId": "construction_00271",
+      "evidence": {
+        "reflow": {
+          "moved": 0,
+          "stored": 0
+        }
+      }
+    },
+    {
+      "id": "habitat_event_00321",
+      "day": 2,
+      "hour": 6,
+      "type": "construction_completed",
+      "message": "Door at H:0:1",
+      "projectId": "construction_00318",
+      "evidence": {
+        "reflow": {
+          "moved": 0,
+          "stored": 0,
+          "objectIds": [
+            "object_00100",
+            "object_00101",
+            "object_00127",
+            "object_00128",
+            "object_00129",
+            "object_00130",
+            "object_00131",
+            "object_00132"
+          ]
+        }
+      }
+    },
+    {
+      "id": "habitat_event_00327",
+      "day": 2,
+      "hour": 11,
+      "type": "construction_completed",
+      "message": "Structural repair",
+      "projectId": "construction_00324",
+      "evidence": {
+        "reflow": {
+          "moved": 0,
+          "stored": 0
+        }
+      }
+    }
+  ]
+}

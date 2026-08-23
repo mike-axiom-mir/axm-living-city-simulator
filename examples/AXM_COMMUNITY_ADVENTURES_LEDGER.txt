@@ -1,0 +1,134 @@
+# AXM Community Adventures — Casual-Realism Evidence Ledger
+Seed: AXM-COMMUNITY-ADVENTURES-EXAMPLE-120D
+Schema: axm.living-city-sim.world/v0.11.0
+Final simulation time: Friday, day 124 · 01:00
+Invariant status: PASS
+
+[Day 1, 07:00] [enterprise] Ari Groen began Ari's Reuse Nook. It may remain private, become occasional work, grow, pause, pivot, or close without being labeled a failed life path. | causes: optional enterprise choice; no age pressure
+[Day 1, 07:00] [enterprise] Mara Kuiper began Mara's Practical Learning Table. It may remain private, become occasional work, grow, pause, pivot, or close without being labeled a failed life path. | causes: optional enterprise choice; no age pressure
+[Day 1, 07:00] [foundation] The living city began from a reproducible seed. Buildings are occupied by residents rather than waiting as player menu slots. | causes: seed:AXM-COMMUNITY-ADVENTURES-EXAMPLE-120D
+[Day 1, 07:00] [player] You begin in one room of the Canal Student House with a shared bathroom, a part-time job, and no direct control over anyone else. | causes: single-life starting rule
+[Day 1, 07:00] [research] A labeled community-adventure experiment prepared real membership capacity, a visible waiting state, a bounded home invitation, and a no-deadline adventure thread. | causes: explicit developer experiment; not normal progression
+[Day 1, 07:00] [community] A membership opening became available at Repair & Share Circle. Joining still creates no attendance obligation. | causes: visible waitlist promotion; no artificial urgency
+[Day 1, 23:00] [adventure] The Forgotten Radio became a completed part of your history. Follow an object history, meet the people attached to it, and decide what should be preserved. | causes: player followed the thread to its natural end
+[Day 4, 00:00] [direction] Uma Prins began Uma Prins — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 4, 00:00] [direction] Sven Koster began Sven Koster — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 4, 01:00] [research] Observer mode began for 120 autonomous days. Player needs and rent were frozen so this remains a simulation experiment, not a hidden punishment. | causes: explicit observer command
+[Day 8, 00:00] [building_shell] Ari Groen formed an exact frontage proposal for Square Kiosk. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 9, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 9, 00:00] [direction] Yara Visser began Yara Visser — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 13, 00:00] [direction] Sam Meijer began Sam Meijer — Learn in your own direction. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 14, 00:00] [direction] Ari Groen began Ari Groen — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 14, 00:00] [direction] Yara Visser completed Yara Visser — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 15, 00:00] [direction] Cleo Bos began Cleo Bos — Learn in your own direction. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 15, 00:00] [building_shell] Ari Groen completed a frontage change at Square Kiosk; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 16, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 19, 00:00] [building_shell] Sam Meijer formed an exact frontage proposal for Rooftop Walk-up. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 20, 00:00] [building_shell] Sven Koster formed an exact frontage proposal for Brick End House. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 21, 00:00] [work] Hana Dekker left Parcel Depot for Repair Workshop. | causes: better pay; autonomous career decision
+[Day 23, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 23, 00:00] [direction] Mara Kuiper began Mara Kuiper — Help a small living place grow. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 26, 00:00] [work] Liv Hendriks left Parcel Depot for Small Design Co-op. | causes: better pay; autonomous career decision
+[Day 26, 00:00] [direction] Pia Smit began Pia Smit — Learn in your own direction. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 26, 00:00] [direction] Elin Vos began Elin Vos — Help a small living place grow. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 27, 00:00] [work] Mara Kuiper left Corner Café for Parcel Depot. | causes: better pay; autonomous career decision
+[Day 27, 00:00] [direction] Ravi van Dijk began Ravi van Dijk — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 28, 00:00] [building_shell] Sam Meijer completed a frontage change at Rooftop Walk-up; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 29, 00:00] [direction] Quin Mulder began Quin Mulder — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 29, 00:00] [building_shell] Sven Koster completed a frontage change at Brick End House; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 30, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 31, 00:00] [direction] Uma Prins completed Uma Prins — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 33, 00:00] [direction] Joost Meijer began Joost Meijer — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 33, 00:00] [direction] Zeno Jansen began Zeno Jansen — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 35, 00:00] [direction] Sven Koster completed Sven Koster — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 36, 00:00] [direction] Mara Kuiper completed Mara Kuiper — Help a small living place grow. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 36, 00:00] [direction] Ravi van Dijk completed Ravi van Dijk — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 37, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 37, 00:00] [direction] Uma Prins began Uma Prins — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 38, 00:00] [direction] Ari Groen completed Ari Groen — Build a collection with a reason. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 40, 00:00] [direction] Quin Mulder completed Quin Mulder — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 41, 00:00] [direction] Gio de Wit began Gio de Wit — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 41, 00:00] [direction] Sam Meijer completed Sam Meijer — Learn in your own direction. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 41, 00:00] [direction] Cleo Bos completed Cleo Bos — Learn in your own direction. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 41, 00:00] [direction] Pia Smit completed Pia Smit — Learn in your own direction. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 42, 00:00] [direction] Elin Vos completed Elin Vos — Help a small living place grow. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 44, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 44, 00:00] [direction] Wes de Boer began Wes de Boer — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 47, 00:00] [work] Sam Meijer left Corner Café for Repair Workshop. | causes: better pay; autonomous career decision
+[Day 47, 00:00] [work] Yara Visser left Neighborhood Library for Parcel Depot. | causes: better skill fit; autonomous career decision
+[Day 48, 00:00] [work] Omar Martens left Parcel Depot for Neighborhood Library. | causes: better pay; autonomous career decision
+[Day 49, 00:00] [direction] Jules Mulder began Jules Mulder — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 49, 00:00] [direction] Zeno Jansen completed Zeno Jansen — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 50, 00:00] [direction] Uma Prins completed Uma Prins — Follow a question deeply. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 51, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 51, 00:00] [building_shell] Uma Prins formed an exact frontage proposal for Station Apartment A. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 53, 00:00] [direction] Joost Meijer completed Joost Meijer — Build a collection with a reason. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 58, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 58, 00:00] [direction] Sven Koster began Sven Koster — Follow a question deeply. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 59, 00:00] [direction] Cleo Bos began Cleo Bos — Follow a local thread. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 59, 00:00] [building_shell] Wes de Boer formed an exact frontage proposal for Old Lane House 2. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 60, 00:00] [direction] Wes de Boer completed Wes de Boer — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 61, 00:00] [direction] Sana Jacobs began Sana Jacobs — Help a small living place grow. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 62, 00:00] [direction] Gio de Wit completed Gio de Wit — Follow a question deeply. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 64, 00:00] [direction] Zeno Jansen began Zeno Jansen — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 64, 00:00] [building_shell] Uma Prins completed a frontage change at Station Apartment A; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 65, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 68, 00:00] [building_shell] Wes de Boer completed a frontage change at Old Lane House 2; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 68, 00:00] [building_shell] Liv Hendriks formed an exact frontage proposal for Flat Above the Bakery. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 69, 00:00] [direction] Cleo Bos completed Cleo Bos — Follow a local thread. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 70, 00:00] [building_shell] The frontage proposal for Flat Above the Bakery was declined without changing the façade or silently punishing the relationship. | causes: bounded authority; refusal preserved
+[Day 71, 00:00] [direction] Sven Koster completed Sven Koster — Follow a question deeply. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 72, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 73, 00:00] [direction] Tess Bakker began Tess Bakker — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 76, 00:00] [relationship] Mara Kuiper and Cleo Bos have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 76, 00:00] [direction] Sam Meijer began Sam Meijer — Learn in your own direction. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 76, 00:00] [direction] Pia Smit began Pia Smit — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 76, 00:00] [direction] Mara Kuiper began Mara Kuiper — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 76, 00:00] [direction] Wes de Boer began Wes de Boer — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 77, 00:00] [direction] Zeno Jansen completed Zeno Jansen — Build a collection with a reason. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 78, 00:00] [direction] Farah Jansen began Farah Jansen — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 79, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 80, 00:00] [direction] Elin Vos began Elin Vos — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 82, 00:00] [direction] Pia Smit completed Pia Smit — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 83, 00:00] [direction] Ari Groen began Ari Groen — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 83, 00:00] [direction] Sam Meijer completed Sam Meijer — Learn in your own direction. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 83, 00:00] [direction] Farah Jansen completed Farah Jansen — Build a collection with a reason. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 84, 00:00] [direction] Jules Mulder completed Jules Mulder — Follow a question deeply. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 86, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 88, 00:00] [building_shell] Gio de Wit formed an exact frontage proposal for Old Lane House 1. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 90, 00:00] [direction] Elin Vos completed Elin Vos — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 91, 00:00] [direction] Mara Kuiper completed Mara Kuiper — Build a collection with a reason. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 91, 00:00] [direction] Ari Groen completed Ari Groen — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 92, 00:00] [direction] Tess Bakker completed Tess Bakker — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 93, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 93, 00:00] [direction] Cleo Bos began Cleo Bos — Make a strange useful thing. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 93, 00:00] [direction] Sana Jacobs completed Sana Jacobs — Help a small living place grow. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 95, 00:00] [direction] Wes de Boer completed Wes de Boer — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 95, 00:00] [building_shell] Sven Koster formed an exact frontage proposal for Brick End House. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 96, 00:00] [building_shell] The frontage proposal for Brick End House was declined without changing the façade or silently punishing the relationship. | causes: bounded authority; refusal preserved
+[Day 96, 00:00] [building_shell] Gio de Wit completed a frontage change at Old Lane House 1; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 98, 00:00] [building_shell] Hana Dekker formed an exact frontage proposal for Small Garden Home. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 100, 00:00] [relationship] Hana Dekker and Omar Martens have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 100, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 100, 00:00] [direction] Bo Vermeer began Bo Vermeer — Follow a local thread. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 100, 00:00] [direction] Cleo Bos completed Cleo Bos — Make a strange useful thing. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 100, 00:00] [building_shell] Uma Prins formed an exact frontage proposal for Station Apartment A. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 101, 00:00] [building_shell] The frontage proposal for Station Apartment A was declined without changing the façade or silently punishing the relationship. | causes: bounded authority; refusal preserved
+[Day 102, 00:00] [direction] Sven Koster began Sven Koster — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 106, 00:00] [building_shell] Wes de Boer formed an exact frontage proposal for Old Lane House 2. No façade changed and no money moved yet. | causes: proposal is not permission; proposal is not construction
+[Day 107, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 108, 00:00] [building_shell] Hana Dekker completed a frontage change at Small Garden Home; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 111, 00:00] [direction] Bo Vermeer completed Bo Vermeer — Follow a local thread. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 112, 00:00] [relationship] Ravi van Dijk and Quin Mulder have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 112, 00:00] [building_shell] Wes de Boer completed a frontage change at Old Lane House 2; the place, resident, and proposal history were preserved. | causes: resident-authored frontage
+[Day 113, 00:00] [relationship] Gio de Wit and Elin Vos have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 114, 00:00] [relationship] Liv Hendriks and Joost Meijer have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 114, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 116, 00:00] [relationship] Pia Smit and Sven Koster have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 118, 00:00] [direction] Yara Visser began Yara Visser — Build a collection with a reason. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 119, 00:00] [direction] Omar Martens began Omar Martens — Help a small living place grow. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 119, 00:00] [direction] Sven Koster completed Sven Koster — Create something only you would make. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 121, 00:00] [relationship] Jules Mulder and Sana Jacobs have become friends through repeated contact. | causes: repeated autonomous social contact
+[Day 121, 00:00] [community] Quin Mulder invited you to spend a little time together. It is an invitation, not an obligation. | causes: autonomous invitation; player retains refusal
+[Day 124, 00:00] [direction] Yara Visser completed Yara Visser — Build a collection with a reason. Its meaning and provenance remain inspectable; no new obligation was created. | causes: personal completion; no mandatory unlock
+[Day 124, 01:00] [research] Observer mode completed 120 days with 0 invariant errors; 10 homes changed visible state. | causes: deterministic batch simulation

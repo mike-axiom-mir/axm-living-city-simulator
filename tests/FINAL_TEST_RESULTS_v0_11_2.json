@@ -1,0 +1,66 @@
+{
+  "schema": "axm.living-city.final-test-results/v0.11.2",
+  "packageId": "AXM_LIVING_CITY_SIM_PLAYABLE_INTERIORS_v0_11_2",
+  "result": "pass_completed_evidence",
+  "focused": {
+    "inheritedSimulation": 194,
+    "visualPresence": 9,
+    "playableInteriors": 9,
+    "total": 212,
+    "failed": 0
+  },
+  "townStress": {
+    "executedForThisPatch": true,
+    "seeds": 12,
+    "daysPerSeed": 365,
+    "totalDays": 4380,
+    "validationFailures": 0
+  },
+  "householdStress": {
+    "executedForThisPatch": true,
+    "status": "pass",
+    "seeds": 8,
+    "daysPerSeed": 180,
+    "exactReplay": true,
+    "proposals": 105,
+    "validationFailures": 0,
+    "exactReplayFailures": 0,
+    "objectLossFailures": 0
+  },
+  "presenceStress": {
+    "executedForThisPatch": true,
+    "seeds": 8,
+    "daysPerSeed": 180,
+    "exactReplay": true,
+    "completedMovements": 41413,
+    "stairUses": 3624,
+    "lawfulArrivals": 96,
+    "lawfulDepartures": 96,
+    "roomTransitions": 64,
+    "encountersPassed": 310,
+    "validationFailures": 0,
+    "exactReplayFailures": 0
+  },
+  "visualFrames": {
+    "roomMotionChangesPixels": true,
+    "buildingMotionChangesPixels": true,
+    "streetMotionChangesPixels": true,
+    "completedMomentChangesPixels": true,
+    "stillFramesByteStable": true,
+    "worldSerializationUnchanged": true,
+    "framesInspected": true,
+    "rawFramesDeleted": true
+  },
+  "browser": {
+    "updatedViewHarnessIncluded": true,
+    "executedHere": false,
+    "status": "unknown_not_claimed",
+    "reason": "Python Playwright was unavailable"
+  },
+  "schemas": {
+    "changedByPatch": false,
+    "freshRunHere": false,
+    "freshRunBlocker": "Python package jsonschema was unavailable",
+    "inheritedResult": "56/56 Draft 2020-12 definitions"
+  }
+}

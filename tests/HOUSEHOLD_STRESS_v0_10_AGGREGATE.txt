@@ -1,0 +1,32 @@
+AXM Living City v0.10 — Household Stress
+
+PASS: 8 deterministic household worlds × 180 days, each run twice with exact serialized equality.
+
+The eight deterministic household worlds were run as four completed two-seed commands to remain inside the external command window. Each seed was internally executed twice and required exact serialized equality.
+
+Totals:
+- accepted: 91
+- acceptedIncoming: 67
+- agreementRevision: 83
+- conflicts: 79
+- counteroffers: 0
+- declined: 14
+- declinedIncoming: 14
+- npcInitiatives: 81
+- objectCount: 151
+- proposals: 105
+- relocationPrompts: 2
+- relocations: 8
+- repairAttempts: 89
+- repairs: 65
+- sharedReserve: 1403.81
+
+Per-seed evidence:
+- AXM-HOUSEHOLD-STRESS-01: revision=9, proposals=14, accepted=10, declined=4, conflicts=9, repairs=7, relocations=1, objects=8
+- AXM-HOUSEHOLD-STRESS-02: revision=11, proposals=13, accepted=12, declined=1, conflicts=10, repairs=9, relocations=1, objects=24
+- AXM-HOUSEHOLD-STRESS-03: revision=11, proposals=13, accepted=12, declined=1, conflicts=9, repairs=7, relocations=1, objects=22
+- AXM-HOUSEHOLD-STRESS-04: revision=11, proposals=14, accepted=12, declined=2, conflicts=11, repairs=10, relocations=1, objects=19
+- AXM-HOUSEHOLD-STRESS-05: revision=11, proposals=12, accepted=12, declined=0, conflicts=10, repairs=8, relocations=1, objects=24
+- AXM-HOUSEHOLD-STRESS-06: revision=9, proposals=13, accepted=10, declined=3, conflicts=11, repairs=9, relocations=1, objects=22
+- AXM-HOUSEHOLD-STRESS-07: revision=11, proposals=13, accepted=12, declined=1, conflicts=10, repairs=8, relocations=1, objects=9
+- AXM-HOUSEHOLD-STRESS-08: revision=10, proposals=13, accepted=11, declined=2, conflicts=9, repairs=7, relocations=1, objects=23

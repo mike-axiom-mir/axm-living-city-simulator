@@ -1,0 +1,96 @@
+{
+  "schema": "axm.living-city-sim.family-continuity-example-report/v0.6.0",
+  "seed": "AXM-FAMILY-CONTINUITY-EXAMPLE-120D",
+  "generatedBy": "tools/generate_examples.js",
+  "setupDisclosure": {
+    "labeledExperiment": true,
+    "note": "The initial partner, home, and two dependents use explicit QA shortcuts; all later care, refusal, education, aging, proposal, and housing outcomes use the normal deterministic systems.",
+    "familyUnitId": "family_00270",
+    "householdId": "household_00242",
+    "homePropertyId": "home_garden_2",
+    "homeListedForRentAfterFamilyPlan": false,
+    "teenId": "dependent_00273",
+    "toddlerId": "dependent_00288"
+  },
+  "authorityEvidence": {
+    "adultHouseholdMemberIds": [
+      "player",
+      "npc_023"
+    ],
+    "familyMemberIds": [
+      "player",
+      "npc_023",
+      "dependent_00273",
+      "dependent_00288"
+    ],
+    "declinedProposalId": "family_proposal_00379",
+    "declinedProposalStatus": "declined",
+    "relationshipUnchangedByDecline": true,
+    "boundary": "adult household consent, family care authority, and property authority remain separate"
+  },
+  "lifeCourseEvidence": {
+    "teenFinalStage": "teen",
+    "teenFinalAge": 17,
+    "teenTransitionHistory": [],
+    "teenMemberRole": "dependent",
+    "teenLeftFamilyHomeDay": null,
+    "teenHomePropertyId": "home_garden_2",
+    "toddlerFinalStage": "toddler",
+    "lifeStageTransitions": 0,
+    "adultChildrenLaunched": 0
+  },
+  "careEvidence": {
+    "counters": {
+      "offered": 30,
+      "accepted": 28,
+      "refused": 2,
+      "incomingAccepted": 0,
+      "incomingDeclined": 1
+    },
+    "records": 250,
+    "finalizedRecords": 248,
+    "careHoursPlayer": 44,
+    "careHoursPartner": 325.79,
+    "careHoursCommunity": 222.5,
+    "careNeedsMetDays": 124,
+    "careStrainDays": 124,
+    "educationDays": 178,
+    "familySupportSpend": 2160
+  },
+  "proposalEvidence": {
+    "total": 2,
+    "accepted": 1,
+    "declined": 1,
+    "pending": 0,
+    "educationProposalId": "family_proposal_00305",
+    "educationProposalStatus": "implemented"
+  },
+  "objectEvidence": {
+    "trackedDependentObjectIds": [
+      "object_00275",
+      "object_00277",
+      "object_00279",
+      "object_00281",
+      "object_00290",
+      "object_00292",
+      "object_00294",
+      "object_00296"
+    ],
+    "lostDependentObjectIds": []
+  },
+  "finalFamilyMetrics": {
+    "activeUnits": 1,
+    "activeDependents": 2,
+    "pendingPlayerProposals": 0,
+    "pendingNpcProposals": 0,
+    "waitingSpace": 0,
+    "averageDevelopment": 54.5,
+    "recentCareCoverage": 37.8,
+    "lifeStageTransitions": 0,
+    "adultChildrenLaunched": 0
+  },
+  "validation": {
+    "ok": true,
+    "errors": []
+  }
+}

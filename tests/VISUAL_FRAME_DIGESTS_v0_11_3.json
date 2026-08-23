@@ -1,0 +1,44 @@
+{
+  "schema": "axm.visual-frame-qa/v1.2",
+  "seed": "AXM-VISUAL-FRAME-QA",
+  "result": "PASS",
+  "claims": {
+    "fullMotionChangesPixels": true,
+    "completedMomentChangesPixels": true,
+    "completedMomentKinds": [
+      "sleep",
+      "shower",
+      "eat_home",
+      "play_pc",
+      "study_focus",
+      "creative_time",
+      "clean_home"
+    ],
+    "stillModeStable": true,
+    "authoritativeWorldUnchanged": true
+  },
+  "captures": [
+    { "filename": "room_0800.png", "sha256": "a855180bf972adc2db89183e4aa6ea0602df61b3f5af824403c14ede934d1372", "bytes": 65739 },
+    { "filename": "room_2400.png", "sha256": "f2be545aa6042620f6d7940d1c8e305d978e1b4a67fc0de1b29cebbef33b5b24", "bytes": 63909 },
+    { "filename": "building_0800.png", "sha256": "90333c8474694c0607d703237f5d55bb087bf669743c0ffaeff34a041a6e7227", "bytes": 36989 },
+    { "filename": "building_2400.png", "sha256": "99cb4888a1a82ecf857b0f1c49209bbc86b6545dde1fddfd5222f2169efac945", "bytes": 37101 },
+    { "filename": "street_0800.png", "sha256": "e0189a61221496c6b8ab853f1d331da57b7e1f93c1d39a6bffe326f7173d1845", "bytes": 37818 },
+    { "filename": "street_2400.png", "sha256": "7e84b13b817d5ef576c320f30abe3ae6476cd1861955480e0a9ea127a1fe9d58", "bytes": 37504 },
+    { "filename": "room_sleep_0900.png", "sha256": "1a0bdd801d7e19e19ab5d80fce44caa083839655ca7234afb84181fbfeeedfcc", "bytes": 72124 },
+    { "filename": "room_sleep_2600.png", "sha256": "f58913a7708b35fbc8d1925df7cf8b67197b7cb62016b69fb8908401a0afef11", "bytes": 70445 },
+    { "filename": "room_shower_0900.png", "sha256": "60641433a0a612a126be9381b517157291ea494d53c6358ea1dc0a1c86693af0", "bytes": 61623 },
+    { "filename": "room_shower_2600.png", "sha256": "d3298e9883da1c4d9f3b218f90275579fc8f4bd470e449f5a9b18c28dc4e29a0", "bytes": 61426 },
+    { "filename": "room_eat_home_0900.png", "sha256": "5b477336e47d833e143b8b4c55e685ac59ee1aac3f4a8292fbbf033e588acdf6", "bytes": 43405 },
+    { "filename": "room_eat_home_2600.png", "sha256": "a9e7cafb0a147932e1901053fb139b3cbbcc47969f9ca195237332fa702079e9", "bytes": 43295 },
+    { "filename": "room_play_pc_0900.png", "sha256": "d01e20f4123235dbf2f708db1235f5b9e9fd3779fcdab19b73e4ce6eb355dad3", "bytes": 81164 },
+    { "filename": "room_play_pc_2600.png", "sha256": "8711ef11dedf2fce87a7476780f183e710636589ce105c264d55d94d6ebb3be5", "bytes": 81424 },
+    { "filename": "room_study_focus_0900.png", "sha256": "a92c3c5781603fa02591ba90013756123c90d2a3b8d91e61f8bd02cde4f4a4f1", "bytes": 83583 },
+    { "filename": "room_study_focus_2600.png", "sha256": "824e8d5694012d70634f925bc865e70a6004a44640e5a4ed62ebbe25b9f98354", "bytes": 86326 },
+    { "filename": "room_creative_time_0900.png", "sha256": "322b7f2ebd4cec12746287092043f5a7112e66003d2dd1fbdf9b0fd5895df2ed", "bytes": 76993 },
+    { "filename": "room_creative_time_2600.png", "sha256": "6f2dbd6c98d6dbdd833228f8a2fe1505dfb1d7fcedc7018a8b7449904e97ecee", "bytes": 76222 },
+    { "filename": "room_clean_home_0900.png", "sha256": "722f27333b94e7fd7c8cf177e18f880417a5b0121705240b2734942236481c0f", "bytes": 71178 },
+    { "filename": "room_clean_home_2600.png", "sha256": "4edd1b47bbe6fff92ca3b920ea0692b24c5247aa590d48761e23fb6acf00d8da", "bytes": 71596 },
+    { "filename": "room_still_a.png", "sha256": "4fbfd5a404ce004a699b3821985275aa56e5986092983761e1dcdd6571ebe8a1", "bytes": 63808 },
+    { "filename": "room_still_b.png", "sha256": "4fbfd5a404ce004a699b3821985275aa56e5986092983761e1dcdd6571ebe8a1", "bytes": 63808 }
+  ]
+}

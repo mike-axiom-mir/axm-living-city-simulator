@@ -1,0 +1,27 @@
+AXM Living City v0.10 — Walkable Places Stress
+
+PASS: 8 deterministic worlds × 180 days, each run twice with exact serialized equality.
+
+The eight worlds were run as four completed two-seed commands. Each seed was internally executed twice and required exact serialized equality.
+
+Totals:
+- bundledRoutesRecorded: 0
+- npcRouteDistanceMeters: 47953466
+- npcRoutesObserved: 107390
+- playerCompressedJourneys: 48
+- playerDistanceMeters: 13992
+- playerJourneys: 48
+- playerVisibleJourneys: 0
+- playerWalkingMinutes: 360
+- retainedTravelRecords: 4000
+- streetMomentsObserved: 0
+
+Per-seed evidence:
+- AXM-WALKABLE-STRESS-01: resident routes=13513, player journeys=6, minutes=45, distance=1749 m, retained=500
+- AXM-WALKABLE-STRESS-02: resident routes=13424, player journeys=6, minutes=45, distance=1749 m, retained=500
+- AXM-WALKABLE-STRESS-03: resident routes=13501, player journeys=6, minutes=45, distance=1749 m, retained=500
+- AXM-WALKABLE-STRESS-04: resident routes=13351, player journeys=6, minutes=45, distance=1749 m, retained=500
+- AXM-WALKABLE-STRESS-05: resident routes=13452, player journeys=6, minutes=45, distance=1749 m, retained=500
+- AXM-WALKABLE-STRESS-06: resident routes=13437, player journeys=6, minutes=45, distance=1749 m, retained=500
+- AXM-WALKABLE-STRESS-07: resident routes=13383, player journeys=6, minutes=45, distance=1749 m, retained=500
+- AXM-WALKABLE-STRESS-08: resident routes=13329, player journeys=6, minutes=45, distance=1749 m, retained=500

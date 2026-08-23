@@ -1,0 +1,189 @@
+{
+  "schema": "axm.living-city.frontage-project/v0.10.0",
+  "id": "frontage_project_000030",
+  "proposalId": "frontage_proposal_000027",
+  "buildingId": "building_home_garden_1",
+  "placeId": "home_garden_1",
+  "actorId": "npc_006",
+  "status": "completed",
+  "requiredMoney": 48,
+  "escrow": 48,
+  "spent": 48,
+  "phases": [
+    {
+      "id": "confirm_design",
+      "label": "Confirm the exact design",
+      "status": "completed",
+      "costShare": 0,
+      "completedAt": {
+        "day": 1,
+        "hour": 7,
+        "minute": 0
+      }
+    },
+    {
+      "id": "gather_materials",
+      "label": "Gather the stated materials",
+      "status": "completed",
+      "costShare": 0.65,
+      "completedAt": {
+        "day": 1,
+        "hour": 7,
+        "minute": 0
+      }
+    },
+    {
+      "id": "install_and_check",
+      "label": "Install and verify the frontage",
+      "status": "completed",
+      "costShare": 0.35,
+      "completedAt": {
+        "day": 1,
+        "hour": 7,
+        "minute": 0
+      }
+    }
+  ],
+  "completedPhaseIds": [
+    "confirm_design",
+    "gather_materials",
+    "install_and_check"
+  ],
+  "createdAt": {
+    "day": 1,
+    "hour": 7,
+    "minute": 0
+  },
+  "completedAt": {
+    "day": 1,
+    "hour": 7,
+    "minute": 0
+  },
+  "failureReason": null,
+  "history": [
+    {
+      "id": "shell_event_000031",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "created",
+      "message": "A phased project was created from frontage_proposal_000027; approval did not instantly alter the building.",
+      "actorIds": [
+        "npc_006"
+      ],
+      "causes": [
+        "accepted exact proposal"
+      ],
+      "evidence": {
+        "initialEscrow": 21,
+        "requiredMoney": 48
+      }
+    },
+    {
+      "id": "shell_event_000032",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "saving",
+      "message": "Nika Martens placed €18 into the exact frontage project escrow.",
+      "actorIds": [
+        "npc_006"
+      ],
+      "causes": [
+        "resident-funded optional project"
+      ],
+      "evidence": {
+        "escrow": 39,
+        "required": 48
+      }
+    },
+    {
+      "id": "shell_event_000033",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "saving",
+      "message": "Nika Martens placed €9 into the exact frontage project escrow.",
+      "actorIds": [
+        "npc_006"
+      ],
+      "causes": [
+        "resident-funded optional project"
+      ],
+      "evidence": {
+        "escrow": 48,
+        "required": 48
+      }
+    },
+    {
+      "id": "shell_event_000034",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "phase_completed",
+      "message": "Confirm the exact design was completed by Nika Martens.",
+      "actorIds": [
+        "npc_006"
+      ],
+      "causes": [
+        "resident phased frontage work"
+      ],
+      "evidence": {
+        "phaseId": "confirm_design",
+        "spent": 0
+      }
+    },
+    {
+      "id": "shell_event_000035",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "phase_completed",
+      "message": "Gather the stated materials was completed by Nika Martens.",
+      "actorIds": [
+        "npc_006"
+      ],
+      "causes": [
+        "resident phased frontage work"
+      ],
+      "evidence": {
+        "phaseId": "gather_materials",
+        "spent": 31.2
+      }
+    },
+    {
+      "id": "shell_event_000036",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "phase_completed",
+      "message": "Install and verify the frontage was completed by Nika Martens.",
+      "actorIds": [
+        "npc_006"
+      ],
+      "causes": [
+        "resident phased frontage work"
+      ],
+      "evidence": {
+        "phaseId": "install_and_check",
+        "spent": 48
+      }
+    },
+    {
+      "id": "shell_event_000038",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "completed",
+      "message": "Small Garden Home kept its identity while the exact approved frontage change became part of its history.",
+      "actorIds": [
+        "npc_006"
+      ],
+      "causes": [
+        "all phases completed",
+        "post-change validation passed"
+      ],
+      "evidence": null
+    }
+  ]
+}

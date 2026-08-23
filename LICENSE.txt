@@ -1,0 +1,9 @@
+CC0 1.0 Universal
+
+To the extent possible under law, the project authors have waived all copyright and related or neighboring rights to the original code, documentation, data, interface copy, and project-authored visual styling contained in this package.
+
+SPDX-License-Identifier: CC0-1.0
+
+This dedication does not grant rights in trademarks, personalities, or material that may be independently owned by others. This package intentionally contains no third-party images, audio, fonts, libraries, or copied game assets.
+
+The complete legal text for CC0 1.0 is available from Creative Commons. This concise file records the intended dedication for local intake and redistribution.

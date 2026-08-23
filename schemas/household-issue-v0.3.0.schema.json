@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city-sim.household-issue/v0.3.0",
+  "title": "AXM Household Issue v0.3.0",
+  "description": "Recorded household friction. Ending an agreement closes open issues; it does not falsely mark them repaired.",
+  "$ref": "#/$defs/issue",
+  "$defs": {
+    "historyEvent": {
+      "type": "object",
+      "required": [
+        "id",
+        "day",
+        "hour",
+        "type",
+        "message"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "actorIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "actorId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "proposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "issueId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "causes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {}
+      },
+      "additionalProperties": true
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "id",
+        "householdId",
+        "type",
+        "status",
+        "severity",
+        "createdDay",
+        "createdHour",
+        "resolvedDay",
+        "repairAttempts",
+        "message",
+        "history"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "householdId": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "money",
+            "space",
+            "style",
+            "time",
+            "independence"
+          ]
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "closed"
+          ]
+        },
+        "severity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "createdDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "createdHour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "resolvedDay": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "repairAttempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "evidence": {},
+        "history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyEvent"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

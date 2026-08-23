@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.enterprise-equipment/v0.8.0",
+  "title": "AXM Living City Enterprise Equipment v0.8.0",
+  "description": "A repairable, improvable equipment object whose stable identity and intervention history survive enterprise pivots.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "enterpriseId",
+    "ownerId",
+    "catalogId",
+    "name",
+    "acquiredDay",
+    "acquisition",
+    "condition",
+    "upgrades",
+    "history",
+    "usageSessions"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.enterprise-equipment/v0.8.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "enterpriseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownerId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "catalogId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acquiredDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "acquisition": {
+      "type": "string"
+    },
+    "condition": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "upgrades": {
+      "type": "object",
+      "required": [
+        "care",
+        "reliability",
+        "capacity",
+        "efficiency"
+      ],
+      "properties": {
+        "care": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "reliability": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "capacity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "efficiency": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        }
+      },
+      "additionalProperties": false
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string"
+          },
+          "actorId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "actorIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "customerIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "causes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {}
+        },
+        "additionalProperties": true
+      }
+    },
+    "usageSessions": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": true
+}

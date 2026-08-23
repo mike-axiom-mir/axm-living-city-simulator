@@ -1,0 +1,5 @@
+PASS screenshot group desktop-presence: captured 4 images
+- presence_onboarding_desktop.png
+- presence_upper_walkup_route_desktop.png
+- presence_refusal_preserved_desktop.png
+- presence_inside_room_desktop.png

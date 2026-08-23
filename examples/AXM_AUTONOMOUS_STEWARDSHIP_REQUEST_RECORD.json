@@ -1,0 +1,111 @@
+{
+  "id": "stewardship_request_00242",
+  "schema": "axm.stewardship-request/v0.4.0",
+  "intentionId": "habitat_intention_00239",
+  "residentId": "npc_001",
+  "propertyId": "home_courtyard_1",
+  "createdDay": 1,
+  "createdHour": 7,
+  "status": "completed",
+  "summary": "Warm clay on Kitchen walls",
+  "projectSpec": {
+    "type": "surface",
+    "target": {
+      "roomId": "room_home_courtyard_1_001",
+      "surface": "walls",
+      "finishId": "warm_clay"
+    }
+  },
+  "proposedOwnerContribution": 19.8,
+  "acceptedOwnerContribution": 19.8,
+  "authorities": {
+    "coTenants": [],
+    "player": {
+      "required": true,
+      "roles": [
+        "property_owner"
+      ],
+      "status": "approved",
+      "respondedDay": 1,
+      "response": "approve_owner_share"
+    },
+    "externalOwner": {
+      "required": false,
+      "ownerId": "player",
+      "ownerLabel": "Player",
+      "status": "not_required",
+      "dueDay": null,
+      "respondedDay": null,
+      "response": null,
+      "score": null,
+      "evidence": null
+    }
+  },
+  "response": {
+    "by": "player",
+    "decision": "approved",
+    "ownerContribution": 19.8,
+    "evidence": {
+      "response": "approve_owner_share",
+      "roles": [
+        "property_owner"
+      ]
+    },
+    "day": 1
+  },
+  "history": [
+    {
+      "day": 1,
+      "hour": 7,
+      "type": "submitted",
+      "message": "Elin Vos submitted an exact request for Warm clay on Kitchen walls.",
+      "evidence": {
+        "coTenants": [],
+        "playerRequired": true,
+        "externalRequired": false,
+        "proposedOwnerContribution": 19.8
+      }
+    },
+    {
+      "day": 1,
+      "hour": 7,
+      "type": "player_approved",
+      "message": "The player approved the exact request and authorized a maintenance-reserve contribution.",
+      "evidence": {
+        "response": "approve_owner_share",
+        "contribution": 19.8,
+        "roles": [
+          "property_owner"
+        ]
+      }
+    },
+    {
+      "day": 1,
+      "hour": 7,
+      "type": "approved",
+      "message": "Warm clay on Kitchen walls was approved with €20 from the property reserve.",
+      "evidence": {
+        "by": "player",
+        "decision": "approved",
+        "ownerContribution": 19.8,
+        "evidence": {
+          "response": "approve_owner_share",
+          "roles": [
+            "property_owner"
+          ]
+        },
+        "day": 1
+      }
+    },
+    {
+      "day": 14,
+      "hour": 0,
+      "type": "completed",
+      "message": "Warm clay on Kitchen walls completed after all construction phases and validation.",
+      "evidence": {
+        "projectId": "construction_00591"
+      }
+    }
+  ],
+  "completedDay": 14
+}

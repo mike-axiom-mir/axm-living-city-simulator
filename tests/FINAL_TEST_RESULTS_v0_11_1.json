@@ -1,0 +1,47 @@
+{
+  "schema": "axm.living-city.final-test-results/v0.11.1",
+  "packageId": "AXM_LIVING_CITY_SIM_ANIMATED_PRESENCE_v0_11_1",
+  "result": "pass_completed_evidence",
+  "focused": {
+    "inherited": 194,
+    "visualPresence": 9,
+    "total": 203,
+    "failed": 0
+  },
+  "townStress": {
+    "seeds": 12,
+    "daysPerSeed": 365,
+    "totalDays": 4380,
+    "validationFailures": 0
+  },
+  "householdStress": {
+    "seeds": 8,
+    "daysPerSeed": 180,
+    "exactReplay": true,
+    "objectLossFailures": 0
+  },
+  "presenceStress": {
+    "seeds": 8,
+    "daysPerSeed": 180,
+    "exactReplay": true,
+    "completedMovements": 41413,
+    "stairUses": 3624,
+    "validationFailures": 0
+  },
+  "visualFrames": {
+    "roomMotionChangesPixels": true,
+    "buildingMotionChangesPixels": true,
+    "streetMotionChangesPixels": true,
+    "stillFramesByteStable": true,
+    "worldSerializationUnchanged": true,
+    "rngUnchangedByDerivation": true,
+    "framesInspected": true,
+    "rawFramesDeleted": true
+  },
+  "browser": {
+    "newViewHarnessIncluded": true,
+    "executedHere": false,
+    "status": "unknown_not_claimed",
+    "reason": "Python Playwright and a Chromium executable were unavailable"
+  }
+}

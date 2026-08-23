@@ -1,0 +1,366 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.habitat-intention/v0.4.0",
+  "title": "AXM Habitat Intention v0.4.0",
+  "description": "One resident-authored habitat intention with explainable reasons, visible savings, material evidence, authority links, phased-work linkage, and retained outcome history.",
+  "type": "object",
+  "required": [
+    "id",
+    "schema",
+    "residentId",
+    "propertyId",
+    "createdDay",
+    "createdHour",
+    "status",
+    "kind",
+    "summary",
+    "projectSpec",
+    "reasons",
+    "scoreEvidence",
+    "funding",
+    "requestId",
+    "projectId",
+    "nextActionDay",
+    "deadlineDay",
+    "completedDay",
+    "failureReason",
+    "history"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema": {
+      "const": "axm.habitat-intention/v0.4.0"
+    },
+    "residentId": {
+      "type": "string"
+    },
+    "propertyId": {
+      "type": "string"
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "status": {
+      "enum": [
+        "saving",
+        "awaiting_permission",
+        "approved_saving",
+        "ready",
+        "working",
+        "completed",
+        "declined",
+        "withdrawn",
+        "failed"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "surface",
+        "repair",
+        "utility",
+        "partition"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "projectSpec": {
+      "type": "object",
+      "required": [
+        "type",
+        "target"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "partition",
+            "surface",
+            "utility",
+            "repair"
+          ]
+        },
+        "target": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scoreEvidence": {
+      "type": "object"
+    },
+    "funding": {
+      "type": "object",
+      "required": [
+        "budget",
+        "requestThreshold",
+        "escrow",
+        "contributionTotals",
+        "history",
+        "lastMilestone",
+        "materialsPurchased",
+        "materialPurchaseEvidence"
+      ],
+      "properties": {
+        "budget": {
+          "type": "object",
+          "required": [
+            "phases",
+            "phaseMoney",
+            "materialMoney",
+            "totalMoney",
+            "materials",
+            "hours"
+          ],
+          "properties": {
+            "phases": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "name",
+                  "hours",
+                  "money",
+                  "materials",
+                  "note"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "hours": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "money": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "materials": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "note": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "phaseMoney": {
+              "type": "number",
+              "minimum": 0
+            },
+            "materialMoney": {
+              "type": "number",
+              "minimum": 0
+            },
+            "totalMoney": {
+              "type": "number",
+              "minimum": 0
+            },
+            "materials": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "hours": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "requestThreshold": {
+          "type": "number",
+          "minimum": 0
+        },
+        "escrow": {
+          "type": "object",
+          "required": [
+            "money",
+            "materials"
+          ],
+          "properties": {
+            "money": {
+              "type": "number",
+              "minimum": 0
+            },
+            "materials": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "contributionTotals": {
+          "type": "object",
+          "required": [
+            "resident",
+            "propertyReserve"
+          ],
+          "properties": {
+            "resident": {
+              "type": "number",
+              "minimum": 0
+            },
+            "propertyReserve": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "lastMilestone": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "materialsPurchased": {
+          "type": "boolean"
+        },
+        "materialPurchaseEvidence": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "day",
+                "cost",
+                "unitPrices",
+                "materials"
+              ],
+              "properties": {
+                "day": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "cost": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "unitPrices": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                },
+                "materials": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                }
+              },
+              "additionalProperties": true
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "requestId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "projectId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nextActionDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "deadlineDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "completedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "failureReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string"
+          },
+          "evidence": {}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

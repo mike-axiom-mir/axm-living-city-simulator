@@ -1,0 +1,121 @@
+
+> axm-living-city-sim-lived-buildings@0.11.0 qa:schemas
+> python3 tools/validate_schemas.py
+
+PASS schema definition: adventure-thread-v0.6.0.schema.json
+PASS schema definition: building-shell-v0.10.0.schema.json
+PASS schema definition: business-proposal-v0.2.0.schema.json
+PASS schema definition: care-record-v0.5.0.schema.json
+PASS schema definition: choice-first-life-course-v0.7.0.schema.json
+PASS schema definition: commercial-premise-v0.8.0.schema.json
+PASS schema definition: community-connection-v0.6.0.schema.json
+PASS schema definition: community-institution-v0.6.0.schema.json
+PASS schema definition: community-opportunity-v0.6.0.schema.json
+PASS schema definition: construction-project-v0.3.0.schema.json
+PASS schema definition: construction-project-v0.4.0.schema.json
+PASS schema definition: enterprise-equipment-v0.8.0.schema.json
+PASS schema definition: enterprise-session-v0.8.0.schema.json
+PASS schema definition: enterprise-v0.8.0.schema.json
+PASS schema definition: enterprise-work-offer-v0.8.0.schema.json
+PASS schema definition: family-proposal-v0.5.0.schema.json
+PASS schema definition: family-unit-v0.5.0.schema.json
+PASS schema definition: frontage-project-v0.10.0.schema.json
+PASS schema definition: frontage-proposal-v0.10.0.schema.json
+PASS schema definition: habitat-intention-v0.4.0.schema.json
+PASS schema definition: household-agreement-v0.2.0.schema.json
+PASS schema definition: household-agreement-v0.3.0.schema.json
+PASS schema definition: household-issue-v0.2.0.schema.json
+PASS schema definition: household-issue-v0.3.0.schema.json
+PASS schema definition: household-proposal-v0.2.0.schema.json
+PASS schema definition: household-proposal-v0.3.0.schema.json
+PASS schema definition: indoor-movement-v0.11.0.schema.json
+PASS schema definition: life-course-v0.5.0.schema.json
+PASS schema definition: lived-presence-v0.11.0.schema.json
+PASS schema definition: local-need-v0.8.0.schema.json
+PASS schema definition: observer-report-v0.2.0.schema.json
+PASS schema definition: observer-report-v0.3.0.schema.json
+PASS schema definition: observer-report-v0.4.0.schema.json
+PASS schema definition: ordinary-encounter-v0.11.0.schema.json
+PASS schema definition: personal-project-v0.7.0.schema.json
+PASS schema definition: place-exterior-v0.9.0.schema.json
+PASS schema definition: presence-access-grant-v0.11.0.schema.json
+PASS schema definition: property-stewardship-v0.4.0.schema.json
+PASS schema definition: room-permission-v0.3.0.schema.json
+PASS schema definition: stewardship-request-v0.4.0.schema.json
+PASS schema definition: street-moment-v0.9.0.schema.json
+PASS schema definition: street-network-v0.9.0.schema.json
+PASS schema definition: structural-habitat-v0.3.0.schema.json
+PASS schema definition: structural-habitat-v0.4.0.schema.json
+PASS schema definition: travel-record-v0.9.0.schema.json
+PASS schema definition: world-v0.1.0.schema.json
+PASS schema definition: world-v0.10.0.schema.json
+PASS schema definition: world-v0.11.0.schema.json
+PASS schema definition: world-v0.2.0.schema.json
+PASS schema definition: world-v0.3.0.schema.json
+PASS schema definition: world-v0.4.0.schema.json
+PASS schema definition: world-v0.5.0.schema.json
+PASS schema definition: world-v0.6.0.schema.json
+PASS schema definition: world-v0.7.0.schema.json
+PASS schema definition: world-v0.8.0.schema.json
+PASS schema definition: world-v0.9.0.schema.json
+PASS exported world: AXM_100_DAY_OBSERVER_SNAPSHOT.json against world-v0.11.0.schema.json
+PASS exported world: AXM_HOUSEHOLD_AGREEMENT_180_DAY_WORLD.json against world-v0.11.0.schema.json
+PASS exported world: AXM_STRUCTURAL_HABITAT_WORLD.json against world-v0.11.0.schema.json
+PASS exported world: AXM_AUTONOMOUS_STEWARDSHIP_WORLD.json against world-v0.11.0.schema.json
+PASS exported world: AXM_FAMILY_CONTINUITY_WORLD.json against world-v0.11.0.schema.json
+PASS exported world: AXM_COMMUNITY_ADVENTURES_WORLD.json against world-v0.11.0.schema.json
+PASS exported world: AXM_PERSONAL_DIRECTIONS_WORLD.json against world-v0.11.0.schema.json
+PASS exported world: AXM_LOCAL_ECONOMY_WORLD.json against world-v0.11.0.schema.json
+PASS exported world: AXM_WALKABLE_PLACES_WORLD.json against world-v0.11.0.schema.json
+PASS exported world: AXM_BUILDING_SHELLS_WORLD.json against world-v0.11.0.schema.json
+PASS exported world: AXM_LIVED_BUILDINGS_WORLD.json against world-v0.11.0.schema.json
+PASS observer-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS household-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS structural-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS stewardship-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS family-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS community-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS directions-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS economy-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS walkable-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS shell-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS lived-world habitats: structural-habitat-v0.4.0.schema.json (14)
+PASS standalone habitat record: structural-habitat-v0.4.0.schema.json (1)
+PASS construction projects across exported worlds: construction-project-v0.4.0.schema.json (127)
+PASS household agreements: household-agreement-v0.3.0.schema.json (1)
+PASS household proposals: household-proposal-v0.3.0.schema.json (12)
+PASS household issues: household-issue-v0.3.0.schema.json (2)
+PASS graph room permissions: room-permission-v0.3.0.schema.json (2)
+PASS habitat intentions: habitat-intention-v0.4.0.schema.json (360)
+PASS stewardship requests: stewardship-request-v0.4.0.schema.json (322)
+PASS property stewardship records: property-stewardship-v0.4.0.schema.json (155)
+PASS preserved life-course records: life-course-v0.5.0.schema.json (268)
+PASS choice-first life-course extensions: choice-first-life-course-v0.7.0.schema.json (267)
+PASS family units: family-unit-v0.5.0.schema.json (2)
+PASS family proposals: family-proposal-v0.5.0.schema.json (3)
+PASS care records: care-record-v0.5.0.schema.json (251)
+PASS community institutions: community-institution-v0.6.0.schema.json (56)
+PASS community opportunities: community-opportunity-v0.6.0.schema.json (1204)
+PASS community connections: community-connection-v0.6.0.schema.json (1283)
+PASS adventure threads: adventure-thread-v0.6.0.schema.json (233)
+PASS personal directions: personal-project-v0.7.0.schema.json (271)
+PASS local need signals: local-need-v0.8.0.schema.json (67)
+PASS commercial premises: commercial-premise-v0.8.0.schema.json (45)
+PASS resident enterprise directions: enterprise-v0.8.0.schema.json (25)
+PASS enterprise equipment objects: enterprise-equipment-v0.8.0.schema.json (35)
+PASS enterprise sessions: enterprise-session-v0.8.0.schema.json (7)
+PASS bounded enterprise work offers: enterprise-work-offer-v0.8.0.schema.json (2)
+PASS place exterior identities: place-exterior-v0.9.0.schema.json (298)
+PASS pedestrian street networks: street-network-v0.9.0.schema.json (12)
+PASS travel records: travel-record-v0.9.0.schema.json (4605)
+PASS observation-only street moments: street-moment-v0.9.0.schema.json (2)
+PASS building shells: building-shell-v0.10.0.schema.json (287)
+PASS resident frontage proposals: frontage-proposal-v0.10.0.schema.json (100)
+PASS resident frontage projects: frontage-project-v0.10.0.schema.json (68)
+PASS bounded current-presence snapshots: lived-presence-v0.11.0.schema.json (267)
+PASS lawful indoor movement records: indoor-movement-v0.11.0.schema.json (5034)
+PASS refusal-safe ordinary encounters: ordinary-encounter-v0.11.0.schema.json (2)
+PASS bounded shared-space access grants: presence-access-grant-v0.11.0.schema.json (2)
+PASS observer reports: observer-report-v0.4.0.schema.json (1)
+
+PASS: 56/56 schema definitions, 11 exported worlds, and 15833 v0.11-compatible records validated.

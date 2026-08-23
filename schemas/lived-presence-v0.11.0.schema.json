@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.lived-presence/v0.11.0",
+  "title": "AXM Lived Presence v0.11.0",
+  "description": "A bounded current-presence snapshot. Private autonomous residents remain room-coarsened unless lawful co-presence makes exact presence observable.",
+  "type": "object",
+  "required": [
+    "schema",
+    "personId",
+    "kind",
+    "placeId",
+    "buildingId",
+    "storeyId",
+    "level",
+    "routeNodeId",
+    "roomId",
+    "activity",
+    "accessBasis",
+    "privacy",
+    "observableScope",
+    "updatedAt",
+    "source"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.lived-presence/v0.11.0"
+    },
+    "personId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "street_threshold",
+        "building_route",
+        "place_entry",
+        "room",
+        "public_interior",
+        "private_interior_coarse"
+      ]
+    },
+    "placeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "buildingId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "storeyId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "level": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "routeNodeId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "roomId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "activity": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "accessBasis": {
+      "type": "string",
+      "minLength": 1
+    },
+    "privacy": {
+      "enum": [
+        "public",
+        "private",
+        "shared_route"
+      ]
+    },
+    "observableScope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updatedAt": {
+      "$ref": "#/$defs/time"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "private_interior_coarse"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "roomId": {
+            "const": null
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "time": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "minute"
+      ],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "minute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

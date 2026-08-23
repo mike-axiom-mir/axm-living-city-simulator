@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.frontage-proposal/v0.10.0",
+  "title": "AXM Resident Frontage Proposal v0.10.0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "buildingId",
+    "placeId",
+    "authorId",
+    "createdAt",
+    "decisionDueDay",
+    "status",
+    "change",
+    "authority",
+    "finance",
+    "noRelationshipPenalty",
+    "projectId",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.frontage-proposal/v0.10.0"
+    },
+    "id": {
+      "type": "string"
+    },
+    "buildingId": {
+      "type": "string"
+    },
+    "placeId": {
+      "type": "string"
+    },
+    "authorId": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "minute"
+      ],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "minute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      },
+      "additionalProperties": true
+    },
+    "decisionDueDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "enum": [
+        "pending_owner",
+        "awaiting_player",
+        "approved",
+        "declined",
+        "withdrawn",
+        "project_created",
+        "completed",
+        "failed"
+      ]
+    },
+    "change": {
+      "type": "object",
+      "required": [
+        "type",
+        "before",
+        "after",
+        "description"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "door_color",
+            "window_boxes",
+            "frame_style",
+            "entry_light",
+            "sign_text",
+            "facade_accent"
+          ]
+        },
+        "before": {},
+        "after": {},
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "ownerId",
+        "decisionMode",
+        "decision",
+        "decidedAt",
+        "reason"
+      ],
+      "properties": {
+        "ownerId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decisionMode": {
+          "enum": [
+            "external_policy",
+            "player_owner_response",
+            "author_is_owner"
+          ]
+        },
+        "decision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decidedAt": {
+          "anyOf": [
+            {
+              "type": "object",
+              "required": [
+                "day",
+                "hour",
+                "minute"
+              ],
+              "properties": {
+                "day": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "hour": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 23
+                },
+                "minute": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 59
+                }
+              },
+              "additionalProperties": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "finance": {
+      "type": "object",
+      "required": [
+        "totalCost",
+        "authorEscrow",
+        "ownerContribution",
+        "refunded"
+      ],
+      "properties": {
+        "totalCost": {
+          "type": "number",
+          "minimum": 0
+        },
+        "authorEscrow": {
+          "type": "number",
+          "minimum": 0
+        },
+        "ownerContribution": {
+          "type": "number",
+          "minimum": 0
+        },
+        "refunded": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "noRelationshipPenalty": {
+      "const": true
+    },
+    "projectId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "day",
+          "hour",
+          "minute",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "day": {
+            "type": "integer"
+          },
+          "hour": {
+            "type": "integer"
+          },
+          "minute": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

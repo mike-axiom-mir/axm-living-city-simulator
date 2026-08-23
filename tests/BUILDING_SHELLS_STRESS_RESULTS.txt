@@ -1,0 +1,23 @@
+PASS AXM-SHELL-STRESS-01: 26 proposals, 17 completed, 26 shells
+PASS AXM-SHELL-STRESS-02: 22 proposals, 10 completed, 26 shells
+PASS AXM-SHELL-STRESS-03: 28 proposals, 17 completed, 26 shells
+PASS AXM-SHELL-STRESS-04: 24 proposals, 13 completed, 26 shells
+PASS AXM-SHELL-STRESS-05: 18 proposals, 14 completed, 26 shells
+PASS AXM-SHELL-STRESS-06: 23 proposals, 9 completed, 26 shells
+PASS AXM-SHELL-STRESS-07: 19 proposals, 14 completed, 26 shells
+PASS AXM-SHELL-STRESS-08: 19 proposals, 13 completed, 26 shells
+
+{
+  "worlds": 8,
+  "daysPerWorld": 180,
+  "proposals": 179,
+  "approved": 111,
+  "declined": 60,
+  "completedProjects": 107,
+  "phases": 327,
+  "residentSavings": 3027,
+  "buildings": 208,
+  "storeys": 240,
+  "windows": 1176,
+  "validationFailures": 0
+}

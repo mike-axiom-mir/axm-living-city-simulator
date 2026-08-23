@@ -1,0 +1,173 @@
+{
+  "schema": "axm.living-city.adventure-thread/v0.6.0",
+  "id": "adventure_00230",
+  "ownerId": "player",
+  "templateId": "forgotten_radio",
+  "title": "The Forgotten Radio",
+  "theme": "repair",
+  "origin": "A battered radio appears on the repair table with one station still faintly audible.",
+  "meaning": "Follow an object history, meet the people attached to it, and decide what should be preserved.",
+  "tags": [
+    "repair",
+    "story",
+    "neighborhood"
+  ],
+  "institutionId": "community_repair_circle",
+  "originPlaceId": "place_workshop",
+  "companionId": "npc_001",
+  "status": "completed",
+  "stageIndex": 3,
+  "stages": [
+    {
+      "id": "listen_first",
+      "title": "Listen before opening it",
+      "description": "Trace the fault and ask where the radio came from before replacing anything.",
+      "durationHours": 2,
+      "cost": 0,
+      "skillEffects": {
+        "focus": 0.7,
+        "repair": 0.5
+      },
+      "needEffects": {
+        "mood": 6,
+        "energy": -3
+      },
+      "status": "completed",
+      "completedDay": 1
+    },
+    {
+      "id": "find_the_voice",
+      "title": "Find the voice behind the note",
+      "description": "A name inside the casing points toward an old resident and an unfinished story.",
+      "durationHours": 3,
+      "cost": 2,
+      "skillEffects": {
+        "social": 0.6,
+        "focus": 0.5
+      },
+      "needEffects": {
+        "mood": 9,
+        "social": 5,
+        "energy": -5
+      },
+      "status": "completed",
+      "completedDay": 1
+    },
+    {
+      "id": "restore_with_history",
+      "title": "Restore it without erasing its history",
+      "description": "Make it usable again while keeping the marks that explain where it has been.",
+      "durationHours": 3,
+      "cost": 5,
+      "skillEffects": {
+        "repair": 1.2,
+        "creativity": 0.5
+      },
+      "needEffects": {
+        "mood": 14,
+        "energy": -6
+      },
+      "status": "completed",
+      "completedDay": 1
+    }
+  ],
+  "createdDay": 1,
+  "completedDay": 1,
+  "releasedDay": null,
+  "noDeadline": true,
+  "history": [
+    {
+      "id": "adventure_history_00231",
+      "day": 1,
+      "hour": 7,
+      "type": "discovered",
+      "message": "Player discovered The Forgotten Radio. It has no deadline and can be released without punishment.",
+      "actorIds": [
+        "player",
+        "npc_001"
+      ],
+      "causes": [
+        "interest-led discovery",
+        "no quest deadline"
+      ],
+      "evidence": {
+        "companionId": "npc_001"
+      }
+    },
+    {
+      "id": "adventure_history_00242",
+      "day": 1,
+      "hour": 17,
+      "type": "stage_completed",
+      "message": "Listen before opening it was completed. Growth remained multidirectional rather than a universal level.",
+      "actorIds": [
+        "player",
+        "npc_001"
+      ],
+      "causes": [
+        "explicit player continuation",
+        "no optimal path"
+      ],
+      "evidence": {
+        "stageId": "listen_first",
+        "cost": 0,
+        "durationHours": 2
+      }
+    },
+    {
+      "id": "adventure_history_00246",
+      "day": 1,
+      "hour": 20,
+      "type": "stage_completed",
+      "message": "Find the voice behind the note was completed. Growth remained multidirectional rather than a universal level.",
+      "actorIds": [
+        "player",
+        "npc_001"
+      ],
+      "causes": [
+        "explicit player continuation",
+        "no optimal path"
+      ],
+      "evidence": {
+        "stageId": "find_the_voice",
+        "cost": 2,
+        "durationHours": 3
+      }
+    },
+    {
+      "id": "adventure_history_00248",
+      "day": 1,
+      "hour": 23,
+      "type": "stage_completed",
+      "message": "Restore it without erasing its history was completed. Growth remained multidirectional rather than a universal level.",
+      "actorIds": [
+        "player",
+        "npc_001"
+      ],
+      "causes": [
+        "explicit player continuation",
+        "no optimal path"
+      ],
+      "evidence": {
+        "stageId": "restore_with_history",
+        "cost": 5,
+        "durationHours": 3
+      }
+    },
+    {
+      "id": "adventure_history_00249",
+      "day": 1,
+      "hour": 23,
+      "type": "completed",
+      "message": "The Forgotten Radio ended as a lived history, not an unlock chain.",
+      "actorIds": [
+        "player",
+        "npc_001"
+      ],
+      "causes": [
+        "all chosen stages completed"
+      ],
+      "evidence": null
+    }
+  ]
+}

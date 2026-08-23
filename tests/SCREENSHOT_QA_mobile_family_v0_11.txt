@@ -1,0 +1,4 @@
+PASS screenshot group mobile-family: captured 3 images
+- family_active_mobile.png
+- family_dependent_agency_mobile.png
+- family_incoming_proposal_mobile.png

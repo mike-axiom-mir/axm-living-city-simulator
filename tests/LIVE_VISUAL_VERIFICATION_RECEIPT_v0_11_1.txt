@@ -1,0 +1,16 @@
+claim: Full motion visibly advances the Room, Building, and Street canvases; Still remains stable; drawing does not mutate simulation state.
+surface / route: v0.11.1 Living View canvas renderer; Room -> Building -> Street -> Still.
+visual backend and fallback reason: repeated raster canvas capture fallback; browser primary unavailable because Python Playwright and a Chromium executable were absent.
+viewport / device / seat: logical 960x560 canvas; deterministic seed AXM-VISUAL-FRAME-QA.
+capture capability: repeated timestamped PNG frames plus direct visual inspection.
+baseline: each scene rendered at timestamp 800 ms; Still rendered at timestamp 0.
+authorized action: advance presentation timestamp only; no simulation action.
+observed sequence: Room figure/light/motes moved; Building clouds/figure changed; Street clouds/figures changed; Still pair remained visually and byte stable.
+typed observation: all three motion pairs had different SHA-256 hashes; Still pair shared one SHA-256; world serialization matched before/after every draw.
+verdict: PASS for canvas motion/still/state-isolation claim; UNKNOWN for live browser layout, focus, and responsive behavior of the new view.
+named seam: authoritative world -> AXM.Visuals pure scene -> UI canvas; no return mutation path.
+buffer digest: tests/VISUAL_FRAME_DIGESTS_v0_11_1.json
+temporary paths deleted: raw QA PNG frame directory removed after inspection.
+cleanup complete: yes
+next cheapest test: run npm run qa:visuals-browser in an environment with Python Playwright and Chromium.
+

@@ -1,0 +1,12 @@
+PASS screenshot group mobile-core: captured 4 images
+- town_mobile.png
+- home_mobile.png
+- stewardship_request_mobile.png
+- agreements_active_mobile.png
+PASS screenshot group mobile-family: captured 3 images
+- family_active_mobile.png
+- family_dependent_agency_mobile.png
+- family_incoming_proposal_mobile.png
+PASS screenshot group mobile-community: captured 2 images
+- community_freedom_loop_mobile.png
+- community_adventure_mobile.png

@@ -1,0 +1,55 @@
+{
+  "id": "family_proposal_00379",
+  "schema": "axm.living-city.family-proposal/v0.5.0",
+  "type": "family_ritual",
+  "status": "declined",
+  "proposerId": "npc_023",
+  "recipientIds": [
+    "player"
+  ],
+  "familyUnitId": "family_00270",
+  "householdId": "household_00242",
+  "createdDay": 2,
+  "createdHour": 0,
+  "dueDay": 2,
+  "expiresDay": 12,
+  "terms": {
+    "label": "Sunday reset",
+    "meaning": "A suggested shared rhythm that remains optional and does not create legal or control authority."
+  },
+  "response": {
+    "decision": "declined",
+    "day": 2,
+    "hour": 0
+  },
+  "history": [
+    {
+      "id": "family_proposal_event_00380",
+      "day": 2,
+      "hour": 0,
+      "type": "created",
+      "message": "Daan Bakker opened a Family Ritual conversation.",
+      "actorId": "npc_023",
+      "causes": [
+        "explicit proposal",
+        "no implied consent"
+      ],
+      "evidence": {
+        "terms": {
+          "label": "Sunday reset",
+          "meaning": "A suggested shared rhythm that remains optional and does not create legal or control authority."
+        }
+      }
+    },
+    {
+      "id": "family_proposal_event_00382",
+      "day": 2,
+      "hour": 0,
+      "type": "declined",
+      "message": "The player declined the proposal. No hidden punishment was added.",
+      "actorId": "player",
+      "causes": [],
+      "evidence": null
+    }
+  ]
+}

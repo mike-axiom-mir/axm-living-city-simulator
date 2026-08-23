@@ -1,0 +1,18 @@
+AXM Living City v0.11 — Household Stress Results
+Seeds: 8
+Days per seed: 180
+Each seed rerun: yes, exact serialized equality required
+Execution: five completed single-seed runs plus one completed three-seed run; no interrupted result counted
+Proposals: 105
+Accepted: 91
+Declined: 14
+Conflicts: 79
+Successful repairs: 65
+Household relocations: 8
+Autonomous partner initiatives: 81
+Accepted incoming proposals: 67
+Declined incoming proposals: 14
+Tracked member objects across final worlds: 151
+Validation failures: 0
+Object-loss failures: 0
+Exact deterministic replay: passed for every seed

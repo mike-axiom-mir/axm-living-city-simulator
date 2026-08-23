@@ -1,0 +1,12 @@
+node_modules/
+.cache/
+.tmp/
+headless-saves/
+*.tmp-*
+*.log
+!tests/GENERATE_EXAMPLES_v0_10.log
+!tests/GENERATE_EXAMPLES_v0_11.log
+__pycache__/
+.pytest_cache/
+.DS_Store
+Thumbs.db

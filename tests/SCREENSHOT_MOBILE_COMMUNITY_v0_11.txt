@@ -1,0 +1,3 @@
+PASS screenshot group mobile-community: captured 2 images
+- community_freedom_loop_mobile.png
+- community_adventure_mobile.png

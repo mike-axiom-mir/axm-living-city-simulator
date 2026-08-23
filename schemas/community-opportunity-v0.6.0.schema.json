@@ -1,0 +1,263 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.community-opportunity/v0.6.0",
+  "title": "AXM Living City Community Opportunity v0.6.0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "templateId",
+    "institutionId",
+    "kind",
+    "title",
+    "description",
+    "placeId",
+    "createdDay",
+    "createdHour",
+    "eventDay",
+    "startHour",
+    "durationHours",
+    "expiresDay",
+    "cost",
+    "capacity",
+    "tags",
+    "skillEffects",
+    "needEffects",
+    "status",
+    "initiatorId",
+    "hostId",
+    "inviteeId",
+    "participantIds",
+    "waitlistIds",
+    "playerResponse",
+    "playerCompletedDay",
+    "npcProcessed",
+    "authority",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.community-opportunity/v0.6.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "templateId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "institutionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "drop_in",
+        "home_visit"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "placeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "eventDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "startHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "durationHours": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "expiresDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "cost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "capacity": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "skillEffects": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "needEffects": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "status": {
+      "enum": [
+        "open",
+        "awaiting_player",
+        "pending_npc",
+        "available",
+        "in_progress",
+        "completed",
+        "declined",
+        "expired",
+        "cancelled"
+      ]
+    },
+    "initiatorId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "hostId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "inviteeId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "participantIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "waitlistIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "playerResponse": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "playerCompletedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "npcProcessed": {
+      "type": "boolean"
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "tenancy",
+        "edit",
+        "storage",
+        "employment",
+        "care"
+      ],
+      "properties": {
+        "tenancy": {
+          "const": false
+        },
+        "edit": {
+          "const": false
+        },
+        "storage": {
+          "const": false
+        },
+        "employment": {
+          "const": false
+        },
+        "care": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actorIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "causes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

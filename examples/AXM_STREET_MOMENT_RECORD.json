@@ -1,0 +1,14 @@
+{
+  "schema": "axm.living-city.street-moment/v0.9.0",
+  "id": "street_moment_002235",
+  "day": 31,
+  "hour": 7,
+  "minute": 4,
+  "nodeId": "street_north_walk_2",
+  "streetName": "Canal Backwalk",
+  "actorIds": [
+    "player"
+  ],
+  "text": "The same old object appeared in a different window, repaired again rather than replaced.",
+  "consequence": "observation_only"
+}

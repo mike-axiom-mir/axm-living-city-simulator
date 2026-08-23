@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city-sim.household-agreement/v0.3.0",
+  "title": "AXM Household Agreement v0.3.0",
+  "description": "Household consent terms with graph-based room permissions. Legacy rectangles remain migration/evidence only; roomPermissions are authoritative for v0.3 placement.",
+  "type": "object",
+  "required": [
+    "commitment",
+    "finances",
+    "space",
+    "relocation",
+    "renovation",
+    "goals",
+    "dissolution"
+  ],
+  "properties": {
+    "commitment": {
+      "const": "partner"
+    },
+    "finances": {
+      "type": "object",
+      "required": [
+        "mode",
+        "shares",
+        "weeklyReserveTarget",
+        "personalAccountsRemainSeparate",
+        "sharedReserveRequiresMutualConsent"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "equal",
+            "income_weighted",
+            "player_covers_more",
+            "partner_covers_more",
+            "separate"
+          ]
+        },
+        "shares": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "weeklyReserveTarget": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 120
+        },
+        "personalAccountsRemainSeparate": {
+          "const": true
+        },
+        "sharedReserveRequiresMutualConsent": {
+          "const": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "space": {
+      "type": "object",
+      "required": [
+        "mode",
+        "editPolicy",
+        "zones",
+        "roomPermissions",
+        "roomGraphRevision"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "mostly_shared",
+            "private_edges_shared_center",
+            "strong_private"
+          ]
+        },
+        "editPolicy": {
+          "const": "owner_or_accepted_proposal"
+        },
+        "zones": {
+          "type": "array"
+        },
+        "roomPermissions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "roomId",
+              "kind",
+              "label",
+              "holderIds",
+              "source"
+            ],
+            "properties": {
+              "roomId": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "player_private",
+                  "common",
+                  "partner_private"
+                ]
+              },
+              "label": {
+                "type": "string"
+              },
+              "holderIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": true
+              },
+              "source": {
+                "const": "room_graph"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "roomGraphRevision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "relocation": {
+      "type": "object"
+    },
+    "renovation": {
+      "type": "object"
+    },
+    "goals": {
+      "type": "array"
+    },
+    "dissolution": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

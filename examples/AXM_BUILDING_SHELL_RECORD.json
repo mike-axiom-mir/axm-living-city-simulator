@@ -1,0 +1,592 @@
+{
+  "schema": "axm.living-city.building-shell/v0.10.0",
+  "id": "building_courtyard_walkup",
+  "name": "Courtyard Walk-up",
+  "type": "two_storey_apartment",
+  "placeIds": [
+    "home_courtyard_1",
+    "home_courtyard_2"
+  ],
+  "footprint": {
+    "x": 4,
+    "y": 1,
+    "w": 4,
+    "h": 2
+  },
+  "frontSide": "south",
+  "storeys": [
+    {
+      "id": "building_courtyard_walkup_s0_storey",
+      "level": 0,
+      "label": "Ground floor",
+      "heightMeters": 3.1,
+      "placeIds": [
+        "home_courtyard_1"
+      ],
+      "wallGraph": {
+        "nodes": [
+          {
+            "id": "building_courtyard_walkup_s0_nw",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          {
+            "id": "building_courtyard_walkup_s0_ne",
+            "x": 16,
+            "y": 0,
+            "z": 0
+          },
+          {
+            "id": "building_courtyard_walkup_s0_se",
+            "x": 16,
+            "y": 8,
+            "z": 0
+          },
+          {
+            "id": "building_courtyard_walkup_s0_sw",
+            "x": 0,
+            "y": 8,
+            "z": 0
+          }
+        ],
+        "edges": [
+          {
+            "id": "building_courtyard_walkup_s0_north",
+            "from": "building_courtyard_walkup_s0_nw",
+            "to": "building_courtyard_walkup_s0_ne",
+            "side": "north",
+            "lengthMeters": 16,
+            "kind": "exterior_wall",
+            "openingIds": [
+              "building_courtyard_walkup_s0_window_02",
+              "building_courtyard_walkup_s0_window_06"
+            ]
+          },
+          {
+            "id": "building_courtyard_walkup_s0_east",
+            "from": "building_courtyard_walkup_s0_ne",
+            "to": "building_courtyard_walkup_s0_se",
+            "side": "east",
+            "lengthMeters": 8,
+            "kind": "exterior_wall",
+            "openingIds": [
+              "building_courtyard_walkup_s0_window_03"
+            ]
+          },
+          {
+            "id": "building_courtyard_walkup_s0_south",
+            "from": "building_courtyard_walkup_s0_se",
+            "to": "building_courtyard_walkup_s0_sw",
+            "side": "south",
+            "lengthMeters": 16,
+            "kind": "exterior_wall",
+            "openingIds": [
+              "building_courtyard_walkup_s0_window_01",
+              "building_courtyard_walkup_s0_window_05",
+              "building_courtyard_walkup_s0_street_door"
+            ]
+          },
+          {
+            "id": "building_courtyard_walkup_s0_west",
+            "from": "building_courtyard_walkup_s0_sw",
+            "to": "building_courtyard_walkup_s0_nw",
+            "side": "west",
+            "lengthMeters": 8,
+            "kind": "exterior_wall",
+            "openingIds": [
+              "building_courtyard_walkup_s0_window_04"
+            ]
+          }
+        ]
+      },
+      "openings": [
+        {
+          "id": "building_courtyard_walkup_s0_window_01",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s0_south",
+          "offsetRatio": 0.18,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.9,
+          "sourcePlaceIds": [
+            "home_courtyard_1"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s0_window_02",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s0_north",
+          "offsetRatio": 0.41,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.9,
+          "sourcePlaceIds": [
+            "home_courtyard_1"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s0_window_03",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s0_east",
+          "offsetRatio": 0.64,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.9,
+          "sourcePlaceIds": [
+            "home_courtyard_1"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s0_window_04",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s0_west",
+          "offsetRatio": 0.23,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.9,
+          "sourcePlaceIds": [
+            "home_courtyard_1"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s0_window_05",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s0_south",
+          "offsetRatio": 0.46,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.9,
+          "sourcePlaceIds": [
+            "home_courtyard_1"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s0_window_06",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s0_north",
+          "offsetRatio": 0.69,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.9,
+          "sourcePlaceIds": [
+            "home_courtyard_1"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s0_street_door",
+          "type": "external_door",
+          "wallEdgeId": "building_courtyard_walkup_s0_south",
+          "offsetRatio": 0.5,
+          "widthMeters": 1.05,
+          "heightMeters": 2.1,
+          "access": "level threshold"
+        }
+      ],
+      "routeNodeIds": [],
+      "source": {
+        "kind": "deterministic_shell_derivation",
+        "seed": "AXM-BUILDING-SHELLS-EXAMPLE-0100"
+      }
+    },
+    {
+      "id": "building_courtyard_walkup_s1_storey",
+      "level": 1,
+      "label": "Upper floor",
+      "heightMeters": 3.1,
+      "placeIds": [
+        "home_courtyard_2"
+      ],
+      "wallGraph": {
+        "nodes": [
+          {
+            "id": "building_courtyard_walkup_s1_nw",
+            "x": 0,
+            "y": 0,
+            "z": 3.1
+          },
+          {
+            "id": "building_courtyard_walkup_s1_ne",
+            "x": 16,
+            "y": 0,
+            "z": 3.1
+          },
+          {
+            "id": "building_courtyard_walkup_s1_se",
+            "x": 16,
+            "y": 8,
+            "z": 3.1
+          },
+          {
+            "id": "building_courtyard_walkup_s1_sw",
+            "x": 0,
+            "y": 8,
+            "z": 3.1
+          }
+        ],
+        "edges": [
+          {
+            "id": "building_courtyard_walkup_s1_north",
+            "from": "building_courtyard_walkup_s1_nw",
+            "to": "building_courtyard_walkup_s1_ne",
+            "side": "north",
+            "lengthMeters": 16,
+            "kind": "exterior_wall",
+            "openingIds": [
+              "building_courtyard_walkup_s1_window_02",
+              "building_courtyard_walkup_s1_window_06"
+            ]
+          },
+          {
+            "id": "building_courtyard_walkup_s1_east",
+            "from": "building_courtyard_walkup_s1_ne",
+            "to": "building_courtyard_walkup_s1_se",
+            "side": "east",
+            "lengthMeters": 8,
+            "kind": "exterior_wall",
+            "openingIds": [
+              "building_courtyard_walkup_s1_window_03"
+            ]
+          },
+          {
+            "id": "building_courtyard_walkup_s1_south",
+            "from": "building_courtyard_walkup_s1_se",
+            "to": "building_courtyard_walkup_s1_sw",
+            "side": "south",
+            "lengthMeters": 16,
+            "kind": "exterior_wall",
+            "openingIds": [
+              "building_courtyard_walkup_s1_window_01",
+              "building_courtyard_walkup_s1_window_05"
+            ]
+          },
+          {
+            "id": "building_courtyard_walkup_s1_west",
+            "from": "building_courtyard_walkup_s1_sw",
+            "to": "building_courtyard_walkup_s1_nw",
+            "side": "west",
+            "lengthMeters": 8,
+            "kind": "exterior_wall",
+            "openingIds": [
+              "building_courtyard_walkup_s1_window_04"
+            ]
+          }
+        ]
+      },
+      "openings": [
+        {
+          "id": "building_courtyard_walkup_s1_window_01",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s1_south",
+          "offsetRatio": 0.18,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.85,
+          "sourcePlaceIds": [
+            "home_courtyard_2"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s1_window_02",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s1_north",
+          "offsetRatio": 0.41,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.85,
+          "sourcePlaceIds": [
+            "home_courtyard_2"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s1_window_03",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s1_east",
+          "offsetRatio": 0.64,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.85,
+          "sourcePlaceIds": [
+            "home_courtyard_2"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s1_window_04",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s1_west",
+          "offsetRatio": 0.23,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.85,
+          "sourcePlaceIds": [
+            "home_courtyard_2"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s1_window_05",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s1_south",
+          "offsetRatio": 0.46,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.85,
+          "sourcePlaceIds": [
+            "home_courtyard_2"
+          ]
+        },
+        {
+          "id": "building_courtyard_walkup_s1_window_06",
+          "type": "window",
+          "wallEdgeId": "building_courtyard_walkup_s1_north",
+          "offsetRatio": 0.69,
+          "widthMeters": 1.15,
+          "heightMeters": 1.35,
+          "sillMeters": 0.85,
+          "sourcePlaceIds": [
+            "home_courtyard_2"
+          ]
+        }
+      ],
+      "routeNodeIds": [],
+      "source": {
+        "kind": "deterministic_shell_derivation",
+        "seed": "AXM-BUILDING-SHELLS-EXAMPLE-0100"
+      }
+    }
+  ],
+  "verticalLinks": [
+    {
+      "id": "building_courtyard_walkup_route_003_link",
+      "type": "stairs",
+      "fromNodeId": "building_courtyard_walkup_landing_0",
+      "toNodeId": "building_courtyard_walkup_landing_1",
+      "fromLevel": 0,
+      "toLevel": 1,
+      "routeMinutes": 1,
+      "accessibleAlternative": false
+    }
+  ],
+  "routeNetwork": {
+    "nodes": [
+      {
+        "id": "building_courtyard_walkup_landing_0",
+        "kind": "landing",
+        "level": 0,
+        "label": "Ground landing"
+      },
+      {
+        "id": "building_courtyard_walkup_street_access_1",
+        "kind": "street_access",
+        "level": 0,
+        "placeId": "home_courtyard_1",
+        "exteriorDoorNodeId": "door_home_courtyard_1",
+        "label": "141 Canal Backwalk"
+      },
+      {
+        "id": "building_courtyard_walkup_street_access_2",
+        "kind": "street_access",
+        "level": 0,
+        "placeId": "home_courtyard_2",
+        "exteriorDoorNodeId": "door_home_courtyard_2",
+        "label": "157 Canal Backwalk"
+      },
+      {
+        "id": "building_courtyard_walkup_landing_1",
+        "kind": "landing",
+        "level": 1,
+        "label": "Upper floor"
+      },
+      {
+        "id": "building_courtyard_walkup_unit_home_courtyard_1",
+        "kind": "place_entry",
+        "level": 0,
+        "placeId": "home_courtyard_1",
+        "label": "Courtyard Studio 1"
+      },
+      {
+        "id": "building_courtyard_walkup_unit_home_courtyard_2",
+        "kind": "place_entry",
+        "level": 1,
+        "placeId": "home_courtyard_2",
+        "label": "Courtyard Studio 2"
+      }
+    ],
+    "edges": [
+      {
+        "id": "building_courtyard_walkup_route_001",
+        "from": "building_courtyard_walkup_street_access_1",
+        "to": "building_courtyard_walkup_landing_0",
+        "kind": "entry_passage",
+        "minutes": 0,
+        "placeId": "home_courtyard_1"
+      },
+      {
+        "id": "building_courtyard_walkup_route_002",
+        "from": "building_courtyard_walkup_street_access_2",
+        "to": "building_courtyard_walkup_landing_0",
+        "kind": "entry_passage",
+        "minutes": 0,
+        "placeId": "home_courtyard_2"
+      },
+      {
+        "id": "building_courtyard_walkup_route_003",
+        "from": "building_courtyard_walkup_landing_0",
+        "to": "building_courtyard_walkup_landing_1",
+        "kind": "stairs",
+        "minutes": 1,
+        "fromLevel": 0,
+        "toLevel": 1,
+        "accessibleAlternative": false,
+        "note": "Current low-graphic prototype stair; lifts and fuller accessibility remain future work."
+      },
+      {
+        "id": "building_courtyard_walkup_route_004",
+        "from": "building_courtyard_walkup_landing_0",
+        "to": "building_courtyard_walkup_unit_home_courtyard_1",
+        "kind": "unit_entry",
+        "minutes": 0,
+        "placeId": "home_courtyard_1"
+      },
+      {
+        "id": "building_courtyard_walkup_route_005",
+        "from": "building_courtyard_walkup_landing_1",
+        "to": "building_courtyard_walkup_unit_home_courtyard_2",
+        "kind": "unit_entry",
+        "minutes": 0,
+        "placeId": "home_courtyard_2"
+      }
+    ]
+  },
+  "externalAccessNodeIds": [
+    "building_courtyard_walkup_street_access_1",
+    "building_courtyard_walkup_street_access_2"
+  ],
+  "frontages": [
+    {
+      "id": "building_courtyard_walkup_frontage_home_courtyard_1",
+      "placeId": "home_courtyard_1",
+      "doorColor": "#8f6b64",
+      "frameStyle": "simple casement",
+      "windowBoxes": false,
+      "entryLight": "warm hood light",
+      "signText": "141",
+      "accentColor": "#7d91a6",
+      "authoredBy": "deterministic_foundation",
+      "revision": 1,
+      "history": []
+    },
+    {
+      "id": "building_courtyard_walkup_frontage_home_courtyard_2",
+      "placeId": "home_courtyard_2",
+      "doorColor": "#645978",
+      "frameStyle": "high workshop glass",
+      "windowBoxes": false,
+      "entryLight": "small globe light",
+      "signText": "157",
+      "accentColor": "#6f8f72",
+      "authoredBy": "npc_017",
+      "revision": 3,
+      "history": [
+        {
+          "id": "shell_event_000060",
+          "day": 32,
+          "hour": 0,
+          "minute": 0,
+          "type": "changed",
+          "message": "Sana Smit completed facade accent: #879b91 → #6f8f72.",
+          "actorIds": [
+            "npc_017"
+          ],
+          "causes": [
+            "approved funded phased project"
+          ],
+          "evidence": {
+            "proposalId": "frontage_proposal_000039",
+            "projectId": "frontage_project_000042"
+          }
+        },
+        {
+          "id": "shell_event_000092",
+          "day": 58,
+          "hour": 0,
+          "minute": 0,
+          "type": "changed",
+          "message": "Sana Smit completed entry light: warm hood light → small globe light.",
+          "actorIds": [
+            "npc_017"
+          ],
+          "causes": [
+            "approved funded phased project"
+          ],
+          "evidence": {
+            "proposalId": "frontage_proposal_000078",
+            "projectId": "frontage_project_000081"
+          }
+        }
+      ]
+    }
+  ],
+  "roof": {
+    "style": "flat parapet",
+    "material": "reused slate",
+    "condition": 76,
+    "maintenanceObligation": false,
+    "source": {
+      "kind": "deterministic_shell_derivation",
+      "seed": "AXM-BUILDING-SHELLS-EXAMPLE-0100"
+    }
+  },
+  "interiorContinuity": [
+    {
+      "placeId": "home_courtyard_1",
+      "primaryStoreyId": "building_courtyard_walkup_s0_storey",
+      "unitRouteNodeId": "building_courtyard_walkup_unit_home_courtyard_1",
+      "streetAccessNodeId": "building_courtyard_walkup_street_access_1",
+      "exteriorDoorNodeId": "door_home_courtyard_1",
+      "habitatEntryRoomId": "room_home_courtyard_1_001",
+      "status": "connected",
+      "source": {
+        "exteriorSchema": "axm.living-city.place-exterior/v0.9.0",
+        "habitatSchema": "axm.structural-habitat/v0.4.0",
+        "note": "v0.10 links current exterior and interior state; it does not fabricate past routes or construction."
+      }
+    },
+    {
+      "placeId": "home_courtyard_2",
+      "primaryStoreyId": "building_courtyard_walkup_s1_storey",
+      "unitRouteNodeId": "building_courtyard_walkup_unit_home_courtyard_2",
+      "streetAccessNodeId": "building_courtyard_walkup_street_access_2",
+      "exteriorDoorNodeId": "door_home_courtyard_2",
+      "habitatEntryRoomId": "room_home_courtyard_2_001",
+      "status": "connected",
+      "source": {
+        "exteriorSchema": "axm.living-city.place-exterior/v0.9.0",
+        "habitatSchema": "axm.structural-habitat/v0.4.0",
+        "note": "v0.10 links current exterior and interior state; it does not fabricate past routes or construction."
+      }
+    }
+  ],
+  "revision": 3,
+  "history": [
+    {
+      "id": "shell_event_000001",
+      "day": 1,
+      "hour": 7,
+      "minute": 0,
+      "type": "foundation",
+      "message": "Courtyard Walk-up received a deterministic exterior shell with real storeys, wall edges, openings, and internal routes.",
+      "actorIds": [],
+      "causes": [
+        "v0.10 present-day shell derivation"
+      ],
+      "evidence": {
+        "placeIds": [
+          "home_courtyard_1",
+          "home_courtyard_2"
+        ],
+        "storeys": 2,
+        "windows": 12
+      }
+    }
+  ]
+}

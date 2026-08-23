@@ -1,0 +1,52 @@
+AXM Living City v0.10 — Family Continuity Stress
+
+PASS: 8 deterministic family worlds × 180 loops, each run twice with exact serialized equality.
+
+The eight deterministic worlds were run as four completed two-seed commands to remain inside the external command window. Each seed was internally executed twice and required exact serialized equality.
+
+Totals:
+- adultChildren: 4
+- adultChildrenLaunched: 4
+- careAccepted: 287
+- careHoursCommunity: 1480
+- careHoursPartner: 1438.16
+- careHoursPlayer: 446
+- careNeedsMetDays: 585
+- careOffers: 316
+- careRecords: 1580
+- careRefused: 29
+- careStrainDays: 983
+- checkpoints: 104
+- educationDays: 1132
+- explicitChapterChoices: 4
+- familyMembers: 28
+- familyRelocations: 0
+- familySeparations: 4
+- familySupportSpend: 21045
+- finalDependentOwnedObjects: 79
+- finalizedCareDays: 1568
+- incomingAccepted: 213
+- incomingDeclined: 113
+- incomingObserved: 16
+- lifeStageTransitions: 4
+- loops: 1440
+- npcProposalAcceptances: 235
+- npcProposalDeclines: 115
+- playerOriginProposals: 24
+- proposalsAccepted: 238
+- proposalsCreated: 353
+- proposalsDeclined: 115
+- secondDependentsWelcomed: 4
+- separations: 4
+- trackedDependentObjects: 48
+- worldDaysAdvanced: 1484
+
+Per-seed evidence:
+- AXM-FAMILY-STRESS-01: care=58/60, proposals=46/69, transitions=0, launches=0, objects=8
+- AXM-FAMILY-STRESS-02: care=18/19, proposals=4/5, transitions=1, launches=1, objects=14
+- AXM-FAMILY-STRESS-03: care=57/60, proposals=63/92, transitions=0, launches=0, objects=8
+- AXM-FAMILY-STRESS-04: care=13/19, proposals=5/5, transitions=1, launches=1, objects=9
+- AXM-FAMILY-STRESS-05: care=58/60, proposals=48/70, transitions=0, launches=0, objects=8
+- AXM-FAMILY-STRESS-06: care=15/19, proposals=3/5, transitions=1, launches=1, objects=15
+- AXM-FAMILY-STRESS-07: care=53/60, proposals=65/102, transitions=0, launches=0, objects=8
+- AXM-FAMILY-STRESS-08: care=15/19, proposals=4/5, transitions=1, launches=1, objects=9

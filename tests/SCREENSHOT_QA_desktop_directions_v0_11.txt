@@ -1,0 +1,6 @@
+PASS screenshot group desktop-directions: captured 5 images
+- directions_onboarding_desktop.png
+- directions_active_project_desktop.png
+- directions_no_age_pressure_desktop.png
+- directions_project_crosses_chapter_desktop.png
+- directions_paused_desktop.png

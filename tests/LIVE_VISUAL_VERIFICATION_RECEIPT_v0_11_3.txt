@@ -1,0 +1,33 @@
+AXM Living City Sim v0.11.3 — repeated-frame visual verification receipt
+Recorded: 2026-08-22T02:35:19Z
+
+CLAIM UNDER TEST
+The Living View draws visibly distinct completed-action echoes for sleep, shower,
+eat at home, play on computer, study, make something, and clean/maintain home;
+Full motion advances those echoes, Still remains pixel-stable, and drawing does
+not mutate the authoritative world state.
+
+BACKEND AND BOUNDS
+- Backend: deterministic Node canvas repeated-frame fallback.
+- Viewport: 960 x 560.
+- Seed: AXM-VISUAL-FRAME-QA.
+- Observation window: two timestamps per ambient scene and per completed moment.
+- Live browser DOM, keyboard-focus, and responsive interaction: UNKNOWN in this receipt.
+
+OBSERVATIONS
+- Sleep: a person-in-bed echo and small sleeping marks were visible and advanced.
+- Shower: a shower/faucet area emitted visibly advancing water strokes and droplets.
+- Eat at home: a figure, plate, steam, and orbiting meal marks were visible and advanced.
+- Play on computer: a seated figure, laptop/monitor, and digital marks were visible and advanced.
+- Study: a figure, open page, and study marks were visible and advanced.
+- Make something: a figure, work surface, tool stroke, and colored marks were visible and advanced.
+- Clean/maintain: a broom/tool echo and dust/cleaning marks were visible and advanced.
+- Still A and Still B were visually identical and have the same SHA-256 digest.
+- The authoritative-world-before and authoritative-world-after snapshots matched.
+
+RESULT
+PASS for the bounded repeated-frame claim above.
+
+EVIDENCE
+Retained digest: tests/VISUAL_FRAME_DIGESTS_v0_11_3.json
+Raw frame directory retained: no (deleted after human-visible inspection and digest capture)

@@ -1,0 +1,5 @@
+PASS screenshot group mobile-core: captured 4 images
+- town_mobile.png
+- home_mobile.png
+- stewardship_request_mobile.png
+- agreements_active_mobile.png

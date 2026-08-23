@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.indoor-movement/v0.11.0",
+  "title": "AXM Indoor Movement v0.11.0",
+  "description": "Lawful visible, compressed, schedule-scale, or bundled movement through a building shell and room graph.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "actorId",
+    "kind",
+    "mode",
+    "status",
+    "placeId",
+    "buildingId",
+    "startedAt",
+    "completedAt",
+    "currentStepIndex",
+    "elapsedMinutes",
+    "route",
+    "access",
+    "noWatchingReward",
+    "noAuthorityFromPresence",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.indoor-movement/v0.11.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actorId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "arrival",
+        "departure",
+        "room_transition"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "visible",
+        "compressed",
+        "schedule",
+        "bundled"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "completed",
+        "ended_early",
+        "cancelled",
+        "failed"
+      ]
+    },
+    "placeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "buildingId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "startedAt": {
+      "$ref": "#/$defs/time"
+    },
+    "completedAt": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "currentStepIndex": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "elapsedMinutes": {
+      "type": "number",
+      "minimum": 0
+    },
+    "route": {
+      "type": "object",
+      "required": [
+        "buildingId",
+        "placeId",
+        "direction",
+        "steps",
+        "totalMinutes",
+        "stairSteps"
+      ],
+      "properties": {
+        "buildingId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "placeId": {
+          "type": "string"
+        },
+        "direction": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "minutes",
+              "label"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "minutes": {
+                "type": "number",
+                "minimum": 0
+              },
+              "label": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "totalMinutes": {
+          "type": "number",
+          "minimum": 0
+        },
+        "stairSteps": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "access": {
+      "type": "object",
+      "required": [
+        "basis",
+        "sourceId",
+        "authority"
+      ],
+      "properties": {
+        "basis": {
+          "type": "string"
+        },
+        "sourceId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authority": {
+          "$ref": "#/$defs/authority"
+        }
+      },
+      "additionalProperties": true
+    },
+    "noWatchingReward": {
+      "const": true
+    },
+    "noAuthorityFromPresence": {
+      "const": true
+    },
+    "history": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "time": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "minute"
+      ],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "minute": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      },
+      "additionalProperties": true
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "tenancy",
+        "ownership",
+        "edit",
+        "storage",
+        "household",
+        "care",
+        "surveillance"
+      ],
+      "properties": {
+        "tenancy": {
+          "type": "boolean"
+        },
+        "ownership": {
+          "type": "boolean"
+        },
+        "edit": {
+          "type": "boolean"
+        },
+        "storage": {
+          "type": "boolean"
+        },
+        "household": {
+          "type": "boolean"
+        },
+        "care": {
+          "type": "boolean"
+        },
+        "surveillance": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

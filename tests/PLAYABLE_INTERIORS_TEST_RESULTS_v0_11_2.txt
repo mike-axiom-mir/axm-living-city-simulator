@@ -1,0 +1,26 @@
+AXM LIVING CITY — PLAYABLE INTERIORS v0.11.2
+FOCUSED VERIFICATION RESULT
+============================================================
+
+PLAYABLE-INTERIORS TESTS: 9/9 PASS
+- new worlds open in Living View with Room mode
+- room browsing exposes only the player's home and does not invent actors
+- contextual choices are grounded in real room purposes and persistent objects
+- a completed-moment receipt appears only after a real activity completes
+- the contextual path has exact gameplay parity with the existing activity engine
+- invalid rooms and ungrounded room/action requests create no visual receipt
+- object focus changes presentation only
+- migration adds defaults without fabricated activity history
+- markup exposes room, activity, focus, replay-truth, and no-extra-reward language
+
+VISUAL-PRESENCE TESTS: 9/9 PASS
+INHERITED FOCUSED SUITES: 194/194 PASS
+TOTAL FOCUSED TESTS: 212/212 PASS
+
+ROOTS PROVED
+- browsing a room is not current presence;
+- a replay is not current presence;
+- contextual convenience reuses the real activity engine;
+- the visual receipt adds no reward or authority;
+- no routine checklist or watching advantage is introduced;
+- migration invents no earlier activities.

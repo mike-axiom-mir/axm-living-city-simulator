@@ -1,0 +1,521 @@
+{
+  "schema": "axm.living-city.enterprise/v0.8.0",
+  "id": "enterprise_00019",
+  "ownerId": "player",
+  "name": "Keep-It-Going Table",
+  "templateId": "repair_table",
+  "sourceProjectId": "personal_project_00240",
+  "needId": "need_repair_care",
+  "path": "occasional_service",
+  "status": "occasional",
+  "purpose": "A small repair direction that may stay occasional, use actual resident customers, and close without becoming a failed life route.",
+  "createdDay": 1,
+  "updatedDay": 3,
+  "premiseId": null,
+  "pricing": {
+    "mode": "pay_what_fits",
+    "basePrice": 18
+  },
+  "schedule": {
+    "openDays": [
+      2,
+      5,
+      7
+    ],
+    "startHour": 17,
+    "durationHours": 3,
+    "sessionsPerWeekCap": 3
+  },
+  "funds": 114.66,
+  "reserveTarget": 54,
+  "reputation": {
+    "care": 60.8,
+    "reliability": 53.9,
+    "fit": 59.1
+  },
+  "equipment": [
+    {
+      "schema": "axm.living-city.enterprise-equipment/v0.8.0",
+      "id": "enterprise_equipment_00021",
+      "enterpriseId": "enterprise_00019",
+      "ownerId": "player",
+      "catalogId": "workbench",
+      "name": "Compact repair bench",
+      "acquiredDay": 1,
+      "acquisition": "starter kit purchased for this enterprise",
+      "condition": 88.8,
+      "usageSessions": 2,
+      "upgrades": {
+        "care": 0,
+        "reliability": 1,
+        "capacity": 0,
+        "efficiency": 0
+      },
+      "history": [
+        {
+          "id": "equipment_event_00022",
+          "day": 1,
+          "hour": 7,
+          "type": "acquired",
+          "message": "Compact repair bench became enterprise equipment without replacing an older object record.",
+          "actorId": "player",
+          "causes": [
+            "starter kit purchased for this enterprise"
+          ],
+          "evidence": null
+        },
+        {
+          "id": "equipment_event_00032",
+          "day": 1,
+          "hour": 13,
+          "type": "repaired",
+          "message": "Compact repair bench was repaired rather than replaced.",
+          "actorId": "player",
+          "causes": [
+            "explicit equipment care"
+          ],
+          "evidence": {
+            "cost": 13,
+            "condition": 88.8
+          }
+        },
+        {
+          "id": "equipment_event_00033",
+          "day": 1,
+          "hour": 13,
+          "type": "upgraded",
+          "message": "Compact repair bench gained reliability level 1/5 without losing its identity.",
+          "actorId": "player",
+          "causes": [
+            "explicit investment",
+            "upgrade without replacement"
+          ],
+          "evidence": {
+            "axis": "reliability",
+            "level": 1,
+            "cost": 34
+          }
+        }
+      ]
+    }
+  ],
+  "collaboratorIds": [],
+  "workerIds": [
+    "npc_001"
+  ],
+  "workOfferIds": [
+    "enterprise_work_offer_00034"
+  ],
+  "sessionIds": [
+    "enterprise_session_00024",
+    "enterprise_session_00029"
+  ],
+  "currentSessionId": null,
+  "customerHistory": [
+    {
+      "day": 1,
+      "sessionId": "enterprise_session_00024",
+      "personId": "npc_018",
+      "price": 18,
+      "needId": "need_repair_care",
+      "fit": 110.1,
+      "satisfaction": 87.9,
+      "flexibleOrFree": false,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "bounded home-based session"
+      ]
+    },
+    {
+      "day": 1,
+      "sessionId": "enterprise_session_00024",
+      "personId": "npc_005",
+      "price": 12.97,
+      "needId": "need_repair_care",
+      "fit": 80.7,
+      "satisfaction": 79.6,
+      "flexibleOrFree": true,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "bounded home-based session"
+      ]
+    },
+    {
+      "day": 1,
+      "sessionId": "enterprise_session_00024",
+      "personId": "npc_008",
+      "price": 18,
+      "needId": "need_repair_care",
+      "fit": 76.2,
+      "satisfaction": 78.4,
+      "flexibleOrFree": false,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "bounded home-based session"
+      ]
+    },
+    {
+      "day": 1,
+      "sessionId": "enterprise_session_00024",
+      "personId": "npc_015",
+      "price": 15.14,
+      "needId": "need_repair_care",
+      "fit": 67.8,
+      "satisfaction": 76,
+      "flexibleOrFree": true,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "bounded home-based session"
+      ]
+    },
+    {
+      "day": 1,
+      "sessionId": "enterprise_session_00029",
+      "personId": "npc_013",
+      "price": 18,
+      "needId": "need_repair_care",
+      "fit": 98.7,
+      "satisfaction": 85.9,
+      "flexibleOrFree": false,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "real commercial room"
+      ]
+    },
+    {
+      "day": 1,
+      "sessionId": "enterprise_session_00029",
+      "personId": "npc_018",
+      "price": 18,
+      "needId": "need_repair_care",
+      "fit": 83.1,
+      "satisfaction": 81.4,
+      "flexibleOrFree": false,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "real commercial room"
+      ]
+    },
+    {
+      "day": 1,
+      "sessionId": "enterprise_session_00029",
+      "personId": "npc_012",
+      "price": 13.52,
+      "needId": "need_repair_care",
+      "fit": 77.1,
+      "satisfaction": 79.7,
+      "flexibleOrFree": true,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "real commercial room"
+      ]
+    },
+    {
+      "day": 1,
+      "sessionId": "enterprise_session_00029",
+      "personId": "npc_001",
+      "price": 11.52,
+      "needId": "need_repair_care",
+      "fit": 74.4,
+      "satisfaction": 78.9,
+      "flexibleOrFree": true,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "real commercial room"
+      ]
+    },
+    {
+      "day": 1,
+      "sessionId": "enterprise_session_00029",
+      "personId": "npc_008",
+      "price": 18,
+      "needId": "need_repair_care",
+      "fit": 74.4,
+      "satisfaction": 79,
+      "flexibleOrFree": false,
+      "reasons": [
+        "actual resident need fit",
+        "pay_what_fits",
+        "real commercial room"
+      ]
+    }
+  ],
+  "totals": {
+    "sessions": 2,
+    "customers": 9,
+    "revenue": 143.15,
+    "costs": 286.49,
+    "wages": 0,
+    "freeOrFlexibleServices": 4,
+    "hours": 6,
+    "pausedDays": 0
+  },
+  "optional": true,
+  "noAgeGate": true,
+  "ageGate": null,
+  "noGrowthRequirement": true,
+  "noFailureLabel": true,
+  "history": [
+    {
+      "id": "enterprise_event_00020",
+      "day": 1,
+      "hour": 7,
+      "type": "created",
+      "message": "Player began Keep-It-Going Table as Occasional Service.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [],
+      "causes": [
+        "chosen personal project connection",
+        "optional local economy path",
+        "no age gate"
+      ],
+      "evidence": {
+        "sourceProjectId": "personal_project_00240",
+        "needId": "need_repair_care",
+        "noGrowthRequirement": true
+      }
+    },
+    {
+      "id": "enterprise_event_00023",
+      "day": 1,
+      "hour": 7,
+      "type": "starter_kit",
+      "message": "Player funded a bounded starter kit.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [],
+      "causes": [
+        "explicit activation"
+      ],
+      "evidence": {
+        "cost": 85,
+        "equipmentIds": [
+          "enterprise_equipment_00021"
+        ]
+      }
+    },
+    {
+      "id": "enterprise_event_00025",
+      "day": 1,
+      "hour": 10,
+      "type": "session_completed",
+      "message": "Keep-It-Going Table completed a compressed session with 4 actual resident customers.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [
+        "npc_018",
+        "npc_005",
+        "npc_008",
+        "npc_015"
+      ],
+      "causes": [
+        "bounded session",
+        "actual resident demand",
+        "no spawned customer abstraction"
+      ],
+      "evidence": {
+        "sessionId": "enterprise_session_00024",
+        "revenue": 64.11,
+        "costs": 12.52,
+        "net": 51.59,
+        "avgSatisfaction": 80.5
+      }
+    },
+    {
+      "id": "enterprise_event_00026",
+      "day": 1,
+      "hour": 10,
+      "type": "premise_leased",
+      "message": "Keep-It-Going Table lawfully leased Vacant Lane Workroom.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [],
+      "causes": [
+        "explicit premise choice",
+        "real vacancy"
+      ],
+      "evidence": {
+        "premiseId": "place_lane_workroom",
+        "deposit": 84,
+        "firstWeek": 42
+      }
+    },
+    {
+      "id": "enterprise_event_00028",
+      "day": 1,
+      "hour": 10,
+      "type": "path_changed",
+      "message": "Keep-It-Going Table changed direction to Tiny Enterprise.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [],
+      "causes": [
+        "explicit owner choice",
+        "no growth ladder"
+      ],
+      "evidence": {
+        "path": "tiny_enterprise"
+      }
+    },
+    {
+      "id": "enterprise_event_00030",
+      "day": 1,
+      "hour": 10,
+      "type": "session_entered",
+      "message": "You entered a work session at Keep-It-Going Table.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [],
+      "causes": [
+        "explicit interactive-work choice"
+      ],
+      "evidence": {
+        "sessionId": "enterprise_session_00029"
+      }
+    },
+    {
+      "id": "enterprise_event_00031",
+      "day": 1,
+      "hour": 13,
+      "type": "session_completed",
+      "message": "Keep-It-Going Table completed a interactive session with 5 actual resident customers.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [
+        "npc_013",
+        "npc_018",
+        "npc_012",
+        "npc_001",
+        "npc_008"
+      ],
+      "causes": [
+        "bounded session",
+        "actual resident demand",
+        "no spawned customer abstraction"
+      ],
+      "evidence": {
+        "sessionId": "enterprise_session_00029",
+        "revenue": 79.04,
+        "costs": 15.97,
+        "net": 63.07,
+        "avgSatisfaction": 81
+      }
+    },
+    {
+      "id": "enterprise_event_00035",
+      "day": 1,
+      "hour": 13,
+      "type": "worker_invited",
+      "message": "Bram Bos was offered up to 1 session per week at €24 each.",
+      "actorIds": [
+        "player",
+        "npc_001"
+      ],
+      "customerIds": [],
+      "causes": [
+        "explicit bounded offer",
+        "autonomous delayed response"
+      ],
+      "evidence": {
+        "offerId": "enterprise_work_offer_00034",
+        "wagePerSession": 24,
+        "sessionsPerWeek": 1
+      }
+    },
+    {
+      "id": "enterprise_event_00037",
+      "day": 1,
+      "hour": 13,
+      "type": "premise_released",
+      "message": "Keep-It-Going Table released Vacant Lane Workroom and received the attributable deposit remainder.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [],
+      "causes": [
+        "chosen pause with room release"
+      ],
+      "evidence": {
+        "returnedDeposit": 84,
+        "conditionDeduction": 0
+      }
+    },
+    {
+      "id": "enterprise_event_00038",
+      "day": 1,
+      "hour": 13,
+      "type": "paused",
+      "message": "Keep-It-Going Table paused and released its commercial room, preserving its direction and stopping future room charges.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [],
+      "causes": [
+        "explicit owner choice",
+        "casual realism",
+        "stop ongoing room pressure"
+      ],
+      "evidence": {
+        "releasedRoom": true,
+        "returnedDeposit": 84,
+        "continuingWeeklyRoomCost": 0
+      }
+    },
+    {
+      "id": "enterprise_event_00039",
+      "day": 1,
+      "hour": 13,
+      "type": "resumed",
+      "message": "Keep-It-Going Table resumed on its owner’s timetable.",
+      "actorIds": [
+        "player"
+      ],
+      "customerIds": [],
+      "causes": [
+        "explicit owner choice",
+        "no streak requirement"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "enterprise_event_00043",
+      "day": 3,
+      "hour": 0,
+      "type": "worker_accepted",
+      "message": "Bram Bos accepted the work offer.",
+      "actorIds": [
+        "player",
+        "npc_001"
+      ],
+      "customerIds": [],
+      "causes": [
+        "autonomous resident response"
+      ],
+      "evidence": {
+        "offerId": "enterprise_work_offer_00034",
+        "score": 50.4,
+        "roll": 7,
+        "relationshipPenalty": 0
+      }
+    }
+  ],
+  "lease": null,
+  "pausedDay": 1,
+  "pausePremisePolicy": "released"
+}

@@ -1,0 +1,113 @@
+AXM Living City v0.11.0 — Final Isolated Stage Consistency
+Generated UTC: 2026-08-16T07:46:40.168387Z
+Stage: /mnt/data/axm_v011_final_stage/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0
+Overall: PASS
+Checks: 107/107 passed
+
+[PASS] all-json-parse — 151 JSON files; failures=0
+[PASS] required-files — 36/36 required package/startup/evidence files present; startup launchers are START_LIVING_CITY.bat and START_LIVING_CITY.sh
+[PASS] exists:tests/FINAL_TEST_RESULTS.json — /mnt/data/axm_v011_final_stage/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0/tests/FINAL_TEST_RESULTS.json
+[PASS] final-schema — axm.living-city.final-test-results/v0.11.0
+[PASS] final-package-id — AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0
+[PASS] final-overall — PASS_COMPLETED_EVIDENCE
+[PASS] focused-total — 194/194
+[PASS] focused-suite-count — 11
+[PASS] focused-output-files — missing=[]
+[PASS] focused-consolidated-text — contains 194/194
+[PASS] suite-text:Foundation — expects 12/12
+[PASS] suite-text:Household agreements — expects 13/13
+[PASS] suite-text:Structural habitats — expects 19/19
+[PASS] suite-text:Autonomous stewardship — expects 17/17
+[PASS] suite-text:Family continuity — expects 21/21
+[PASS] suite-text:Community adventures — expects 18/18
+[PASS] suite-text:Personal directions — expects 16/16
+[PASS] suite-text:Living local economy — expects 23/23
+[PASS] suite-text:Walkable places — expects 17/17
+[PASS] suite-text:Building shells/frontages — expects 18/18
+[PASS] suite-text:Lived buildings/presence — expects 20/20
+[PASS] exists:tests/TOWN_STRESS_RESULTS_v0_11_AGGREGATE.json — /mnt/data/axm_v011_final_stage/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0/tests/TOWN_STRESS_RESULTS_v0_11_AGGREGATE.json
+[PASS] town-config — seeds=12 days=365 total=4380
+[PASS] town-validation — 0
+[PASS] town-row-count — 12
+[PASS] town-min-changed-homes — 10
+[PASS] exists:tests/HOUSEHOLD_STRESS_RESULTS_v0_11.json — /mnt/data/axm_v011_final_stage/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0/tests/HOUSEHOLD_STRESS_RESULTS_v0_11.json
+[PASS] household-config — {'seeds': 8, 'daysPerSeed': 180, 'repeatedRunsPerSeed': 2, 'execution': 'five completed single-seed runs plus one completed three-seed run'}
+[PASS] household-report-count — 8
+[PASS] household-failures-zero — validation=0 object=0 replay=0
+[PASS] exists:tests/LIVED_BUILDINGS_STRESS_RESULTS_v0_11.json — /mnt/data/axm_v011_final_stage/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0/tests/LIVED_BUILDINGS_STRESS_RESULTS_v0_11.json
+[PASS] presence-config — {'seeds': 8, 'daysPerSeed': 180, 'repeatedRunsPerSeed': 2, 'execution': 'eight completed single-seed processes using the final source'}
+[PASS] presence-world-count — 8
+[PASS] presence-total:indoorMovementsStarted — actual=41413 expected=41413
+[PASS] presence-total:indoorMovementsCompleted — actual=41413 expected=41413
+[PASS] presence-total:compressedMovements — actual=192 expected=192
+[PASS] presence-total:scheduleMovements — actual=41221 expected=41221
+[PASS] presence-total:indoorMinutes — actual=103786 expected=103786
+[PASS] presence-total:stairUses — actual=3624 expected=3624
+[PASS] presence-total:lawfulArrivals — actual=96 expected=96
+[PASS] presence-total:lawfulDepartures — actual=96 expected=96
+[PASS] presence-total:roomTransitions — actual=64 expected=64
+[PASS] presence-total:encountersOffered — actual=310 expected=310
+[PASS] presence-total:encountersPassed — actual=310 expected=310
+[PASS] presence-total:finalPresenceRecords — actual=4688 expected=4688
+[PASS] presence-total:finalPresenceSnapshots — actual=192 expected=192
+[PASS] presence-total:validationFailures — actual=0 expected=0
+[PASS] presence-total:exactReplayFailures — actual=0 expected=0
+[PASS] presence-sum:indoorMovementsStarted — sum=41413 total=41413
+[PASS] presence-sum:indoorMovementsCompleted — sum=41413 total=41413
+[PASS] presence-sum:visibleMovements — sum=0 total=0
+[PASS] presence-sum:compressedMovements — sum=192 total=192
+[PASS] presence-sum:scheduleMovements — sum=41221 total=41221
+[PASS] presence-sum:indoorMinutes — sum=103786 total=103786
+[PASS] presence-sum:stairUses — sum=3624 total=3624
+[PASS] presence-sum:lawfulArrivals — sum=96 total=96
+[PASS] presence-sum:lawfulDepartures — sum=96 total=96
+[PASS] presence-sum:roomTransitions — sum=64 total=64
+[PASS] presence-sum:encountersOffered — sum=310 total=310
+[PASS] presence-sum:encountersDeclined — sum=0 total=0
+[PASS] presence-sum:encountersPassed — sum=310 total=310
+[PASS] presence-sum:finalPresenceRecords — sum=4688 total=4688
+[PASS] presence-sum:finalPresenceSnapshots — sum=192 total=192
+[PASS] presence-sum:validationFailures — sum=0 total=0
+[PASS] presence-sum:exactReplayFailures — sum=0 total=0
+[PASS] presence-object-loss — 0
+[PASS] final-vs-presence — consolidated totals equal source stress totals
+[PASS] schema-qa — {'definitionsPassed': 56, 'definitionsTotal': 56, 'exportedWorlds': 11, 'validatedRecords': 15833, 'output': 'tests/FINAL_SCHEMA_QA_OUTPUT_v0_11.txt'}
+[PASS] browser-qa — {'views': 17, 'broad': 'PASS', 'shellTargeted': 'PASS', 'presenceTargeted': 'PASS', 'pageErrors': 0, 'consoleErrors': 0, 'mobileHorizontalOverflowFailures': 0, 'outputs': ['tests/FINAL_BROWSER_QA_OUTPUT_v0_11.txt', 'tests/FINAL_SHELL_BROWSER_QA_OUTPUT_v0_11.txt', 'tests/FINAL_PRESENCE_BROWSER_QA_OUTPUT_v0_11.txt']}
+[PASS] visual-metadata — {'broadScreenshots': 58, 'targetedScreenshots': 6, 'totalScreenshots': 64, 'horizontalOverflowFailures': 0, 'broadDirectory': 'tests/output_v0_11_screenshots', 'targetedDirectory': 'tests/output_v0_11_targeted'}
+[PASS] broad-screenshot-count — 58
+[PASS] targeted-screenshot-count — 6
+[PASS] screenshots-nonempty — 64 nonempty PNGs
+[PASS] root:oneControlledLife — actual=True expected=True
+[PASS] root:autonomousResidents — actual=True expected=True
+[PASS] root:agePressure — actual=False expected=False
+[PASS] root:streetThresholdIsNotEntry — actual=True expected=True
+[PASS] root:presenceCreatesAuthority — actual=False expected=False
+[PASS] root:remotePrivateRoomVisibility — actual=False expected=False
+[PASS] root:compulsoryGreetings — actual=False expected=False
+[PASS] root:watchingReward — actual=False expected=False
+[PASS] root:minuteByMinuteDistantPresenceTax — actual=False expected=False
+[PASS] root:visibleCompressedParity — actual=True expected=True
+[PASS] root:diagnosticOnlyValidation — actual=True expected=True
+[PASS] doc-metric:README.md — contains formatted 41,413
+[PASS] doc-version:README.md — contains v0.11 identity
+[PASS] doc-metric:ACTION_REPORT.md — contains formatted 41,413
+[PASS] doc-version:ACTION_REPORT.md — contains v0.11 identity
+[PASS] doc-metric:docs/QA_REPORT.md — contains formatted 41,413
+[PASS] doc-version:docs/QA_REPORT.md — contains v0.11 identity
+[PASS] final-text-metric — contains movement metric
+[PASS] final-text-focused — contains focused total
+[PASS] final-text-honesty — states interrupted evidence handling
+[PASS] standalone-size — 1325717
+[PASS] standalone-version — contains version and view label
+[PASS] standalone-presence-code — contains presence system markers
+[PASS] index-presence-source — source included
+[PASS] no-stale-seal-files — []
+[PASS] no-symlinks — []
+[PASS] no-cache-payload — count=0
+[PASS] exists:INTAKE_MANIFEST.json — /mnt/data/axm_v011_final_stage/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0/INTAKE_MANIFEST.json
+[PASS] manifest-version — 0.11.0
+[PASS] manifest-source-order-presence — ['src/exteriors.js', 'src/shells.js', 'src/presence.js', 'src/game.js', 'src/ui.js']
+[PASS] exists:MODULE_REGISTRY.json — /mnt/data/axm_v011_final_stage/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0/MODULE_REGISTRY.json
+[PASS] module-registry-presence — ['street-threshold-not-entry-gate', 'shell-to-room-presence-router', 'indoor-compression-parity', 'schedule-scale-presence-resolver', 'privacy-bounded-presence-disclosure', 'ordinary-encounter-refusal-root', 'bounded-presence-access-grant', 'queued-indoor-street-handoff', 'lived-buildings-interface', 'lived-rooms-object-use-scenes']
+[PASS] exists:NEXT_BUILD_QUEUE.json — /mnt/data/axm_v011_final_stage/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0/NEXT_BUILD_QUEUE.json
+[PASS] next-branch-v012 — v0.12 direction present

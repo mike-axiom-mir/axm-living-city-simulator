@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.enterprise-session/v0.8.0",
+  "title": "AXM Living City Enterprise Session v0.8.0",
+  "description": "A bounded compressed, interactive, or autonomous work session settled only against actual resident customers and attributable costs.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "enterpriseId",
+    "ownerId",
+    "actorId",
+    "mode",
+    "status",
+    "startedDay",
+    "startedHour",
+    "taskActions",
+    "customers",
+    "workerIds",
+    "workerOfferIds",
+    "wageReserve",
+    "quality",
+    "capacityBonus",
+    "agencyBonus",
+    "sessionSavings",
+    "revenue",
+    "costs",
+    "hours",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.enterprise-session/v0.8.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "enterpriseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownerId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actorId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "enum": [
+        "compressed",
+        "interactive",
+        "autonomous"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "completed",
+        "cancelled"
+      ]
+    },
+    "startedDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "startedHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "endedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "endedHour": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 23
+    },
+    "taskActions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "customers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "personId",
+          "price",
+          "needId",
+          "fit",
+          "satisfaction",
+          "flexibleOrFree",
+          "reasons"
+        ],
+        "properties": {
+          "personId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0
+          },
+          "needId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fit": {
+            "type": "number"
+          },
+          "satisfaction": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "flexibleOrFree": {
+            "type": "boolean"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "workerIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "workerOfferIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "wageReserve": {
+      "type": "number",
+      "minimum": 0
+    },
+    "quality": {
+      "type": "number",
+      "minimum": 0
+    },
+    "capacityBonus": {
+      "type": "number",
+      "minimum": 0
+    },
+    "agencyBonus": {
+      "type": "number",
+      "minimum": 0
+    },
+    "sessionSavings": {
+      "type": "number",
+      "minimum": 0
+    },
+    "revenue": {
+      "type": "number",
+      "minimum": 0
+    },
+    "costs": {
+      "type": "number",
+      "minimum": 0
+    },
+    "hours": {
+      "type": "number",
+      "minimum": 0
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

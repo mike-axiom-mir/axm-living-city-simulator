@@ -1,0 +1,21 @@
+{
+  "schema": "axm.living-city.lived-presence/v0.11.0",
+  "personId": "player",
+  "kind": "room",
+  "placeId": "home_rooftop",
+  "buildingId": "building_home_rooftop",
+  "storeyId": "building_home_rooftop_s1_storey",
+  "level": 1,
+  "routeNodeId": "building_home_rooftop_unit_home_rooftop",
+  "roomId": "room_home_rooftop_001",
+  "activity": "inside the building",
+  "accessBasis": "accepted_presence_grant",
+  "privacy": "private",
+  "observableScope": "self",
+  "updatedAt": {
+    "day": 1,
+    "hour": 7,
+    "minute": 4
+  },
+  "source": "indoor_movement_000003"
+}

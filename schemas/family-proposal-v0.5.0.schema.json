@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.family-proposal/v0.5.0",
+  "title": "AXM Living City Family Proposal v0.5.0",
+  "description": "An explicit proposal for parenthood, care, education, room authority, or family ritual; proposal state is never consent by itself.",
+  "type": "object",
+  "required": [
+    "id",
+    "schema",
+    "type",
+    "status",
+    "proposerId",
+    "recipientIds",
+    "familyUnitId",
+    "householdId",
+    "createdDay",
+    "createdHour",
+    "dueDay",
+    "expiresDay",
+    "terms",
+    "response",
+    "history"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema": {
+      "const": "axm.living-city.family-proposal/v0.5.0"
+    },
+    "type": {
+      "enum": [
+        "parenthood",
+        "care_plan",
+        "education_plan",
+        "room_plan",
+        "family_ritual"
+      ]
+    },
+    "status": {
+      "enum": [
+        "pending_npc",
+        "awaiting_player",
+        "accepted",
+        "declined",
+        "withdrawn",
+        "expired",
+        "waiting_space",
+        "implemented"
+      ]
+    },
+    "proposerId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recipientIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "familyUnitId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "householdId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "dueDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "expiresDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "terms": {
+      "type": "object"
+    },
+    "response": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "implementedProjectId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}

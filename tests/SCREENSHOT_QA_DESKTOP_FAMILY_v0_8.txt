@@ -1,0 +1,6 @@
+PASS screenshot group desktop-family: captured 5 images
+- family_onboarding_desktop.png
+- family_active_desktop.png
+- family_dependent_agency_desktop.png
+- family_incoming_proposal_desktop.png
+- family_young_adult_transition_desktop.png

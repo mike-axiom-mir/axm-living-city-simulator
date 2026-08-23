@@ -1,0 +1,5 @@
+
+> axm-living-city-sim-lived-buildings@0.11.0 build
+> python3 tools/build_standalone.py
+
+Built /mnt/data/living_city_build_v0_11_work/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0/standalone/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0.html (1,325,717 bytes)

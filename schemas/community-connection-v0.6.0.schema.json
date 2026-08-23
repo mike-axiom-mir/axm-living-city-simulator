@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.community-connection/v0.6.0",
+  "title": "AXM Living City Community Connection v0.6.0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "personIds",
+    "kind",
+    "mentorId",
+    "learnerId",
+    "warmth",
+    "trust",
+    "sharedActivities",
+    "createdDay",
+    "lastSharedDay",
+    "status",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.community-connection/v0.6.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "personIds": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "kind": {
+      "enum": [
+        "peer",
+        "mentor",
+        "neighbor",
+        "family_friend",
+        "creative_partner"
+      ]
+    },
+    "mentorId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "learnerId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "warmth": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "trust": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "sharedActivities": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "lastSharedDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "const": "active"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actorIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "causes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,18 @@
+AXM Living City v0.11 — Lived Buildings Stress Results
+Seeds: 8
+Days per seed: 180
+Each seed rerun: yes, exact serialized equality required
+Execution: eight completed single-seed processes; no interrupted result counted
+Indoor movements started/completed: 41413/41413
+Visible/compressed/schedule movements: 0/192/41221
+Indoor movement minutes: 103786
+Stair uses: 3624
+Lawful arrivals/departures: 96/96
+Room transitions: 64
+Encounter offers/declines/passed: 310/0/310
+Final retained presence records: 4688
+Final presence snapshots: 192
+Validation failures: 0
+Exact replay failures: 0
+Object-loss failures: 0
+Protected roots: compression available; greetings optional; private rooms coarsened; no watching reward; no minute-by-minute presence tax; no age pressure.

@@ -1,0 +1,37 @@
+{
+  "schema": "axm.living-city.life-course/v0.5.0",
+  "ageDays": 9203,
+  "ageYears": 25,
+  "stage": "adult",
+  "birthdayOffset": 78,
+  "stageEnteredDay": 3,
+  "chapterDays": 120,
+  "mode": "choice",
+  "agePressure": false,
+  "exactAgeVisible": false,
+  "transitionHistory": [
+    {
+      "day": 3,
+      "from": "young_adult",
+      "to": "adult",
+      "age": 25,
+      "mode": "choice",
+      "chosenBy": "player",
+      "noDeadline": true,
+      "noMissedWindow": true
+    }
+  ],
+  "chapterChoiceHistory": [
+    {
+      "day": 3,
+      "from": "young_adult",
+      "to": "adult",
+      "age": 25,
+      "mode": "choice",
+      "chosenBy": "player",
+      "noDeadline": true,
+      "noMissedWindow": true
+    }
+  ],
+  "provenance": "existing life context preserved; v0.7 does not invent elapsed years or force a new chapter"
+}

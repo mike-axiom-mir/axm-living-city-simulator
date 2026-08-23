@@ -1,0 +1,22 @@
+AXM Living City — Living Local Economy v0.8.0
+Deterministic local-economy stress results
+
+Seeds: 2
+Days per seed: 240
+Deterministic executions: 4
+Primary simulated days: 480
+Resident enterprise sessions: 303
+Actual resident customers: 1721
+Flexible/free services: 4
+Enterprise revenue: €23,782
+Enterprise attributable costs: €7,490
+Equipment objects retained: 11
+Need-service records: 1721
+
+All eight worlds replayed to exact serialized equality.
+Every customer ID resolved to an actual resident.
+Choice-first age and life-stage state remained stable.
+No validation failures were observed.
+
+AXM-ECONOMY-STRESS-05: 5 directions; 163 sessions; 897 customers; 3 flexible/free; 1 occupied commercial rooms.
+AXM-ECONOMY-STRESS-06: 5 directions; 140 sessions; 824 customers; 1 flexible/free; 1 occupied commercial rooms.

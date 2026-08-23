@@ -1,0 +1,1265 @@
+{
+  "schema": "axm.living-city.community-institution/v0.6.0",
+  "id": "community_repair_circle",
+  "name": "Repair & Share Circle",
+  "kind": "maker_circle",
+  "placeId": "place_workshop",
+  "capacity": 5,
+  "tags": [
+    "repair",
+    "practical",
+    "creativity",
+    "care"
+  ],
+  "description": "People restore useful things, teach one another, and keep object history alive instead of treating replacement as progress.",
+  "opening": {
+    "days": [
+      1,
+      3,
+      5,
+      6
+    ],
+    "hour": 11,
+    "closes": 21
+  },
+  "status": "active",
+  "members": [
+    {
+      "id": "community_member_00170",
+      "personId": "npc_012",
+      "status": "left",
+      "appliedDay": 1,
+      "joinedDay": 1,
+      "leftDay": 1,
+      "participationCount": 0,
+      "lastParticipationDay": null,
+      "reasons": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "seeded": true,
+      "history": [
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "joined",
+          "message": "autonomous starting affinity in a newly seeded world"
+        }
+      ]
+    },
+    {
+      "id": "community_member_00172",
+      "personId": "npc_007",
+      "status": "active",
+      "appliedDay": 1,
+      "joinedDay": 1,
+      "leftDay": null,
+      "participationCount": 4,
+      "lastParticipationDay": 62,
+      "reasons": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "seeded": true,
+      "history": [
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "joined",
+          "message": "autonomous starting affinity in a newly seeded world"
+        }
+      ]
+    },
+    {
+      "id": "community_member_00174",
+      "personId": "npc_022",
+      "status": "left",
+      "appliedDay": 1,
+      "joinedDay": 1,
+      "leftDay": 93,
+      "participationCount": 3,
+      "lastParticipationDay": 28,
+      "reasons": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "seeded": true,
+      "history": [
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "joined",
+          "message": "autonomous starting affinity in a newly seeded world"
+        },
+        {
+          "day": 93,
+          "hour": 0,
+          "type": "left",
+          "message": "Autonomously changed direction without being punished."
+        }
+      ]
+    },
+    {
+      "id": "community_member_00176",
+      "personId": "npc_016",
+      "status": "active",
+      "appliedDay": 1,
+      "joinedDay": 1,
+      "leftDay": null,
+      "participationCount": 7,
+      "lastParticipationDay": 91,
+      "reasons": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "seeded": true,
+      "history": [
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "joined",
+          "message": "autonomous starting affinity in a newly seeded world"
+        }
+      ]
+    },
+    {
+      "id": "community_member_00178",
+      "personId": "npc_023",
+      "status": "left",
+      "appliedDay": 1,
+      "joinedDay": 1,
+      "leftDay": 23,
+      "participationCount": 2,
+      "lastParticipationDay": 13,
+      "reasons": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "seeded": true,
+      "history": [
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "joined",
+          "message": "autonomous starting affinity in a newly seeded world"
+        },
+        {
+          "day": 23,
+          "hour": 0,
+          "type": "left",
+          "message": "Autonomously changed direction without being punished."
+        }
+      ]
+    },
+    {
+      "id": "community_member_00223",
+      "personId": "player",
+      "status": "active",
+      "appliedDay": 1,
+      "joinedDay": 1,
+      "leftDay": null,
+      "participationCount": 0,
+      "lastParticipationDay": null,
+      "reasons": [
+        "explicit labeled waiting-state experiment"
+      ],
+      "seeded": false,
+      "history": [
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "waitlisted",
+          "message": "explicit labeled waiting-state experiment"
+        },
+        {
+          "day": 1,
+          "hour": 7,
+          "type": "promoted",
+          "message": "A real membership place opened."
+        }
+      ]
+    },
+    {
+      "id": "community_member_00872",
+      "personId": "npc_020",
+      "status": "left",
+      "appliedDay": 23,
+      "joinedDay": 23,
+      "leftDay": 79,
+      "participationCount": 1,
+      "lastParticipationDay": 42,
+      "reasons": [
+        "autonomous interest and an available place"
+      ],
+      "seeded": false,
+      "history": [
+        {
+          "day": 23,
+          "hour": 0,
+          "type": "joined",
+          "message": "autonomous interest and an available place"
+        },
+        {
+          "day": 79,
+          "hour": 0,
+          "type": "left",
+          "message": "Autonomously changed direction without being punished."
+        }
+      ]
+    },
+    {
+      "id": "community_member_02547",
+      "personId": "npc_002",
+      "status": "active",
+      "appliedDay": 79,
+      "joinedDay": 79,
+      "leftDay": null,
+      "participationCount": 1,
+      "lastParticipationDay": 91,
+      "reasons": [
+        "autonomous interest and an available place"
+      ],
+      "seeded": false,
+      "history": [
+        {
+          "day": 79,
+          "hour": 0,
+          "type": "joined",
+          "message": "autonomous interest and an available place"
+        }
+      ]
+    },
+    {
+      "id": "community_member_03406",
+      "personId": "npc_012",
+      "status": "active",
+      "appliedDay": 107,
+      "joinedDay": 107,
+      "leftDay": null,
+      "participationCount": 0,
+      "lastParticipationDay": null,
+      "reasons": [
+        "autonomous interest and an available place"
+      ],
+      "seeded": false,
+      "history": [
+        {
+          "day": 107,
+          "hour": 0,
+          "type": "joined",
+          "message": "autonomous interest and an available place"
+        }
+      ]
+    }
+  ],
+  "mentorIds": [
+    "npc_016"
+  ],
+  "foundedDay": 1,
+  "history": [
+    {
+      "id": "community_history_00160",
+      "day": 1,
+      "hour": 7,
+      "type": "foundation",
+      "message": "Repair & Share Circle entered the living city as optional community infrastructure.",
+      "actorIds": [],
+      "causes": [
+        "deterministic community foundation",
+        "membership does not control people"
+      ],
+      "evidence": {
+        "capacity": 5,
+        "placeId": "place_workshop"
+      }
+    },
+    {
+      "id": "community_history_00171",
+      "day": 1,
+      "hour": 7,
+      "type": "member_joined",
+      "message": "Uma Prins joined Repair & Share Circle.",
+      "actorIds": [
+        "npc_012"
+      ],
+      "causes": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "evidence": {
+        "membershipId": "community_member_00170",
+        "capacity": 5,
+        "activeMembers": 1
+      }
+    },
+    {
+      "id": "community_history_00173",
+      "day": 1,
+      "hour": 7,
+      "type": "member_joined",
+      "message": "Yara Visser joined Repair & Share Circle.",
+      "actorIds": [
+        "npc_007"
+      ],
+      "causes": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "evidence": {
+        "membershipId": "community_member_00172",
+        "capacity": 5,
+        "activeMembers": 2
+      }
+    },
+    {
+      "id": "community_history_00175",
+      "day": 1,
+      "hour": 7,
+      "type": "member_joined",
+      "message": "Joost Meijer joined Repair & Share Circle.",
+      "actorIds": [
+        "npc_022"
+      ],
+      "causes": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "evidence": {
+        "membershipId": "community_member_00174",
+        "capacity": 5,
+        "activeMembers": 3
+      }
+    },
+    {
+      "id": "community_history_00177",
+      "day": 1,
+      "hour": 7,
+      "type": "member_joined",
+      "message": "Liv Hendriks joined Repair & Share Circle.",
+      "actorIds": [
+        "npc_016"
+      ],
+      "causes": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "evidence": {
+        "membershipId": "community_member_00176",
+        "capacity": 5,
+        "activeMembers": 4
+      }
+    },
+    {
+      "id": "community_history_00179",
+      "day": 1,
+      "hour": 7,
+      "type": "member_joined",
+      "message": "Zeno Jansen joined Repair & Share Circle.",
+      "actorIds": [
+        "npc_023"
+      ],
+      "causes": [
+        "autonomous starting affinity in a newly seeded world"
+      ],
+      "evidence": {
+        "membershipId": "community_member_00178",
+        "capacity": 5,
+        "activeMembers": 5
+      }
+    },
+    {
+      "id": "community_history_00218",
+      "day": 1,
+      "hour": 7,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 2.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_00216"
+      }
+    },
+    {
+      "id": "community_history_00224",
+      "day": 1,
+      "hour": 7,
+      "type": "member_waitlisted",
+      "message": "Player entered the waiting state for Repair & Share Circle.",
+      "actorIds": [
+        "player"
+      ],
+      "causes": [
+        "explicit labeled waiting-state experiment"
+      ],
+      "evidence": {
+        "membershipId": "community_member_00223",
+        "capacity": 5,
+        "activeMembers": 5
+      }
+    },
+    {
+      "id": "community_history_00234",
+      "day": 1,
+      "hour": 7,
+      "type": "waitlist_promoted",
+      "message": "Player received an opening at Repair & Share Circle.",
+      "actorIds": [
+        "player"
+      ],
+      "causes": [
+        "membership capacity opened",
+        "oldest visible waiting state first"
+      ],
+      "evidence": {
+        "membershipId": "community_member_00223"
+      }
+    },
+    {
+      "id": "community_history_00281",
+      "day": 2,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 4.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_00279"
+      }
+    },
+    {
+      "id": "community_history_00286",
+      "day": 2,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_00216"
+      }
+    },
+    {
+      "id": "community_history_00350",
+      "day": 4,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_00279"
+      }
+    },
+    {
+      "id": "community_history_00393",
+      "day": 6,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 6.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_00391"
+      }
+    },
+    {
+      "id": "community_history_00417",
+      "day": 6,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [
+        "npc_023",
+        "npc_007",
+        "npc_010",
+        "npc_002"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_00391"
+      }
+    },
+    {
+      "id": "community_history_00506",
+      "day": 10,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 11.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_00504"
+      }
+    },
+    {
+      "id": "community_history_00527",
+      "day": 11,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 13.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_00525"
+      }
+    },
+    {
+      "id": "community_history_00529",
+      "day": 11,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_00504"
+      }
+    },
+    {
+      "id": "community_history_00595",
+      "day": 13,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [
+        "npc_023",
+        "npc_016"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_00525"
+      }
+    },
+    {
+      "id": "community_history_00758",
+      "day": 19,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 20.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_00756"
+      }
+    },
+    {
+      "id": "community_history_00780",
+      "day": 20,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [
+        "npc_022",
+        "npc_017",
+        "npc_001",
+        "npc_021"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_00756"
+      }
+    },
+    {
+      "id": "community_history_00806",
+      "day": 21,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 21.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_00804"
+      }
+    },
+    {
+      "id": "community_history_00817",
+      "day": 21,
+      "hour": 21,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [
+        "npc_022",
+        "npc_012",
+        "npc_016"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_00804"
+      }
+    },
+    {
+      "id": "community_history_00871",
+      "day": 23,
+      "hour": 0,
+      "type": "member_left",
+      "message": "Zeno Jansen left to follow a different rhythm.",
+      "actorIds": [
+        "npc_023"
+      ],
+      "causes": [
+        "autonomous direction change",
+        "no membership lock-in"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "community_history_00873",
+      "day": 23,
+      "hour": 0,
+      "type": "member_joined",
+      "message": "Gio de Wit joined Repair & Share Circle.",
+      "actorIds": [
+        "npc_020"
+      ],
+      "causes": [
+        "autonomous interest and an available place"
+      ],
+      "evidence": {
+        "membershipId": "community_member_00872",
+        "capacity": 5,
+        "activeMembers": 5
+      }
+    },
+    {
+      "id": "community_history_01089",
+      "day": 28,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 28.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_01087"
+      }
+    },
+    {
+      "id": "community_history_01117",
+      "day": 28,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [
+        "npc_022",
+        "npc_017",
+        "npc_001",
+        "npc_018"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_01087"
+      }
+    },
+    {
+      "id": "community_history_01175",
+      "day": 30,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 30.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_01173"
+      }
+    },
+    {
+      "id": "community_history_01182",
+      "day": 30,
+      "hour": 21,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [
+        "npc_007",
+        "npc_017"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_01173"
+      }
+    },
+    {
+      "id": "community_history_01427",
+      "day": 37,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 37.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_01425"
+      }
+    },
+    {
+      "id": "community_history_01435",
+      "day": 37,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_01425"
+      }
+    },
+    {
+      "id": "community_history_01479",
+      "day": 39,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 39.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_01477"
+      }
+    },
+    {
+      "id": "community_history_01484",
+      "day": 39,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_01477"
+      }
+    },
+    {
+      "id": "community_history_01531",
+      "day": 41,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 42.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_01529"
+      }
+    },
+    {
+      "id": "community_history_01587",
+      "day": 42,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [
+        "npc_012",
+        "npc_007",
+        "npc_020",
+        "npc_023"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_01529"
+      }
+    },
+    {
+      "id": "community_history_01704",
+      "day": 46,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 46.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_01702"
+      }
+    },
+    {
+      "id": "community_history_01706",
+      "day": 46,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_01702"
+      }
+    },
+    {
+      "id": "community_history_01742",
+      "day": 48,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 48.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_01740"
+      }
+    },
+    {
+      "id": "community_history_01761",
+      "day": 48,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [
+        "npc_002",
+        "npc_016"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_01740"
+      }
+    },
+    {
+      "id": "community_history_01880",
+      "day": 53,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 53.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_01878"
+      }
+    },
+    {
+      "id": "community_history_01890",
+      "day": 53,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_01878"
+      }
+    },
+    {
+      "id": "community_history_02000",
+      "day": 58,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 58.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_01998"
+      }
+    },
+    {
+      "id": "community_history_02038",
+      "day": 58,
+      "hour": 22,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [
+        "npc_016",
+        "npc_023"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_01998"
+      }
+    },
+    {
+      "id": "community_history_02116",
+      "day": 62,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 62.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_02114"
+      }
+    },
+    {
+      "id": "community_history_02142",
+      "day": 62,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [
+        "npc_016",
+        "npc_007"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_02114"
+      }
+    },
+    {
+      "id": "community_history_02299",
+      "day": 69,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 69.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_02297"
+      }
+    },
+    {
+      "id": "community_history_02319",
+      "day": 69,
+      "hour": 22,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [
+        "npc_023",
+        "npc_002"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_02297"
+      }
+    },
+    {
+      "id": "community_history_02466",
+      "day": 76,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 76.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_02464"
+      }
+    },
+    {
+      "id": "community_history_02486",
+      "day": 76,
+      "hour": 22,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [
+        "npc_016",
+        "npc_012"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_02464"
+      }
+    },
+    {
+      "id": "community_history_02546",
+      "day": 79,
+      "hour": 0,
+      "type": "member_left",
+      "message": "Gio de Wit left to follow a different rhythm.",
+      "actorIds": [
+        "npc_020"
+      ],
+      "causes": [
+        "autonomous direction change",
+        "no membership lock-in"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "community_history_02548",
+      "day": 79,
+      "hour": 0,
+      "type": "member_joined",
+      "message": "Sam Meijer joined Repair & Share Circle.",
+      "actorIds": [
+        "npc_002"
+      ],
+      "causes": [
+        "autonomous interest and an available place"
+      ],
+      "evidence": {
+        "membershipId": "community_member_02547",
+        "capacity": 5,
+        "activeMembers": 5
+      }
+    },
+    {
+      "id": "community_history_02837",
+      "day": 87,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 88.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_02835"
+      }
+    },
+    {
+      "id": "community_history_02874",
+      "day": 88,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_02835"
+      }
+    },
+    {
+      "id": "community_history_02944",
+      "day": 90,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 91.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_02942"
+      }
+    },
+    {
+      "id": "community_history_02976",
+      "day": 91,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [
+        "npc_016",
+        "npc_002",
+        "npc_012"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_02942"
+      }
+    },
+    {
+      "id": "community_history_03004",
+      "day": 92,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 93.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_03002"
+      }
+    },
+    {
+      "id": "community_history_03013",
+      "day": 93,
+      "hour": 0,
+      "type": "member_left",
+      "message": "Joost Meijer left to follow a different rhythm.",
+      "actorIds": [
+        "npc_022"
+      ],
+      "causes": [
+        "autonomous direction change",
+        "no membership lock-in"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "community_history_03027",
+      "day": 93,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_03002"
+      }
+    },
+    {
+      "id": "community_history_03071",
+      "day": 95,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Make something weird and small opened for day 95.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_03069"
+      }
+    },
+    {
+      "id": "community_history_03078",
+      "day": 95,
+      "hour": 17,
+      "type": "activity_completed",
+      "message": "Make something weird and small became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_03069"
+      }
+    },
+    {
+      "id": "community_history_03117",
+      "day": 97,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 98.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_03115"
+      }
+    },
+    {
+      "id": "community_history_03202",
+      "day": 98,
+      "hour": 21,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [
+        "npc_001",
+        "npc_017"
+      ],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_03115"
+      }
+    },
+    {
+      "id": "community_history_03387",
+      "day": 106,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 107.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_03385"
+      }
+    },
+    {
+      "id": "community_history_03407",
+      "day": 107,
+      "hour": 0,
+      "type": "member_joined",
+      "message": "Uma Prins joined Repair & Share Circle.",
+      "actorIds": [
+        "npc_012"
+      ],
+      "causes": [
+        "autonomous interest and an available place"
+      ],
+      "evidence": {
+        "membershipId": "community_member_03406",
+        "capacity": 5,
+        "activeMembers": 5
+      }
+    },
+    {
+      "id": "community_history_03420",
+      "day": 107,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_03385"
+      }
+    },
+    {
+      "id": "community_history_03618",
+      "day": 115,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 116.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_03616"
+      }
+    },
+    {
+      "id": "community_history_03646",
+      "day": 116,
+      "hour": 16,
+      "type": "activity_completed",
+      "message": "Repair & share table became part of the place's history.",
+      "actorIds": [],
+      "causes": [],
+      "evidence": {
+        "opportunityId": "community_opportunity_03616"
+      }
+    },
+    {
+      "id": "community_history_03841",
+      "day": 124,
+      "hour": 0,
+      "type": "opportunity_opened",
+      "message": "Repair & share table opened for day 125.",
+      "actorIds": [],
+      "causes": [
+        "community rhythm",
+        "optional participation"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_03839"
+      }
+    }
+  ]
+}

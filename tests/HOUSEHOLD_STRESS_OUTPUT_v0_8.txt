@@ -1,0 +1,190 @@
+
+> axm-living-city-sim-local-economy@0.8.0 test:household-stress
+> node tests/household_stress_test.js
+
+PASS AXM-HOUSEHOLD-STRESS-01 · revision 11 · proposals 13 · conflicts 7
+PASS AXM-HOUSEHOLD-STRESS-02 · revision 12 · proposals 14 · conflicts 10
+PASS AXM-HOUSEHOLD-STRESS-03 · revision 11 · proposals 13 · conflicts 8
+PASS AXM-HOUSEHOLD-STRESS-04 · revision 10 · proposals 14 · conflicts 7
+PASS AXM-HOUSEHOLD-STRESS-05 · revision 9 · proposals 11 · conflicts 12
+PASS AXM-HOUSEHOLD-STRESS-06 · revision 9 · proposals 13 · conflicts 11
+PASS AXM-HOUSEHOLD-STRESS-07 · revision 10 · proposals 12 · conflicts 11
+PASS AXM-HOUSEHOLD-STRESS-08 · revision 9 · proposals 13 · conflicts 9
+
+8/8 deterministic household worlds passed 180 simulated days each.
+{
+  "daysPerSeed": 180,
+  "seeds": 8,
+  "totals": {
+    "day": 1486,
+    "agreementRevision": 81,
+    "sharedReserve": 1403.8100000000002,
+    "proposals": 103,
+    "accepted": 90,
+    "declined": 13,
+    "counteroffers": 0,
+    "conflicts": 75,
+    "repairs": 62,
+    "relocations": 9,
+    "npcInitiatives": 79,
+    "objectCount": 150,
+    "acceptedIncoming": 66,
+    "declinedIncoming": 13,
+    "relocationPrompts": 1,
+    "repairAttempts": 88
+  },
+  "reports": [
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-01",
+      "day": 186,
+      "agreementRevision": 11,
+      "sharedReserve": 180.74,
+      "proposals": 13,
+      "accepted": 13,
+      "declined": 0,
+      "counteroffers": 0,
+      "conflicts": 7,
+      "repairs": 7,
+      "relocations": 2,
+      "npcInitiatives": 10,
+      "objectCount": 8,
+      "acceptedIncoming": 10,
+      "declinedIncoming": 0,
+      "relocationPrompts": 1,
+      "repairAttempts": 9
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-02",
+      "day": 185,
+      "agreementRevision": 12,
+      "sharedReserve": 156,
+      "proposals": 14,
+      "accepted": 13,
+      "declined": 1,
+      "counteroffers": 0,
+      "conflicts": 10,
+      "repairs": 8,
+      "relocations": 1,
+      "npcInitiatives": 11,
+      "objectCount": 22,
+      "acceptedIncoming": 10,
+      "declinedIncoming": 1,
+      "relocationPrompts": 0,
+      "repairAttempts": 12
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-03",
+      "day": 186,
+      "agreementRevision": 11,
+      "sharedReserve": 172.13,
+      "proposals": 13,
+      "accepted": 12,
+      "declined": 1,
+      "counteroffers": 0,
+      "conflicts": 8,
+      "repairs": 6,
+      "relocations": 1,
+      "npcInitiatives": 10,
+      "objectCount": 21,
+      "acceptedIncoming": 9,
+      "declinedIncoming": 1,
+      "relocationPrompts": 0,
+      "repairAttempts": 12
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-04",
+      "day": 186,
+      "agreementRevision": 10,
+      "sharedReserve": 196.12,
+      "proposals": 14,
+      "accepted": 11,
+      "declined": 3,
+      "counteroffers": 0,
+      "conflicts": 7,
+      "repairs": 6,
+      "relocations": 1,
+      "npcInitiatives": 11,
+      "objectCount": 22,
+      "acceptedIncoming": 8,
+      "declinedIncoming": 3,
+      "relocationPrompts": 0,
+      "repairAttempts": 10
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-05",
+      "day": 186,
+      "agreementRevision": 9,
+      "sharedReserve": 172.13,
+      "proposals": 11,
+      "accepted": 10,
+      "declined": 1,
+      "counteroffers": 0,
+      "conflicts": 12,
+      "repairs": 10,
+      "relocations": 1,
+      "npcInitiatives": 8,
+      "objectCount": 24,
+      "acceptedIncoming": 7,
+      "declinedIncoming": 1,
+      "relocationPrompts": 0,
+      "repairAttempts": 11
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-06",
+      "day": 186,
+      "agreementRevision": 9,
+      "sharedReserve": 172.13,
+      "proposals": 13,
+      "accepted": 10,
+      "declined": 3,
+      "counteroffers": 0,
+      "conflicts": 11,
+      "repairs": 9,
+      "relocations": 1,
+      "npcInitiatives": 10,
+      "objectCount": 22,
+      "acceptedIncoming": 7,
+      "declinedIncoming": 3,
+      "relocationPrompts": 0,
+      "repairAttempts": 12
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-07",
+      "day": 185,
+      "agreementRevision": 10,
+      "sharedReserve": 173.41,
+      "proposals": 12,
+      "accepted": 11,
+      "declined": 1,
+      "counteroffers": 0,
+      "conflicts": 11,
+      "repairs": 9,
+      "relocations": 1,
+      "npcInitiatives": 9,
+      "objectCount": 9,
+      "acceptedIncoming": 8,
+      "declinedIncoming": 1,
+      "relocationPrompts": 0,
+      "repairAttempts": 11
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-08",
+      "day": 186,
+      "agreementRevision": 9,
+      "sharedReserve": 181.15,
+      "proposals": 13,
+      "accepted": 10,
+      "declined": 3,
+      "counteroffers": 0,
+      "conflicts": 9,
+      "repairs": 7,
+      "relocations": 1,
+      "npcInitiatives": 10,
+      "objectCount": 22,
+      "acceptedIncoming": 7,
+      "declinedIncoming": 3,
+      "relocationPrompts": 0,
+      "repairAttempts": 11
+    }
+  ]
+}

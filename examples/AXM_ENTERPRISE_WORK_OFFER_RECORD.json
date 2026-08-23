@@ -1,0 +1,53 @@
+{
+  "schema": "axm.living-city.enterprise-work-offer/v0.8.0",
+  "id": "enterprise_work_offer_00034",
+  "enterpriseId": "enterprise_00019",
+  "offeredById": "player",
+  "personId": "npc_001",
+  "status": "accepted",
+  "createdDay": 1,
+  "createdHour": 13,
+  "dueDay": 3,
+  "expiresDay": 9,
+  "wagePerSession": 24,
+  "sessionsPerWeek": 1,
+  "sessionsWorkedThisWeek": 0,
+  "weekMarker": 0,
+  "lastWorkedDay": null,
+  "response": {
+    "day": 3,
+    "hour": 0,
+    "decision": "accepted",
+    "score": 50.4,
+    "roll": 7
+  },
+  "authority": {
+    "enterpriseWork": true,
+    "enterpriseOwnership": false,
+    "personalMoney": false,
+    "household": false,
+    "tenancy": false,
+    "propertyEdit": false,
+    "familyCare": false,
+    "lifeDirection": false
+  },
+  "history": [
+    {
+      "day": 1,
+      "hour": 13,
+      "type": "offered",
+      "message": "Bram Bos received a bounded enterprise-work offer."
+    },
+    {
+      "day": 3,
+      "hour": 0,
+      "type": "accepted",
+      "message": "Bram Bos accepted the bounded work offer.",
+      "evidence": {
+        "accepted": true,
+        "score": 50.4,
+        "roll": 7
+      }
+    }
+  ]
+}

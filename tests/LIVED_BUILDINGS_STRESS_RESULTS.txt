@@ -1,0 +1,16 @@
+AXM Living City — Lived Buildings Stress Results v0.11.0
+Seeds: 8
+Days per world: 90
+Deterministic replay matches: 8/8
+Indoor movements started/completed: 20629/20629
+Visible/compressed/schedule movements: 0/96/20533
+Indoor movement minutes: 51708
+Stair uses: 1741
+Lawful arrivals/departures: 48/48
+Room transitions: 32
+Encounter offers/declines/passed: 145/0/145
+Final retained presence records: 4648
+Final presence snapshots: 192
+Validation failures: 0
+Exact replay failures: 0
+Protected roots: compression available; greetings optional; private rooms coarsened; no watching reward; no minute-by-minute presence tax; no age pressure.

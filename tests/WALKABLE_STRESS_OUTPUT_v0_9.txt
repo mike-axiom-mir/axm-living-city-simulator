@@ -1,0 +1,22 @@
+PASS AXM-WALKABLE-STRESS-01 · 13513 resident routes · 6 player routes · exact replay
+PASS AXM-WALKABLE-STRESS-02 · 13428 resident routes · 6 player routes · exact replay
+PASS AXM-WALKABLE-STRESS-03 · 13502 resident routes · 6 player routes · exact replay
+PASS AXM-WALKABLE-STRESS-04 · 13351 resident routes · 6 player routes · exact replay
+PASS AXM-WALKABLE-STRESS-05 · 13447 resident routes · 6 player routes · exact replay
+PASS AXM-WALKABLE-STRESS-06 · 13435 resident routes · 6 player routes · exact replay
+PASS AXM-WALKABLE-STRESS-07 · 13382 resident routes · 6 player routes · exact replay
+PASS AXM-WALKABLE-STRESS-08 · 13326 resident routes · 6 player routes · exact replay
+
+PASS 8/8 walkable-place stress worlds; exact replay confirmed.
+{
+  "retainedTravelRecords": 4000,
+  "playerJourneys": 48,
+  "playerCompressedJourneys": 48,
+  "playerVisibleJourneys": 0,
+  "playerWalkingMinutes": 360,
+  "playerDistanceMeters": 13992,
+  "npcRoutesObserved": 107384,
+  "npcRouteDistanceMeters": 47980846,
+  "bundledRoutesRecorded": 0,
+  "streetMomentsObserved": 0
+}

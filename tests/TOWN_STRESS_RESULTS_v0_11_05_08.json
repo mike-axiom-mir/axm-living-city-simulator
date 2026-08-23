@@ -1,0 +1,83 @@
+{
+  "schema": "axm.living-city-sim.town-stress-results/v0.11.0",
+  "start": 4,
+  "seeds": 4,
+  "daysPerSeed": 365,
+  "totalSimulatedDays": 1460,
+  "rows": [
+    {
+      "seed": "AXM-STRESS-005",
+      "days": 365,
+      "elapsedSeconds": 6.86,
+      "moves": 6,
+      "decorActions": 363,
+      "upgradeActions": 799,
+      "signatures": 14,
+      "changedHomes": 11,
+      "npcWealthAverage": 21221,
+      "indoorMovementsCompleted": 10594,
+      "npcIndoorTransitions": 27090,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-STRESS-006",
+      "days": 365,
+      "elapsedSeconds": 6.67,
+      "moves": 6,
+      "decorActions": 407,
+      "upgradeActions": 783,
+      "signatures": 14,
+      "changedHomes": 12,
+      "npcWealthAverage": 21691,
+      "indoorMovementsCompleted": 10173,
+      "npcIndoorTransitions": 27170,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-STRESS-007",
+      "days": 365,
+      "elapsedSeconds": 6.82,
+      "moves": 8,
+      "decorActions": 361,
+      "upgradeActions": 808,
+      "signatures": 14,
+      "changedHomes": 11,
+      "npcWealthAverage": 21981,
+      "indoorMovementsCompleted": 10743,
+      "npcIndoorTransitions": 27124,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-STRESS-008",
+      "days": 365,
+      "elapsedSeconds": 6.42,
+      "moves": 4,
+      "decorActions": 342,
+      "upgradeActions": 829,
+      "signatures": 14,
+      "changedHomes": 11,
+      "npcWealthAverage": 22157,
+      "indoorMovementsCompleted": 9543,
+      "npcIndoorTransitions": 27253,
+      "validationErrors": 0
+    }
+  ],
+  "averages": {
+    "moves": 6,
+    "decorActions": 368.25,
+    "upgradeActions": 804.75,
+    "signatures": 14,
+    "changedHomes": 11.25,
+    "npcWealthAverage": 21762.5,
+    "indoorMovementsCompleted": 10263.25,
+    "npcIndoorTransitions": 27159.25
+  },
+  "minimums": {
+    "moves": 4,
+    "decorActions": 342,
+    "upgradeActions": 783,
+    "signatures": 14,
+    "changedHomes": 11
+  },
+  "validationFailures": 0
+}

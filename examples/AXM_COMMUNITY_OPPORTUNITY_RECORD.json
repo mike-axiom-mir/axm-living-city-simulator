@@ -1,0 +1,105 @@
+{
+  "schema": "axm.living-city.community-opportunity/v0.6.0",
+  "id": "community_opportunity_00204",
+  "templateId": "source_hunt",
+  "institutionId": "community_story_room",
+  "kind": "drop_in",
+  "title": "Local source hunt",
+  "description": "Trace an old neighborhood story back to what is observed, remembered, disputed, and actually documented.",
+  "placeId": "place_library",
+  "createdDay": 1,
+  "createdHour": 7,
+  "eventDay": 1,
+  "startHour": 12,
+  "durationHours": 3,
+  "expiresDay": 5,
+  "cost": 0,
+  "capacity": 5,
+  "tags": [
+    "learning",
+    "focus",
+    "neighborhood"
+  ],
+  "skillEffects": {
+    "focus": 1,
+    "creativity": 0.4
+  },
+  "needEffects": {
+    "mood": 7,
+    "social": 3,
+    "energy": -5
+  },
+  "status": "completed",
+  "initiatorId": "community_story_room",
+  "hostId": null,
+  "inviteeId": null,
+  "participantIds": [
+    "player"
+  ],
+  "waitlistIds": [],
+  "playerResponse": "joined",
+  "playerCompletedDay": 1,
+  "npcProcessed": true,
+  "authority": {
+    "tenancy": false,
+    "edit": false,
+    "storage": false,
+    "employment": false,
+    "care": false
+  },
+  "history": [
+    {
+      "id": "opportunity_history_00205",
+      "day": 1,
+      "hour": 7,
+      "type": "created",
+      "message": "Local source hunt opened as an optional community possibility.",
+      "actorIds": [],
+      "causes": [
+        "deterministic community schedule",
+        "no attendance obligation"
+      ],
+      "evidence": {
+        "eventDay": 1,
+        "startHour": 12,
+        "capacity": 5,
+        "npcParticipants": 0
+      }
+    },
+    {
+      "id": "opportunity_history_00236",
+      "day": 1,
+      "hour": 15,
+      "type": "npc_session_completed",
+      "message": "0 autonomous residents took part without becoming player-controlled.",
+      "actorIds": [],
+      "causes": [
+        "autonomous interest choice"
+      ],
+      "evidence": {
+        "participantCount": 0
+      }
+    },
+    {
+      "id": "opportunity_history_00238",
+      "day": 1,
+      "hour": 15,
+      "type": "player_completed",
+      "message": "Player chose to take part. Participation was one life moment, not a recurring obligation.",
+      "actorIds": [
+        "player"
+      ],
+      "causes": [
+        "explicit player choice",
+        "no streak",
+        "no optimal build requirement"
+      ],
+      "evidence": {
+        "waitedHours": 5,
+        "cost": 0,
+        "durationHours": 3,
+        "returnedTo": "place_library"
+      }
+    }
+  ]
+}

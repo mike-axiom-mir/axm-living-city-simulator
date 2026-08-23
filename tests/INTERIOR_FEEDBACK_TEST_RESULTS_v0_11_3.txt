@@ -1,0 +1,19 @@
+AXM Living City v0.11.3 — interior feedback focused result
+Date: 2026-08-22
+
+PASS node --check src/systems.js src/visuals.js src/ui.js
+PASS tests/playable_interiors_test.js: 9/9
+PASS tests/visual_presence_test.js: 9/9
+
+Verified additions:
+- success-only receipts carry measured observedEffects with noAddedEffect true;
+- sleep feedback reports the ordinary engine's 480 minutes;
+- contextual and direct activity routes remain gameplay-equivalent;
+- legacy/invalid context creates no fabricated receipt;
+- bathroom context excludes eat, PC play, study, and creative work;
+- living-room/home context can offer a basic meal;
+- Living View contains factual feedback and focused-object bridge markup;
+- seven completed-action kinds animate in Full mode;
+- Still is pixel-stable and drawing leaves authoritative world serialization unchanged.
+
+Browser-specific layout/focus/responsive claims: UNKNOWN (Python Playwright unavailable).

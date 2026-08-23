@@ -1,0 +1,27 @@
+AXM Living City v0.10 — Personal Directions Stress
+
+PASS: 8 deterministic worlds × 240 days, each run twice with exact serialized equality.
+
+The eight worlds were run as four completed two-seed commands. Each seed was internally executed twice and required exact serialized equality.
+
+Totals:
+- chapters: 1754
+- day: 1928
+- npcCompleted: 571
+- npcOpen: 45
+- npcPaused: 0
+- npcReleased: 0
+- objectHistoryEntries: 176
+- projects: 616
+- restorationProjects: 67
+- validationErrors: 0
+
+Per-seed evidence:
+- AXM-DIRECTIONS-STRESS-01: projects=78, chapters=215, completed=68, open=10, restoration=7, object history=20
+- AXM-DIRECTIONS-STRESS-02: projects=84, chapters=233, completed=75, open=9, restoration=8, object history=23
+- AXM-DIRECTIONS-STRESS-03: projects=79, chapters=230, completed=75, open=4, restoration=11, object history=29
+- AXM-DIRECTIONS-STRESS-04: projects=76, chapters=218, completed=71, open=5, restoration=12, object history=29
+- AXM-DIRECTIONS-STRESS-05: projects=77, chapters=223, completed=74, open=3, restoration=6, object history=12
+- AXM-DIRECTIONS-STRESS-06: projects=77, chapters=217, completed=71, open=6, restoration=9, object history=24
+- AXM-DIRECTIONS-STRESS-07: projects=72, chapters=210, completed=70, open=2, restoration=8, object history=21
+- AXM-DIRECTIONS-STRESS-08: projects=73, chapters=208, completed=67, open=6, restoration=6, object history=18

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "passed": 174,
+  "total": 174,
+  "suites": {
+    "foundation": {"passed": 12, "total": 12},
+    "householdAgreements": {"passed": 13, "total": 13},
+    "structuralHabitats": {"passed": 19, "total": 19},
+    "autonomousStewardship": {"passed": 17, "total": 17},
+    "familyContinuity": {"passed": 21, "total": 21},
+    "communityAdventures": {"passed": 18, "total": 18},
+    "personalDirections": {"passed": 16, "total": 16},
+    "livingLocalEconomy": {"passed": 23, "total": 23},
+    "walkablePlaces": {"passed": 17, "total": 17},
+    "buildingShells": {"passed": 18, "total": 18}
+  },
+  "executionNote": "The earlier all-in-one convenience command exceeded the external command window. Every suite was then completed independently; only completed outputs are counted."
+}

@@ -1,0 +1,5 @@
+PASS screenshot group desktop-economy: captured 4 images
+- economy_onboarding_desktop.png
+- economy_active_direction_desktop.png
+- economy_actual_customers_desktop.png
+- economy_entered_session_desktop.png

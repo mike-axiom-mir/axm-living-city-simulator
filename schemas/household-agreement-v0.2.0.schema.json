@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city-sim.household-agreement/v0.2.0",
+  "title": "AXM Household Agreement v0.2.0",
+  "description": "Consent and boundary contract embedded in a household record. It does not transfer character control or merge personal accounts.",
+  "$ref": "#/$defs/agreement",
+  "$defs": {
+    "zone": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "holderIds",
+        "rect"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "player_private",
+            "common",
+            "partner_private"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "holderIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "rect": {
+          "type": "object",
+          "required": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ],
+          "properties": {
+            "x": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "y": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "w": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "h": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "agreement": {
+      "type": "object",
+      "required": [
+        "commitment",
+        "finances",
+        "space",
+        "relocation",
+        "renovation",
+        "goals",
+        "dissolution"
+      ],
+      "properties": {
+        "commitment": {
+          "const": "partner"
+        },
+        "finances": {
+          "type": "object",
+          "required": [
+            "mode",
+            "shares",
+            "weeklyReserveTarget",
+            "personalAccountsRemainSeparate",
+            "sharedReserveRequiresMutualConsent"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "equal",
+                "income_weighted",
+                "player_covers_more",
+                "partner_covers_more",
+                "separate"
+              ]
+            },
+            "shares": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "weeklyReserveTarget": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 120
+            },
+            "personalAccountsRemainSeparate": {
+              "const": true
+            },
+            "sharedReserveRequiresMutualConsent": {
+              "const": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "space": {
+          "type": "object",
+          "required": [
+            "mode",
+            "editPolicy",
+            "zones"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "mostly_shared",
+                "private_edges_shared_center",
+                "strong_private"
+              ]
+            },
+            "editPolicy": {
+              "const": "owner_or_accepted_proposal"
+            },
+            "zones": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/zone"
+              }
+            }
+          },
+          "additionalProperties": true
+        },
+        "relocation": {
+          "type": "object",
+          "required": [
+            "requiresUnanimousConsent",
+            "noUnilateralDisplacement"
+          ],
+          "properties": {
+            "requiresUnanimousConsent": {
+              "const": true
+            },
+            "noUnilateralDisplacement": {
+              "const": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "renovation": {
+          "type": "object",
+          "required": [
+            "partnerObjectsRequireOwnerConsent",
+            "commonChangesRequireAcceptedProposal"
+          ],
+          "properties": {
+            "partnerObjectsRequireOwnerConsent": {
+              "const": true
+            },
+            "commonChangesRequireAcceptedProposal": {
+              "const": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "target",
+              "progress",
+              "status"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "shared_safety_fund",
+                  "improve_home",
+                  "move_to_better_home",
+                  "protect_free_time"
+                ]
+              },
+              "target": {
+                "type": "number",
+                "minimum": 0
+              },
+              "progress": {
+                "type": "number",
+                "minimum": 0
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "complete",
+                  "replaced"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "dissolution": {
+          "type": "object",
+          "required": [
+            "exitIsUnilateral",
+            "noForcedEviction",
+            "reserveRule"
+          ],
+          "properties": {
+            "exitIsUnilateral": {
+              "const": true
+            },
+            "noForcedEviction": {
+              "const": true
+            },
+            "reserveRule": {
+              "const": "recorded_contributions_or_equal"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

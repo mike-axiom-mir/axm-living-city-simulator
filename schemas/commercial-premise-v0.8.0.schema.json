@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.commercial-premise/v0.8.0",
+  "title": "AXM Living City Commercial Premise v0.8.0",
+  "description": "A real, individually occupied commercial room with explicit owner, lease costs, condition, vacancy, and retained history.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "kind",
+    "name",
+    "ownerId",
+    "ownerLabel",
+    "listedForLease",
+    "occupantEnterpriseId",
+    "weeklyLease",
+    "deposit",
+    "utilityBase",
+    "condition",
+    "maintenanceReserve",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.commercial-premise/v0.8.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "const": "commercial"
+    },
+    "type": {
+      "const": "commercial"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownerId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownerLabel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "listedForLease": {
+      "type": "boolean"
+    },
+    "occupantEnterpriseId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "weeklyLease": {
+      "type": "number",
+      "minimum": 0
+    },
+    "deposit": {
+      "type": "number",
+      "minimum": 0
+    },
+    "utilityBase": {
+      "type": "number",
+      "minimum": 0
+    },
+    "condition": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "maintenanceReserve": {
+      "type": "number",
+      "minimum": 0
+    },
+    "x": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "y": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "w": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "h": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "color": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string"
+          },
+          "actorId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "actorIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "customerIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "causes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

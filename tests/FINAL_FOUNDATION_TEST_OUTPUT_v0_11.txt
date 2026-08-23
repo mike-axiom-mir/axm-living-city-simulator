@@ -1,0 +1,14 @@
+PASS testDeterministicGeneration
+PASS testInitialInvariants
+PASS testUpgradeWithoutReplacement
+PASS testMaxInvestmentPreservesObjectDifferences
+PASS testStorageNoLoss
+PASS testWorkModesRemainValid
+PASS testRealVacancyMove
+PASS testPropertyFixturesRemainBoundAndTenantsRetainAgency
+PASS testLongObserverRun
+PASS testDeterministicEvolution
+PASS testExportImport
+PASS testValidationRejectsCorruptionWithoutSilentRewrite
+
+12/12 tests passed.

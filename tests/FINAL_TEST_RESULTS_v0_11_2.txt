@@ -1,0 +1,39 @@
+AXM LIVING CITY — PLAYABLE INTERIORS v0.11.2
+FINAL COMPLETED EVIDENCE
+============================================================
+
+Overall result: PASS for deterministic, focused, long-run town/presence, and raster evidence.
+Live browser QA for the updated eighteenth view: UNKNOWN / NOT CLAIMED.
+
+FOCUSED TESTS
+- Inherited simulation systems: 194/194
+- Animated-presence boundaries: 9/9
+- Playable interiors: 9/9
+- Total: 212/212
+
+CURRENT LONG-RUN REPLAYS
+- Town: 12 seeds × 365 days; 4,380 days; zero validation failures.
+- Lived buildings: 8 seeds × 180 days, each replayed twice exactly; 41,413 completed movements; 3,624 stair uses; zero validation or replay failures.
+- Adult households: 8 seeds × 180 days, each replayed twice exactly; 105 proposals; zero validation, replay, or object-loss failures.
+
+VISUAL FRAME QA
+- Room, Building, and Street Full-motion hashes differed across timestamps.
+- Completed-moment echo hashes differed across timestamps.
+- Still-mode room hashes were identical.
+- Exact world serialization remained unchanged around every raster draw.
+- Rendered frames were inspected; raw PNG buffers were then deleted.
+
+ROOTS PROVED
+- room browsing is presentation, not movement or current presence;
+- contextual choices use the existing activity engine and have exact gameplay parity;
+- a visual receipt is created only after a real, room-grounded activity completes;
+- a completed echo is not current presence;
+- focus and replay add no time, need, reward, authority, relationship, or progression effect;
+- private residents remain coarse;
+- no routine checklist or watching advantage was introduced.
+
+EXECUTION HONESTY
+- Python Playwright was unavailable.
+- The v0.11.2 browser harness exists but did not run here.
+- No live-browser, responsive-layout, or focus-navigation pass is fabricated.
+- Schema files were unchanged; Python `jsonschema` was unavailable, so the sealed 56/56 Draft 2020-12 result remains lineage evidence rather than a fresh runtime claim.

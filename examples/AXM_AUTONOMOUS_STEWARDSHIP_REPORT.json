@@ -1,0 +1,357 @@
+{
+  "schema": "axm.living-city-sim.autonomous-stewardship-example-report/v0.5.0",
+  "seed": "AXM-AUTONOMOUS-STEWARDSHIP-EXAMPLE",
+  "generatedBy": "tools/generate_examples.js",
+  "setupDisclosure": {
+    "labeledExperiment": true,
+    "propertyId": "home_courtyard_1",
+    "residentId": "npc_001",
+    "ownershipTransferredWithoutEviction": true,
+    "residentMoveFrozenForFocusedEvidence": true,
+    "note": "The setup is an explicit QA shortcut. Funding after the initial disclosed seed progressed through the normal daily resident-saving loop."
+  },
+  "authorityEvidence": {
+    "requestId": "stewardship_request_00242",
+    "status": "completed",
+    "playerAuthority": {
+      "required": true,
+      "roles": [
+        "property_owner"
+      ],
+      "status": "approved",
+      "respondedDay": 1,
+      "response": "approve_owner_share"
+    },
+    "externalOwnerAuthority": {
+      "required": false,
+      "ownerId": "player",
+      "ownerLabel": "Player",
+      "status": "not_required",
+      "dueDay": null,
+      "respondedDay": null,
+      "response": null,
+      "score": null,
+      "evidence": null
+    },
+    "coTenantAuthority": [],
+    "proposedOwnerContribution": 19.8,
+    "acceptedOwnerContribution": 19.8,
+    "reserveBefore": 800,
+    "reserveAfter": 795.16
+  },
+  "intentionEvidence": {
+    "id": "habitat_intention_00239",
+    "status": "completed",
+    "summary": "Warm clay on Kitchen walls",
+    "reasons": [
+      "explicit labeled experiment setup"
+    ],
+    "budget": {
+      "phases": [
+        {
+          "id": "measure",
+          "name": "Measure and preserve room state",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Record objects, permissions, and surface history."
+        },
+        {
+          "id": "prepare",
+          "name": "Prepare the existing surface",
+          "hours": 1,
+          "money": 20,
+          "materials": {
+            "paint": 3
+          },
+          "note": "Repair rather than erase the surface."
+        },
+        {
+          "id": "apply",
+          "name": "Apply Warm clay",
+          "hours": 2,
+          "money": 65,
+          "materials": {
+            "paint": 5
+          },
+          "note": "Appearance changes without forcing a stat-optimal room."
+        },
+        {
+          "id": "cure",
+          "name": "Let the finish settle",
+          "hours": 1,
+          "money": 0,
+          "materials": {},
+          "note": "Complete a visible construction phase."
+        }
+      ],
+      "phaseMoney": 85,
+      "materialMoney": 80,
+      "totalMoney": 165,
+      "materials": {
+        "paint": 8
+      },
+      "hours": 5
+    },
+    "contributionTotals": {
+      "resident": 145.2,
+      "propertyReserve": 19.8
+    },
+    "materialPurchaseEvidence": {
+      "day": 9,
+      "cost": 80,
+      "unitPrices": {
+        "wood": 14,
+        "metal": 18,
+        "fabric": 12,
+        "parts": 20,
+        "paint": 10
+      },
+      "materials": {
+        "paint": 8
+      }
+    },
+    "completedDay": 14,
+    "historyEntries": 14
+  },
+  "projectEvidence": {
+    "id": "construction_00591",
+    "creatorId": "npc_001",
+    "resourceMode": "resident_escrow",
+    "status": "completed",
+    "completedPhaseIds": [
+      "measure",
+      "prepare",
+      "apply",
+      "cure"
+    ],
+    "phaseCount": 4,
+    "spent": {
+      "money": 85,
+      "materials": {
+        "paint": 8
+      }
+    },
+    "authority": {
+      "mode": "resident_stewardship",
+      "householdId": null,
+      "proposalId": null,
+      "requestId": "stewardship_request_00242",
+      "evidence": {
+        "requestStatus": "approved",
+        "playerAuthority": {
+          "required": true,
+          "roles": [
+            "property_owner"
+          ],
+          "status": "approved",
+          "respondedDay": 1,
+          "response": "approve_owner_share"
+        },
+        "externalOwnerAuthority": {
+          "required": false,
+          "ownerId": "player",
+          "ownerLabel": "Player",
+          "status": "not_required",
+          "dueDay": null,
+          "respondedDay": null,
+          "response": null,
+          "score": null,
+          "evidence": null
+        },
+        "coTenantAuthority": [],
+        "budget": {
+          "phases": [
+            {
+              "id": "measure",
+              "name": "Measure and preserve room state",
+              "hours": 1,
+              "money": 0,
+              "materials": {},
+              "note": "Record objects, permissions, and surface history."
+            },
+            {
+              "id": "prepare",
+              "name": "Prepare the existing surface",
+              "hours": 1,
+              "money": 20,
+              "materials": {
+                "paint": 3
+              },
+              "note": "Repair rather than erase the surface."
+            },
+            {
+              "id": "apply",
+              "name": "Apply Warm clay",
+              "hours": 2,
+              "money": 65,
+              "materials": {
+                "paint": 5
+              },
+              "note": "Appearance changes without forcing a stat-optimal room."
+            },
+            {
+              "id": "cure",
+              "name": "Let the finish settle",
+              "hours": 1,
+              "money": 0,
+              "materials": {},
+              "note": "Complete a visible construction phase."
+            }
+          ],
+          "phaseMoney": 85,
+          "materialMoney": 80,
+          "totalMoney": 165,
+          "materials": {
+            "paint": 8
+          },
+          "hours": 5
+        }
+      }
+    }
+  },
+  "propertyEvidence": {
+    "id": "home_courtyard_1",
+    "ownerId": "player",
+    "tenantIds": [
+      "npc_001"
+    ],
+    "maintenanceReserve": 795.16,
+    "completedIntentionIds": [
+      "habitat_intention_00239"
+    ],
+    "requestIds": [
+      "stewardship_request_00242"
+    ],
+    "habitatRevision": 1,
+    "layoutHash": "7a1452eb",
+    "historyEntries": 11
+  },
+  "elapsedDays": 13,
+  "metrics": {
+    "day": 14,
+    "population": 24,
+    "residentialProperties": 14,
+    "occupiedProperties": 10,
+    "fullyVacantProperties": 4,
+    "availableHousingSlots": 10,
+    "occupancyRate": 71.4,
+    "furnitureObjects": 152,
+    "objectUpgradeLevels": 13,
+    "averageUpgradeLevel": 0.09,
+    "decorSignatureCount": 14,
+    "colorVariety": 12,
+    "furnitureTypeVariety": 21,
+    "npcWealthAverage": 2408,
+    "npcWealthSpread": 840,
+    "moves": 2,
+    "npcDecorActions": 27,
+    "npcUpgradeActions": 13,
+    "autonomousSocialEvents": 30,
+    "playerFriends": 0,
+    "playerMoney": 100090,
+    "playerOwnedProperties": 1,
+    "oldestPlayerObjectAge": 13,
+    "activeHouseholds": 0,
+    "pendingHouseholdProposals": 0,
+    "openHouseholdIssues": 0,
+    "sharedReserve": 0,
+    "householdAgreementRevision": 0,
+    "householdSeparations": 0,
+    "habitatRooms": 42,
+    "habitatDoors": 39,
+    "habitatProjectsPlanned": 3,
+    "habitatProjectsCompleted": 1,
+    "structuralChanges": 0,
+    "surfaceProjects": 1,
+    "utilityProjects": 0,
+    "habitatIntentionsActive": 10,
+    "stewardshipPendingPlayer": 0,
+    "stewardshipPendingExternal": 3,
+    "stewardshipCompleted": 1,
+    "stewardshipDeclined": 7,
+    "stewardshipWorking": 2,
+    "stewardshipEscrow": 539.47,
+    "stewardshipResidentSavings": 1136.4,
+    "stewardshipOwnerContributions": 108.44,
+    "stewardshipProjectPhases": 9,
+    "familyActiveUnits": 0,
+    "familyActiveDependents": 0,
+    "familyCareCoverage": 0,
+    "familyLifeStageTransitions": 0,
+    "communityInstitutions": 5,
+    "communityActiveMemberships": 21,
+    "communityWaitingMemberships": 0,
+    "communityOpenOpportunities": 6,
+    "communityAwaitingPlayer": 0,
+    "communityPlayerConnections": 0,
+    "communityMentorLinks": 7,
+    "communityActiveAdventures": 4,
+    "communityCompletedAdventures": 2,
+    "communityVisitsCompleted": 0,
+    "personalProjectsOpen": 0,
+    "personalProjectsCompleted": 0,
+    "personalProjectsReleased": 0,
+    "personalProjectCollaborationsPending": 0,
+    "npcPersonalProjectsOpen": 6,
+    "npcPersonalProjectsCompleted": 0,
+    "playerEnterprises": 0,
+    "playerPrivateEnterprises": 0,
+    "playerOccasionalEnterprises": 0,
+    "playerOpenEnterprises": 0,
+    "playerPausedEnterprises": 0,
+    "npcEnterprises": 2,
+    "localEconomyNeeds": 6,
+    "localEconomyHighestNeed": 93.8,
+    "commercialPremises": 4,
+    "vacantCommercialPremises": 3,
+    "enterpriseCustomersServed": 0,
+    "enterpriseRevenue": 0,
+    "enterpriseFlexibleServices": 0,
+    "activeEnterpriseSession": false,
+    "exteriorPlaces": 27,
+    "streetNetworkNodes": 71,
+    "streetNetworkEdges": 76,
+    "activeTravel": false,
+    "playerJourneys": 0,
+    "playerWalkingMinutes": 0,
+    "playerWalkingDistanceMeters": 0,
+    "npcRoutesObserved": 1004,
+    "streetMoments": 0,
+    "buildingShells": 26,
+    "multiStoreyBuildings": 4,
+    "buildingStoreys": 30,
+    "buildingWallEdges": 120,
+    "buildingWindows": 147,
+    "buildingStairs": 4,
+    "pendingFrontageRequests": 0,
+    "completedFrontageProjects": 0,
+    "trackedLivedBuildings": 6,
+    "currentPresenceSnapshots": 24,
+    "playerInsideBuilding": true,
+    "playerPresenceKind": "room",
+    "visibleCoPresentPeople": 3,
+    "exactCoPresentPeople": 0,
+    "privacyCoarsenedPeople": 3,
+    "activeIndoorMovement": false,
+    "indoorMovementsCompleted": 387,
+    "indoorStairUses": 24,
+    "pendingOrdinaryEncounters": 0,
+    "ordinaryEncountersOffered": 0,
+    "ordinaryEncountersDeclined": 0,
+    "indoorMovementCompressionAllowed": true,
+    "presenceGrantsAuthority": false,
+    "compulsoryGreetings": false,
+    "presenceSurveillance": false,
+    "minuteByMinutePresenceTax": false,
+    "facadeMaintenanceObligation": false,
+    "travelCompressionAllowed": true,
+    "walkingObligation": false,
+    "lifeCourseMode": "choice",
+    "agePressure": false
+  },
+  "validation": {
+    "ok": true,
+    "errors": []
+  }
+}

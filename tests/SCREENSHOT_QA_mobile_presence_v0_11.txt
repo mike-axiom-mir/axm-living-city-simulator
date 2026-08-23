@@ -1,0 +1,4 @@
+PASS screenshot group mobile-presence: captured 3 images
+- presence_onboarding_mobile.png
+- presence_upper_walkup_mobile.png
+- presence_encounter_mobile.png

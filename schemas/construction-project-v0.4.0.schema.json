@@ -1,0 +1,304 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.construction-project/v0.4.0",
+  "title": "AXM Construction Project v0.4.0",
+  "description": "A phased construction record shared by direct player work and authority-bound resident stewardship. Permission never skips resources, phases, or invariant validation.",
+  "type": "object",
+  "required": [
+    "id",
+    "schema",
+    "propertyId",
+    "creatorId",
+    "createdDay",
+    "createdHour",
+    "status",
+    "spec",
+    "summary",
+    "targetKey",
+    "authority",
+    "resourceMode",
+    "stewardshipIntentionId",
+    "stewardshipRequestId",
+    "layoutRevisionAtPlan",
+    "phaseIndex",
+    "phases",
+    "completedPhaseIds",
+    "spent",
+    "completedDay",
+    "failureReason",
+    "history"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema": {
+      "const": "axm.construction-project/v0.4.0"
+    },
+    "propertyId": {
+      "type": "string"
+    },
+    "creatorId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "active",
+        "completed",
+        "cancelled",
+        "failed"
+      ]
+    },
+    "spec": {
+      "type": "object",
+      "required": [
+        "type",
+        "target"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "partition",
+            "surface",
+            "utility",
+            "repair"
+          ]
+        },
+        "target": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "string"
+    },
+    "targetKey": {
+      "type": "string"
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "mode",
+        "householdId",
+        "proposalId",
+        "requestId",
+        "evidence"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "direct",
+            "approved_proposal",
+            "resident_stewardship"
+          ]
+        },
+        "householdId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "proposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {},
+        "requestId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "layoutRevisionAtPlan": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "phaseIndex": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "phases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "hours",
+          "money",
+          "materials",
+          "note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "money": {
+            "type": "number",
+            "minimum": 0
+          },
+          "materials": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "completedPhaseIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "spent": {
+      "type": "object",
+      "required": [
+        "money",
+        "materials"
+      ],
+      "properties": {
+        "money": {
+          "type": "number",
+          "minimum": 0
+        },
+        "materials": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "completedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "failureReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/historyEvent"
+      }
+    },
+    "resourceMode": {
+      "enum": [
+        "player_inventory",
+        "resident_escrow"
+      ]
+    },
+    "stewardshipIntentionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stewardshipRequestId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "historyEvent": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour",
+        "type",
+        "message"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "actorId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "actorIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "projectId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "causes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {}
+      },
+      "additionalProperties": true
+    }
+  }
+}

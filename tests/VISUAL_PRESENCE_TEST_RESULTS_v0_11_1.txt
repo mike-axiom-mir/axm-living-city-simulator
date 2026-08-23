@@ -1,0 +1,52 @@
+AXM LIVING CITY — ANIMATED PRESENCE v0.11.1
+VERIFICATION RESULT
+============================================================
+
+FOCUSED VISUAL-PRESENCE TESTS: 9/9 PASS
+- persistent room objects and lawful actor projection
+- scene derivation does not mutate the world or RNG
+- building scenes retain coarse private occupancy
+- street scenes use public evidence only
+- room fallback does not invent current presence
+- auto mode follows bounded presence state
+- user and device reduced-motion policy
+- v0.11.0 patch migration adds only visual/UI defaults
+- Living View markup exposes truth and motion controls
+
+INHERITED FOCUSED SUITES: 194/194 PASS
+TOTAL FOCUSED SUITES: 203/203 PASS
+
+FULL-WORLD TOWN STRESS: PASS
+- 12 deterministic towns × 365 days
+- 4,380 primary simulated days
+- 0 validation failures
+- same sealed v0.11 outcome metrics reproduced
+
+HOUSEHOLD STRESS: PASS
+- 8 worlds × 180 days
+- exact deterministic replay
+- 105 proposals; 91 accepted; 14 declined
+- 0 validation or object-loss failures
+
+LIVED-BUILDING STRESS: PASS
+- 8 worlds × 180 days, each replayed exactly
+- 41,413 completed indoor movements
+- 3,624 stair uses
+- 310 optional encounters passed without penalty
+- 0 validation or replay failures
+
+RASTER MOTION QA: PASS
+- Room, Building, and Street full-motion frame pairs changed pixels
+- Still frame pair was byte-identical
+- every draw preserved exact world serialization
+- frames visually inspected after render
+
+LIVE BROWSER QA FOR NEW VIEW: NOT CLAIMED
+- Python Playwright was unavailable
+- no Chromium executable was present
+- browser harness remains included for later execution
+- desktop/mobile CSS layout and live focus behavior remain UNKNOWN here
+
+OVERALL: PASS for completed deterministic, stress, and raster evidence.
+No browser pass is fabricated for the new eighteenth view.
+

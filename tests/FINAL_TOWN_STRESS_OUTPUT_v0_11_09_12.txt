@@ -1,0 +1,88 @@
+PASS AXM-STRESS-009: 365 days in 6.89s; moves 5; changed homes 11; indoor movements 11009.
+PASS AXM-STRESS-010: 365 days in 6.36s; moves 3; changed homes 11; indoor movements 8907.
+PASS AXM-STRESS-011: 365 days in 6.05s; moves 8; changed homes 12; indoor movements 8355.
+PASS AXM-STRESS-012: 365 days in 6.44s; moves 5; changed homes 11; indoor movements 8977.
+PASS multi-seed stress test: 4 deterministic towns × 365 days.
+{
+  "schema": "axm.living-city-sim.town-stress-results/v0.11.0",
+  "start": 8,
+  "seeds": 4,
+  "daysPerSeed": 365,
+  "totalSimulatedDays": 1460,
+  "rows": [
+    {
+      "seed": "AXM-STRESS-009",
+      "days": 365,
+      "elapsedSeconds": 6.89,
+      "moves": 5,
+      "decorActions": 402,
+      "upgradeActions": 758,
+      "signatures": 14,
+      "changedHomes": 11,
+      "npcWealthAverage": 22192,
+      "indoorMovementsCompleted": 11009,
+      "npcIndoorTransitions": 27196,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-STRESS-010",
+      "days": 365,
+      "elapsedSeconds": 6.36,
+      "moves": 3,
+      "decorActions": 361,
+      "upgradeActions": 818,
+      "signatures": 13,
+      "changedHomes": 11,
+      "npcWealthAverage": 21898,
+      "indoorMovementsCompleted": 8907,
+      "npcIndoorTransitions": 26990,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-STRESS-011",
+      "days": 365,
+      "elapsedSeconds": 6.05,
+      "moves": 8,
+      "decorActions": 380,
+      "upgradeActions": 805,
+      "signatures": 14,
+      "changedHomes": 12,
+      "npcWealthAverage": 21859,
+      "indoorMovementsCompleted": 8355,
+      "npcIndoorTransitions": 27054,
+      "validationErrors": 0
+    },
+    {
+      "seed": "AXM-STRESS-012",
+      "days": 365,
+      "elapsedSeconds": 6.44,
+      "moves": 5,
+      "decorActions": 358,
+      "upgradeActions": 845,
+      "signatures": 14,
+      "changedHomes": 11,
+      "npcWealthAverage": 22085,
+      "indoorMovementsCompleted": 8977,
+      "npcIndoorTransitions": 27062,
+      "validationErrors": 0
+    }
+  ],
+  "averages": {
+    "moves": 5.25,
+    "decorActions": 375.25,
+    "upgradeActions": 806.5,
+    "signatures": 13.75,
+    "changedHomes": 11.25,
+    "npcWealthAverage": 22008.5,
+    "indoorMovementsCompleted": 9312,
+    "npcIndoorTransitions": 27075.5
+  },
+  "minimums": {
+    "moves": 3,
+    "decorActions": 358,
+    "upgradeActions": 758,
+    "signatures": 13,
+    "changedHomes": 11
+  },
+  "validationFailures": 0
+}

@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.care-record/v0.5.0",
+  "title": "AXM Living City Care Record v0.5.0",
+  "description": "Daily attributable care evidence across player, autonomous partner, community support, environment, acceptance, refusal, and strain.",
+  "type": "object",
+  "required": [
+    "id",
+    "schema",
+    "familyUnitId",
+    "personId",
+    "day",
+    "requiredHours",
+    "playerHours",
+    "partnerHours",
+    "communityHours",
+    "cost",
+    "actions",
+    "needsMet",
+    "environmentSupport",
+    "strainAdded",
+    "finalized"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema": {
+      "const": "axm.living-city.care-record/v0.5.0"
+    },
+    "familyUnitId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "personId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "day": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "requiredHours": {
+      "type": "number",
+      "minimum": 0
+    },
+    "playerHours": {
+      "type": "number",
+      "minimum": 0
+    },
+    "partnerHours": {
+      "type": "number",
+      "minimum": 0
+    },
+    "communityHours": {
+      "type": "number",
+      "minimum": 0
+    },
+    "cost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "actionId",
+          "actorId",
+          "accepted",
+          "hours",
+          "cost"
+        ],
+        "properties": {
+          "actionId": {
+            "type": "string"
+          },
+          "actorId": {
+            "type": "string"
+          },
+          "accepted": {
+            "type": "boolean"
+          },
+          "hours": {
+            "type": "number",
+            "minimum": 0
+          },
+          "cost": {
+            "type": "number",
+            "minimum": 0
+          },
+          "evidence": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "needsMet": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "environmentSupport": {
+      "type": "number",
+      "minimum": 0
+    },
+    "strainAdded": {
+      "type": "number",
+      "minimum": 0
+    },
+    "finalized": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

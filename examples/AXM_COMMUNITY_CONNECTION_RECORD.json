@@ -1,0 +1,55 @@
+{
+  "schema": "axm.living-city.community-connection/v0.6.0",
+  "id": "community_connection_00225",
+  "personIds": [
+    "npc_001",
+    "player"
+  ],
+  "kind": "neighbor",
+  "mentorId": null,
+  "learnerId": null,
+  "warmth": 12,
+  "trust": 7,
+  "sharedActivities": 2,
+  "createdDay": 1,
+  "lastSharedDay": 4,
+  "status": "active",
+  "history": [
+    {
+      "id": "connection_history_00226",
+      "day": 1,
+      "hour": 7,
+      "type": "formed",
+      "message": "Player and Quin Mulder formed a neighbor connection.",
+      "causes": [
+        "explicit developer experiment"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "connection_history_00227",
+      "day": 1,
+      "hour": 7,
+      "type": "shared_activity",
+      "message": "A labeled connection was prepared for visit-boundary QA.",
+      "causes": [
+        "explicit developer experiment"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "connection_history_00343",
+      "day": 4,
+      "hour": 1,
+      "type": "shared_activity",
+      "message": "Player and Quin Mulder shared a casual visit with player.",
+      "causes": [
+        "explicit player participation",
+        "shared voluntary activity"
+      ],
+      "evidence": {
+        "opportunityId": "community_opportunity_00251"
+      }
+    }
+  ]
+}

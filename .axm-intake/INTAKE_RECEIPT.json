@@ -1,0 +1,51 @@
+{
+  "schema": "axm.living-city-simulator-local-intake/v1",
+  "generatedDate": "2026-08-23",
+  "status": "EXPERIMENTAL",
+  "repository": {
+    "kind": "STANDALONE_SIBLING_SIMULATOR",
+    "branch": "codex/living-city-simulator-intake-v0.11.3",
+    "workshopWorld": false,
+    "foundationMutation": false,
+    "mirrorRuntimeDependency": false
+  },
+  "source": {
+    "packageId": "AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3",
+    "version": "0.11.3",
+    "sourceZipSha256": "7378ec9dcf3214ed4e064b3327745c22c3341fab01f088c84ca71006eefc7541",
+    "standaloneHtmlSha256": "b370b381daaab7f39c0aaa25597f11a0fa54c5606cd3d86ce3ef81dfa7cc6c8d",
+    "sealedFiles": 626,
+    "declaredChecksums": 625,
+    "declaredChecksumsPass": true,
+    "suppliedSourceFilesChanged": false
+  },
+  "runtimeBoundary": {
+    "authoritativeModules": "src/core.js through src/presence.js",
+    "browserRole": "OPTIONAL_CLIENT",
+    "browserStorageAuthoritative": false,
+    "headlessNodeRuntime": "TEST",
+    "filesystemSaveAdapter": "TEST",
+    "mandatoryNetwork": false,
+    "mandatoryWorkshop": false,
+    "mandatoryMirror": false
+  },
+  "verification": {
+    "archivePathSafety": "PASS",
+    "archiveChecksumReplay": "PASS",
+    "sourceChecksumCommand": "node tools/verify_local_intake.js",
+    "sourceChecksumReplay": "PASS 625/625",
+    "headlessRuntimeIntakeTest": "PASS 13/13",
+    "suppliedFocusedSuite": "PASS 212/212",
+    "suppliedLongStressSuite": "NOT_RUN_BY_INTAKE",
+    "freshSchemaSuite": "NOT_RUN_BY_INTAKE",
+    "browserRenderClick": "NOT_RUN"
+  },
+  "authority": {
+    "localRepositoryCreated": true,
+    "committed": true,
+    "pushed": false,
+    "merged": false,
+    "promoted": false,
+    "canon": false
+  }
+}

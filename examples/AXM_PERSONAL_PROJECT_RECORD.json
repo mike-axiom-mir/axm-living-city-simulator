@@ -1,0 +1,430 @@
+{
+  "schema": "axm.living-city.personal-project/v0.7.0",
+  "id": "personal_project_00240",
+  "ownerId": "player",
+  "templateId": "restoration",
+  "type": "restoration",
+  "title": "The chair that keeps changing with me",
+  "meaning": "Preserve its old history, make it useful now, and leave room for what it may become later.",
+  "status": "completed",
+  "createdDay": 1,
+  "createdHour": 7,
+  "updatedDay": 3,
+  "pausedDay": null,
+  "completedDay": 3,
+  "releasedDay": null,
+  "archivedDay": null,
+  "noDeadline": true,
+  "noAgeGate": true,
+  "ageGate": null,
+  "lifeContext": {
+    "stageAtCreation": "young_adult",
+    "modeAtCreation": "choice",
+    "exactAgeRequired": false
+  },
+  "target": {
+    "kind": "object",
+    "objectId": "object_00132",
+    "objectCatalogId": "old_laptop",
+    "label": "Old Laptop",
+    "propertyId": "home_student",
+    "storedAtCreation": false,
+    "ownershipAtCreation": "player",
+    "provenance": "existing owned object selected without cloning or ownership transfer"
+  },
+  "tags": [
+    "repair",
+    "history",
+    "care",
+    "focus"
+  ],
+  "stageIndex": 3,
+  "chapters": [
+    {
+      "id": "listen",
+      "title": "Listen to the object first",
+      "description": "Inspect its condition and history before deciding what to change.",
+      "hours": 1,
+      "money": 0,
+      "materials": {},
+      "skillEffects": {
+        "focus": 0.5,
+        "repair": 0.25
+      },
+      "needEffects": {
+        "mood": 4,
+        "energy": -1
+      },
+      "objectEffects": {
+        "sentimental": 2
+      },
+      "status": "completed",
+      "completedDay": 1,
+      "completedHour": 8,
+      "contribution": {
+        "ownerHours": 1,
+        "collaboratorIds": [],
+        "materialSource": "player inventory",
+        "money": 0
+      }
+    },
+    {
+      "id": "repair",
+      "title": "Repair the part that limits its life",
+      "description": "Use real materials for a careful intervention instead of replacing the object.",
+      "hours": 3,
+      "money": 8,
+      "materials": {
+        "parts": 1,
+        "metal": 1
+      },
+      "skillEffects": {
+        "repair": 1.1,
+        "focus": 0.35
+      },
+      "needEffects": {
+        "mood": 6,
+        "energy": -5
+      },
+      "objectEffects": {
+        "condition": 18,
+        "sentimental": 3
+      },
+      "status": "completed",
+      "completedDay": 3,
+      "completedHour": 11,
+      "contribution": {
+        "ownerHours": 3,
+        "collaboratorIds": [],
+        "materialSource": "player inventory",
+        "money": 8
+      }
+    },
+    {
+      "id": "preserve",
+      "title": "Preserve its identity",
+      "description": "Finish the work while keeping the object recognizably itself.",
+      "hours": 2,
+      "money": 4,
+      "materials": {
+        "paint": 1
+      },
+      "skillEffects": {
+        "creativity": 0.7,
+        "repair": 0.45
+      },
+      "needEffects": {
+        "mood": 10,
+        "energy": -3
+      },
+      "objectEffects": {
+        "condition": 8,
+        "sentimental": 8
+      },
+      "status": "completed",
+      "completedDay": 3,
+      "completedHour": 13,
+      "contribution": {
+        "ownerHours": 2,
+        "collaboratorIds": [],
+        "materialSource": "player inventory",
+        "money": 4
+      }
+    }
+  ],
+  "collaboratorIds": [],
+  "collaborationRequests": [
+    {
+      "id": "project_collaboration_00251",
+      "personId": "npc_001",
+      "status": "declined",
+      "createdDay": 1,
+      "createdHour": 8,
+      "dueDay": 2,
+      "responseDay": 2,
+      "evidence": {
+        "score": 36.52,
+        "roll": 52.29,
+        "relationshipPenalty": 0,
+        "ownershipTransfer": false
+      }
+    }
+  ],
+  "reshapes": [
+    {
+      "title": "The chair that came with me",
+      "meaning": "Its history matters more than replacing it with the statistically newest object.",
+      "day": 1
+    }
+  ],
+  "evidence": {
+    "hoursWorked": 6,
+    "moneySpent": 12,
+    "materialsSpent": {
+      "parts": 1,
+      "metal": 1,
+      "paint": 1
+    },
+    "objectHistoryEntries": 3,
+    "collaboratorHours": 0
+  },
+  "history": [
+    {
+      "id": "project_event_00241",
+      "day": 1,
+      "hour": 7,
+      "type": "created",
+      "message": "Player opened “The chair that came with me” as an undated personal direction.",
+      "actorIds": [
+        "player"
+      ],
+      "chapterId": null,
+      "causes": [
+        "self-authored meaning",
+        "no age gate",
+        "no deadline"
+      ],
+      "evidence": {
+        "templateId": "restoration",
+        "target": {
+          "kind": "object",
+          "objectId": "object_00132",
+          "objectCatalogId": "old_laptop",
+          "label": "Old Laptop",
+          "propertyId": "home_student",
+          "storedAtCreation": false,
+          "ownershipAtCreation": "player",
+          "provenance": "existing owned object selected without cloning or ownership transfer"
+        },
+        "meaning": "Its history matters more than replacing it with the statistically newest object."
+      }
+    },
+    {
+      "id": "project_event_00244",
+      "day": 1,
+      "hour": 8,
+      "type": "chapter_completed",
+      "message": "Player completed “Listen to the object first” without creating a deadline for what comes next.",
+      "actorIds": [
+        "player"
+      ],
+      "chapterId": "listen",
+      "causes": [
+        "explicit project work",
+        "real time and resources",
+        "no age requirement"
+      ],
+      "evidence": {
+        "hours": 1,
+        "money": 0,
+        "materials": {},
+        "objectChange": {
+          "before": {
+            "condition": 41.96346,
+            "sentimental": 22
+          },
+          "after": {
+            "condition": 41.96346,
+            "sentimental": 24
+          }
+        }
+      }
+    },
+    {
+      "id": "project_event_00245",
+      "day": 1,
+      "hour": 8,
+      "type": "paused",
+      "message": "Player paused the project without losing progress, resources already used, mood, skill, or social standing.",
+      "actorIds": [
+        "player"
+      ],
+      "chapterId": null,
+      "causes": [
+        "explicit pause",
+        "rest and changing attention are valid"
+      ],
+      "evidence": {
+        "hiddenPenalty": false,
+        "playerStateBefore": {
+          "money": 5000,
+          "needs": {
+            "energy": 76.217,
+            "hunger": 70.753,
+            "hygiene": 65.565,
+            "mood": 68.18,
+            "social": 47.797
+          },
+          "skills": {
+            "focus": 6.5,
+            "social": 8,
+            "repair": 3.25,
+            "creativity": 7,
+            "cooking": 2
+          }
+        }
+      }
+    },
+    {
+      "id": "project_event_00246",
+      "day": 1,
+      "hour": 8,
+      "type": "resumed",
+      "message": "Player returned because the project felt worth returning to, not because a timer demanded it.",
+      "actorIds": [
+        "player"
+      ],
+      "chapterId": null,
+      "causes": [
+        "explicit return",
+        "no inactivity penalty"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "project_event_00247",
+      "day": 1,
+      "hour": 8,
+      "type": "reshaped",
+      "message": "The project became “The chair that keeps changing with me” without deleting its earlier direction or completed chapters.",
+      "actorIds": [
+        "player"
+      ],
+      "chapterId": null,
+      "causes": [
+        "explicit reinterpretation",
+        "history preserved"
+      ],
+      "evidence": {
+        "previous": {
+          "title": "The chair that came with me",
+          "meaning": "Its history matters more than replacing it with the statistically newest object.",
+          "day": 1
+        }
+      }
+    },
+    {
+      "id": "project_event_00252",
+      "day": 1,
+      "hour": 8,
+      "type": "collaboration_invited",
+      "message": "Player invited Lena Jacobs. Sending the invitation created no consent or shared ownership.",
+      "actorIds": [
+        "player",
+        "npc_001"
+      ],
+      "chapterId": null,
+      "causes": [
+        "explicit invitation",
+        "answer remains autonomous"
+      ],
+      "evidence": {
+        "requestId": "project_collaboration_00251"
+      }
+    },
+    {
+      "id": "project_event_00283",
+      "day": 2,
+      "hour": 0,
+      "type": "collaboration_declined",
+      "message": "Lena Jacobs declined the collaboration. No hidden relationship or progression penalty was added.",
+      "actorIds": [
+        "player",
+        "npc_001"
+      ],
+      "chapterId": null,
+      "causes": [
+        "autonomous refusal"
+      ],
+      "evidence": {
+        "score": 36.52,
+        "roll": 52.29,
+        "relationshipPenalty": 0,
+        "ownershipTransfer": false
+      }
+    },
+    {
+      "id": "project_event_00370",
+      "day": 3,
+      "hour": 11,
+      "type": "chapter_completed",
+      "message": "Player completed “Repair the part that limits its life” without creating a deadline for what comes next.",
+      "actorIds": [
+        "player"
+      ],
+      "chapterId": "repair",
+      "causes": [
+        "explicit project work",
+        "real time and resources",
+        "no age requirement"
+      ],
+      "evidence": {
+        "hours": 3,
+        "money": 8,
+        "materials": {
+          "parts": 1,
+          "metal": 1
+        },
+        "objectChange": {
+          "before": {
+            "condition": 40.09750800000015,
+            "sentimental": 24
+          },
+          "after": {
+            "condition": 58.09750800000015,
+            "sentimental": 27
+          }
+        }
+      }
+    },
+    {
+      "id": "project_event_00372",
+      "day": 3,
+      "hour": 13,
+      "type": "chapter_completed",
+      "message": "Player completed “Preserve its identity” without creating a deadline for what comes next.",
+      "actorIds": [
+        "player"
+      ],
+      "chapterId": "preserve",
+      "causes": [
+        "explicit project work",
+        "real time and resources",
+        "no age requirement"
+      ],
+      "evidence": {
+        "hours": 2,
+        "money": 4,
+        "materials": {
+          "paint": 1
+        },
+        "objectChange": {
+          "before": {
+            "condition": 58.02529200000015,
+            "sentimental": 27
+          },
+          "after": {
+            "condition": 66.02529200000015,
+            "sentimental": 35
+          }
+        }
+      }
+    },
+    {
+      "id": "project_event_00373",
+      "day": 3,
+      "hour": 13,
+      "type": "completed",
+      "message": "The chair that keeps changing with me became a completed piece of Player’s history. It did not unlock a compulsory next tier.",
+      "actorIds": [
+        "player"
+      ],
+      "chapterId": null,
+      "causes": [
+        "all chosen chapters lived",
+        "no productivity ladder"
+      ],
+      "evidence": null
+    }
+  ]
+}

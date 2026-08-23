@@ -1,0 +1,125 @@
+{
+  "schema": "axm.living-city-sim.lived-buildings-example-report/v0.11.0",
+  "seed": "AXM-LIVED-BUILDINGS-EXAMPLE-0110",
+  "generatedBy": "tools/generate_examples.js",
+  "accessEvidence": {
+    "propertyId": "home_rooftop",
+    "buildingId": "building_home_rooftop",
+    "hostId": "npc_022",
+    "grantId": "presence_access_000001",
+    "accessBasis": "accepted_presence_grant",
+    "authority": {
+      "tenancy": false,
+      "ownership": false,
+      "edit": false,
+      "storage": false,
+      "household": false,
+      "care": false,
+      "surveillance": false
+    }
+  },
+  "routeEvidence": {
+    "movementId": "indoor_movement_000003",
+    "modeStarted": "visible",
+    "remainingRouteCompressedByChoice": true,
+    "minutes": 4,
+    "steps": 4,
+    "stairSteps": 1,
+    "finalPresenceKind": "room",
+    "finalRoomId": "room_home_rooftop_001"
+  },
+  "refusalEvidence": {
+    "encounterId": "ordinary_encounter_000004",
+    "status": "declined",
+    "before": {
+      "time": {
+        "day": 1,
+        "hour": 7,
+        "minute": 2
+      },
+      "money": 220,
+      "needs": {
+        "energy": 78,
+        "hunger": 72,
+        "hygiene": 66,
+        "mood": 64,
+        "social": 48
+      },
+      "relationship": null
+    },
+    "after": {
+      "time": {
+        "day": 1,
+        "hour": 7,
+        "minute": 2
+      },
+      "money": 220,
+      "needs": {
+        "energy": 78,
+        "hunger": 72,
+        "hygiene": 66,
+        "mood": 64,
+        "social": 48
+      },
+      "relationship": null
+    },
+    "protectedStateEqual": true,
+    "noResponseRequired": true,
+    "noRelationshipPenalty": true,
+    "noWatchingReward": true,
+    "authority": {
+      "tenancy": false,
+      "ownership": false,
+      "edit": false,
+      "storage": false,
+      "household": false,
+      "care": false,
+      "surveillance": false
+    }
+  },
+  "privacyEvidence": {
+    "trackedPeople": 24,
+    "remotePrivateRoomIdsRetained": 0,
+    "surveillanceEnabled": false,
+    "minuteByMinuteTax": false
+  },
+  "choiceFirstEvidence": {
+    "agePressure": false,
+    "playerAgeBefore": 21,
+    "playerAgeAfter": 21,
+    "playerStageBefore": "young_adult",
+    "playerStageAfter": "young_adult"
+  },
+  "finalMetrics": {
+    "trackedBuildings": 6,
+    "presenceSnapshots": 24,
+    "presenceRecords": 2,
+    "playerInside": true,
+    "playerPresenceKind": "room",
+    "visiblePeople": 0,
+    "exactCoPresentPeople": 0,
+    "privacyCoarsenedPeople": 0,
+    "activeIndoorMovement": false,
+    "indoorMovements": 1,
+    "playerIndoorMovements": 2,
+    "playerVisibleIndoorMovements": 1,
+    "playerCompressedIndoorMovements": 0,
+    "npcIndoorTransitions": 0,
+    "stairUses": 1,
+    "encountersAwaiting": 0,
+    "pendingEncounters": 0,
+    "encountersOffered": 1,
+    "encountersAccepted": 0,
+    "encountersDeclined": 1,
+    "presenceCompressionAllowed": true,
+    "compressionAllowed": true,
+    "compulsoryGreetings": false,
+    "watchingReward": false,
+    "surveillance": false,
+    "minuteByMinuteTax": false
+  },
+  "validation": {
+    "ok": true,
+    "errors": []
+  }
+}

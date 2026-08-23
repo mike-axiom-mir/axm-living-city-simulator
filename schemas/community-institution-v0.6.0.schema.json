@@ -1,0 +1,267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.community-institution/v0.6.0",
+  "title": "AXM Living City Community Institution v0.6.0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "kind",
+    "placeId",
+    "capacity",
+    "tags",
+    "description",
+    "opening",
+    "status",
+    "members",
+    "mentorIds",
+    "foundedDay",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.community-institution/v0.6.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "placeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capacity": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "opening": {
+      "type": "object",
+      "required": [
+        "days",
+        "hour",
+        "closes"
+      ],
+      "properties": {
+        "days": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          },
+          "uniqueItems": true
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "closes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 24
+        }
+      },
+      "additionalProperties": true
+    },
+    "status": {
+      "const": "active"
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "personId",
+          "status",
+          "appliedDay",
+          "joinedDay",
+          "leftDay",
+          "participationCount",
+          "lastParticipationDay",
+          "reasons",
+          "seeded",
+          "history"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "personId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "active",
+              "waiting",
+              "left",
+              "withdrawn"
+            ]
+          },
+          "appliedDay": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "joinedDay": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "leftDay": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "participationCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "lastParticipationDay": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "seeded": {
+            "type": "boolean"
+          },
+          "history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "day",
+                "hour",
+                "type",
+                "message"
+              ],
+              "properties": {
+                "day": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "hour": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 23
+                },
+                "type": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "actorIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "causes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "mentorIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "foundedDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actorIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "causes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

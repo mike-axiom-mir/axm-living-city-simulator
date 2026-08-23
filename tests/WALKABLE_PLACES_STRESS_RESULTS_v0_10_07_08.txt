@@ -1,0 +1,22 @@
+AXM Living City — Walkable Places v0.9.0
+Deterministic walkable-place stress results
+
+Seeds: 2
+Days per seed: 180
+Deterministic executions: 4
+Primary simulated days: 360
+Resident routes recorded: 26712
+Player journeys: 12
+Player travel minutes: 90
+Player distance: 3498 m
+Resident route distance: 11820794 m
+
+Every world replayed to exact serialized equality.
+Every place retained a unique deterministic address and connected entrance.
+Every retained route resolved to existing people, places, nodes, and edges.
+Travel compression remained available; walking never became obligatory.
+Choice-first ages and life chapters remained stable.
+No validation failures were observed.
+
+AXM-WALKABLE-STRESS-07: 13383 resident routes; 6 player routes; 45 player minutes; 500 retained records.
+AXM-WALKABLE-STRESS-08: 13329 resident routes; 6 player routes; 45 player minutes; 500 retained records.

@@ -1,0 +1,34 @@
+AXM handoff-continuity receipt
+Recorded: 2026-08-22T02:35:19Z
+
+work line / turn / seat:
+AXM Living City / v0.11.3 Interior Feedback / working-chat steward
+
+verified facts (source and age):
+- v0.11.3 branches from the locally sealed v0.11.2 source; verified this session from the copied source tree.
+- Authoritative world schema remains v0.11.0; verified this session from code and manifests.
+- Focused suite is 212/212; verified this session by npm test.
+- All ten long stress commands passed; verified this session from completed command exits.
+- Seven action-echo pairs animate, Still is stable, and draw state is isolated; verified this session by deterministic raster hashes and visible inspection.
+- Browser-specific QA is unsealed because Python Playwright is absent; verified this session by direct harness attempt.
+- Fresh schema QA is unsealed because Python jsonschema is absent; verified this session by direct validator attempt.
+
+assumptions:
+- The local intake consumer can open a standard ZIP and a self-contained HTML file.
+- Stable v0.11.2 visual projection identifiers are preferable to a schema bump for optional backward-compatible feedback.
+
+open holds:
+- v0.12 authoritative active object-use scenes.
+- Live browser DOM, responsive, and keyboard-focus verification in a Playwright-capable runtime.
+- Fresh schema validation in a jsonschema-capable Python runtime.
+
+decisions carried as state:
+- Effect feedback is computed after ordinary completion and has no write-back path.
+- Older receipts remain unknown rather than receiving fabricated effect deltas.
+- Context filters may remove absurd suggestions without creating an optimal routine.
+- Earlier sealed source snapshots remain separate; v0.11.3 packaging is cumulative current source, not rewritten history.
+
+access reread: yes
+next cheapest step: run npm run qa:visuals-browser in a Playwright-capable local runtime, then implement one bounded v0.12 active scene behind explicit permission/privacy/parity gates.
+continuity seam: none
+raw sense material carried: false

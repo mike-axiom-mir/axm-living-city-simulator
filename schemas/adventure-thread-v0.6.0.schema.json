@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.adventure-thread/v0.6.0",
+  "title": "AXM Living City Adventure Thread v0.6.0",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "ownerId",
+    "templateId",
+    "title",
+    "theme",
+    "origin",
+    "meaning",
+    "tags",
+    "institutionId",
+    "originPlaceId",
+    "companionId",
+    "status",
+    "stageIndex",
+    "stages",
+    "createdDay",
+    "completedDay",
+    "releasedDay",
+    "noDeadline",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.adventure-thread/v0.6.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownerId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "templateId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "theme": {
+      "type": "string",
+      "minLength": 1
+    },
+    "origin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "meaning": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "institutionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "originPlaceId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "companionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "completed",
+        "released"
+      ]
+    },
+    "stageIndex": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description",
+          "durationHours",
+          "cost",
+          "skillEffects",
+          "needEffects",
+          "status",
+          "completedDay"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "durationHours": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "cost": {
+            "type": "number",
+            "minimum": 0
+          },
+          "skillEffects": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "needEffects": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "status": {
+            "enum": [
+              "open",
+              "completed"
+            ]
+          },
+          "completedDay": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "completedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "releasedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "noDeadline": {
+      "const": true
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actorIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "causes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

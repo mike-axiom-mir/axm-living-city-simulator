@@ -1,0 +1,125 @@
+{
+  "id": "place_lane_workroom",
+  "name": "Vacant Lane Workroom",
+  "x": 9,
+  "y": 8,
+  "w": 1,
+  "h": 1,
+  "color": "#7b6d5d",
+  "symbol": "LW",
+  "weeklyLease": 42,
+  "deposit": 84,
+  "utilityBase": 11,
+  "description": "A small street-level room with an honest window, one sink, and enough space for a very small direction.",
+  "schema": "axm.living-city.commercial-premise/v0.8.0",
+  "kind": "commercial",
+  "type": "commercial",
+  "ownerId": "town_commercial_trust",
+  "ownerLabel": "Town Commercial Trust",
+  "listedForLease": true,
+  "occupantEnterpriseId": null,
+  "condition": 77,
+  "maintenanceReserve": 447,
+  "history": [
+    {
+      "id": "premise_event_00001",
+      "day": 1,
+      "hour": 7,
+      "type": "foundation",
+      "message": "Vacant Lane Workroom entered the current town state as a real commercial room.",
+      "actorIds": [],
+      "enterpriseId": null,
+      "causes": [
+        "deterministic starting state"
+      ],
+      "evidence": {
+        "listedForLease": true,
+        "weeklyLease": 42
+      }
+    },
+    {
+      "id": "premise_event_00027",
+      "day": 1,
+      "hour": 10,
+      "type": "lease_started",
+      "message": "Keep-It-Going Table began using the room.",
+      "actorIds": [
+        "player"
+      ],
+      "enterpriseId": "enterprise_00019",
+      "causes": [
+        "signed in-simulation lease"
+      ],
+      "evidence": null
+    },
+    {
+      "id": "premise_event_00036",
+      "day": 1,
+      "hour": 13,
+      "type": "lease_ended",
+      "message": "Keep-It-Going Table released the room.",
+      "actorIds": [
+        "player"
+      ],
+      "enterpriseId": "enterprise_00019",
+      "causes": [
+        "chosen pause with room release"
+      ],
+      "evidence": {
+        "depositReturned": 84,
+        "conditionDeduction": 0
+      }
+    }
+  ],
+  "exterior": {
+    "schema": "axm.living-city.place-exterior/v0.9.0",
+    "placeId": "place_lane_workroom",
+    "address": {
+      "number": 377,
+      "streetName": "Old Lane",
+      "label": "377 Old Lane"
+    },
+    "streetId": "old_lane",
+    "entrance": {
+      "side": "south",
+      "position": {
+        "x": 9.5,
+        "y": 9
+      },
+      "access": "one low step",
+      "doorColor": "#6e8d74",
+      "publicWhenOpen": true,
+      "doorNodeId": "door_place_lane_workroom",
+      "accessNodeId": "street_old_lane_9_5"
+    },
+    "facade": {
+      "material": "weathered timber",
+      "windowStyle": "high workshop glass",
+      "windowCount": 3,
+      "roofline": "patched ridge",
+      "frontageType": "shopfront",
+      "signText": "Vacant Lane Workroom",
+      "signVisible": true
+    },
+    "source": {
+      "kind": "deterministic_map_derivation",
+      "seed": "AXM-LOCAL-ECONOMY-EXAMPLE-080",
+      "mapPosition": {
+        "x": 9,
+        "y": 8,
+        "w": 1,
+        "h": 1
+      }
+    },
+    "history": []
+  },
+  "shellRef": {
+    "buildingId": "building_place_lane_workroom",
+    "primaryStoreyId": "building_place_lane_workroom_s0_storey",
+    "storeyIds": [
+      "building_place_lane_workroom_s0_storey"
+    ],
+    "unitRouteNodeId": "building_place_lane_workroom_unit_place_lane_workroom",
+    "streetAccessNodeId": "building_place_lane_workroom_street_access_1"
+  }
+}

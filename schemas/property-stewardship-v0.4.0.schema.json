@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.property-stewardship/v0.4.0",
+  "title": "AXM Property Stewardship v0.4.0",
+  "description": "Property-level owner policy, request index, completed resident-intention index, and persistent stewardship history.",
+  "type": "object",
+  "required": [
+    "schema",
+    "policy",
+    "requestIds",
+    "completedIntentionIds",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.property-stewardship/v0.4.0"
+    },
+    "policy": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "ownerMode",
+        "responseDelayDays",
+        "generosity",
+        "alterationTolerance",
+        "repairPriority"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "ownerMode": {
+          "enum": [
+            "player_decides",
+            "external_policy"
+          ]
+        },
+        "responseDelayDays": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "generosity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "alterationTolerance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "repairPriority": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "requestIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "completedIntentionIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type",
+          "message"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string"
+          },
+          "evidence": {}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

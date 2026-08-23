@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.family-unit/v0.5.0",
+  "title": "AXM Living City Family Unit v0.5.0",
+  "description": "A family-continuity graph separate from adult household consent, preserving autonomous people, care plans, room boundaries, and history.",
+  "type": "object",
+  "required": [
+    "id",
+    "schema",
+    "status",
+    "linkedHouseholdId",
+    "homePropertyId",
+    "createdDay",
+    "createdHour",
+    "revision",
+    "members",
+    "carePlan",
+    "pendingArrival",
+    "pressure",
+    "roomAssignments",
+    "separation",
+    "history"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema": {
+      "const": "axm.living-city.family-unit/v0.5.0"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "continuing_separately",
+        "ended"
+      ]
+    },
+    "linkedHouseholdId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "homePropertyId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdHour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "members": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "personId",
+          "role",
+          "joinedDay",
+          "leftDay",
+          "agency"
+        ],
+        "properties": {
+          "personId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "enum": [
+              "adult_guardian",
+              "adult_partner",
+              "dependent",
+              "adult_child"
+            ]
+          },
+          "joinedDay": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "leftDay": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "agency": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "carePlan": {
+      "type": "object",
+      "required": [
+        "mode",
+        "playerTargetHours",
+        "partnerTargetHours",
+        "communitySupportAllowed",
+        "weeklyBudget",
+        "educationMode",
+        "lastAcceptedProposalId"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "balanced",
+            "player_leads",
+            "partner_leads",
+            "flexible"
+          ]
+        },
+        "playerTargetHours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "partnerTargetHours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "communitySupportAllowed": {
+          "type": "boolean"
+        },
+        "weeklyBudget": {
+          "type": "number",
+          "minimum": 0
+        },
+        "educationMode": {
+          "enum": [
+            "neighborhood_learning",
+            "home_project_mix",
+            "practical_apprenticeship"
+          ]
+        },
+        "lastAcceptedProposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "pendingArrival": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "pressure": {
+      "type": "object",
+      "required": [
+        "rollingUnmetHours",
+        "consecutiveStrainDays",
+        "lastDayRequired",
+        "lastDayProvided",
+        "lastDayCost",
+        "lastReviewDay"
+      ],
+      "properties": {
+        "rollingUnmetHours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "consecutiveStrainDays": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lastDayRequired": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lastDayProvided": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lastDayCost": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lastReviewDay": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "roomAssignments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "roomId",
+          "personId",
+          "kind",
+          "label",
+          "createdDay",
+          "provenance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "roomId": {
+            "type": "string"
+          },
+          "personId": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "dependent_private",
+              "dependent_shared",
+              "family_common"
+            ]
+          },
+          "label": {
+            "type": "string"
+          },
+          "createdDay": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "provenance": {
+            "type": "string"
+          },
+          "proposalId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "separation": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "familyRitual": {
+      "type": "object"
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}

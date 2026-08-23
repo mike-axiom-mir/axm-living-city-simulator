@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city-sim.business-proposal/v0.2.0",
+  "title": "Deferred Business Proposal Contract v0.2.0",
+  "description": "Research/design contract only. No business runtime consumes this schema in v0.2.0.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "ownerIds",
+    "propertyId",
+    "typeId",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "ownerIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "propertyId": {
+      "type": "string"
+    },
+    "typeId": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "proposal",
+        "forming",
+        "open",
+        "paused",
+        "closed"
+      ]
+    },
+    "employeeIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "agreementIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "history": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,2 @@
+PASS building-shell browser QA under v0.11: 17 views, two-storey shell, request, approval, phased completion, mobile overflow 0
+Captured 3 screenshots in /mnt/data/living_city_build_v0_11_work/AXM_LIVING_CITY_SIM_LIVED_BUILDINGS_v0_11_0/tests/output_v0_11_targeted

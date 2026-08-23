@@ -1,0 +1,65 @@
+{
+  "schema": "axm.living-city-sim.building-shells-example-report/v0.10.0",
+  "seed": "AXM-BUILDING-SHELLS-EXAMPLE-0100",
+  "generatedBy": "tools/generate_examples.js",
+  "shellEvidence": {
+    "buildings": 26,
+    "placeCount": 27,
+    "allPlacesAssignedOnce": true,
+    "apartmentBuildingId": "building_courtyard_walkup",
+    "apartmentStoreys": 2,
+    "apartmentStairs": 1,
+    "upperFloorRouteEdgeIds": [
+      "building_courtyard_walkup_route_002",
+      "building_courtyard_walkup_route_003",
+      "building_courtyard_walkup_route_005"
+    ],
+    "occupiedHouseBuildingId": "building_home_garden_1",
+    "shopBuildingId": "building_place_lane_workroom"
+  },
+  "authorityEvidence": {
+    "proposalId": "frontage_proposal_000027",
+    "authorId": "npc_006",
+    "propertyId": "home_garden_1",
+    "playerOwnerAfterExperiment": true,
+    "tenantPreservedAtTransfer": true,
+    "tenantPresentAfter60AutonomousDays": false,
+    "proposalStatus": "completed",
+    "noRelationshipPenalty": true,
+    "projectId": "frontage_project_000030",
+    "projectStatus": "completed",
+    "completedPhaseIds": [
+      "confirm_design",
+      "gather_materials",
+      "install_and_check"
+    ],
+    "finalWindowBoxes": true
+  },
+  "casualRealismEvidence": {
+    "facadeMaintenanceObligation": false,
+    "frontageDailyDecay": false,
+    "exteriorOptimizationScore": false,
+    "agePressure": false
+  },
+  "metrics": {
+    "buildings": 26,
+    "multiStoreyBuildings": 4,
+    "storeys": 30,
+    "wallEdges": 120,
+    "windows": 147,
+    "externalDoors": 26,
+    "stairs": 4,
+    "connectedPlaces": 27,
+    "pendingPlayerRequests": 0,
+    "proposals": 8,
+    "activeProjects": 1,
+    "completedProjects": 5,
+    "facadeMaintenanceObligation": false,
+    "frontageDailyDecay": false,
+    "optimizationScore": false
+  },
+  "validation": {
+    "ok": true,
+    "errors": []
+  }
+}

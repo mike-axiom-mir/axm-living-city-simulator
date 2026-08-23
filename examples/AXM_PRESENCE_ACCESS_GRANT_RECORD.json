@@ -1,0 +1,46 @@
+{
+  "schema": "axm.living-city.presence-access-grant/v0.11.0",
+  "id": "presence_access_000001",
+  "hostId": "npc_022",
+  "guestId": "player",
+  "placeId": "home_rooftop",
+  "status": "accepted",
+  "createdAt": {
+    "day": 1,
+    "hour": 7,
+    "minute": 0
+  },
+  "expiresAt": {
+    "day": 3,
+    "hour": 23,
+    "minute": 59
+  },
+  "purpose": "labeled_lived_building_qa",
+  "sharedRoomPurposes": [
+    "entry",
+    "living",
+    "kitchen",
+    "hobby",
+    "flexible"
+  ],
+  "authority": {
+    "tenancy": false,
+    "ownership": false,
+    "edit": false,
+    "storage": false,
+    "household": false,
+    "care": false,
+    "surveillance": false
+  },
+  "history": [
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 0
+      },
+      "type": "accepted",
+      "message": "A bounded visit access grant was recorded. It grants shared-space entry only."
+    }
+  ]
+}

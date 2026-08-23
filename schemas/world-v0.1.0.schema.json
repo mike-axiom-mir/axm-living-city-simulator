@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city-sim.world/v0.1.0",
+  "title": "AXM Living City Sim World v0.1.0 (legacy import)",
+  "description": "Legacy documentation schema accepted only through explicit migration. A v0.1 relationship label is never treated as proof of a v0.2 household consent agreement.",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "seed",
+    "rngState",
+    "idCounter",
+    "time",
+    "settings",
+    "player",
+    "people",
+    "places",
+    "ledger",
+    "tutorial",
+    "metrics",
+    "activeShift",
+    "ui",
+    "flags"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city-sim.world/v0.1.0"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "seed": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rngState": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "idCounter": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "time": {
+      "type": "object"
+    },
+    "map": {
+      "type": "object"
+    },
+    "settings": {
+      "type": "object"
+    },
+    "player": {
+      "type": "object"
+    },
+    "people": {
+      "type": "array"
+    },
+    "places": {
+      "type": "array"
+    },
+    "ledger": {
+      "type": "array"
+    },
+    "tutorial": {
+      "type": "object"
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "activeShift": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "ui": {
+      "type": "object"
+    },
+    "flags": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

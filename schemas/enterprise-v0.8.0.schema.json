@@ -1,0 +1,470 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.enterprise/v0.8.0",
+  "title": "AXM Living City Enterprise v0.8.0",
+  "description": "An optional player- or resident-authored local direction that may stay private, serve occasionally, use a real room, cooperate through bounded agreements, pause, pivot, or close without a failure label.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "ownerId",
+    "name",
+    "templateId",
+    "sourceProjectId",
+    "needId",
+    "path",
+    "status",
+    "purpose",
+    "createdDay",
+    "updatedDay",
+    "premiseId",
+    "pricing",
+    "schedule",
+    "funds",
+    "reserveTarget",
+    "reputation",
+    "equipment",
+    "collaboratorIds",
+    "workerIds",
+    "workOfferIds",
+    "sessionIds",
+    "currentSessionId",
+    "customerHistory",
+    "totals",
+    "optional",
+    "noAgeGate",
+    "ageGate",
+    "noGrowthRequirement",
+    "noFailureLabel",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.enterprise/v0.8.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ownerId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "templateId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceProjectId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "needId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "path": {
+      "enum": [
+        "private_hobby",
+        "occasional_service",
+        "tiny_enterprise",
+        "cooperative"
+      ]
+    },
+    "status": {
+      "enum": [
+        "private",
+        "occasional",
+        "open",
+        "paused",
+        "closed"
+      ]
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "createdDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "updatedDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "premiseId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pricing": {
+      "type": "object",
+      "required": [
+        "mode",
+        "basePrice"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "pay_what_fits",
+            "fixed_fair",
+            "free_exchange"
+          ]
+        },
+        "basePrice": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 500
+        }
+      },
+      "additionalProperties": false
+    },
+    "schedule": {
+      "type": "object",
+      "required": [
+        "openDays",
+        "startHour",
+        "durationHours",
+        "sessionsPerWeekCap"
+      ],
+      "properties": {
+        "openDays": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "uniqueItems": true
+        },
+        "startHour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "durationHours": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "sessionsPerWeekCap": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
+        }
+      },
+      "additionalProperties": true
+    },
+    "funds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "reserveTarget": {
+      "type": "number",
+      "minimum": 0
+    },
+    "reputation": {
+      "type": "object",
+      "required": [
+        "care",
+        "reliability",
+        "fit"
+      ],
+      "properties": {
+        "care": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "reliability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "fit": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "equipment": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "enterpriseId",
+          "ownerId"
+        ],
+        "properties": {
+          "schema": {
+            "const": "axm.living-city.enterprise-equipment/v0.8.0"
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "enterpriseId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ownerId": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "collaboratorIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "workerIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "workOfferIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "sessionIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "currentSessionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customerHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "personId",
+          "price",
+          "needId",
+          "fit",
+          "satisfaction",
+          "flexibleOrFree",
+          "reasons"
+        ],
+        "properties": {
+          "personId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0
+          },
+          "needId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fit": {
+            "type": "number"
+          },
+          "satisfaction": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "flexibleOrFree": {
+            "type": "boolean"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "totals": {
+      "type": "object",
+      "required": [
+        "sessions",
+        "customers",
+        "revenue",
+        "costs",
+        "wages",
+        "freeOrFlexibleServices",
+        "hours",
+        "pausedDays"
+      ],
+      "properties": {
+        "sessions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "customers": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "revenue": {
+          "type": "number",
+          "minimum": 0
+        },
+        "costs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "wages": {
+          "type": "number",
+          "minimum": 0
+        },
+        "freeOrFlexibleServices": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hours": {
+          "type": "number",
+          "minimum": 0
+        },
+        "pausedDays": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "optional": {
+      "const": true
+    },
+    "noAgeGate": {
+      "const": true
+    },
+    "ageGate": {
+      "type": "null"
+    },
+    "noGrowthRequirement": {
+      "const": true
+    },
+    "noFailureLabel": {
+      "const": true
+    },
+    "lease": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "pausedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "closedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "pausePremisePolicy": {
+      "enum": [
+        "none",
+        "kept_with_costs",
+        "released",
+        null
+      ]
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "hour",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "hour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string"
+          },
+          "actorId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "actorIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "customerIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "causes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

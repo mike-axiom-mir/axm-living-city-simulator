@@ -1,0 +1,42 @@
+{
+  "schema": "axm.living-city.place-exterior/v0.9.0",
+  "placeId": "home_student",
+  "address": {
+    "number": 117,
+    "streetName": "Canal Backwalk",
+    "label": "117 Canal Backwalk"
+  },
+  "streetId": "north_walk",
+  "entrance": {
+    "side": "south",
+    "position": {
+      "x": 2,
+      "y": 3
+    },
+    "access": "short ramp",
+    "doorColor": "#8f6b64",
+    "publicWhenOpen": false,
+    "doorNodeId": "door_home_student",
+    "accessNodeId": "street_north_walk_2"
+  },
+  "facade": {
+    "material": "painted plaster",
+    "windowStyle": "simple casement",
+    "windowCount": 6,
+    "roofline": "patched ridge",
+    "frontageType": "shared entry",
+    "signText": "117",
+    "signVisible": false
+  },
+  "source": {
+    "kind": "deterministic_map_derivation",
+    "seed": "AXM-WALKABLE-PLACES-EXAMPLE-090",
+    "mapPosition": {
+      "x": 1,
+      "y": 1,
+      "w": 2,
+      "h": 2
+    }
+  },
+  "history": []
+}

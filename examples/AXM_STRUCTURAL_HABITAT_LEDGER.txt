@@ -1,0 +1,32 @@
+# AXM Structural Habitat — Deterministic Construction Ledger
+Seed: AXM-STRUCTURAL-HABITAT-EXAMPLE
+Schema: axm.living-city-sim.world/v0.11.0
+Final simulation time: Tuesday, day 2 · 11:00
+Invariant status: PASS
+
+[Day 1, 07:00] [enterprise] Nika Hendriks began Nika's Reuse Nook. It may remain private, become occasional work, grow, pause, pivot, or close without being labeled a failed life path. | causes: optional enterprise choice; no age pressure
+[Day 1, 07:00] [enterprise] Cleo Jansen began Cleo's Practical Learning Table. It may remain private, become occasional work, grow, pause, pivot, or close without being labeled a failed life path. | causes: optional enterprise choice; no age pressure
+[Day 1, 07:00] [foundation] The living city began from a reproducible seed. Buildings are occupied by residents rather than waiting as player menu slots. | causes: seed:AXM-STRUCTURAL-HABITAT-EXAMPLE
+[Day 1, 07:00] [player] You begin in one room of the Canal Student House with a shared bathroom, a part-time job, and no direct control over anyone else. | causes: single-life starting rule
+[Day 1, 07:00] [research] A clearly labeled prototype grant was added for testing ownership and max-upgrade systems. It is not part of normal progression. | causes: explicit developer tool
+[Day 1, 07:00] [housing] Ari Smit moved from Brick End House to Courtyard Studio 2. | causes: explicit deterministic example preparation; real vacant capacity
+[Day 1, 07:00] [housing] Ayla Bos moved from Brick End House to Rooftop Walk-up. | causes: explicit deterministic example preparation; real vacant capacity
+[Day 1, 07:00] [housing] You purchased Brick End House. Existing residents stayed; ownership did not grant direct control over them. | causes: purchase price paid; no automatic displacement
+[Day 1, 07:00] [housing] You moved into your property at Brick End House without displacing anyone. | causes: owner occupancy; available capacity
+[Day 1, 07:00] [habitat] Night blue on Hobby room walls was added to Brick End House's construction queue for Player. | causes: phased construction; no silent structure rewrite
+[Day 1, 12:00] [habitat] Night blue on Hobby room walls completed at Brick End House through Player's recorded work. | causes: validated construction completion
+[Day 1, 12:00] [habitat] Water access for Work or Study Room was added to Brick End House's construction queue for Player. | causes: phased construction; no silent structure rewrite
+[Day 1, 18:00] [habitat] Water access for Work or Study Room completed at Brick End House through Player's recorded work. | causes: validated construction completion
+[Day 1, 18:00] [habitat] Waste access for Work or Study Room was added to Brick End House's construction queue for Player. | causes: phased construction; no silent structure rewrite
+[Day 2, 00:00] [stewardship] Ari Smit formed a habitat intention at Courtyard Studio 2: Plum limewash on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 46/100; preferred color family lilac
+[Day 2, 00:00] [stewardship] Gio Groen formed a habitat intention at Old Lane House 1: Soft white on Sleeping Room floor. | causes: Sleeping Room contains the strongest share of the resident's belongings; creativity 27/100; preferred color family white
+[Day 2, 00:00] [stewardship] Sam Visser formed a habitat intention at Small Garden Home: Small tile on Sleeping Room 1 walls. | causes: Sleeping Room 1 contains the strongest share of the resident's belongings; creativity 71/100; preferred color family sea
+[Day 2, 00:00] [stewardship] Ayla Bos formed a habitat intention at Rooftop Walk-up: Plum limewash on Kitchen floor. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 57/100; preferred color family lilac
+[Day 2, 00:00] [stewardship] Roos de Wit formed a habitat intention at Station Apartment A: Soft white on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 39/100; preferred color family cream
+[Day 2, 00:00] [stewardship] Wes Vermeer formed a habitat intention at Courtyard Studio 1: Warm clay on Kitchen walls. | causes: Kitchen contains the strongest share of the resident's belongings; creativity 33/100; preferred color family brick
+[Day 2, 00:00] [direction] Wes Vermeer began Wes Vermeer — Create something only you would make. It has no deadline, age gate, or hidden abandonment penalty. | causes: personal direction; meaning before optimization
+[Day 2, 00:00] [habitat] Waste access for Work or Study Room completed at Brick End House through Player's recorded work. | causes: validated construction completion
+[Day 2, 00:00] [habitat] Door at H:0:1 was added to Brick End House's construction queue for Player. | causes: phased construction; no silent structure rewrite
+[Day 2, 06:00] [habitat] Door at H:0:1 completed at Brick End House through Player's recorded work. | causes: validated construction completion
+[Day 2, 06:00] [habitat] Structural repair was added to Brick End House's construction queue for Player. | causes: phased construction; no silent structure rewrite
+[Day 2, 11:00] [habitat] Structural repair completed at Brick End House through Player's recorded work. | causes: validated construction completion

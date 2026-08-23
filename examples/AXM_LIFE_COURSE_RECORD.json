@@ -1,0 +1,15 @@
+{
+  "schema": "axm.living-city.life-course/v0.5.0",
+  "ageDays": 6534,
+  "ageYears": 17,
+  "stage": "teen",
+  "birthdayOffset": 277,
+  "stageEnteredDay": 1,
+  "chapterDays": 124,
+  "mode": "choice",
+  "agePressure": false,
+  "exactAgeVisible": false,
+  "transitionHistory": [],
+  "chapterChoiceHistory": [],
+  "provenance": "created in v0.5 and governed by the v0.7 choice-first life-course root"
+}

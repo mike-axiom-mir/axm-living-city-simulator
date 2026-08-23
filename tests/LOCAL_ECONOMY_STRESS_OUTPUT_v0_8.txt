@@ -1,0 +1,27 @@
+PASS AXM-ECONOMY-STRESS-01 · 3 directions · 143 sessions · 821 actual residents
+PASS AXM-ECONOMY-STRESS-02 · 6 directions · 142 sessions · 810 actual residents
+PASS AXM-ECONOMY-STRESS-03 · 5 directions · 129 sessions · 752 actual residents
+PASS AXM-ECONOMY-STRESS-04 · 2 directions · 124 sessions · 757 actual residents
+PASS AXM-ECONOMY-STRESS-05 · 5 directions · 163 sessions · 897 actual residents
+PASS AXM-ECONOMY-STRESS-06 · 5 directions · 139 sessions · 820 actual residents
+PASS AXM-ECONOMY-STRESS-07 · 3 directions · 123 sessions · 736 actual residents
+PASS AXM-ECONOMY-STRESS-08 · 3 directions · 141 sessions · 893 actual residents
+
+PASS 8/8 local-economy stress worlds; exact replay confirmed.
+{
+  "enterprises": 32,
+  "residentEnterprises": 32,
+  "privateDirections": 5,
+  "occasionalDirections": 19,
+  "openDirections": 8,
+  "pausedDirections": 0,
+  "closedDirections": 0,
+  "sessions": 1104,
+  "autonomousSessions": 1104,
+  "customers": 6486,
+  "flexibleOrFree": 16,
+  "revenue": 87534.13,
+  "costs": 28198.04,
+  "equipmentObjects": 38,
+  "needsServed": 6486
+}

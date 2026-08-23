@@ -1,0 +1,67 @@
+PASS AXM-HOUSEHOLD-STRESS-01 · revision 9 · proposals 14 · conflicts 9
+PASS AXM-HOUSEHOLD-STRESS-02 · revision 11 · proposals 13 · conflicts 10
+
+2/2 deterministic household worlds passed 180 simulated days each.
+{
+  "daysPerSeed": 180,
+  "seedStart": 1,
+  "seeds": 2,
+  "totals": {
+    "day": 371,
+    "agreementRevision": 20,
+    "sharedReserve": 336.74,
+    "proposals": 27,
+    "accepted": 22,
+    "declined": 5,
+    "counteroffers": 0,
+    "conflicts": 19,
+    "repairs": 16,
+    "relocations": 2,
+    "npcInitiatives": 21,
+    "objectCount": 32,
+    "acceptedIncoming": 16,
+    "declinedIncoming": 5,
+    "relocationPrompts": 2,
+    "repairAttempts": 24
+  },
+  "reports": [
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-01",
+      "day": 186,
+      "agreementRevision": 9,
+      "sharedReserve": 180.74,
+      "proposals": 14,
+      "accepted": 10,
+      "declined": 4,
+      "counteroffers": 0,
+      "conflicts": 9,
+      "repairs": 7,
+      "relocations": 1,
+      "npcInitiatives": 11,
+      "objectCount": 8,
+      "acceptedIncoming": 7,
+      "declinedIncoming": 4,
+      "relocationPrompts": 2,
+      "repairAttempts": 12
+    },
+    {
+      "seed": "AXM-HOUSEHOLD-STRESS-02",
+      "day": 185,
+      "agreementRevision": 11,
+      "sharedReserve": 156,
+      "proposals": 13,
+      "accepted": 12,
+      "declined": 1,
+      "counteroffers": 0,
+      "conflicts": 10,
+      "repairs": 9,
+      "relocations": 1,
+      "npcInitiatives": 10,
+      "objectCount": 24,
+      "acceptedIncoming": 9,
+      "declinedIncoming": 1,
+      "relocationPrompts": 0,
+      "repairAttempts": 12
+    }
+  ]
+}

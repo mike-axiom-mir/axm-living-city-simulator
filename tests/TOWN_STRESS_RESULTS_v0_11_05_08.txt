@@ -1,0 +1,15 @@
+AXM Living City Town Stress _v0_11_05_08
+Seeds: 4
+Days per seed: 365
+Total simulated days: 1460
+Validation failures: 0
+Average moves: 6
+Average décor actions: 368.25
+Average upgrades: 804.75
+Average changed homes: 11.25
+Average indoor movements: 10263.25
+
+AXM-STRESS-005: moves 6; décor 363; upgrades 799; changed homes 11; indoor 10594; 6.86s
+AXM-STRESS-006: moves 6; décor 407; upgrades 783; changed homes 12; indoor 10173; 6.67s
+AXM-STRESS-007: moves 8; décor 361; upgrades 808; changed homes 11; indoor 10743; 6.82s
+AXM-STRESS-008: moves 4; décor 342; upgrades 829; changed homes 11; indoor 9543; 6.42s

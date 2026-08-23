@@ -1,0 +1,56 @@
+{
+  "start": 1,
+  "end": 4,
+  "count": 4,
+  "daysPerSeed": 365,
+  "rows": [
+    {
+      "seed": "AXM-STRESS-001",
+      "moves": 5,
+      "decorActions": 349,
+      "upgradeActions": 823,
+      "signatures": 14,
+      "changedHomes": 10,
+      "npcWealthAverage": 21784,
+      "shellBuildings": 26,
+      "frontageProposals": 45,
+      "frontageProjects": 33
+    },
+    {
+      "seed": "AXM-STRESS-002",
+      "moves": 4,
+      "decorActions": 405,
+      "upgradeActions": 790,
+      "signatures": 14,
+      "changedHomes": 11,
+      "npcWealthAverage": 20375,
+      "shellBuildings": 26,
+      "frontageProposals": 48,
+      "frontageProjects": 27
+    },
+    {
+      "seed": "AXM-STRESS-003",
+      "moves": 2,
+      "decorActions": 409,
+      "upgradeActions": 781,
+      "signatures": 14,
+      "changedHomes": 11,
+      "npcWealthAverage": 21832,
+      "shellBuildings": 26,
+      "frontageProposals": 47,
+      "frontageProjects": 35
+    },
+    {
+      "seed": "AXM-STRESS-004",
+      "moves": 6,
+      "decorActions": 374,
+      "upgradeActions": 800,
+      "signatures": 14,
+      "changedHomes": 11,
+      "npcWealthAverage": 22204,
+      "shellBuildings": 26,
+      "frontageProposals": 50,
+      "frontageProjects": 30
+    }
+  ]
+}

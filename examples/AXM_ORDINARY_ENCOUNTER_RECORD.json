@@ -1,0 +1,59 @@
+{
+  "schema": "axm.living-city.ordinary-encounter/v0.11.0",
+  "id": "ordinary_encounter_000004",
+  "kind": "shared_landing",
+  "title": "Sharing the landing",
+  "text": "You briefly share the landing. Either person can continue without turning it into a social task.",
+  "actorIds": [
+    "player",
+    "npc_022"
+  ],
+  "placeId": "home_rooftop",
+  "buildingId": "building_home_rooftop",
+  "roomId": null,
+  "routeNodeId": "building_home_rooftop_landing_1",
+  "offeredAt": {
+    "day": 1,
+    "hour": 7,
+    "minute": 2
+  },
+  "status": "declined",
+  "response": "decline",
+  "resolvedAt": {
+    "day": 1,
+    "hour": 7,
+    "minute": 2
+  },
+  "noResponseRequired": true,
+  "noRelationshipPenalty": true,
+  "noWatchingReward": true,
+  "authority": {
+    "tenancy": false,
+    "ownership": false,
+    "edit": false,
+    "storage": false,
+    "household": false,
+    "care": false,
+    "surveillance": false
+  },
+  "history": [
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 2
+      },
+      "type": "offered",
+      "message": "A bounded ordinary encounter became available. Ignoring or declining it changes no relationship score."
+    },
+    {
+      "at": {
+        "day": 1,
+        "hour": 7,
+        "minute": 2
+      },
+      "type": "declined",
+      "message": "The encounter was declined without time, need, money, reputation, or relationship effects."
+    }
+  ]
+}

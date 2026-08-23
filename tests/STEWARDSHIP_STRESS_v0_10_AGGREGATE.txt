@@ -1,0 +1,45 @@
+AXM Living City v0.10 — Autonomous Stewardship Stress
+
+PASS: 8 deterministic stewardship worlds × 240 days, each run twice with exact serialized equality.
+
+The eight deterministic worlds were run as four completed two-seed commands to remain inside the external command window. Each seed was internally executed twice and required exact serialized equality.
+
+Totals:
+- activeAtEnd: 58
+- checkpoints: 104
+- completed: 322
+- cotenantApprovals: 822
+- cotenantDeclines: 269
+- days: 1920
+- declined: 337
+- externalApprovals: 372
+- externalDeclines: 137
+- failed: 16
+- formed: 755
+- materialsPurchased: 27986
+- objectCount: 3018
+- ownerContributions: 6307.69
+- ownerShareApprovals: 13
+- pendingObservedWithoutProject: 20
+- phases: 1328
+- playerApprovals: 18
+- playerDeclines: 2
+- projectsCompleted: 322
+- refunded: 24790.93
+- requests: 734
+- requestsApproved: 390
+- requestsDeclined: 337
+- resaleLoss: 488.4
+- residentSavings: 77839.53
+- tenantFundedApprovals: 5
+- withdrawn: 22
+
+Per-seed evidence:
+- AXM-STEWARDSHIP-STRESS-01: formed=85, completed=45, declined=31, phases=183, objects=389
+- AXM-STEWARDSHIP-STRESS-02: formed=90, completed=36, declined=42, phases=145, objects=365
+- AXM-STEWARDSHIP-STRESS-03: formed=98, completed=41, declined=44, phases=172, objects=370
+- AXM-STEWARDSHIP-STRESS-04: formed=94, completed=41, declined=46, phases=169, objects=371
+- AXM-STEWARDSHIP-STRESS-05: formed=96, completed=37, declined=44, phases=154, objects=387
+- AXM-STEWARDSHIP-STRESS-06: formed=94, completed=38, declined=41, phases=158, objects=372
+- AXM-STEWARDSHIP-STRESS-07: formed=98, completed=42, declined=46, phases=172, objects=373
+- AXM-STEWARDSHIP-STRESS-08: formed=100, completed=42, declined=43, phases=175, objects=391

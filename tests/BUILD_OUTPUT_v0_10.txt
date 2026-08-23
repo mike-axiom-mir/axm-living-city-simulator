@@ -1,0 +1,5 @@
+
+> axm-living-city-sim-building-shells@0.10.0 build
+> python3 tools/build_standalone.py
+
+Built /mnt/data/living_city_build_v0_10_work/AXM_LIVING_CITY_SIM_BUILDING_SHELLS_v0_10_0/standalone/AXM_LIVING_CITY_SIM_BUILDING_SHELLS_v0_10_0.html (1,226,299 bytes)

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city.local-need/v0.8.0",
+  "title": "AXM Living City Local Need v0.8.0",
+  "description": "An evidence-linked neighborhood need signal. It is not anonymous demand and does not guarantee a business opportunity.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "templateId",
+    "name",
+    "description",
+    "enterpriseTemplates",
+    "score",
+    "satisfaction",
+    "servedCount",
+    "freeOrFlexibleCount",
+    "updatedDay",
+    "evidence",
+    "history"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city.local-need/v0.8.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "templateId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "enterpriseTemplates": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "satisfaction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "servedCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "freeOrFlexibleCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "lastServedDay": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "updatedDay": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "score",
+        "personIds",
+        "evidenceCount",
+        "detail"
+      ],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "personIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "evidenceCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "detail": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "day",
+          "score",
+          "evidenceCount"
+        ],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "evidenceCount": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

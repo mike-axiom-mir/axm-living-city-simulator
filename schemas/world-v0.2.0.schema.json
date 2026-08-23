@@ -1,0 +1,842 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "axm.living-city-sim.world/v0.2.0",
+  "title": "AXM Living City Sim World v0.2.0",
+  "description": "Documentation schema for portable v0.2.0 saves. src/systems.js plus src/households.js remain authoritative for cross-record invariants and corruption rejection.",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "seed",
+    "rngState",
+    "idCounter",
+    "time",
+    "map",
+    "settings",
+    "player",
+    "people",
+    "places",
+    "households",
+    "householdProposals",
+    "householdIssues",
+    "ledger",
+    "tutorial",
+    "metrics",
+    "activeShift",
+    "ui",
+    "flags"
+  ],
+  "properties": {
+    "schema": {
+      "const": "axm.living-city-sim.world/v0.2.0"
+    },
+    "version": {
+      "const": "0.2.0"
+    },
+    "seed": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rngState": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "idCounter": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "time": {
+      "type": "object",
+      "required": [
+        "day",
+        "hour"
+      ],
+      "properties": {
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        }
+      },
+      "additionalProperties": true
+    },
+    "map": {
+      "type": "object"
+    },
+    "settings": {
+      "type": "object"
+    },
+    "player": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "homePropertyId",
+        "householdId",
+        "money",
+        "relationships",
+        "storedFurniture"
+      ],
+      "properties": {
+        "id": {
+          "const": "player"
+        },
+        "name": {
+          "type": "string"
+        },
+        "homePropertyId": {
+          "type": "string"
+        },
+        "householdId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "money": {
+          "type": "number"
+        },
+        "relationships": {
+          "type": "object"
+        },
+        "storedFurniture": {
+          "type": "array"
+        }
+      },
+      "additionalProperties": true
+    },
+    "people": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "homePropertyId",
+          "householdId",
+          "money",
+          "relationships",
+          "storedFurniture"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "homePropertyId": {
+            "type": "string"
+          },
+          "householdId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "money": {
+            "type": "number"
+          },
+          "relationships": {
+            "type": "object"
+          },
+          "storedFurniture": {
+            "type": "array"
+          },
+          "householdInitiativeCooldownUntil": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "places": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tenants": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ownerId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "furniture": {
+            "type": "array"
+          },
+          "rentBasis": {
+            "enum": [
+              "per_tenant",
+              "whole_property"
+            ]
+          },
+          "utilitiesIncluded": {
+            "type": "boolean"
+          },
+          "weeklyUtilityBase": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "households": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/household"
+      }
+    },
+    "householdProposals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/proposal"
+      }
+    },
+    "householdIssues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/issue"
+      }
+    },
+    "ledger": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/historyEvent"
+      }
+    },
+    "tutorial": {
+      "type": "object"
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "activeShift": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "ui": {
+      "type": "object"
+    },
+    "flags": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "historyEvent": {
+      "type": "object",
+      "required": [
+        "id",
+        "day",
+        "hour",
+        "type",
+        "message"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "actorIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "actorId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "proposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "issueId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "causes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {}
+      },
+      "additionalProperties": true
+    },
+    "zone": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "holderIds",
+        "rect"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "player_private",
+            "common",
+            "partner_private"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "holderIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "rect": {
+          "type": "object",
+          "required": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ],
+          "properties": {
+            "x": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "y": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "w": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "h": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "agreement": {
+      "type": "object",
+      "required": [
+        "commitment",
+        "finances",
+        "space",
+        "relocation",
+        "renovation",
+        "goals",
+        "dissolution"
+      ],
+      "properties": {
+        "commitment": {
+          "const": "partner"
+        },
+        "finances": {
+          "type": "object",
+          "required": [
+            "mode",
+            "shares",
+            "weeklyReserveTarget",
+            "personalAccountsRemainSeparate",
+            "sharedReserveRequiresMutualConsent"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "equal",
+                "income_weighted",
+                "player_covers_more",
+                "partner_covers_more",
+                "separate"
+              ]
+            },
+            "shares": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "weeklyReserveTarget": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 120
+            },
+            "personalAccountsRemainSeparate": {
+              "const": true
+            },
+            "sharedReserveRequiresMutualConsent": {
+              "const": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "space": {
+          "type": "object",
+          "required": [
+            "mode",
+            "editPolicy",
+            "zones"
+          ],
+          "properties": {
+            "mode": {
+              "enum": [
+                "mostly_shared",
+                "private_edges_shared_center",
+                "strong_private"
+              ]
+            },
+            "editPolicy": {
+              "const": "owner_or_accepted_proposal"
+            },
+            "zones": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/zone"
+              }
+            }
+          },
+          "additionalProperties": true
+        },
+        "relocation": {
+          "type": "object",
+          "required": [
+            "requiresUnanimousConsent",
+            "noUnilateralDisplacement"
+          ],
+          "properties": {
+            "requiresUnanimousConsent": {
+              "const": true
+            },
+            "noUnilateralDisplacement": {
+              "const": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "renovation": {
+          "type": "object",
+          "required": [
+            "partnerObjectsRequireOwnerConsent",
+            "commonChangesRequireAcceptedProposal"
+          ],
+          "properties": {
+            "partnerObjectsRequireOwnerConsent": {
+              "const": true
+            },
+            "commonChangesRequireAcceptedProposal": {
+              "const": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "target",
+              "progress",
+              "status"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "shared_safety_fund",
+                  "improve_home",
+                  "move_to_better_home",
+                  "protect_free_time"
+                ]
+              },
+              "target": {
+                "type": "number",
+                "minimum": 0
+              },
+              "progress": {
+                "type": "number",
+                "minimum": 0
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "complete",
+                  "replaced"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "dissolution": {
+          "type": "object",
+          "required": [
+            "exitIsUnilateral",
+            "noForcedEviction",
+            "reserveRule"
+          ],
+          "properties": {
+            "exitIsUnilateral": {
+              "const": true
+            },
+            "noForcedEviction": {
+              "const": true
+            },
+            "reserveRule": {
+              "const": "recorded_contributions_or_equal"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "household": {
+      "type": "object",
+      "required": [
+        "id",
+        "memberIds",
+        "status",
+        "homePropertyId",
+        "createdDay",
+        "createdHour",
+        "revision",
+        "agreement",
+        "sharedReserve",
+        "strain",
+        "unresolvedIssueIds",
+        "history"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "memberIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "active",
+            "ended"
+          ]
+        },
+        "homePropertyId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "createdHour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "agreement": {
+          "$ref": "#/$defs/agreement"
+        },
+        "sharedReserve": {
+          "type": "number",
+          "minimum": 0
+        },
+        "strain": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "unresolvedIssueIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "lastConflictDay": {
+          "type": "integer"
+        },
+        "lastReviewDay": {
+          "type": "integer"
+        },
+        "nextNpcInitiativeDay": {
+          "type": "integer"
+        },
+        "lastReserveWeek": {
+          "type": "integer"
+        },
+        "completedRelocations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "endedDay": {
+          "type": "integer"
+        },
+        "endedHour": {
+          "type": "integer"
+        },
+        "endMode": {
+          "type": "string"
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyEvent"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "proposal": {
+      "type": "object",
+      "required": [
+        "id",
+        "householdId",
+        "type",
+        "proposerId",
+        "recipientIds",
+        "status",
+        "terms",
+        "createdDay",
+        "createdHour",
+        "dueDay",
+        "expiresDay",
+        "history"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "householdId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "enum": [
+            "commitment",
+            "cohabitation",
+            "finance",
+            "space",
+            "relocation",
+            "goal",
+            "renovation"
+          ]
+        },
+        "proposerId": {
+          "type": "string"
+        },
+        "recipientIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "pending_npc",
+            "awaiting_player",
+            "accepted",
+            "implemented",
+            "countered",
+            "declined",
+            "withdrawn",
+            "expired",
+            "failed"
+          ]
+        },
+        "terms": {
+          "type": "object"
+        },
+        "parentProposalId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "createdHour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "dueDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "expiresDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "response": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyEvent"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "id",
+        "householdId",
+        "type",
+        "status",
+        "severity",
+        "createdDay",
+        "createdHour",
+        "resolvedDay",
+        "repairAttempts",
+        "message",
+        "history"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "householdId": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "money",
+            "space",
+            "style",
+            "time",
+            "independence"
+          ]
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "closed"
+          ]
+        },
+        "severity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "createdDay": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "createdHour": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        "resolvedDay": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "repairAttempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "message": {
+          "type": "string"
+        },
+        "evidence": {},
+        "history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyEvent"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

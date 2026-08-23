@@ -1,0 +1,4 @@
+PASS screenshot group mobile-directions: captured 3 images
+- directions_onboarding_mobile.png
+- directions_active_project_mobile.png
+- directions_life_context_mobile.png
