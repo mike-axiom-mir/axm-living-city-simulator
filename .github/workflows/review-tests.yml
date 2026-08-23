@@ -43,6 +43,9 @@ jobs:
       - name: Historical 1980-2026 era progression
         run: npm run test:historical-era
 
+      - name: Engineering e-waste and miniature robotica seed
+        run: npm run test:engineering-ewaste
+
       - name: Object-use affordances
         run: npm run test:object-use
 
