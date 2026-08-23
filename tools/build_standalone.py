@@ -16,6 +16,7 @@ for relative in [
     'src/item_interactions.js',
     'src/households.js',
     'src/habitats.js',
+    'src/housing_pressure.js',
     'src/object_use.js',
     'src/object_use_item_expansion.js',
     'src/object_use_audit.js',
