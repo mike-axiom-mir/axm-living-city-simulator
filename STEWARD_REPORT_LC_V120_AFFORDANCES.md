@@ -41,7 +41,7 @@ New variety includes:
 
 The expansion keeps the existing category model rather than creating a schema migration. Prices and stats intentionally overlap: cheap/secondhand, compact, expressive, durable and premium objects have different strengths rather than forming one universal best-item ladder.
 
-New obvious functional objects also join the existing object-use grammar:
+New obvious functional objects join the precise object-use grammar:
 
 - refurbished laptop / compact computer / handheld game system -> existing PC-play grounding where appropriate
 - refurbished laptop / compact computer -> existing study grounding
@@ -52,11 +52,19 @@ No new reward path is introduced.
 
 Existing saves and starter rooms are **not silently repopulated** with the new catalogue. Existing object IDs and histories stay intact; the added items become available through the normal catalogue/runtime paths and can be used by future systems without rewriting old world state.
 
+## Steward correction: visual classifier tweak rejected
+
+After the green item-expansion run, a follow-up attempt was made to classify additional item IDs inside the older Living View visual grammar. Cross-checking immediately showed this was unsafe: the legacy visual quick-action grammar treats any `screen` broadly, so classifying a TV or handheld game device as a generic screen could accidentally present it as a study or creative computer.
+
+That follow-up edit also touched a large source file through a replacement path that was not sufficiently narrow. Rather than keep or manually reconstruct it, the branch restores the **exact previously verified `src/visuals.js` blob** by its Git object SHA. The rejected visual-classifier experiment is not part of the intended result.
+
+Functional meaning for the new items therefore stays in the more precise `ObjectUse` extension instead of broadening the old visual classifier.
+
 ## Verification
 
 Review CI is part of this branch. It first exposed and helped repair an audit-modeling bug rather than hiding it.
 
-Latest verified source run: **Living City review tests #26** on branch head `6ed793942f3d21e34529b905f1e600599b168433`.
+Verified item-expansion source run: **Living City review tests #26** on `6ed793942f3d21e34529b905f1e600599b168433`.
 
 PASS:
 
@@ -67,6 +75,8 @@ PASS:
 - complete focused simulation suite: **230/230 tests**
 - standalone one-file build smoke: **PASS**
 - verified generated standalone size: **1,445,280 bytes**
+
+A documentation-only report commit then passed the same branch-head CI gates before the rejected visual-classifier experiment. After the exact visual blob restore, require the final branch-head CI receipt before merge; do not infer it from the earlier green run.
 
 Browser render/click verification remains a separate check and is not inferred from Node/build checks.
 
@@ -81,6 +91,7 @@ Browser render/click verification remains a separate check and is not inferred f
 - no scene-driven animation yet
 - no world-schema migration
 - no automatic replacement or injection of objects into existing saves
+- no broad legacy visual-classifier expansion for the new item types
 - no rewrite of sealed v0.11.3 intake checksums
 - no release, promotion, merge, or CANON decision
 
