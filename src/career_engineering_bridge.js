@@ -21,6 +21,10 @@
     const original = Engineering[name];
     if (typeof original !== 'function') return null;
     return function careerAwareEngineeringAction(world, ...args) {
+      // This is an explicit engineering mutation, so installing missing current
+      // career state is allowed. An unknown/future career schema must refuse
+      // before the engineering backend changes time, money, parts or lots.
+      Career.ensureState(world);
       const before = Career.skillSnapshot(world.player);
       const result = original.call(Engineering, world, ...args);
       if (result?.ok) {
@@ -47,6 +51,7 @@
     sourceSchema: Engineering.SCHEMA,
     careerSchema: Career.SCHEMA,
     recordsSkillEvidenceOnly: true,
-    addsNoEngineeringReward: true
+    addsNoEngineeringReward: true,
+    refusesUnknownCareerSchemaBeforeEngineeringMutation: true
   });
 }(typeof window !== 'undefined' ? window : globalThis));
