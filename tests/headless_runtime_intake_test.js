@@ -26,6 +26,15 @@ try {
   check(typeof globalThis.document === 'undefined', 'runtime does not require or create document');
   check(typeof globalThis.localStorage === 'undefined', 'runtime does not require or create localStorage');
 
+  const headlessHome = first.axm.World.homeOf(first.world, 'player');
+  const headlessRoom = headlessHome?.habitat?.rooms?.find((entry) => entry.purpose === 'sleep') || headlessHome?.habitat?.rooms?.[0];
+  const beforeProjection = first.serialize();
+  const affordances = headlessHome && headlessRoom
+    ? first.axm.ObjectUse.affordancesForRoom(first.world, headlessHome.id, headlessRoom.id, 'player')
+    : null;
+  check(Boolean(affordances) && first.axm.ObjectUse.validateProjection(first.world, affordances).ok, 'headless runtime exposes a valid object-use affordance projection');
+  check(first.serialize() === beforeProjection, 'headless object-use inspection does not mutate authoritative world state');
+
   const initialFile = path.join(tempRoot, 'initial.json');
   SaveStore.writeNewSave(initialFile, first.serialize());
   check(fs.existsSync(initialFile), 'filesystem adapter writes an explicit save file');
