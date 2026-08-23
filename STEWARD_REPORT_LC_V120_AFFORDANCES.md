@@ -10,7 +10,35 @@ Review branch: `steward/lc-v120-object-use-affordances`
 
 ## Current steward result
 
-The review branch now combines grounded object-use, structural reachability auditing, a 24 -> 60 furniture catalogue expansion, increasingly Sims-like household object behavior, and a choice-driven furnishing rent pressure model. The authoritative world schema remains unchanged and existing saves are not silently repopulated.
+The review branch now combines grounded object-use, structural reachability auditing, a 24 -> 60 furniture catalogue expansion, increasingly Sims-like household object behavior, a choice-driven furnishing rent pressure model, and a compressed historical world timeline from **1980 through 2026**. The authoritative world schema remains unchanged and existing saves are not silently repopulated or stripped of objects.
+
+## Historical world progression — 1980 -> 2026
+
+The city now ages through historical eras while the ordinary life simulation keeps its playable day/week rhythm.
+
+- Day 1 begins in **1980**.
+- One simulation week advances the historical era by one year.
+- Day 323 reaches **2026**.
+- Historical progression stops at 2026 rather than inventing future technology.
+- Header time now exposes the current historical year and era label.
+- Eras are grouped as Analog Eighties, Digital Nineties, Connected 2000s, Mobile 2010s and Present Era.
+
+This is deliberately **world-era progression, not forced player aging**. Choice-based life chapters remain authoritative and historical time does not create an age countdown, deadline, death timer, or age-gated pressure.
+
+### Technology availability
+
+Most ordinary household furniture is available from 1980 onward. Era-sensitive technology enters later:
+
+- handheld game system: 1990
+- old laptop: 1995
+- refurbished laptop: 2000
+- fast computer: 2005
+- induction stove: 2005
+- compact computer: 2010
+
+A fresh 1980 world no longer starts with the anachronistic old laptop; that starter object is generated as a music player instead while keeping the six-object starter footprint. This adjustment happens only during new-world generation.
+
+Existing saves and already-owned future-tech objects are preserved. The era layer does **not** delete, downgrade or silently rewrite existing objects; it only controls new-world starting context and new purchases. By 2026 all 60 catalogue items are available.
 
 ## Functional household objects
 
@@ -75,6 +103,7 @@ Successful precise object use can add real `usageHours`, a small bounded sentime
 - exact object approaches remain reachability-audited;
 - room permission evidence remains separate from object ownership;
 - visual feedback remains reward-neutral;
+- historical progression does not grant life-course authority;
 - no active-scene state is fabricated yet.
 
 ## Steward corrections retained
@@ -90,7 +119,7 @@ Issues found during stewardship remain visible rather than hidden:
 
 ## Verification
 
-The runtime/content state was verified green by **Living City review tests #100**; subsequent commits are receipt-only documentation updates.
+The historical runtime/content state was verified green by **Living City review tests #120**; this commit only updates the steward receipt.
 
 Verified gates:
 
@@ -98,16 +127,19 @@ Verified gates:
 - expanded 60-item catalogue: **6/6**
 - deep household item interactions: **14/14**
 - furnishing rent pressure + no passive decay: **9/9**
+- historical 1980-2026 era progression: **9/9**
 - object-use affordances: **6/6**
 - object-use reachability / permission audit: **6/6**
-- complete focused simulation suite: **253/253**
+- complete focused simulation suite: **262/262**
 - standalone one-file build smoke: **PASS**
-- measured standalone size: **1,474,146 bytes**
+- measured standalone size: **1,480,077 bytes**
 
 Browser render/click QA remains a separate visual check and is not inferred from Node/build receipts.
 
 ## Still held for later
 
+- historical visual styling changes by decade
+- broader decade-specific economy / culture / vehicle / media content
 - authoritative active scene state
 - interruption / resume
 - autonomous resident object-use
