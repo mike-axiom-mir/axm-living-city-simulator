@@ -13,6 +13,7 @@ for relative in [
     'src/content_expansion.js',
     'src/world.js',
     'src/systems.js',
+    'src/item_interactions.js',
     'src/households.js',
     'src/habitats.js',
     'src/object_use.js',
@@ -27,6 +28,7 @@ for relative in [
     'src/shells.js',
     'src/presence.js',
     'src/visuals.js',
+    'src/item_visual_interactions.js',
     'src/game.js',
     'src/ui.js',
 ]:
