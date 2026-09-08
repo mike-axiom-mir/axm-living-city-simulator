@@ -3,7 +3,7 @@
   "version": "0.11.3",
   "private": true,
   "description": "Casual-realism deterministic local-first one-character life simulation with lawful presence, playable animated interiors, factual activity feedback, and reward-neutral room, shell, and street visuals.",
-  "license": "CC0-1.0",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "python3 tools/build_standalone.py",
     "examples": "node tools/generate_examples.js",
