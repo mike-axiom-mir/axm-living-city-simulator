@@ -53,3 +53,19 @@ Quality is often the accumulated result of many small correct details, not one l
 - Do not fragment working systems merely for ideology. Add granularity where it creates useful control, reuse, diagnosis, repair, or quality.
 
 **Working rule:** thousands of small good details and capabilities in the right places can improve a result more than one simple big upgrade.
+
+## Canonical state and adaptive realization principle
+
+This simulator already separates authoritative world state from UI/rendering; preserve and extend that separation when useful.
+
+- Canonical world state and simulation rules are authoritative. UI, browser pixels, meshes, lighting, audio, previews, and device-specific scenes are realizations.
+- Preserve expression intent when needed so world/design detail can survive lower-cost graphics.
+- Prefer one world body with bounded realization contracts over divergent mobile/desktop/lite/ultra world truths.
+- Choose realization from canonical state + expression intent + measured device capabilities + user policy; adaptation may happen at launch or dynamically.
+- A weak device should receive cheaper expression, **not weaker world truth**.
+- Never degrade rules, causality, data integrity, privacy, save semantics, or authoritative state to meet rendering budgets.
+- Never let a lossy client realization overwrite richer serialized canonical world state. Client projection/cache state is not authority.
+- Richer realizations may expose more detail already represented by intent/state; they may not invent canonical facts simply to look better.
+- Apply the split only where representation can honestly remain subordinate to simulation truth.
+
+**Working rule:** degrade expression, never truth; upgrade expression, never invent truth.
