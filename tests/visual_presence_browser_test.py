@@ -40,6 +40,33 @@ def main() -> int:
         assert page.locator('[data-action="visual-room"]').count() >= 3
         assert page.locator('[data-action="visual-activity"]').count() >= 1
 
+        # The 18-view rail is one roving tab stop, supports standard tab keys,
+        # and keeps its focus through deterministic simulation rerenders.
+        active_tab = page.locator('[role="tab"][aria-selected="true"]')
+        assert active_tab.get_attribute('data-id') == 'visuals'
+        active_tab.press('ArrowRight')
+        page.wait_for_timeout(100)
+        assert page.locator('[role="tab"][aria-selected="true"]').get_attribute('data-id') == 'life'
+        assert page.evaluate('() => document.activeElement?.dataset?.id') == 'life'
+        page.locator('[data-action="speed"][data-value="24"]').click()
+        page.wait_for_timeout(980)
+        assert page.evaluate('() => document.activeElement?.dataset?.value') == '24'
+        page.locator('[data-action="speed"][data-value="0"]').click()
+        page.locator('[role="tab"][data-id="life"]').press('Home')
+        page.wait_for_timeout(100)
+        assert page.locator('[role="tab"][aria-selected="true"]').get_attribute('data-id') == 'town'
+        page.locator('[role="tab"][data-id="town"]').press('End')
+        page.wait_for_timeout(100)
+        assert page.locator('[role="tab"][aria-selected="true"]').get_attribute('data-id') == 'lab'
+        page.evaluate('() => window.scrollTo(0, document.documentElement.scrollHeight)')
+        page.locator('[data-action="tab"][data-id="visuals"]').click()
+        page.wait_for_timeout(100)
+        assert page.locator('#active-view').evaluate('''(view) => {
+          const topbar = document.querySelector('.topbar').getBoundingClientRect();
+          const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
+          return Math.abs(view.getBoundingClientRect().top - (topbar.height + switcher.height)) <= 2;
+        }''')
+
         before_world = page.evaluate('() => JSON.stringify(window.AXM.Game.world)')
         frame_one = canvas_digest(page)
         page.wait_for_timeout(520)
