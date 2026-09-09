@@ -1,0 +1,75 @@
+name: Headless Package Capability
+
+on:
+  push:
+    branches:
+      - automation/capability-weaver-headless-package-v1
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  package-contract:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18', '22']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Existing and portable headless provider tests
+        run: |
+          node tests/headless_runtime_intake_test.js
+          node tests/headless_package_consumer_test.js
+      - name: Capability registry fail-closed tests
+        run: node --test tests/capability_registry.test.cjs
+      - name: Verify generated public capability evidence
+        run: node tools/generate-capability-registry.cjs --check
+      - name: Full existing deterministic regression suite
+        run: npm test
+
+  discovery-buddy-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Living City provider
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify provider package and registry before cross-repo scan
+        run: |
+          node tests/headless_package_consumer_test.js
+          node tools/generate-capability-registry.cjs --check
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check out pinned Discovery Buddy consumer
+        uses: actions/checkout@v4
+        with:
+          repository: mike-axiom-mir/axm-discovery-buddy
+          ref: 1a94fc2481d1cfc9234dea7c86af4777126d3924
+          path: .integration/discovery-buddy
+      - name: Prove Discovery Buddy consumes the exact public declaration
+        env:
+          PYTHONPATH: .integration/discovery-buddy
+        run: |
+          python -m discovery_buddy scan . --public --output-dir /tmp/axm-discovery
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('/tmp/axm-discovery/public-discovery.json').read_text('utf-8'))
+          assert data['summary']['repositories'] == 1, data['summary']
+          assert data['summary']['capability_records'] == 1, data['summary']
+          repo = data['repositories'][0]
+          assert repo['repo'] == 'mike-axiom-mir/axm-living-city-simulator', repo
+          sources = repo['capabilities']['sources']
+          assert any(s['path'] == 'registry/capabilities.jsonl' and s.get('errors', 0) == 0 and s.get('records') == 1 for s in sources), sources
+          rows = {row['id']: row for row in repo['capabilities']['records']}
+          row = rows['axm.living-city.headless-simulator.v1']
+          assert row['providers'] == ['axm-living-city-simulator'], row
+          assert row['provider_statuses'] == [{'id': 'axm-living-city-simulator', 'status': 'IMPLEMENTED_REFERENCE'}], row
+          print('Discovery Buddy consumed the Living City headless package declaration')
+          PY
