@@ -1,0 +1,30 @@
+{
+  "schema": "axm.capability-source/v1",
+  "id": "axm.living-city.headless-simulator.v1",
+  "name": "Living City deterministic headless simulator package seam",
+  "provider": "axm-living-city-simulator",
+  "status": "IMPLEMENTED_REFERENCE",
+  "authority": "NONE",
+  "interfaces": [
+    "package:axm-living-city-sim-interior-feedback",
+    "require:axm-living-city-sim-interior-feedback",
+    "require:axm-living-city-sim-interior-feedback/headless",
+    "require:axm-living-city-sim-interior-feedback/save-store",
+    "bin:axm-living-city"
+  ],
+  "source_paths": [
+    "runtime/headless-simulator.js",
+    "runtime/load-simulation.js",
+    "runtime/file-save-store.js",
+    "runtime/cli.js",
+    "package.json"
+  ],
+  "truth": {
+    "browser_required": false,
+    "package_is_public_registry_release": false,
+    "declaration_is_runtime_proof": false,
+    "execution_authority": "NONE",
+    "merge_authority": false,
+    "canon_authority": false
+  }
+}
