@@ -7,7 +7,7 @@
   "scripts": {
     "build": "python3 tools/build_standalone.py",
     "examples": "node tools/generate_examples.js",
-    "test": "node tests/simulation_smoke_test.js && node tests/household_agreement_test.js && node tests/habitat_engine_test.js && node tests/stewardship_engine_test.js && node tests/family_continuity_test.js && node tests/community_adventures_test.js && node tests/personal_directions_test.js && node tests/local_economy_test.js && node tests/walkable_places_test.js && node tests/building_shells_test.js && node tests/lived_buildings_test.js && node tests/visual_presence_test.js && node tests/playable_interiors_test.js",
+    "test": "node tests/simulation_smoke_test.js && node tests/household_agreement_test.js && node tests/habitat_engine_test.js && node tests/stewardship_engine_test.js && node tests/family_continuity_test.js && node tests/community_adventures_test.js && node tests/personal_directions_test.js && node tests/local_economy_test.js && node tests/walkable_places_test.js && node tests/building_shells_test.js && node tests/lived_buildings_test.js && node tests/visual_presence_test.js && node tests/playable_interiors_test.js && node tests/navigation_continuity_test.js",
     "test:foundation": "node tests/simulation_smoke_test.js",
     "test:households": "node tests/household_agreement_test.js",
     "test:stress": "node tests/multi_seed_stress_test.js",
