@@ -1,0 +1,34 @@
+name: Autosave recovery truth gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - automation/truth-sentinel-autosave-candidate-recovery-20260909
+
+permissions:
+  contents: read
+
+jobs:
+  autosave-candidate-recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Check changed runtime syntax
+        run: node --check src/game.js
+      - name: Verify autosave candidate recovery
+        run: node tests/autosave_candidate_recovery_test.js
+      - name: Verify current-save admission prerequisite
+        run: node tests/current_save_admission_test.js
+      - name: Verify headless runtime contract
+        run: node tests/headless_runtime_intake_test.js
+      - name: Run complete focused simulation suite
+        run: npm test
