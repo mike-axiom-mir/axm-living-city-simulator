@@ -20,6 +20,15 @@
     listeners: [],
     timer: null,
     initialized: false,
+    autosaveBaselineKnown: false,
+    autosaveBaseText: null,
+    autosaveConflict: null,
+
+    rememberAutosaveBaseline(text) {
+      this.autosaveBaselineKnown = true;
+      this.autosaveBaseText = text == null ? null : String(text);
+      this.autosaveConflict = null;
+    },
 
     init(options = {}) {
       if (this.initialized) return this.world;
@@ -194,7 +203,24 @@
     writeAutosave() {
       if (!this.world) return false;
       try {
-        root.localStorage?.setItem(STORAGE_KEY, Core.serializeWorld(this.world));
+        const storage = root.localStorage;
+        if (!storage) return false;
+        const observed = storage.getItem(STORAGE_KEY);
+        const staleObservedBaseline = this.autosaveBaselineKnown
+          ? observed !== this.autosaveBaseText
+          : observed !== null;
+        if (staleObservedBaseline) {
+          this.autosaveConflict = {
+            kind: 'stale-storage',
+            key: STORAGE_KEY,
+            baselineKnown: this.autosaveBaselineKnown
+          };
+          console.warn('Autosave refused: current local save changed since this session last observed it.');
+          return false;
+        }
+        const serialized = Core.serializeWorld(this.world);
+        storage.setItem(STORAGE_KEY, serialized);
+        this.rememberAutosaveBaseline(serialized);
         return true;
       } catch (error) {
         console.warn('Autosave unavailable:', error.message);
@@ -204,9 +230,20 @@
 
     readAutosave() {
       const candidates = [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS);
+      this.autosaveBaselineKnown = false;
+      this.autosaveBaseText = null;
+      this.autosaveConflict = null;
+      let currentObserved = null;
+      let currentObservedKnown = false;
       try {
+        const storage = root.localStorage;
+        if (!storage) return null;
         for (const key of candidates) {
-          const text = root.localStorage?.getItem(key);
+          const text = storage.getItem(key);
+          if (key === STORAGE_KEY) {
+            currentObserved = text == null ? null : String(text);
+            currentObservedKnown = true;
+          }
           if (!text) continue;
           try {
             const parsed = Core.parseWorld(text);
@@ -217,12 +254,23 @@
               console.warn(`Autosave ${key} rejected due to invariant errors:`, validation.errors);
               continue;
             }
-            if (sourceSchema !== Core.SCHEMA) root.localStorage?.setItem(STORAGE_KEY, Core.serializeWorld(world));
+            if (sourceSchema !== Core.SCHEMA) {
+              const promoted = Core.serializeWorld(world);
+              storage.setItem(STORAGE_KEY, promoted);
+              this.rememberAutosaveBaseline(promoted);
+            } else if (key === STORAGE_KEY) {
+              this.rememberAutosaveBaseline(text);
+            } else {
+              const promoted = Core.serializeWorld(world);
+              storage.setItem(STORAGE_KEY, promoted);
+              this.rememberAutosaveBaseline(promoted);
+            }
             return world;
           } catch (error) {
             console.warn(`Autosave ${key} rejected:`, error.message);
           }
         }
+        if (currentObservedKnown) this.rememberAutosaveBaseline(currentObserved);
         return null;
       } catch (error) {
         console.warn('Autosave storage unavailable:', error.message);
@@ -232,7 +280,9 @@
 
     clearAutosave() {
       try {
-        [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS).forEach((key) => root.localStorage?.removeItem(key));
+        const storage = root.localStorage;
+        [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS).forEach((key) => storage?.removeItem(key));
+        this.rememberAutosaveBaseline(null);
       } catch (error) {
         console.warn('Could not clear autosave:', error.message);
       }
