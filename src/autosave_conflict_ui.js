@@ -40,7 +40,7 @@
               <p style="margin:7px 0 0;color:var(--muted);max-width:920px;line-height:1.5">${view.body}</p>
             </div>
             <div class="pill-row" aria-label="Autosave conflict state">
-              <span class="pill warn">AUTOSAVE HELD</span>
+              <span class="pill warn">${view.autosaveEnabled ? 'AUTOSAVE HELD' : 'AUTOSAVE OFF'}</span>
               <span class="pill good">IN-MEMORY WORLD INTACT</span>
             </div>
           </div>
