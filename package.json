@@ -7,7 +7,7 @@
   "scripts": {
     "build": "python3 tools/build_standalone.py",
     "examples": "node tools/generate_examples.js",
-    "test": "node tests/simulation_smoke_test.js && node tests/household_agreement_test.js && node tests/habitat_engine_test.js && node tests/stewardship_engine_test.js && node tests/family_continuity_test.js && node tests/community_adventures_test.js && node tests/personal_directions_test.js && node tests/local_economy_test.js && node tests/walkable_places_test.js && node tests/building_shells_test.js && node tests/lived_buildings_test.js && node tests/content_catalog_expansion_test.js && node tests/item_interactions_test.js && node tests/housing_pressure_test.js && node tests/historical_era_test.js && node tests/engineering_ewaste_test.js && node tests/engineering_visuals_ui_test.js && node tests/career_skills_test.js && node tests/career_engineering_bridge_test.js && node tests/object_use_affordances_test.js && node tests/object_use_audit_test.js && node tests/visual_presence_test.js && node tests/playable_interiors_test.js",
+    "test": "node tests/identity_cursor_contract_test.js && node tests/simulation_smoke_test.js && node tests/household_agreement_test.js && node tests/habitat_engine_test.js && node tests/stewardship_engine_test.js && node tests/family_continuity_test.js && node tests/community_adventures_test.js && node tests/personal_directions_test.js && node tests/local_economy_test.js && node tests/walkable_places_test.js && node tests/building_shells_test.js && node tests/lived_buildings_test.js && node tests/content_catalog_expansion_test.js && node tests/item_interactions_test.js && node tests/housing_pressure_test.js && node tests/historical_era_test.js && node tests/engineering_ewaste_test.js && node tests/engineering_visuals_ui_test.js && node tests/career_skills_test.js && node tests/career_engineering_bridge_test.js && node tests/object_use_affordances_test.js && node tests/object_use_audit_test.js && node tests/visual_presence_test.js && node tests/playable_interiors_test.js",
     "test:foundation": "node tests/simulation_smoke_test.js",
     "test:households": "node tests/household_agreement_test.js",
     "test:stress": "node tests/multi_seed_stress_test.js",
@@ -47,7 +47,8 @@
     "test:object-use-audit": "node tests/object_use_audit_test.js",
     "test:visuals": "node tests/visual_presence_test.js",
     "test:interiors": "node tests/playable_interiors_test.js",
-    "qa:visuals-browser": "python3 tests/visual_presence_browser_test.py"
+    "qa:visuals-browser": "python3 tests/visual_presence_browser_test.py",
+    "test:identity": "node tests/identity_cursor_contract_test.js"
   },
   "engines": {
     "node": ">=18"

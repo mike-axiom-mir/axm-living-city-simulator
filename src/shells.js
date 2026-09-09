@@ -71,8 +71,7 @@
   }
 
   function shellUniqueId(world, prefix) {
-    world.shellIdCounter = (world.shellIdCounter || 0) + 1;
-    return `${prefix}_${String(world.shellIdCounter).padStart(6, '0')}`;
+    return Core.issueIdentity(world, 'shell', prefix);
   }
 
   function stamp(world) {

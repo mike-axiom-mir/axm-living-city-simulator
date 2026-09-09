@@ -99,6 +99,7 @@ class HeadlessSimulator {
       people: 1 + this.world.people.length,
       places: this.world.places.length,
       ledgerEntries: this.world.ledger.length,
+      identityCursors: this.axm.Core.identityCursorSummary(this.world),
       rngState: this.world.rngState,
       valid: validation.ok,
       validationErrors: validation.errors
