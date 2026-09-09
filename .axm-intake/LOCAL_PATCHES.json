@@ -1,0 +1,66 @@
+{
+  "schema": "axm.living-city-local-patches/v1",
+  "archiveChecksumIndexModified": false,
+  "checksumIndex": {
+    "path": "CHECKSUMS_SHA256.txt",
+    "sha256": "faf6eeece56b1a35c8edc1c636d2781ed094c2068632042e1d21826a56828235"
+  },
+  "patches": [
+    {
+      "index": "CHECKSUMS_SHA256.txt",
+      "path": "package.json",
+      "originalSha256": "8fd77c881bbd2ea88709992fdfee0633a77345cdc160e567791abb02f0f9aa0d",
+      "currentSha256": "23776b44c668a07ad822bffff096af84680aca55fa68d10885a47304dce7e4e3",
+      "reason": "Preserve the existing Apache-2.0 metadata repair and add the identity-cursor contract suite to the focused test surface."
+    },
+    {
+      "index": "CHECKSUMS_SHA256.txt",
+      "path": "src/core.js",
+      "originalSha256": "e9f70d6f85a78f470f5e8e5ecf83f0c7d298b9ea990ace5b0d9e4f3375cbab36",
+      "currentSha256": "94ee4be52f00966c5201d282c79a7d9a36670b3f649b82ebeb9c5e6a47ab7ad4",
+      "reason": "Add the explicit five-domain identity registry, deterministic allocator, cursor census, validation, and legacy reconciliation capability."
+    },
+    {
+      "index": "CHECKSUMS_SHA256.txt",
+      "path": "src/systems.js",
+      "originalSha256": "8aa1492392c6e71286a70b4c83d52659dbf1de4682bb833533b4bba4739e421d",
+      "currentSha256": "daab013c04590a4edfa03765cc5b3b1b4292de167533d62004c2801251529459",
+      "reason": "Preserve the stacked current-save admission gate, validate identity cursors, and reconcile legacy cursor floors before migration can issue records."
+    },
+    {
+      "index": "CHECKSUMS_SHA256.txt",
+      "path": "src/shells.js",
+      "originalSha256": "7c5733535ab0274ca983fe439613756907a9f7a135d2151d655e958ac613b0f6",
+      "currentSha256": "a5235d4344e21c792da1224620b789ec05db0b0328aa1098cbeed92fa17c4825",
+      "reason": "Route shell identity issuance through the shared registered allocator."
+    },
+    {
+      "index": "CHECKSUMS_SHA256.txt",
+      "path": "src/economy.js",
+      "originalSha256": "bd5f7e9d39b6bb5d0a0140313cb5c0b11ffbf9c60c8578b261c550458b204a96",
+      "currentSha256": "d716edb54c8b5a2edfd9c4986579a27387466f5b045652af777f7e4943278dab",
+      "reason": "Route economy identity issuance through the shared registered allocator."
+    },
+    {
+      "index": "CHECKSUMS_SHA256.txt",
+      "path": "src/exteriors.js",
+      "originalSha256": "2eb65e6c52563dddaf62958e92cd611dff9a9ba8c36b5fd062adf0628ab4a1ab",
+      "currentSha256": "e91813c9b146a88630560d16033d04fa60da84e88984d74e451bca7d9e64ba67",
+      "reason": "Route exterior identity issuance through the shared registered allocator."
+    },
+    {
+      "index": "CHECKSUMS_SHA256.txt",
+      "path": "src/presence.js",
+      "originalSha256": "047d542161649b1b2ae70b0daf76f5b9aad7abe391b40c516fedb8cf64e9c890",
+      "currentSha256": "9fe002bedfb1d5d6a39074916736fed88dd8fea3d782bc6003351ef90bdc7485",
+      "reason": "Route presence identity issuance through the shared registered allocator."
+    },
+    {
+      "index": "CHECKSUMS_SHA256.txt",
+      "path": "standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html",
+      "originalSha256": "b370b381daaab7f39c0aaa25597f11a0fa54c5606cd3d86ce3ef81dfa7cc6c8d",
+      "currentSha256": "1c1e139083faf64ea9c18a85a90d372c8ff0f903358f22b4233a6bd093bafc6b",
+      "reason": "Rebuild the offline standalone client from the shared authoritative identity-cursor sources."
+    }
+  ]
+}

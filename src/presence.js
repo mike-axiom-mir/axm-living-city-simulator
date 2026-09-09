@@ -87,8 +87,7 @@
   }
 
   function presenceUniqueId(world, prefix) {
-    world.presenceIdCounter = Math.max(0, Math.floor(Core.safeNumber(world.presenceIdCounter, 0))) + 1;
-    return `${prefix}_${String(world.presenceIdCounter).padStart(6, '0')}`;
+    return Core.issueIdentity(world, 'presence', prefix);
   }
 
   function personIds(world) {

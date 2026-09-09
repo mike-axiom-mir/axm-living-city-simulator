@@ -1,0 +1,25 @@
+AXM Living City identity-cursor lane receipt — 2026-09-09
+
+SCOPE
+One structural repair: make five persisted runtime identity cursors explicit, reusable, inspectable, and admission-validated.
+
+INVARIANTS EXERCISED
+- Current state with a cursor behind issued evidence is rejected without mutation.
+- Duplicate registered identities are diagnosed.
+- Legacy cursor floors are derived from preserved state before migration allocates.
+- Core, shell, economy, exterior, and presence allocations share one registry.
+- Cross-domain prefixes, invalid cursors, and exhausted sequence space fail closed.
+- Headless consumers can inspect cursor and issued-identity evidence.
+
+AUTHORITY
+This review lane is stacked on PR #2's exact current-save admission commit. It does not merge, promote, release, or claim CANON authority.
+
+EVIDENCE
+- Identity contract: 17/17 checks passed.
+- Current-save admission: 5/5 checks passed.
+- Headless runtime intake: 13/13 checks passed.
+- Full npm regression: 229/229 checks passed across 14 suites.
+- Local intake: 625 checksum rows verified; 8/8 exact local deviations verified; archive index unchanged.
+- Offline standalone rebuilt reproducibly: 1,416,562 bytes,
+  sha256 1c1e139083faf64ea9c18a85a90d372c8ff0f903358f22b4233a6bd093bafc6b.
+- Modified JavaScript syntax and git diff whitespace checks passed.
