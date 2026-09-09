@@ -203,25 +203,29 @@
     },
 
     readAutosave() {
+      const candidates = [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS);
       try {
-        const candidates = [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS);
         for (const key of candidates) {
           const text = root.localStorage?.getItem(key);
           if (!text) continue;
-          const parsed = Core.parseWorld(text);
-          const sourceSchema = parsed.schema;
-          const world = Systems.migrateWorld(parsed);
-          const validation = Systems.validateWorld(world);
-          if (!validation.ok) {
-            console.warn(`Autosave ${key} rejected due to invariant errors:`, validation.errors);
-            continue;
+          try {
+            const parsed = Core.parseWorld(text);
+            const sourceSchema = parsed.schema;
+            const world = Systems.migrateWorld(parsed);
+            const validation = Systems.validateWorld(world);
+            if (!validation.ok) {
+              console.warn(`Autosave ${key} rejected due to invariant errors:`, validation.errors);
+              continue;
+            }
+            if (sourceSchema !== Core.SCHEMA) root.localStorage?.setItem(STORAGE_KEY, Core.serializeWorld(world));
+            return world;
+          } catch (error) {
+            console.warn(`Autosave ${key} rejected:`, error.message);
           }
-          if (sourceSchema !== Core.SCHEMA) root.localStorage?.setItem(STORAGE_KEY, Core.serializeWorld(world));
-          return world;
         }
         return null;
       } catch (error) {
-        console.warn('Autosave could not be loaded:', error.message);
+        console.warn('Autosave storage unavailable:', error.message);
         return null;
       }
     },
