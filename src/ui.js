@@ -552,16 +552,28 @@
         : null;
       const needDeltas = observed ? Object.entries(observed.needs || {}) : [];
       const skillDeltas = observed ? Object.entries(observed.skills || {}) : [];
+      const actionPulseFacts = observed ? [
+        compactDuration(observed.timeMinutes || 0),
+        observed.moneyDelta ? `${observed.moneyDelta > 0 ? '+' : '−'}${Core.formatMoney(Math.abs(observed.moneyDelta))}` : 'Money unchanged',
+        observed.homeConditionDelta ? `Home ${signedDelta(observed.homeConditionDelta)}` : null,
+        observed.object ? Object.entries(observed.object)
+          .filter(([key]) => key !== 'id')
+          .map(([key, value]) => `${Core.titleCase(key)} ${signedDelta(value)}`)
+          .join(', ') : null,
+        ...needDeltas.map(([key, value]) => `${Core.titleCase(key)} ${signedDelta(value)}`),
+        ...skillDeltas.map(([key, value]) => `${Core.titleCase(key)} ${signedDelta(value)}`)
+      ].filter(Boolean) : [];
       const objectSummary = scene?.kind === 'room' ? scene.objects.slice(0, 16).map((object) => `
         <button class="visual-object-chip ${scene.selectedObjectId === object.id ? 'active' : ''}" data-action="visual-object" data-id="${escapeAttr(object.id)}" aria-pressed="${scene.selectedObjectId === object.id}">
           <span>${escapeHtml(object.name)}</span><small>${Math.round(object.condition)}%</small>
         </button>`).join('') : '';
-      return `
+      return `<div class="living-view-flow">
         <div class="view-title-row living-view-title">
           <div>
             <div class="brand-kicker">Playable interiors steward pass · v${Core.VERSION}</div>
             <h2>Start inside a room, look around, and choose what feels worth doing</h2>
-            <p>Browse your real rooms and objects, focus the scene, or complete a grounded activity through the existing simulation. Ambient motion stays atmosphere; a completed-moment echo appears only after the real activity engine has finished the action.</p>
+            <p class="living-intro-full">Browse your real rooms and objects, focus the scene, or complete a grounded activity through the existing simulation. Ambient motion stays atmosphere; a completed-moment echo appears only after the real activity engine has finished the action.</p>
+            <p class="living-intro-compact">Choose a real room and one grounded activity. The ordinary engine resolves it; the nearby receipt reports what actually changed.</p>
           </div>
           <div class="pill-row">
             <span class="pill good">Playable room choices</span>
@@ -595,6 +607,11 @@
           <aside class="stack">
             ${scene?.kind === 'room' ? `<section class="card visual-activity-card"><div class="card-inner stack">
               <div class="proposal-head"><div><h3>Things to do here</h3><p>These buttons use the real activity engine: time, money, needs, skills, routes, and consequences resolve exactly as they do in One Life.</p></div><span class="pill good">${activities.length} grounded</span></div>
+              <div class="visual-action-pulse ${observed ? 'recorded' : 'ready'}" role="status" aria-live="polite" aria-atomic="true">
+                <span>${observed ? 'Recorded' : 'Ready'}</span>
+                <strong>${escapeHtml(observed ? (moment?.label || 'Grounded activity completed') : `${scene.title} is ready`)}</strong>
+                <small>${escapeHtml(observed ? `${actionPulseFacts.join(' · ') || 'No bounded player or home values changed'} · Ordinary engine result; watching added nothing.` : 'Choose a grounded activity. Its exact result will stay here beside the same controls.')}</small>
+              </div>
               ${activities.length ? `<div class="visual-activity-list">${activities.map((activity) => {
                 const unaffordable = activity.cost > world.player.money;
                 return `<button class="visual-activity-button" data-action="visual-activity" data-id="${escapeAttr(activity.id)}" data-room="${escapeAttr(scene.roomId)}" data-object="${escapeAttr(activity.objectId || '')}" ${unaffordable ? 'disabled' : ''}>
@@ -651,7 +668,7 @@
             ${validation.ok ? '' : `<section class="card"><div class="card-inner"><h3>Scene held</h3><div class="history-list">${validation.errors.map((error) => `<div class="history-entry"><div class="message">${escapeHtml(error)}</div></div>`).join('')}</div></div></section>`}
           </aside>
         </div>
-      `;
+      </div>`;
     },
 
     renderBuildingShell(world, building) {

@@ -130,6 +130,13 @@ def main() -> int:
         overflow = mobile.evaluate('() => document.documentElement.scrollWidth - document.documentElement.clientWidth')
         assert overflow <= 1, f'Mobile horizontal overflow: {overflow}px'
         assert mobile.locator('#livingCanvas').count() == 1
+        activity_card = mobile.locator('.visual-activity-card')
+        stage_card = mobile.locator('.living-stage-card')
+        assert activity_card.bounding_box()['y'] < stage_card.bounding_box()['y']
+        first_action_box = activity_card.locator('[data-action="visual-activity"]').first.bounding_box()
+        assert first_action_box['y'] + first_action_box['height'] <= 915
+        assert activity_card.locator('.visual-action-pulse').get_attribute('aria-live') == 'polite'
+        assert mobile.locator('.toast').count() == 0, 'NPC setup leaked into the player notification channel.'
         mobile.screenshot(path=str(OUTPUT / 'living_view_mobile.png'), full_page=False)
         mobile.close()
 

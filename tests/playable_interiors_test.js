@@ -44,6 +44,7 @@ function sleepOption(world) {
 
 function testNewWorldStartsInsidePlayableLivingView() {
   const world = newWorld('INTERIOR-START');
+  assert.equal(world.ui.toast, null, 'Background town setup must not announce an NPC direction as player feedback.');
   assert.equal(world.ui.activeTab, 'visuals');
   assert.equal(world.ui.visualSceneMode, 'room');
   const scene = Visuals.sceneFor(world);
@@ -181,9 +182,19 @@ function testLivingViewMarkupExposesRoomPlayWithoutRewardPressure() {
   assert.match(html, /Focus a real object/);
   assert.match(html, /What actually changed/);
   assert.match(html, /Factual receipt/);
+  assert.match(html, /class="visual-action-pulse recorded" role="status" aria-live="polite" aria-atomic="true"/);
+  assert.match(html, /Ordinary engine result; watching added nothing/);
   assert.match(html, /Open in Build &amp; Home/);
   assert.match(html, /adds no bonus/i);
   assert.doesNotMatch(html, /daily streak/i);
+}
+
+function testLivingViewKeepsReadyFeedbackBesideTheAction() {
+  const world = newWorld('INTERIOR-ACTION-PULSE-READY');
+  sleepOption(world);
+  const html = UI.renderLivingVisuals(world);
+  assert.match(html, /class="visual-action-pulse ready" role="status"/);
+  assert.match(html, /Choose a grounded activity\. Its exact result will stay here beside the same controls\./);
 }
 
 const tests = [
@@ -195,7 +206,8 @@ const tests = [
   testInvalidRoomCannotCreateAVisualReceipt,
   testObjectFocusIsPresentationOnly,
   testPatchMigrationAddsNewUiDefaultsWithoutHistory,
-  testLivingViewMarkupExposesRoomPlayWithoutRewardPressure
+  testLivingViewMarkupExposesRoomPlayWithoutRewardPressure,
+  testLivingViewKeepsReadyFeedbackBesideTheAction
 ];
 
 for (const test of tests) test();
