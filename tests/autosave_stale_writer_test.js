@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const { HeadlessSimulator } = require('../runtime/headless-simulator');
 
 const CURRENT_KEY = 'axm.living-city-sim.autosave.v0.11.3';
+const LEGACY_KEY = 'axm.living-city-sim.autosave.v0.11.2';
 
 let checks = 0;
 function check(condition, message) {
@@ -114,12 +115,32 @@ try {
   }
 
   {
+    warnings.length = 0;
+    const observed = currentWorld('AXM-AUTOSAVE-CLEAR-OBSERVED');
+    const newer = currentWorld('AXM-AUTOSAVE-CLEAR-NEWER');
+    const legacy = currentWorld('AXM-AUTOSAVE-CLEAR-LEGACY');
+    const storage = createStorage({ [CURRENT_KEY]: observed, [LEGACY_KEY]: legacy });
+    globalThis.localStorage = storage;
+
+    Game.world = Game.readAutosave();
+    storage.setItem(CURRENT_KEY, newer);
+    const cleared = Game.clearAutosave();
+
+    check(cleared === false, 'a stale session refuses to clear local saves after the current slot changed');
+    check(storage.value(CURRENT_KEY) === newer, 'stale clear refusal preserves the newer current save exactly');
+    check(storage.value(LEGACY_KEY) === legacy, 'stale clear refusal performs no partial deletion of legacy recovery state');
+    check(Game.autosaveConflict?.kind === 'stale-storage', 'stale clear refusal preserves the shared stale-storage conflict contract');
+    check(warnings.some((line) => line.includes('clear refused')), 'stale clear refusal leaves an explicit diagnostic');
+  }
+
+  {
     const storage = createStorage({ [CURRENT_KEY]: currentWorld('AXM-AUTOSAVE-CLEAR') });
     globalThis.localStorage = storage;
     Game.world = Game.readAutosave();
-    Game.clearAutosave();
+    const cleared = Game.clearAutosave();
 
-    check(Game.autosaveBaselineKnown === true && Game.autosaveBaseText === null, 'explicit clear establishes an observed empty autosave baseline');
+    check(cleared === true, 'explicit clear succeeds when the current slot still matches this session baseline');
+    check(Game.autosaveBaselineKnown === true && Game.autosaveBaseText === null, 'successful explicit clear establishes an observed empty autosave baseline');
   }
 } finally {
   console.warn = originalWarn;
