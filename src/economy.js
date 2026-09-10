@@ -586,7 +586,10 @@
       }
     }
 
-    Systems.toast(world, `${enterprise.name} began as an optional direction.`, 'success');
+    // Starting-town businesses are background world facts. Announce a new
+    // direction only when it belongs to the directly controlled player; an
+    // NPC seed must not masquerade as the player's latest action.
+    if (ownerId === 'player') Systems.toast(world, `${enterprise.name} began as an optional direction.`, 'success');
     return { ok: true, enterprise };
   }
 
