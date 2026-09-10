@@ -281,13 +281,31 @@
     clearAutosave() {
       try {
         const storage = root.localStorage;
-        [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS).forEach((key) => storage?.removeItem(key));
+        if (!storage) return false;
+        const observed = storage.getItem(STORAGE_KEY);
+        const staleObservedBaseline = this.autosaveBaselineKnown
+          ? observed !== this.autosaveBaseText
+          : observed !== null;
+        if (staleObservedBaseline) {
+          this.autosaveConflict = {
+            kind: 'stale-storage',
+            key: STORAGE_KEY,
+            baselineKnown: this.autosaveBaselineKnown
+          };
+          console.warn('Autosave clear refused: current local save changed since this session last observed it.');
+          Systems.toast(this.world, 'Local autosave was not cleared because the stored save changed in another session. Current in-memory world remains open.', 'warning');
+          this.emit('autosave-clear-refused');
+          return false;
+        }
+        [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS).forEach((key) => storage.removeItem(key));
         this.rememberAutosaveBaseline(null);
       } catch (error) {
         console.warn('Could not clear autosave:', error.message);
+        return false;
       }
       Systems.toast(this.world, 'Local autosave cleared. Current in-memory world remains open.', 'info');
       this.emit('autosave-clear');
+      return true;
     },
 
     downloadText(filename, text, mime = 'text/plain') {
