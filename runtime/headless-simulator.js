@@ -53,6 +53,11 @@ class HeadlessSimulator {
     return this.axm.Core.serializeWorld(this.world);
   }
 
+  serializeCanonical() {
+    assertValid(this.axm, this.world, 'canonical world projection');
+    return this.axm.Core.serializeCanonicalWorld(this.world);
+  }
+
   advanceMinutes(minutes) {
     const count = positiveInteger(minutes, 'minutes', 525600);
     this.axm.Systems.advanceMinutes(this.world, count);

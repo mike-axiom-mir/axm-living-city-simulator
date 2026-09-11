@@ -19,10 +19,15 @@ const simulator = HeadlessSimulator.create({ seed: 'AXM-CANONICAL-PROJECTION' })
 const ordinarySave = simulator.serialize();
 const canonical = simulator.serializeCanonical();
 const projected = JSON.parse(canonical);
+const expectedProjection = JSON.parse(ordinarySave);
+delete expectedProjection.ui;
 
 check(Object.hasOwn(JSON.parse(ordinarySave), 'ui'), 'ordinary save compatibility retains UI state');
 check(!Object.hasOwn(projected, 'ui'), 'canonical projection excludes root UI realization state');
+check(JSON.stringify(projected) === JSON.stringify(expectedProjection), 'canonical projection removes no other world fields');
 check(projected.schema === simulator.world.schema, 'canonical projection retains the world schema');
+check(projected.settings && projected.settings.casualRealism === true, 'simulation policy settings remain canonical');
+check(simulator.serialize() === ordinarySave, 'projection does not mutate the live world or ordinary save');
 
 const beforeUiChange = simulator.serializeCanonical();
 simulator.world.ui.activeTab = 'home';

@@ -14,6 +14,9 @@ function usage() {
     'Inspect a world:',
     '  node runtime/cli.js inspect --in headless-saves/day-1.json',
     '',
+    'Project simulation truth without browser UI state:',
+    '  node runtime/cli.js canonical --in headless-saves/day-1.json > canonical-world.json',
+    '',
     'Advance deterministic time into a new checkpoint:',
     '  node runtime/cli.js step --in headless-saves/day-1.json --minutes 60 --out headless-saves/hour-1.json',
     '',
@@ -66,6 +69,13 @@ function main(argv) {
     if (!args.in) throw new Error('--in is required');
     const loaded = load(args.in);
     emit({ command: 'inspect', input: loaded.input.path, summary: loaded.simulator.summary() });
+    return;
+  }
+
+  if (args.command === 'canonical') {
+    if (!args.in) throw new Error('--in is required');
+    const loaded = load(args.in);
+    process.stdout.write(loaded.simulator.serializeCanonical() + '\n');
     return;
   }
 

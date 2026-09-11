@@ -22,12 +22,32 @@ format.
 
 - `node runtime/cli.js new --seed AXM-LIVING-CITY-001 --out headless-saves/day-1.json`
 - `node runtime/cli.js inspect --in headless-saves/day-1.json`
+- `node runtime/cli.js canonical --in headless-saves/day-1.json > canonical-world.json`
 - `node runtime/cli.js step --in headless-saves/day-1.json --minutes 60 --out headless-saves/hour-1.json`
 - `node runtime/cli.js observe --in headless-saves/hour-1.json --days 7 --out headless-saves/week-1.json`
 - `index.html` or the standalone HTML for the optional browser client
 
 Save commands refuse to overwrite an existing file. This preserves explicit
 state ancestry instead of silently replacing a prior checkpoint.
+
+## Canonical world projection
+
+`AXM.Core.projectCanonicalWorld()` and `serializeCanonicalWorld()` derive the
+simulation body by removing exactly the root `ui` realization state. The
+headless `canonical` command exposes the same deterministic bytes without a
+browser or AI. This replaces ad hoc deletion of selected tabs, objects, toasts,
+modals, render reasons, and visual receipts when a consumer needs to compare
+world truth.
+
+Ordinary `serializeWorld()` saves deliberately remain byte-compatible and
+continue to include `ui`. Every other root field, including settings that can
+change simulation policy, remains in the projection. A projected world can be
+loaded through the normal migration path, which reconstructs disposable UI
+defaults without changing the projected bytes.
+
+The projection is not a second save schema, a content signature, authorship
+proof, merge decision, or CANON designation. Consumers that need identity must
+hash the exact returned bytes and retain that expected identity separately.
 
 ## Honest limits
 
