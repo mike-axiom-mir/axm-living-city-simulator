@@ -25,6 +25,7 @@ for relative in [
     'src/visuals.js',
     'src/game.js',
     'src/ui.js',
+    'src/autosave_clear_recovery_ui.js',
 ]:
     scripts.append(f"\n/* ===== {relative} ===== */\n" + (ROOT / relative).read_text(encoding='utf-8'))
 

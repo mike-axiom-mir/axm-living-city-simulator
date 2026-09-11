@@ -42,3 +42,39 @@ jobs:
         if: matrix.node == 20
         continue-on-error: true
         run: node tools/verify_local_intake.js
+
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build exact offline standalone
+        run: python3 tools/build_standalone.py
+      - name: Install browser QA harness only
+        run: python3 -m pip install playwright==1.55.0
+      - name: Resolve bundled runner browser
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHROMIUM_EXECUTABLE=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          elif command -v google-chrome-stable >/dev/null 2>&1; then
+            echo "CHROMIUM_EXECUTABLE=$(command -v google-chrome-stable)" >> "$GITHUB_ENV"
+          elif command -v chromium >/dev/null 2>&1; then
+            echo "CHROMIUM_EXECUTABLE=$(command -v chromium)" >> "$GITHUB_ENV"
+          else
+            echo "No runner Chromium/Chrome executable found" >&2
+            exit 1
+          fi
+      - name: Exercise clear-recovery states in Chromium
+        run: python3 tests/autosave_clear_recovery_browser_test.py
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: autosave-clear-recovery-experience
+          path: |
+            artifacts/autosave-clear-*.png
+            artifacts/autosave-clear-recovery-evidence.json
+          if-no-files-found: warn
