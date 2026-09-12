@@ -1,0 +1,127 @@
+name: MergeAgent identity reconciliation
+
+on:
+  push:
+    branches:
+      - mergeagent/identity-reconcile-20260912
+    paths:
+      - .github/workflows/mergeagent-identity-reconcile.yml
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout reconciliation branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          ref: mergeagent/identity-reconcile-20260912
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+
+      - name: Reconcile exact identity commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin automation/identity-cursor-contract-20260909-1124
+
+          set +e
+          git cherry-pick 546a0bafdeaa73fcbb111779fa9a115cb705cea3
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ]; then
+            echo "Cherry-pick reported conflicts:"
+            git diff --name-only --diff-filter=U
+            unexpected="$(git diff --name-only --diff-filter=U | grep -Ev '^(package.json|standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html)$' || true)"
+            if [ -n "$unexpected" ]; then
+              echo "Unexpected semantic conflicts; fail closed:"
+              echo "$unexpected"
+              exit 1
+            fi
+            git checkout --ours package.json standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+            git add package.json standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+            python3 - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path('package.json')
+          data = json.loads(path.read_text('utf-8'))
+          scripts = data.setdefault('scripts', {})
+          identity = 'node tests/identity_cursor_contract_test.js'
+          current = scripts.get('test', '')
+          if identity not in current:
+              scripts['test'] = identity + (' && ' + current if current else '')
+          scripts['test:identity'] = identity
+          path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+          PY
+            git add package.json
+            git cherry-pick --continue
+          fi
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          package = Path('package.json')
+          data = json.loads(package.read_text('utf-8'))
+          scripts = data.setdefault('scripts', {})
+          identity = 'node tests/identity_cursor_contract_test.js'
+          current = scripts.get('test', '')
+          if identity not in current:
+              scripts['test'] = identity + (' && ' + current if current else '')
+          scripts['test:identity'] = identity
+          data['license'] = 'Apache-2.0'
+          package.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+
+          core = Path('src/core.js')
+          text = core.read_text('utf-8')
+          first = "        'event', 'family', 'family_event'"
+          if "'ewaste'" not in text:
+              assert first in text, 'expected core identity prefix anchor missing'
+              text = text.replace(first, "        'event', 'ewaste', 'family', 'family_event'", 1)
+          second = "        'proposal_event', 'stewardship_request'"
+          if "'prototype'" not in text or "'refurbished'" not in text:
+              assert second in text, 'expected trailing core identity prefix anchor missing'
+              text = text.replace(second, "        'proposal_event', 'prototype', 'refurbished', 'stewardship_request'", 1)
+          core.write_text(text, encoding='utf-8')
+          PY
+
+          git add package.json src/core.js
+          if ! git diff --cached --quiet; then
+            git commit -m "Extend identity registry for v0.12 engineering records"
+          fi
+
+          python3 tools/build_standalone.py
+          git add standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Rebuild standalone after identity reconciliation"
+          fi
+
+      - name: Verify combined identity body
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tests/identity_cursor_contract_test.js
+          node tests/current_save_admission_test.js
+          node tests/canonical_world_projection_test.js
+          node tests/headless_runtime_intake_test.js
+          npm test
+          node --check src/core.js
+          node --check src/systems.js
+          node --check src/economy.js
+          git diff --check
+
+      - name: Remove temporary workflow and publish tested branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/mergeagent-identity-reconcile.yml
+          git commit -m "[mergeagent-bot] Finalize identity reconciliation"
+          git push origin HEAD:mergeagent/identity-reconcile-20260912
