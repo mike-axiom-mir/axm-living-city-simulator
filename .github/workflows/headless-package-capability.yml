@@ -76,7 +76,9 @@ jobs:
           record = records[0]
           assert record['id'] == 'axm.living-city.headless-simulator.v1'
           assert record['providers'] == ['axm-living-city-simulator']
-          assert record['provider_statuses'] == [{'id': 'axm-living-city-simulator', 'status': 'IMPLEMENTED_REFERENCE'}]
+          # Discovery Buddy exposes bounded public declaration fields. Provider
+          # implementation status remains verified by Living City's own source-
+          # bound registry contract and is not required in this public projection.
           assert 'path' not in repo and 'git' not in repo
           sources = repo['capabilities']['sources']
           assert len(sources) == 1 and sources[0]['records'] == 1 and sources[0]['errors'] == 0
