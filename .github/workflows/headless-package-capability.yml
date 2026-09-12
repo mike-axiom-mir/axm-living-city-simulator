@@ -38,23 +38,23 @@ jobs:
       - name: Checkout Living City provider
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          path: living-city
+          path: provider-workspace/living-city
       - name: Checkout pinned Discovery Buddy consumer
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: mike-axiom-mir/axm-discovery-buddy
           ref: a1e28aba31c453023298e01ce4e54107c3f74583
-          path: discovery-buddy
+          path: tools/discovery-buddy
           persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.11'
       - name: Scan and exact-verify Living City public capability
         env:
-          PYTHONPATH: ${{ github.workspace }}/discovery-buddy
+          PYTHONPATH: ${{ github.workspace }}/tools/discovery-buddy
         run: |
-          python -m discovery_buddy scan living-city --public --output-dir "$RUNNER_TEMP/living-city-discovery"
-          python -m discovery_buddy verify living-city --public --output-dir "$RUNNER_TEMP/living-city-discovery"
+          python -m discovery_buddy scan provider-workspace --public --output-dir "$RUNNER_TEMP/living-city-discovery"
+          python -m discovery_buddy verify provider-workspace --public --output-dir "$RUNNER_TEMP/living-city-discovery"
       - name: Require exactly the bounded headless capability
         env:
           DISCOVERY_INDEX: ${{ runner.temp }}/living-city-discovery/public-discovery.json
@@ -82,7 +82,7 @@ jobs:
           assert 'path' not in repo and 'git' not in repo
           sources = repo['capabilities']['sources']
           assert len(sources) == 1 and sources[0]['records'] == 1 and sources[0]['errors'] == 0
-          raw = Path('living-city/registry/capabilities.jsonl').read_bytes()
+          raw = Path('provider-workspace/living-city/registry/capabilities.jsonl').read_bytes()
           assert sources[0]['sha256'] == hashlib.sha256(raw).hexdigest()
           print('Living City -> Discovery Buddy exact public bridge: PASS')
           PY
