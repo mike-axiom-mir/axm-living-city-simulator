@@ -5,10 +5,15 @@ const path = require('node:path');
 const MODULE_ORDER = Object.freeze([
   'core',
   'content',
+  'content_expansion',
   'world',
   'systems',
+  'item_interactions',
   'households',
   'habitats',
+  'object_use',
+  'object_use_item_expansion',
+  'object_use_audit',
   'stewardship',
   'family',
   'community',
@@ -16,16 +21,26 @@ const MODULE_ORDER = Object.freeze([
   'economy',
   'exteriors',
   'shells',
-  'presence'
+  'presence',
+  'housing_pressure',
+  'historical_era',
+  'engineering_ewaste',
+  'career_skills',
+  'career_engineering_bridge'
 ]);
 
 const REQUIRED_NAMESPACES = Object.freeze([
   'Core',
   'Content',
+  'ContentExpansion',
   'World',
   'Systems',
+  'ItemInteractions',
   'Households',
   'Habitats',
+  'ObjectUse',
+  'ObjectUseItemExpansion',
+  'ObjectUseAudit',
   'Stewardship',
   'Family',
   'Community',
@@ -33,7 +48,12 @@ const REQUIRED_NAMESPACES = Object.freeze([
   'Economy',
   'Exteriors',
   'Shells',
-  'Presence'
+  'Presence',
+  'HousingPressure',
+  'HistoricalEra',
+  'EngineeringEwaste',
+  'CareerSkills',
+  'CareerEngineeringBridge'
 ]);
 
 function loadSimulation(options = {}) {

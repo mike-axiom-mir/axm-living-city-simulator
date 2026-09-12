@@ -2,29 +2,32 @@
 
 This repository is the standalone branch for the AXM Living City Simulator.
 
+## Constitutional integration / CANON gate
+
+AXM internal integration is evaluated through four roots:
+
+1. **Truth** — claims, state, provenance, evidence, simulation behavior, and verification must remain honest and inspectable.
+2. **Agency / non-domination** — capability, simulation, UI, automation, storage, or specialist work must not silently become control over another participant, repository, or user.
+3. **Continuity** — preserve identity, provenance, rollback paths, save/source lineage, and compatible growth instead of silently rewriting the body.
+4. **Wisdom before speed** — prefer grounded, reversible progress over fast promotion when evidence is incomplete.
+
+Mike/founder is not AXM's internal constitutional merge or CANON gate. Technical execution or repository write permission is not canonical authority. Grounded human and machine reasoning have equal standing under the roots. There is no automatic CANON: tests, receipts, successful execution, visual evidence, mergeability, or a generated artifact are evidence inputs, not self-promoting authority.
+
+Historical lane or PR wording that names Mike as the internal merge/CANON gate is superseded by this four-root model. Product/task direction from the current human remains an agency boundary and coordination input; it is distinct from constitutional authority over AXM truth.
+
 ## Preserve the simulator boundary
 
-- Keep authoritative simulation rules and serialized world state independent
-  from every UI, renderer, storage adapter, and host application.
-- Treat the browser application as an optional client. Browser APIs,
-  `localStorage`, DOM state, and canvas pixels may not become the only way to
-  run, save, inspect, or verify the simulation.
-- Keep the headless Node runtime dependency-free and capable of loading the
-  authoritative modules without `window`, `document`, or browser storage.
-- Preserve deterministic replay, scoped authority, privacy boundaries,
-  migration honesty, and diagnostic-only validation.
-- Do not rewrite sealed source history, generated examples, prior test
-  evidence, or package checksums as a substitute for changing source.
-- Keep normal local operation free of mandatory Workshop, Mirror, cloud,
-  account, model, API, analytics, or network dependencies.
-- Declare missing verification capability; never manufacture a passing
-  receipt.
+- Keep authoritative simulation rules and serialized world state independent from every UI, renderer, storage adapter, and host application.
+- Treat the browser application as an optional client. Browser APIs, `localStorage`, DOM state, and canvas pixels may not become the only way to run, save, inspect, or verify the simulation.
+- Keep the headless Node runtime dependency-free and capable of loading the authoritative modules without `window`, `document`, or browser storage.
+- Preserve deterministic replay, scoped authority, privacy boundaries, migration honesty, and diagnostic-only validation.
+- Do not rewrite sealed source history, generated examples, prior test evidence, or package checksums as a substitute for changing source.
+- Keep normal local operation free of mandatory Workshop, Mirror, cloud, account, model, API, analytics, or network dependencies.
+- Declare missing verification capability; never manufacture a passing receipt.
 
 ## Repository boundary
 
-This simulator is a sibling of the Workshop, Mirror, and the AXM Factual Star
-Adventure Simulator. It is not a Workshop world, plugin, or Foundation organ.
-Any future bridge must be optional, reviewed, and non-authoritative.
+This simulator is a sibling of the Workshop, Mirror, and the AXM Factual Star Adventure Simulator. It is not a Workshop world, plugin, or Foundation organ. Any future bridge must be optional, reviewed, and non-authoritative.
 
 ## Required verification
 
@@ -33,11 +36,9 @@ After an intentional source or runtime change:
 1. Run `node tests/headless_runtime_intake_test.js`.
 2. Run `npm test`.
 3. Re-run the source checksum verifier recorded in `.axm-intake/INTAKE_RECEIPT.json`.
-4. Treat browser render/click verification as a separate check; never infer it
-   from Node tests.
+4. Treat browser render/click verification as a separate check; never infer it from Node tests.
 
-Work on a review branch. Do not push directly to `main`, promote, release, or
-label anything `CANON` without Mike Tobi's explicit merge decision.
+Work on a review branch. Do not silently promote, release, or label anything `CANON`; integration is evaluated through the four roots and must preserve explicit truth boundaries.
 
 ## Detail-density and composable capability principle
 

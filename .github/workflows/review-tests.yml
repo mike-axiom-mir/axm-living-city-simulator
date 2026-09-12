@@ -1,0 +1,71 @@
+name: Living City review tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'steward/**'
+      - 'codex/**'
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Headless boundary
+        run: node tests/headless_runtime_intake_test.js
+
+      - name: Expanded 60-item catalogue
+        run: npm run test:content
+
+      - name: Deep household item interactions
+        run: npm run test:item-interactions
+
+      - name: Furnishing rent pressure and no-decay
+        run: npm run test:housing-pressure
+
+      - name: Historical 1980-2026 era progression
+        run: npm run test:historical-era
+
+      - name: Engineering e-waste and miniature robotica seed
+        run: npm run test:engineering-ewaste
+
+      - name: Engineering UI and reward-neutral prototype visuals
+        run: npm run test:engineering-visuals
+
+      - name: Deeper jobs and transferable skill evidence
+        run: npm run test:career-skills
+
+      - name: Engineering practice to career evidence bridge
+        run: npm run test:career-engineering-bridge
+
+      - name: Object-use affordances
+        run: npm run test:object-use
+
+      - name: Object-use reachability audit
+        run: npm run test:object-use-audit
+
+      - name: Focused simulation suite
+        run: npm test
+
+      - name: Standalone build smoke
+        run: python3 tools/build_standalone.py
+
+      - name: Browser QA harness syntax
+        run: python3 -m py_compile tests/browser_smoke_test.py

@@ -30,8 +30,46 @@ def main() -> int:
         page.set_content(html, wait_until='load')
         page.wait_for_timeout(300)
 
-        assert page.locator('.tab-button').count() == 18
+        assert page.locator('.tab-button').count() == 19
         assert page.locator('#townCanvas').count() == 1
+
+        # Dedicated engineering/salvage UI is a real clickable view. Merely opening it
+        # must not mutate the bounded engineering state, and its display stays reward-neutral.
+        engineering_before = page.evaluate('() => JSON.stringify(window.AXM.Game.world.engineeringEwaste || null)')
+        page.locator('[data-action="engineering-tab"]').click()
+        page.wait_for_timeout(140)
+        assert page.locator('text=Engineering & Salvage').count() == 1
+        assert page.locator('#engineeringWorkshopCanvas').count() == 1
+        assert page.locator('[data-engineering-action="collect"]').count() == 1
+        engineering_open = page.evaluate('''() => ({
+          state: JSON.stringify(window.AXM.Game.world.engineeringEwaste || null),
+          scene: window.AXM.EngineeringVisuals.sceneFor(window.AXM.Game.world),
+          validation: window.AXM.EngineeringVisuals.validateScene(window.AXM.EngineeringVisuals.sceneFor(window.AXM.Game.world))
+        })''')
+        assert engineering_open['state'] == engineering_before
+        assert engineering_open['validation']['ok'] is True
+        assert engineering_open['scene']['visualOnly'] is True
+        assert engineering_open['scene']['noRewardAuthority'] is True
+        assert engineering_open['scene']['noWorldMutation'] is True
+        assert all(prototype['autonomous'] is False for prototype in engineering_open['scene']['prototypes'])
+        assert all(prototype['scheduleAuthority'] is False for prototype in engineering_open['scene']['prototypes'])
+
+        # The first salvage actions are explicit and provenance-preserving.
+        page.locator('[data-engineering-action="collect"]').click()
+        page.wait_for_timeout(100)
+        assert page.locator('.engineering-lot').count() == 1
+        page.locator('[data-engineering-action="inspect"]').first.click()
+        page.wait_for_timeout(100)
+        assert page.locator('.engineering-lot .pill.good').count() >= 1
+        lot_state = page.evaluate('''() => {
+          const lot = window.AXM.Game.world.engineeringEwaste.lots[0];
+          return { inspected: lot.inspected, provenance: lot.provenance.slice(), lots: window.AXM.Game.world.engineeringEwaste.lots.length };
+        }''')
+        assert lot_state['inspected'] is True
+        assert lot_state['lots'] == 1
+        assert len(lot_state['provenance']) >= 1
+        assert page.locator('[data-engineering-action="refurbish"]').first.is_disabled()
+        assert page.locator('[data-engineering-action="dismantle"]').first.is_disabled()
 
         # One-life action.
         page.locator('[data-action="tab"][data-id="life"]').click()
@@ -202,7 +240,7 @@ def main() -> int:
         family_page.on('console', lambda message: console_errors.append(message.text) if message.type == 'error' else None)
         family_page.set_content(html, wait_until='load')
         family_page.wait_for_timeout(300)
-        assert family_page.locator('.tab-button').count() == 18
+        assert family_page.locator('.tab-button').count() == 19
         family_page.locator('[data-action="tab"][data-id="family"]').click()
         assert family_page.locator('text=No active family unit').count() >= 1
         assert family_page.locator('text=Three authorities remain separate').count() == 1
@@ -350,7 +388,7 @@ def main() -> int:
         community_page.on('console', lambda message: console_errors.append(message.text) if message.type == 'error' else None)
         community_page.set_content(html, wait_until='load')
         community_page.wait_for_timeout(300)
-        assert community_page.locator('.tab-button').count() == 18
+        assert community_page.locator('.tab-button').count() == 19
 
         community_page.locator('[data-action="tab"][data-id="life"]').click()
         assert community_page.locator('[data-action="activity"][data-id="gentle_routine"]').count() == 1
@@ -410,7 +448,7 @@ def main() -> int:
         directions_page.on('console', lambda message: console_errors.append(message.text) if message.type == 'error' else None)
         directions_page.set_content(html, wait_until='load')
         directions_page.wait_for_timeout(300)
-        assert directions_page.locator('.tab-button').count() == 18
+        assert directions_page.locator('.tab-button').count() == 19
         directions_page.locator('[data-action="tab"][data-id="directions"]').click()
         assert directions_page.locator('text=Personal directions without a timetable').count() == 1
         assert directions_page.locator('text=No age pressure').count() >= 1
@@ -470,7 +508,7 @@ def main() -> int:
         economy_page.on('console', lambda message: console_errors.append(message.text) if message.type == 'error' else None)
         economy_page.set_content(html, wait_until='load')
         economy_page.wait_for_timeout(300)
-        assert economy_page.locator('.tab-button').count() == 18
+        assert economy_page.locator('.tab-button').count() == 19
         economy_page.locator('[data-action="tab"][data-id="economy"]').click()
         assert economy_page.locator('text=Living local economy—not a mandatory business ladder').count() == 1
         assert economy_page.locator('text=Business is optional').count() >= 1
@@ -588,14 +626,14 @@ def main() -> int:
         walkable_page.on('console', lambda message: console_errors.append(message.text) if message.type == 'error' else None)
         walkable_page.set_content(html, wait_until='load')
         walkable_page.wait_for_timeout(300)
-        assert walkable_page.locator('.tab-button').count() == 18
+        assert walkable_page.locator('.tab-button').count() == 19
         walkable_page.locator('[data-action="tab"][data-id="street"]').click()
         assert walkable_page.locator('text=Walkable places with their own exterior identity').count() == 1
         assert walkable_page.locator('#streetCanvas').count() == 1
         assert walkable_page.locator('text=No walking obligation').count() >= 1
 
         walkable_initial = walkable_page.evaluate('''() => {
-          const world = AXM.Game.world;
+          const world = window.AXM.Game.world;
           const addresses = world.places.map((place) => place.exterior && place.exterior.address).filter(Boolean);
           return {
             locationId: world.player.locationId,
@@ -727,7 +765,7 @@ def main() -> int:
         print('Page errors:', page_errors)
         print('Console errors:', console_errors)
         return 1
-    print('PASS browser smoke test: 17-view navigation including building shells and lived-building presence, life/work/build flows, read-only resident interiors, autonomous stewardship, adult household consent, unilateral separation, fresh-world family continuity, dependent agency, care evidence, refusal-safe family proposals, life-stage transition, casual basics compression, refusal-safe community invitations, no-deadline adventures, choice-first no-aging time, undated personal directions across explicit life chapters, pause/resume/release freedom, optional resident enterprise, actual resident customers, entered/compressed enterprise work, graceful pause/resume/closure, unique exterior addresses, connected minute-level visible travel, observation-only street moments, equally authoritative compressed travel, no walking obligation or streak, object continuity, and export/import controls.')
+    print('PASS browser smoke test: 18-view navigation including dedicated engineering/salvage UI and reward-neutral workshop display, building shells and lived-building presence, life/work/build flows, read-only resident interiors, autonomous stewardship, adult household consent, unilateral separation, fresh-world family continuity, dependent agency, care evidence, refusal-safe family proposals, life-stage transition, casual basics compression, refusal-safe community invitations, no-deadline adventures, choice-first no-aging time, undated personal directions across explicit life chapters, pause/resume/release freedom, optional resident enterprise, actual resident customers, entered/compressed enterprise work, graceful pause/resume/closure, unique exterior addresses, connected minute-level visible travel, observation-only street moments, equally authoritative compressed travel, no walking obligation or streak, object continuity, and export/import controls.')
     return 0
 
 
