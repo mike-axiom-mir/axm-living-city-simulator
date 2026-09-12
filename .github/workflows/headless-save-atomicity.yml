@@ -1,0 +1,32 @@
+name: Headless save atomicity
+
+on:
+  pull_request:
+    paths:
+      - "runtime/file-save-store.js"
+      - "tests/file_save_atomicity_test.js"
+      - "tests/headless_runtime_intake_test.js"
+      - "src/**"
+      - ".github/workflows/headless-save-atomicity.yml"
+  push:
+    branches:
+      - automation/truth-sentinel-atomic-headless-save-20260909
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: node tests/file_save_atomicity_test.js
+      - run: node tests/headless_runtime_intake_test.js
+      - run: npm test
