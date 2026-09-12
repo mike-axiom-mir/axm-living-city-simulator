@@ -195,8 +195,7 @@
   }
 
   function economyUniqueId(world, prefix) {
-    world.economyIdCounter = (world.economyIdCounter || 0) + 1;
-    return `${prefix}_${String(world.economyIdCounter).padStart(5, '0')}`;
+    return Core.issueIdentity(world, 'economy', prefix);
   }
 
   function economyRandom(world) {

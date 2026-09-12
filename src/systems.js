@@ -1697,6 +1697,10 @@
 
     const sourceSchema = world.schema;
     const fromV01 = sourceSchema === 'axm.living-city-sim.world/v0.1.0';
+    // Legacy schemas may predate one or more cursor fields. Recover only the
+    // safe lower bound evidenced by identities already present, before any
+    // migration initializer is allowed to issue another identity.
+    Core.reconcileLegacyIdentityCursors(world);
     world.schema = Core.SCHEMA;
     world.version = Core.VERSION;
     if (!Array.isArray(world.households)) world.households = [];
@@ -2024,6 +2028,7 @@
     if (!Array.isArray(world.people)) add('People must be an array.');
     if (!Array.isArray(world.places)) add('Places must be an array.');
     if (!Array.isArray(world.ledger)) add('Ledger must be an array.');
+    Core.validateIdentityCursors(world).forEach(add);
     if (!Array.isArray(world.people) || !Array.isArray(world.places) || !isRecord(world.player)) return { ok: false, errors };
 
     const personIds = new Set(['player']);

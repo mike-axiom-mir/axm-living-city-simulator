@@ -6,6 +6,58 @@
   const VERSION = '0.11.3';
   const SCHEMA = 'axm.living-city-sim.world/v0.11.0';
   const LEGACY_SCHEMAS = ['axm.living-city-sim.world/v0.10.0', 'axm.living-city-sim.world/v0.9.0', 'axm.living-city-sim.world/v0.8.0', 'axm.living-city-sim.world/v0.7.0', 'axm.living-city-sim.world/v0.6.0', 'axm.living-city-sim.world/v0.5.0', 'axm.living-city-sim.world/v0.4.0', 'axm.living-city-sim.world/v0.3.0', 'axm.living-city-sim.world/v0.2.0', 'axm.living-city-sim.world/v0.1.0'];
+  const IDENTITY_CURSOR_SCHEMA = 'axm.living-city.identity-cursors/v1';
+  const IDENTITY_DOMAINS = Object.freeze({
+    core: Object.freeze({
+      counter: 'idCounter',
+      width: 5,
+      prefixes: Object.freeze([
+        'adventure', 'adventure_history', 'care', 'community_connection', 'community_history',
+        'community_member', 'community_opportunity', 'connection_history', 'construction', 'dependent',
+        'event', 'family', 'family_event', 'family_proposal', 'family_proposal_event', 'family_room',
+        'ewaste', 'habitat_event', 'habitat_intention', 'household', 'household_event', 'household_goal',
+        'household_issue', 'issue_event', 'object', 'object_event', 'opportunity_history',
+        'personal_project', 'project_collaboration', 'project_event', 'property_event', 'proposal', 'prototype',
+        'proposal_event', 'refurbished', 'stewardship_request'
+      ])
+    }),
+    shell: Object.freeze({
+      counter: 'shellIdCounter',
+      width: 6,
+      prefixes: Object.freeze(['frontage_project', 'frontage_proposal', 'shell_event'])
+    }),
+    economy: Object.freeze({
+      counter: 'economyIdCounter',
+      width: 5,
+      prefixes: Object.freeze([
+        'enterprise', 'enterprise_equipment', 'enterprise_event', 'enterprise_session',
+        'enterprise_work_offer', 'equipment_event', 'premise_event'
+      ])
+    }),
+    exterior: Object.freeze({
+      counter: 'exteriorIdCounter',
+      width: 6,
+      prefixes: Object.freeze(['street_moment', 'travel'])
+    }),
+    presence: Object.freeze({
+      counter: 'presenceIdCounter',
+      width: 6,
+      prefixes: Object.freeze(['indoor_movement', 'ordinary_encounter', 'presence_access', 'threshold_arrival'])
+    })
+  });
+  const IDENTITY_PREFIX_DOMAIN = Object.freeze(Object.entries(IDENTITY_DOMAINS).reduce((index, [domain, contract]) => {
+    contract.prefixes.forEach((prefix) => {
+      if (index[prefix]) throw new Error(`Identity prefix ${prefix} is registered more than once.`);
+      index[prefix] = domain;
+    });
+    return index;
+  }, {}));
+  const NON_AUTHORITATIVE_IDENTITY_BRANCHES = Object.freeze([
+    'evidence',
+    'permissionSnapshot',
+    'familyPermissionSnapshot',
+    'lastVisualActivityReceipt'
+  ]);
 
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
@@ -68,9 +120,109 @@
     return entries[entries.length - 1];
   }
 
+  function issueIdentity(world, domainName, prefix) {
+    const domain = IDENTITY_DOMAINS[domainName];
+    if (!domain) throw new Error(`Unknown identity domain: ${String(domainName)}.`);
+    if (!domain.prefixes.includes(prefix)) {
+      throw new Error(`Identity prefix ${String(prefix)} is not registered in the ${domainName} domain.`);
+    }
+    const cursor = world?.[domain.counter];
+    if (!Number.isSafeInteger(cursor) || cursor < 0) {
+      throw new Error(`${domain.counter} must be a non-negative safe integer before issuing identity.`);
+    }
+    if (cursor === Number.MAX_SAFE_INTEGER) {
+      throw new Error(`${domain.counter} is exhausted; fork identity explicitly before continuing.`);
+    }
+    const next = cursor + 1;
+    world[domain.counter] = next;
+    return `${prefix}_${String(next).padStart(domain.width, '0')}`;
+  }
+
   function uniqueId(world, prefix) {
-    world.idCounter = (world.idCounter || 0) + 1;
-    return `${prefix}_${String(world.idCounter).padStart(5, '0')}`;
+    return issueIdentity(world, 'core', prefix);
+  }
+
+  function inspectIdentityCursors(world) {
+    const domains = {};
+    Object.entries(IDENTITY_DOMAINS).forEach(([name, contract]) => {
+      domains[name] = {
+        counter: contract.counter,
+        cursor: world?.[contract.counter],
+        maxIssued: 0,
+        issuedIds: 0,
+        duplicateIds: [],
+        invalidIds: []
+      };
+    });
+    const seen = new Set();
+    const visited = new Set();
+    const visit = (value) => {
+      if (!value || typeof value !== 'object' || visited.has(value)) return;
+      visited.add(value);
+      if (typeof value.id === 'string') {
+        const match = /^(.*)_([0-9]+)$/.exec(value.id);
+        const domainName = match ? IDENTITY_PREFIX_DOMAIN[match[1]] : null;
+        if (domainName) {
+          const domain = domains[domainName];
+          const sequence = Number(match[2]);
+          domain.issuedIds += 1;
+          if (!Number.isSafeInteger(sequence) || sequence < 1) domain.invalidIds.push(value.id);
+          else domain.maxIssued = Math.max(domain.maxIssued, sequence);
+          const identityKey = `${domainName}:${value.id}`;
+          if (seen.has(identityKey) && !domain.duplicateIds.includes(value.id)) domain.duplicateIds.push(value.id);
+          seen.add(identityKey);
+        }
+      }
+      if (Array.isArray(value)) value.forEach(visit);
+      else Object.entries(value).forEach(([key, child]) => {
+        // These branches may preserve deep snapshots of canonical records.
+        // They are receipts/projections, not second allocations or cursor authority.
+        if (!NON_AUTHORITATIVE_IDENTITY_BRANCHES.includes(key)) visit(child);
+      });
+    };
+    visit(world);
+    return { schema: IDENTITY_CURSOR_SCHEMA, domains };
+  }
+
+  function validateIdentityCursors(world) {
+    const inspection = inspectIdentityCursors(world);
+    const errors = [];
+    Object.values(inspection.domains).forEach((domain) => {
+      if (!Number.isSafeInteger(domain.cursor) || domain.cursor < 0) {
+        errors.push(`${domain.counter} must be a non-negative safe integer.`);
+      } else if (domain.cursor < domain.maxIssued) {
+        errors.push(`${domain.counter} ${domain.cursor} is behind issued identity ${domain.maxIssued}.`);
+      }
+      domain.invalidIds.forEach((id) => errors.push(`Issued identity ${id} has an unsafe numeric suffix.`));
+      domain.duplicateIds.forEach((id) => errors.push(`Issued identity ${id} appears more than once.`));
+    });
+    return errors;
+  }
+
+  function reconcileLegacyIdentityCursors(world) {
+    const inspection = inspectIdentityCursors(world);
+    const ambiguous = Object.values(inspection.domains)
+      .flatMap((domain) => domain.invalidIds.concat(domain.duplicateIds));
+    if (ambiguous.length) {
+      throw new Error(`Legacy identity state is ambiguous: ${ambiguous.join(', ')}.`);
+    }
+    Object.values(inspection.domains).forEach((domain) => {
+      const current = Number.isSafeInteger(domain.cursor) && domain.cursor >= 0 ? domain.cursor : 0;
+      world[domain.counter] = Math.max(current, domain.maxIssued);
+    });
+    return inspectIdentityCursors(world);
+  }
+
+  function identityCursorSummary(world) {
+    const inspection = inspectIdentityCursors(world);
+    return {
+      schema: inspection.schema,
+      domains: Object.fromEntries(Object.entries(inspection.domains).map(([name, domain]) => [name, {
+        cursor: domain.cursor,
+        maxIssued: domain.maxIssued,
+        issuedIds: domain.issuedIds
+      }]))
+    };
   }
 
   function deepClone(value) {
@@ -339,6 +491,9 @@
     VERSION,
     SCHEMA,
     LEGACY_SCHEMAS,
+    IDENTITY_CURSOR_SCHEMA,
+    IDENTITY_DOMAINS,
+    NON_AUTHORITATIVE_IDENTITY_BRANCHES,
     WEEKDAYS,
     clamp,
     round,
@@ -349,7 +504,12 @@
     choice,
     shuffled,
     weightedChoice,
+    issueIdentity,
     uniqueId,
+    inspectIdentityCursors,
+    validateIdentityCursors,
+    reconcileLegacyIdentityCursors,
+    identityCursorSummary,
     deepClone,
     weekdayIndex,
     weekdayName,

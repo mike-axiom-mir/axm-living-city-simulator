@@ -57,8 +57,7 @@
   }
 
   function exteriorUniqueId(world, prefix) {
-    world.exteriorIdCounter = (world.exteriorIdCounter || 0) + 1;
-    return `${prefix}_${String(world.exteriorIdCounter).padStart(6, '0')}`;
+    return Core.issueIdentity(world, 'exterior', prefix);
   }
 
   function nowStamp(world) {
