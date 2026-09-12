@@ -34,27 +34,50 @@ for old, new in replacements:
     elif new not in s:
         raise SystemExit('Expected Chromium navigation wait seam missing; refuse broad rewrite.')
 
-old_geometry = """        assert page.locator('#active-view').evaluate('''(view) => {
+geometry_variants = [
+"""        assert page.locator('#active-view').evaluate('''(view) => {
           const topbar = document.querySelector('.topbar').getBoundingClientRect();
           const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
           return Math.abs(view.getBoundingClientRect().top - (topbar.height + switcher.height)) <= 2;
-        }''')"""
-previous_geometry = """        assert page.locator('#active-view').evaluate('''(view) => {
+        }''')""",
+"""        assert page.locator('#active-view').evaluate('''(view) => {
           const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
           const viewTop = view.getBoundingClientRect().top;
           const delta = viewTop - switcher.bottom;
           return delta >= -2 && delta <= 16;
-        }'''), 'Changed section heading is obscured by or detached from the sticky section controls.'"""
-new_geometry = """        assert page.locator('#active-view').evaluate('''(view) => {
+        }'''), 'Changed section heading is obscured by or detached from the sticky section controls.'""",
+"""        assert page.locator('#active-view').evaluate('''(view) => {
           const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
           const viewTop = view.getBoundingClientRect().top;
           return viewTop >= switcher.bottom - 2 && viewTop < window.innerHeight;
-        }'''), 'Changed section heading is obscured by the sticky section controls or outside the viewport.'"""
-if old_geometry in s:
-    s = s.replace(old_geometry, new_geometry, 1)
-elif previous_geometry in s:
-    s = s.replace(previous_geometry, new_geometry, 1)
-elif new_geometry not in s:
-    raise SystemExit('Expected sticky visibility assertion seam missing; refuse broad rewrite.')
+        }'''), 'Changed section heading is obscured by the sticky section controls or outside the viewport.'""",
+]
+diagnostic = """        section_geometry = page.locator('#active-view').evaluate('''(view) => {
+          const topbar = document.querySelector('.topbar').getBoundingClientRect();
+          const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
+          const rect = view.getBoundingClientRect();
+          return {
+            topbarTop: topbar.top,
+            topbarBottom: topbar.bottom,
+            switcherTop: switcher.top,
+            switcherBottom: switcher.bottom,
+            viewTop: rect.top,
+            viewBottom: rect.bottom,
+            innerHeight: window.innerHeight,
+            scrollY: window.scrollY,
+            documentHeight: document.documentElement.scrollHeight,
+          };
+        }''')
+        print('SECTION_GEOMETRY', section_geometry)
+        assert section_geometry['viewTop'] >= section_geometry['switcherBottom'] - 2 and section_geometry['viewTop'] < section_geometry['innerHeight'], 'Changed section heading is obscured by the sticky section controls or outside the viewport.'"""
+if diagnostic not in s:
+    replaced = False
+    for old in geometry_variants:
+        if old in s:
+            s = s.replace(old, diagnostic, 1)
+            replaced = True
+            break
+    if not replaced:
+        raise SystemExit('Expected section geometry assertion seam missing; refuse broad rewrite.')
 
 path.write_text(s, encoding='utf-8')
