@@ -52,9 +52,8 @@ new_block = """  function decorateTabs(world) {
     if (!nav) return;
     let button = nav.querySelector('[data-action=\"tab\"][data-id=\"engineering\"]');
     if (!button) {
-      // Legacy fallback for an older host UI. Current Living City owns
-      // Engineering in the canonical section registry, so this path should
-      // not be needed after reconciliation.
+      // Compatibility fallback for older host UIs. Current Living City owns
+      // Engineering in the canonical section registry.
       button = nav.querySelector('[data-action=\"engineering-tab\"]');
       if (!button) {
         button = document.createElement('button');
@@ -81,12 +80,26 @@ new_block = """  function decorateTabs(world) {
   }
 """
 s = s[:start] + new_block + s[end:]
-s = replace_once(
-    s,
-    "    const main = this.app?.querySelector('main.view');\n    if (main) main.innerHTML = renderEngineering(world);\n    startEngineeringLoop(world);",
-    "    const main = this.app?.querySelector('main.view');\n    if (main) {\n      main.innerHTML = renderEngineering(world);\n      main.setAttribute('aria-labelledby', 'tab-engineering');\n    }\n    startEngineeringLoop(world);",
-    "Engineering panel ARIA",
-)
+
+old_wrapper_start = s.find("  const originalRender = UI.render;")
+old_wrapper_end = s.find("\n  AXM.EngineeringUI = Object.freeze({", old_wrapper_start)
+if old_wrapper_start < 0 or old_wrapper_end < 0:
+    raise SystemExit("Expected Engineering render wrapper seam missing.")
+new_wrapper = """  const originalRenderView = UI.renderView;
+  UI.renderView = function renderViewWithEngineering(world, ...args) {
+    if (world?.ui?.activeTab === 'engineering') return renderEngineering(world);
+    return originalRenderView.call(this, world, ...args);
+  };
+
+  const originalRender = UI.render;
+  UI.render = function renderWithEngineering(world, ...args) {
+    cancelEngineeringLoop();
+    originalRender.call(this, world, ...args);
+    decorateTabs(world);
+    if (world?.ui?.activeTab === 'engineering') startEngineeringLoop(world);
+  };
+"""
+s = s[:old_wrapper_start] + new_wrapper + s[old_wrapper_end:]
 engineering.write_text(s, encoding="utf-8")
 
 navtest = Path("tests/navigation_continuity_test.js")
