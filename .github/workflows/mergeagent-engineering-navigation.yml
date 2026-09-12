@@ -27,99 +27,13 @@ jobs:
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.11'
-      - name: Reconcile Engineering into canonical section navigation
+      - name: Reconcile Engineering into canonical navigation
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          python3 - <<'PY'
-          from pathlib import Path
-
-          ui = Path('src/ui.js')
-          s = ui.read_text('utf-8')
-          anchor = "    { id: 'economy', label: 'Local Economy' },\n    { id: 'stewardship', label: 'Stewardship' },"
-          replacement = "    { id: 'economy', label: 'Local Economy' },\n    { id: 'engineering', label: 'Engineering' },\n    { id: 'stewardship', label: 'Stewardship' },"
-          if "{ id: 'engineering', label: 'Engineering' }" not in s:
-              if anchor not in s:
-                  raise SystemExit('Expected section-registry anchor missing; refuse broad navigation rewrite.')
-              s = s.replace(anchor, replacement, 1)
-          ui.write_text(s, encoding='utf-8')
-
-          engineering = Path('src/engineering_ui.js')
-          s = engineering.read_text('utf-8')
-          start = s.find('  function decorateTabs(world) {')
-          end = s.find('\n  function drawEngineeringCanvas', start)
-          if start < 0 or end < 0:
-              raise SystemExit('Expected Engineering tab decorator seam missing.')
-          new_block = '''  function decorateTabs(world) {
-            const nav = UI.app?.querySelector('.tabbar');
-            if (!nav) return;
-            let button = nav.querySelector('[data-action="tab"][data-id="engineering"]');
-            if (!button) {
-              // Legacy fallback for an older host UI. Current Living City owns
-              // Engineering in the canonical section registry, so this path
-              // should not be needed after reconciliation.
-              button = nav.querySelector('[data-action="engineering-tab"]');
-              if (!button) {
-                button = document.createElement('button');
-                button.className = 'tab-button';
-                button.id = 'tab-engineering';
-                button.setAttribute('role', 'tab');
-                button.setAttribute('aria-controls', 'active-view');
-                button.dataset.action = 'engineering-tab';
-                button.dataset.id = 'engineering';
-                button.textContent = 'Engineering';
-                const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
-                nav.insertBefore(button, anchor || null);
-              }
-            }
-            nav.querySelectorAll('.tab-button').forEach((entry) => {
-              const entryId = entry.dataset.id || (entry.dataset.action === 'engineering-tab' ? 'engineering' : null);
-              const active = entryId === world.ui.activeTab;
-              entry.classList.toggle('active', active);
-              if (entry.getAttribute('role') === 'tab') {
-                entry.setAttribute('aria-selected', String(active));
-                entry.tabIndex = active ? 0 : -1;
-              }
-            });
-          }
-'''
-          s = s[:start] + new_block + s[end:]
-          old = "    const main = this.app?.querySelector('main.view');\n    if (main) main.innerHTML = renderEngineering(world);\n    startEngineeringLoop(world);"
-          new = "    const main = this.app?.querySelector('main.view');\n    if (main) {\n      main.innerHTML = renderEngineering(world);\n      main.setAttribute('aria-labelledby', 'tab-engineering');\n    }\n    startEngineeringLoop(world);"
-          if old not in s:
-              if new not in s:
-                  raise SystemExit('Expected Engineering panel ARIA seam missing.')
-          else:
-              s = s.replace(old, new, 1)
-          engineering.write_text(s, encoding='utf-8')
-
-          navtest = Path('tests/navigation_continuity_test.js')
-          s = navtest.read_text('utf-8')
-          s = s.replace("assert.equal(UI.navigationTarget('visuals', 'End'), 'lab');", "assert.equal(UI.navigationTarget('visuals', 'End'), 'lab');\nassert.equal(UI.navigationTarget('economy', 'ArrowRight'), 'engineering');\nassert.equal(UI.navigationTarget('engineering', 'ArrowLeft'), 'economy');\nassert.equal(UI.navigationTarget('engineering', 'ArrowRight'), 'stewardship');")
-          s = s.replace('aria-label="Section 5 of 18"', 'aria-label="Section 5 of 19"')
-          marker = "assert.match(markup, /data-action=\\\"tab-relative\\\" data-direction=\\\"1\\\"/);"
-          addition = marker + "\n\nworld.ui.activeTab = 'engineering';\nconst engineeringMarkup = UI.renderTabs(world);\nassert.match(engineeringMarkup, /id=\\\"tab-engineering\\\" role=\\\"tab\\\" aria-selected=\\\"true\\\" aria-controls=\\\"active-view\\\" tabindex=\\\"0\\\"/);\nassert.match(engineeringMarkup, /aria-label=\\\"Section 14 of 19\\\"/);"
-          if "Section 14 of 19" not in s:
-              if marker not in s:
-                  raise SystemExit('Expected navigation test anchor missing.')
-              s = s.replace(marker, addition, 1)
-          s = s.replace('PASS navigation continuity: 18-view semantics', 'PASS navigation continuity: 19-view semantics')
-          navtest.write_text(s, encoding='utf-8')
-
-          browser = Path('tests/visual_presence_browser_test.py')
-          s = browser.read_text('utf-8')
-          s = s.replace("        page.wait_for_timeout(300)\n\n        assert page.locator('.tab-button').count() == 18", "        page.wait_for_function(\"() => document.querySelectorAll('.tab-button').length === 19\", timeout=10000)\n\n        assert page.locator('.tab-button').count() == 19")
-          needle = "        assert page.locator('#active-view').evaluate('''(view) => {\n          const topbar = document.querySelector('.topbar').getBoundingClientRect();\n          const switcher = document.querySelector('.view-switcher').getBoundingClientRect();\n          return Math.abs(view.getBoundingClientRect().top - (topbar.height + switcher.height)) <= 2;\n        }''')"
-          extra = needle + "\n\n        engineering_tab = page.locator('[role=\\\"tab\\\"][data-id=\\\"engineering\\\"]')\n        engineering_tab.click()\n        page.wait_for_timeout(120)\n        assert engineering_tab.get_attribute('aria-selected') == 'true'\n        assert page.locator('#active-view').get_attribute('aria-labelledby') == 'tab-engineering'\n        assert page.locator('.view-position').get_attribute('aria-label') == 'Section 14 of 19'\n        assert page.locator('[role=\\\"tab\\\"][tabindex=\\\"0\\\"]').count() == 1\n        engineering_tab.press('ArrowRight')\n        page.wait_for_timeout(100)\n        assert page.locator('[role=\\\"tab\\\"][aria-selected=\\\"true\\\"]').get_attribute('data-id') == 'stewardship'\n        page.locator('[role=\\\"tab\\\"][data-id=\\\"visuals\\\"]').click()\n        page.wait_for_timeout(100)"
-          if 'Section 14 of 19' not in s:
-              if needle not in s:
-                  raise SystemExit('Expected browser navigation anchor missing.')
-              s = s.replace(needle, extra, 1)
-          s = s.replace('still/device-reduced modes freeze, 18 views, mobile overflow 0', 'still/device-reduced modes freeze, 19 views including Engineering, mobile overflow 0')
-          browser.write_text(s, encoding='utf-8')
-          PY
+          python3 tools/mergeagent_engineering_navigation.py
           python3 tools/build_standalone.py
           git add src/ui.js src/engineering_ui.js tests/navigation_continuity_test.js tests/visual_presence_browser_test.py standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
           git commit -m "Integrate Engineering into canonical section navigation"
@@ -158,6 +72,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git rm .github/workflows/mergeagent-engineering-navigation.yml
+          git rm .github/workflows/mergeagent-engineering-navigation.yml tools/mergeagent_engineering_navigation.py
           git commit -m "[mergeagent-bot] Finalize Engineering navigation reconciliation"
           git push origin HEAD:mergeagent/engineering-navigation-reconcile-20260912
