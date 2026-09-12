@@ -15,27 +15,27 @@
     {
       "id": "source:package.json",
       "path": "package.json",
-      "sha256": "503a65d468fdb666fa11ccd5cecfa2adbd2195408f833973ab82e7814574e0df"
+      "sha256": "e130326892e5114467c5b0b73cda54399a25189f8258818712429be82862fb01"
     },
     {
       "id": "source:runtime/cli.js",
       "path": "runtime/cli.js",
-      "sha256": "d6d7d447ce69ff18f84a9634f32b18885d3438aac80320c66037fc18f0c19105"
+      "sha256": "77b28aea29f80581bdd0862c0efa7071663f6270f720d5d7950545a7cef7f28a"
     },
     {
       "id": "source:runtime/file-save-store.js",
       "path": "runtime/file-save-store.js",
-      "sha256": "c60a6e6917d32657dba3589034f51e58863aae5dd34c5b40f95e7c1360d2909a"
+      "sha256": "5c30af02ecf8ebd72625325252647488cc28cd234968bab6c2ca82c7d3e25d59"
     },
     {
       "id": "source:runtime/headless-simulator.js",
       "path": "runtime/headless-simulator.js",
-      "sha256": "b47844056685781cb3b5cf14e7380c98d3a3d984e477d7b0a1b3c2d118fc16fe"
+      "sha256": "a1d3c60fb49f5808fa056773f5aaf928158cf3da9932733559ba0b2bd3347df9"
     },
     {
       "id": "source:runtime/load-simulation.js",
       "path": "runtime/load-simulation.js",
-      "sha256": "866aef84bb8506853433058c19b693c4a49639a080c7636725c2a0b574758479"
+      "sha256": "6fd3bcf3564cca60540b1d2c9de9126e4caba033ebc41c1ce9614b126f3bf362"
     }
   ],
   "output": {
