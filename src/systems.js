@@ -1676,17 +1676,20 @@
   function migrateWorld(world) {
     if (!world || typeof world !== 'object') throw new Error('World state must be an object.');
     if (world.schema === Core.SCHEMA) {
+      const candidate = Core.deepClone(world);
+      const beforeValidation = Core.serializeWorld(candidate);
+      const validation = validateWorld(candidate);
+      const validationMutatedState = Core.serializeWorld(candidate) !== beforeValidation;
+      if (!validation.ok || validationMutatedState) {
+        const errors = validation.errors.slice();
+        if (validationMutatedState) errors.push('Validation attempted to normalize current save state.');
+        throw new Error(`Current save failed invariant validation:\n${errors.join('\n')}`);
+      }
       world.version = Core.VERSION;
-      AXM.Households?.ensureState(world);
-      AXM.Habitats?.ensureState(world);
-      AXM.Stewardship?.ensureState(world);
-      AXM.Family?.ensureState(world);
-      AXM.Community?.ensureState(world);
-      AXM.Directions?.ensureState(world);
-      AXM.Economy?.ensureState(world);
-      AXM.Exteriors?.initializeWorld(world, { silent: true, migration: true });
-      AXM.Shells?.initializeWorld(world, { silent: true, migration: true });
-      AXM.Presence?.initializeWorld(world, { silent: true, migration: true });
+      // The world schema is already current. Only patch-level presentation
+      // defaults may be added here; authoritative migration/repair belongs to
+      // an explicit legacy-schema path. Running subsystem initializers before
+      // validation can otherwise erase corrupt or missing evidence.
       AXM.Visuals?.ensureUiState(world);
       return world;
     }

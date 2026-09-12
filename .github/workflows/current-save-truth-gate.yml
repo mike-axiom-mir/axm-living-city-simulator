@@ -1,0 +1,26 @@
+name: Current-save truth gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - codex/living-city-simulator-intake-v0.11.3
+
+permissions:
+  contents: read
+
+jobs:
+  current-save-admission:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Verify current-save admission boundary
+        run: node tests/current_save_admission_test.js
+      - name: Verify headless runtime contract
+        run: node tests/headless_runtime_intake_test.js
+      - name: Run complete focused simulation suite
+        run: npm test
