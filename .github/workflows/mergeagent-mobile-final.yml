@@ -122,6 +122,30 @@ jobs:
             echo "No runner Chromium/Chrome executable found" >&2
             exit 1
           fi
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          from playwright.sync_api import sync_playwright
+          html = Path('standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html').read_text('utf-8')
+          errors = []
+          with sync_playwright() as p:
+              browser = p.chromium.launch(headless=True, executable_path=os.environ['CHROMIUM_EXECUTABLE'], args=['--no-sandbox','--disable-dev-shm-usage'])
+              page = browser.new_page(viewport={'width': 1440, 'height': 1000})
+              page.on('pageerror', lambda error: errors.append('pageerror: ' + str(error)))
+              page.on('console', lambda message: errors.append('console: ' + message.text) if message.type == 'error' else None)
+              page.set_content(html, wait_until='load')
+              page.wait_for_timeout(1500)
+              count = page.locator('.tab-button').count()
+              axm = page.evaluate("() => typeof window.AXM === 'object' ? Object.keys(window.AXM) : []")
+              app_text = page.locator('#app').inner_text()[:600] if page.locator('#app').count() else '<missing #app>'
+              print('BOOT tab-count=', count)
+              print('BOOT AXM keys=', axm)
+              print('BOOT errors=', errors)
+              print('BOOT app=', app_text)
+              browser.close()
+              if count != 18:
+                  raise SystemExit('Browser shell did not boot; diagnostics printed above.')
+          PY
           python3 tests/visual_presence_browser_test.py
       - name: Finalize tested mobile branch
         shell: bash
