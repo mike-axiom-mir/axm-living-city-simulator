@@ -48,22 +48,28 @@
     livingFrame: null,
     livingLastDraw: 0,
     toastTimer: null,
+    pendingFocusKey: null,
 
     init() {
       this.app = document.getElementById('app');
       if (!this.app) throw new Error('Missing #app root.');
       this.bindEvents();
-      Game.subscribe((world) => this.render(world));
+      root.addEventListener?.('resize', () => this.syncStickyOffset());
+      Game.subscribe((world, reason) => this.render(world, reason));
       Game.init({ loadAutosave: true });
     },
 
-    render(world) {
+    render(world, reason = 'update') {
+      const interaction = this.captureInteractionState();
+      if (this.pendingFocusKey) interaction.focusKey = this.pendingFocusKey;
+      this.pendingFocusKey = null;
       this.cancelMapLoop();
       this.cancelLivingLoop();
       this.app.innerHTML = this.renderShell(world);
+      this.syncStickyOffset();
       if (['town', 'street'].includes(world.ui.activeTab)) this.startMapLoop(world);
       if (world.ui.activeTab === 'visuals') this.startLivingLoop(world);
-      requestAnimationFrame(() => this.app.querySelector('.tab-button.active')?.scrollIntoView({ block: 'nearest', inline: 'center' }));
+      requestAnimationFrame(() => this.restoreInteractionState(interaction, reason));
       this.scheduleToast(world);
     },
 
@@ -72,7 +78,7 @@
         <div class="shell">
           ${this.renderHeader(world)}
           ${this.renderTabs(world)}
-          <main class="view">${this.renderView(world)}</main>
+          <main class="view" id="active-view" role="tabpanel" aria-labelledby="tab-${escapeAttr(world.ui.activeTab)}">${this.renderView(world)}</main>
           <div class="footer-note">
             Local-first casual-realism prototype · no network calls · deterministic seed · readable JSON export · animated views are derived atmosphere, never authority or reward · no daily streaks or expiry punishment · community life, personal projects, local enterprise, visible street travel, resident-shaped buildings, and lawful lived-building presence offer possibilities rather than duties · walking and indoor routes can always be compressed · greetings are optional · private rooms are not remotely exposed · business is optional and closure is not failure · age is context, never a countdown · adult household, family-care, community, and property authority remain separate · people remain autonomous · objects are never silently erased.
           </div>
@@ -121,9 +127,96 @@
       const economy = Economy.metrics(world);
       const shells = Shells.metrics(world);
       const presence = Presence.metrics(world);
-      return `<nav class="tabbar" aria-label="Simulation sections">
-        ${TABS.map((tab) => `<button class="tab-button ${world.ui.activeTab === tab.id ? 'active' : ''}" data-action="tab" data-id="${tab.id}">${tab.label}${tab.id === 'work' && world.activeShift ? ' · active' : ''}${tab.id === 'buildings' && shells.pendingPlayerRequests ? ` · ${shells.pendingPlayerRequests}` : ''}${tab.id === 'presence' && presence.activeIndoorMovement ? ' · moving' : tab.id === 'presence' && presence.encountersAwaiting ? ` · ${presence.encountersAwaiting}` : ''}${tab.id === 'family' && family.pendingPlayerProposals ? ` · ${family.pendingPlayerProposals}` : ''}${tab.id === 'community' && community.awaitingPlayer ? ` · ${community.awaitingPlayer}` : ''}${tab.id === 'directions' && directions.pendingCollaborations ? ` · ${directions.pendingCollaborations}` : ''}${tab.id === 'economy' && economy.activeSession ? ' · active' : tab.id === 'economy' && economy.pendingWorkOffers ? ` · ${economy.pendingWorkOffers}` : ''}${tab.id === 'stewardship' && stewardship.pendingPlayerRequests ? ` · ${stewardship.pendingPlayerRequests}` : ''}</button>`).join('')}
-      </nav>`;
+      const activeIndex = Math.max(0, TABS.findIndex((tab) => tab.id === world.ui.activeTab));
+      return `<div class="view-switcher">
+        <button class="view-step" data-action="tab-relative" data-direction="-1" aria-label="Previous section" title="Previous section (Left arrow)">‹</button>
+        <nav class="tabbar" role="tablist" aria-label="Simulation sections">
+          ${TABS.map((tab) => {
+            const active = world.ui.activeTab === tab.id;
+            return `<button class="tab-button ${active ? 'active' : ''}" id="tab-${tab.id}" role="tab" aria-selected="${active}" aria-controls="active-view" tabindex="${active ? '0' : '-1'}" data-action="tab" data-id="${tab.id}">${tab.label}${tab.id === 'work' && world.activeShift ? ' · active' : ''}${tab.id === 'buildings' && shells.pendingPlayerRequests ? ` · ${shells.pendingPlayerRequests}` : ''}${tab.id === 'presence' && presence.activeIndoorMovement ? ' · moving' : tab.id === 'presence' && presence.encountersAwaiting ? ` · ${presence.encountersAwaiting}` : ''}${tab.id === 'family' && family.pendingPlayerProposals ? ` · ${family.pendingPlayerProposals}` : ''}${tab.id === 'community' && community.awaitingPlayer ? ` · ${community.awaitingPlayer}` : ''}${tab.id === 'directions' && directions.pendingCollaborations ? ` · ${directions.pendingCollaborations}` : ''}${tab.id === 'economy' && economy.activeSession ? ' · active' : tab.id === 'economy' && economy.pendingWorkOffers ? ` · ${economy.pendingWorkOffers}` : ''}${tab.id === 'stewardship' && stewardship.pendingPlayerRequests ? ` · ${stewardship.pendingPlayerRequests}` : ''}</button>`;
+          }).join('')}
+        </nav>
+        <span class="view-position" aria-label="Section ${activeIndex + 1} of ${TABS.length}">${activeIndex + 1}<i>/</i>${TABS.length}</span>
+        <button class="view-step" data-action="tab-relative" data-direction="1" aria-label="Next section" title="Next section (Right arrow)">›</button>
+      </div>`;
+    },
+
+    navigationTarget(currentId, key) {
+      const index = Math.max(0, TABS.findIndex((tab) => tab.id === currentId));
+      if (key === 'Home') return TABS[0].id;
+      if (key === 'End') return TABS[TABS.length - 1].id;
+      if (key === 'ArrowRight') return TABS[(index + 1) % TABS.length].id;
+      if (key === 'ArrowLeft') return TABS[(index - 1 + TABS.length) % TABS.length].id;
+      return null;
+    },
+
+    activateTab(tabId, focusTab = true) {
+      if (!TABS.some((tab) => tab.id === tabId)) return;
+      if (focusTab) this.pendingFocusKey = `tab:${tabId}`;
+      Game.setTab(tabId);
+    },
+
+    interactionKey(element) {
+      if (!element || element === document.body) return null;
+      if (element.classList?.contains('tab-button') && element.dataset.id) return `tab:${element.dataset.id}`;
+      if (element.id) return `id:${element.id}`;
+      if (!element.dataset?.action) return null;
+      return ['action', 'id', 'value', 'axis', 'kind', 'variant', 'response', 'direction']
+        .map((key) => `${key}:${element.dataset[key] || ''}`)
+        .join('|');
+    },
+
+    findInteraction(key) {
+      if (!key) return null;
+      return Array.from(this.app.querySelectorAll('button, input, select, textarea, [tabindex]'))
+        .find((element) => this.interactionKey(element) === key) || null;
+    },
+
+    captureInteractionState() {
+      const active = document.activeElement;
+      const tabbar = this.app?.querySelector('.tabbar');
+      const state = {
+        focusKey: this.app?.contains(active) ? this.interactionKey(active) : null,
+        tabScrollLeft: tabbar?.scrollLeft || 0,
+        draft: null
+      };
+      if (state.focusKey && active?.matches?.('input, textarea, select')) {
+        state.draft = {
+          value: active.value,
+          selectionStart: typeof active.selectionStart === 'number' ? active.selectionStart : null,
+          selectionEnd: typeof active.selectionEnd === 'number' ? active.selectionEnd : null
+        };
+      }
+      return state;
+    },
+
+    restoreInteractionState(state, reason) {
+      const tabbar = this.app.querySelector('.tabbar');
+      if (tabbar && Number.isFinite(state?.tabScrollLeft)) tabbar.scrollLeft = state.tabScrollLeft;
+      if (reason === 'tab') {
+        this.app.querySelector('#active-view')?.scrollIntoView({ block: 'start' });
+      }
+      const target = this.findInteraction(state?.focusKey);
+      if (target) {
+        if (state.draft && target.matches('input, textarea, select')) {
+          target.value = state.draft.value;
+          if (state.draft.selectionStart != null && target.setSelectionRange) {
+            target.setSelectionRange(state.draft.selectionStart, state.draft.selectionEnd);
+          }
+        }
+        target.focus({ preventScroll: true });
+        if (target.classList.contains('tab-button')) target.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' });
+        return;
+      }
+      if (reason === 'init' || reason === 'tab') {
+        this.app.querySelector('.tab-button.active')?.scrollIntoView({ block: 'nearest', inline: 'center' });
+      }
+    },
+
+    syncStickyOffset() {
+      const topbar = this.app?.querySelector('.topbar');
+      const compact = root.matchMedia?.('(max-width: 720px)').matches;
+      this.app?.style.setProperty('--topbar-height', `${compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0)}px`);
     },
 
     renderView(world) {
@@ -2807,7 +2900,12 @@
         const action = button.dataset.action;
         const id = button.dataset.id;
         switch (action) {
-          case 'tab': Game.setTab(id); break;
+          case 'tab': this.activateTab(id); break;
+          case 'tab-relative': {
+            const key = Number(button.dataset.direction) < 0 ? 'ArrowLeft' : 'ArrowRight';
+            this.activateTab(this.navigationTarget(Game.world.ui.activeTab, key));
+            break;
+          }
           case 'speed': Game.setSpeed(Number(button.dataset.value)); break;
           case 'select-place': Game.selectPlace(id); Game.setTab('town'); break;
           case 'open-street': Game.setTab('street'); break;
@@ -3146,6 +3244,15 @@
           case 'toast-close': Game.clearToast(); break;
           default: break;
         }
+      });
+
+      this.app.addEventListener('keydown', (event) => {
+        const tab = event.target.closest?.('.tab-button');
+        if (!tab) return;
+        const targetId = this.navigationTarget(tab.dataset.id, event.key);
+        if (!targetId) return;
+        event.preventDefault();
+        this.activateTab(targetId);
       });
 
       this.app.addEventListener('change', (event) => {

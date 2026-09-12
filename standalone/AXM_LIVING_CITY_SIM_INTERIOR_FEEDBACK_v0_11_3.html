@@ -191,18 +191,70 @@ select:focus-visible {
   color: var(--muted);
 }
 
-.tabbar {
+.view-switcher {
   position: sticky;
-  top: 92px;
+  top: var(--topbar-height, 92px);
   z-index: 40;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
   gap: 7px;
-  overflow-x: auto;
-  padding: 10px 18px 12px;
+  padding: 10px 12px 12px;
   border-bottom: 1px solid var(--line);
   background: rgba(13, 19, 27, 0.88);
   backdrop-filter: blur(14px);
+}
+
+.tabbar {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding: 2px 6px;
   scrollbar-width: thin;
+}
+
+.view-step,
+.view-position {
+  flex: 0 0 auto;
+  min-width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.view-step {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--text);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: 160ms ease;
+}
+
+.view-step:hover {
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.view-position {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 0 10px;
+  color: var(--text);
+  font-size: 0.76rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.view-position i {
+  color: var(--faint);
+  font-style: normal;
+  font-weight: 500;
 }
 
 .tab-button {
@@ -232,6 +284,7 @@ select:focus-visible {
 
 .view {
   padding: 18px;
+  scroll-margin-top: calc(var(--topbar-height, 92px) + 60px);
 }
 
 .view-title-row {
@@ -1037,10 +1090,6 @@ select:focus-visible {
     grid-row: 2;
   }
 
-  .tabbar {
-    top: 141px;
-  }
-
   .split,
   .split.equal {
     grid-template-columns: 1fr;
@@ -1087,14 +1136,32 @@ select:focus-visible {
     max-width: 34px;
   }
 
-  .tabbar {
+  .view-switcher {
     position: sticky;
     top: 0;
-    padding: 8px 10px 10px;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    gap: 5px;
+    padding: 7px 8px 9px;
+  }
+
+  .tabbar {
+    gap: 5px;
+    padding-inline: 2px;
+  }
+
+  .view-step,
+  .view-position {
+    min-width: 36px;
+    height: 36px;
+  }
+
+  .view-position {
+    padding-inline: 7px;
   }
 
   .view {
     padding: 12px;
+    scroll-margin-top: 60px;
   }
 
   .view-title-row {
@@ -2222,6 +2289,7 @@ select:focus-visible {
   .visual-room-button,
   .visual-activity-button,
   .tab-button,
+  .view-step,
   .button,
   .building-index-card {
     animation: none !important;
@@ -22965,12 +23033,76 @@ select:focus-visible {
   const STORAGE_KEY = 'axm.living-city-sim.autosave.v0.11.3';
   const LEGACY_STORAGE_KEYS = [
     'axm.living-city-sim.autosave.v0.11.2', 'axm.living-city-sim.autosave.v0.11.1', 'axm.living-city-sim.autosave.v0.11.0', 'axm.living-city-sim.autosave.v0.10.0', 'axm.living-city-sim.autosave.v0.9.0', 'axm.living-city-sim.autosave.v0.8.0','axm.living-city-sim.autosave.v0.7.0','axm.living-city-sim.autosave.v0.6.0', 'axm.living-city-sim.autosave.v0.5.0', 'axm.living-city-sim.autosave.v0.4.0', 'axm.living-city-sim.autosave.v0.3.0', 'axm.living-city-sim.autosave.v0.2.0', 'axm.living-city-sim.autosave.v0.1.0'];
+  const CLEAR_TRANSACTION_KEY = 'axm.living-city-sim.autosave.clear-transaction.v1';
+  const CLEAR_TRANSACTION_MARKER = 'axm.living-city.autosave-clear-transaction/v1:DELETE_INTENT';
 
   const Game = {
     world: null,
     listeners: [],
     timer: null,
     initialized: false,
+    autosaveBaselineKnown: false,
+    autosaveBaseText: null,
+    autosaveConflict: null,
+
+    rememberAutosaveBaseline(text) {
+      this.autosaveBaselineKnown = true;
+      this.autosaveBaseText = text == null ? null : String(text);
+      this.autosaveConflict = null;
+    },
+
+    inspectAutosaveClearTransaction(storage) {
+      const marker = storage.getItem(CLEAR_TRANSACTION_KEY);
+      if (marker === null) return { state: 'absent' };
+      if (marker !== CLEAR_TRANSACTION_MARKER) return { state: 'held', marker: String(marker) };
+      return { state: 'pending' };
+    },
+
+    holdAutosaveClearTransaction(reason) {
+      this.autosaveConflict = {
+        kind: 'clear-transaction-held',
+        key: CLEAR_TRANSACTION_KEY,
+        reason: String(reason || 'invalid-marker')
+      };
+      console.warn('Autosave clear transaction held: ' + this.autosaveConflict.reason + '.');
+      return false;
+    },
+
+    completeAutosaveClearTransaction(storage) {
+      let transaction;
+      try {
+        transaction = this.inspectAutosaveClearTransaction(storage);
+      } catch (error) {
+        this.autosaveConflict = {
+          kind: 'clear-transaction-pending',
+          key: CLEAR_TRANSACTION_KEY,
+          reason: 'marker-read-failed'
+        };
+        console.warn('Autosave clear transaction pending: marker could not be read:', error.message);
+        return false;
+      }
+      if (transaction.state === 'absent') return true;
+      if (transaction.state === 'held') return this.holdAutosaveClearTransaction('unexpected-marker');
+      try {
+        for (const key of LEGACY_STORAGE_KEYS) storage.removeItem(key);
+        storage.removeItem(STORAGE_KEY);
+        storage.removeItem(CLEAR_TRANSACTION_KEY);
+        this.rememberAutosaveBaseline(null);
+        return true;
+      } catch (error) {
+        this.autosaveConflict = {
+          kind: 'clear-transaction-pending',
+          key: CLEAR_TRANSACTION_KEY,
+          reason: 'physical-cleanup-failed'
+        };
+        console.warn('Autosave clear transaction pending: physical cleanup could not complete:', error.message);
+        return false;
+      }
+    },
+
+    recoverAutosaveClearTransaction(storage) {
+      return this.completeAutosaveClearTransaction(storage);
+    },
 
     init(options = {}) {
       if (this.initialized) return this.world;
@@ -23145,7 +23277,25 @@ select:focus-visible {
     writeAutosave() {
       if (!this.world) return false;
       try {
-        root.localStorage?.setItem(STORAGE_KEY, Core.serializeWorld(this.world));
+        const storage = root.localStorage;
+        if (!storage) return false;
+        if (!this.recoverAutosaveClearTransaction(storage)) return false;
+        const observed = storage.getItem(STORAGE_KEY);
+        const staleObservedBaseline = this.autosaveBaselineKnown
+          ? observed !== this.autosaveBaseText
+          : observed !== null;
+        if (staleObservedBaseline) {
+          this.autosaveConflict = {
+            kind: 'stale-storage',
+            key: STORAGE_KEY,
+            baselineKnown: this.autosaveBaselineKnown
+          };
+          console.warn('Autosave refused: current local save changed since this session last observed it.');
+          return false;
+        }
+        const serialized = Core.serializeWorld(this.world);
+        storage.setItem(STORAGE_KEY, serialized);
+        this.rememberAutosaveBaseline(serialized);
         return true;
       } catch (error) {
         console.warn('Autosave unavailable:', error.message);
@@ -23154,37 +23304,112 @@ select:focus-visible {
     },
 
     readAutosave() {
+      const candidates = [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS);
+      this.autosaveBaselineKnown = false;
+      this.autosaveBaseText = null;
+      this.autosaveConflict = null;
+      let currentObserved = null;
+      let currentObservedKnown = false;
       try {
-        const candidates = [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS);
+        const storage = root.localStorage;
+        if (!storage) return null;
+        if (!this.recoverAutosaveClearTransaction(storage)) return null;
         for (const key of candidates) {
-          const text = root.localStorage?.getItem(key);
-          if (!text) continue;
-          const parsed = Core.parseWorld(text);
-          const sourceSchema = parsed.schema;
-          const world = Systems.migrateWorld(parsed);
-          const validation = Systems.validateWorld(world);
-          if (!validation.ok) {
-            console.warn(`Autosave ${key} rejected due to invariant errors:`, validation.errors);
-            continue;
+          const text = storage.getItem(key);
+          if (key === STORAGE_KEY) {
+            currentObserved = text == null ? null : String(text);
+            currentObservedKnown = true;
           }
-          if (sourceSchema !== Core.SCHEMA) root.localStorage?.setItem(STORAGE_KEY, Core.serializeWorld(world));
-          return world;
+          if (!text) continue;
+          try {
+            const parsed = Core.parseWorld(text);
+            const sourceSchema = parsed.schema;
+            const world = Systems.migrateWorld(parsed);
+            const validation = Systems.validateWorld(world);
+            if (!validation.ok) {
+              console.warn(`Autosave ${key} rejected due to invariant errors:`, validation.errors);
+              continue;
+            }
+            if (sourceSchema !== Core.SCHEMA) {
+              const promoted = Core.serializeWorld(world);
+              storage.setItem(STORAGE_KEY, promoted);
+              this.rememberAutosaveBaseline(promoted);
+            } else if (key === STORAGE_KEY) {
+              this.rememberAutosaveBaseline(text);
+            } else {
+              const promoted = Core.serializeWorld(world);
+              storage.setItem(STORAGE_KEY, promoted);
+              this.rememberAutosaveBaseline(promoted);
+            }
+            return world;
+          } catch (error) {
+            console.warn(`Autosave ${key} rejected:`, error.message);
+          }
         }
+        if (currentObservedKnown) this.rememberAutosaveBaseline(currentObserved);
         return null;
       } catch (error) {
-        console.warn('Autosave could not be loaded:', error.message);
+        console.warn('Autosave storage unavailable:', error.message);
         return null;
       }
     },
 
     clearAutosave() {
       try {
-        [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS).forEach((key) => root.localStorage?.removeItem(key));
+        const storage = root.localStorage;
+        if (!storage) return false;
+        const transaction = this.inspectAutosaveClearTransaction(storage);
+        if (transaction.state === 'held') {
+          return this.holdAutosaveClearTransaction('unexpected-marker');
+        }
+        if (transaction.state === 'pending') {
+          if (!this.completeAutosaveClearTransaction(storage)) {
+            Systems.toast(this.world, 'Local autosave clear is pending because browser storage interrupted cleanup. Save loading and overwrite remain held until cleanup can resume.', 'warning');
+            this.emit('autosave-clear-pending');
+            return false;
+          }
+          Systems.toast(this.world, 'Local autosave cleared. Current in-memory world remains open.', 'info');
+          this.emit('autosave-clear');
+          return true;
+        }
+        const observed = storage.getItem(STORAGE_KEY);
+        const staleObservedBaseline = this.autosaveBaselineKnown
+          ? observed !== this.autosaveBaseText
+          : observed !== null;
+        if (staleObservedBaseline) {
+          this.autosaveConflict = {
+            kind: 'stale-storage',
+            key: STORAGE_KEY,
+            baselineKnown: this.autosaveBaselineKnown
+          };
+          console.warn('Autosave clear refused: current local save changed since this session last observed it.');
+          Systems.toast(this.world, 'Local autosave was not cleared because the stored save changed in another session. Current in-memory world remains open.', 'warning');
+          this.emit('autosave-clear-refused');
+          return false;
+        }
+        try {
+          storage.setItem(CLEAR_TRANSACTION_KEY, CLEAR_TRANSACTION_MARKER);
+        } catch (error) {
+          this.autosaveConflict = {
+            kind: 'clear-transaction-unavailable',
+            key: CLEAR_TRANSACTION_KEY,
+            reason: 'intent-write-failed'
+          };
+          console.warn('Could not begin autosave clear transaction:', error.message);
+          return false;
+        }
+        if (!this.completeAutosaveClearTransaction(storage)) {
+          Systems.toast(this.world, 'Local autosave clear is pending because browser storage interrupted cleanup. Save loading and overwrite remain held until cleanup can resume.', 'warning');
+          this.emit('autosave-clear-pending');
+          return false;
+        }
       } catch (error) {
         console.warn('Could not clear autosave:', error.message);
+        return false;
       }
       Systems.toast(this.world, 'Local autosave cleared. Current in-memory world remains open.', 'info');
       this.emit('autosave-clear');
+      return true;
     },
 
     downloadText(filename, text, mime = 'text/plain') {
@@ -23338,22 +23563,28 @@ select:focus-visible {
     livingFrame: null,
     livingLastDraw: 0,
     toastTimer: null,
+    pendingFocusKey: null,
 
     init() {
       this.app = document.getElementById('app');
       if (!this.app) throw new Error('Missing #app root.');
       this.bindEvents();
-      Game.subscribe((world) => this.render(world));
+      root.addEventListener?.('resize', () => this.syncStickyOffset());
+      Game.subscribe((world, reason) => this.render(world, reason));
       Game.init({ loadAutosave: true });
     },
 
-    render(world) {
+    render(world, reason = 'update') {
+      const interaction = this.captureInteractionState();
+      if (this.pendingFocusKey) interaction.focusKey = this.pendingFocusKey;
+      this.pendingFocusKey = null;
       this.cancelMapLoop();
       this.cancelLivingLoop();
       this.app.innerHTML = this.renderShell(world);
+      this.syncStickyOffset();
       if (['town', 'street'].includes(world.ui.activeTab)) this.startMapLoop(world);
       if (world.ui.activeTab === 'visuals') this.startLivingLoop(world);
-      requestAnimationFrame(() => this.app.querySelector('.tab-button.active')?.scrollIntoView({ block: 'nearest', inline: 'center' }));
+      requestAnimationFrame(() => this.restoreInteractionState(interaction, reason));
       this.scheduleToast(world);
     },
 
@@ -23362,7 +23593,7 @@ select:focus-visible {
         <div class="shell">
           ${this.renderHeader(world)}
           ${this.renderTabs(world)}
-          <main class="view">${this.renderView(world)}</main>
+          <main class="view" id="active-view" role="tabpanel" aria-labelledby="tab-${escapeAttr(world.ui.activeTab)}">${this.renderView(world)}</main>
           <div class="footer-note">
             Local-first casual-realism prototype · no network calls · deterministic seed · readable JSON export · animated views are derived atmosphere, never authority or reward · no daily streaks or expiry punishment · community life, personal projects, local enterprise, visible street travel, resident-shaped buildings, and lawful lived-building presence offer possibilities rather than duties · walking and indoor routes can always be compressed · greetings are optional · private rooms are not remotely exposed · business is optional and closure is not failure · age is context, never a countdown · adult household, family-care, community, and property authority remain separate · people remain autonomous · objects are never silently erased.
           </div>
@@ -23411,9 +23642,96 @@ select:focus-visible {
       const economy = Economy.metrics(world);
       const shells = Shells.metrics(world);
       const presence = Presence.metrics(world);
-      return `<nav class="tabbar" aria-label="Simulation sections">
-        ${TABS.map((tab) => `<button class="tab-button ${world.ui.activeTab === tab.id ? 'active' : ''}" data-action="tab" data-id="${tab.id}">${tab.label}${tab.id === 'work' && world.activeShift ? ' · active' : ''}${tab.id === 'buildings' && shells.pendingPlayerRequests ? ` · ${shells.pendingPlayerRequests}` : ''}${tab.id === 'presence' && presence.activeIndoorMovement ? ' · moving' : tab.id === 'presence' && presence.encountersAwaiting ? ` · ${presence.encountersAwaiting}` : ''}${tab.id === 'family' && family.pendingPlayerProposals ? ` · ${family.pendingPlayerProposals}` : ''}${tab.id === 'community' && community.awaitingPlayer ? ` · ${community.awaitingPlayer}` : ''}${tab.id === 'directions' && directions.pendingCollaborations ? ` · ${directions.pendingCollaborations}` : ''}${tab.id === 'economy' && economy.activeSession ? ' · active' : tab.id === 'economy' && economy.pendingWorkOffers ? ` · ${economy.pendingWorkOffers}` : ''}${tab.id === 'stewardship' && stewardship.pendingPlayerRequests ? ` · ${stewardship.pendingPlayerRequests}` : ''}</button>`).join('')}
-      </nav>`;
+      const activeIndex = Math.max(0, TABS.findIndex((tab) => tab.id === world.ui.activeTab));
+      return `<div class="view-switcher">
+        <button class="view-step" data-action="tab-relative" data-direction="-1" aria-label="Previous section" title="Previous section (Left arrow)">‹</button>
+        <nav class="tabbar" role="tablist" aria-label="Simulation sections">
+          ${TABS.map((tab) => {
+            const active = world.ui.activeTab === tab.id;
+            return `<button class="tab-button ${active ? 'active' : ''}" id="tab-${tab.id}" role="tab" aria-selected="${active}" aria-controls="active-view" tabindex="${active ? '0' : '-1'}" data-action="tab" data-id="${tab.id}">${tab.label}${tab.id === 'work' && world.activeShift ? ' · active' : ''}${tab.id === 'buildings' && shells.pendingPlayerRequests ? ` · ${shells.pendingPlayerRequests}` : ''}${tab.id === 'presence' && presence.activeIndoorMovement ? ' · moving' : tab.id === 'presence' && presence.encountersAwaiting ? ` · ${presence.encountersAwaiting}` : ''}${tab.id === 'family' && family.pendingPlayerProposals ? ` · ${family.pendingPlayerProposals}` : ''}${tab.id === 'community' && community.awaitingPlayer ? ` · ${community.awaitingPlayer}` : ''}${tab.id === 'directions' && directions.pendingCollaborations ? ` · ${directions.pendingCollaborations}` : ''}${tab.id === 'economy' && economy.activeSession ? ' · active' : tab.id === 'economy' && economy.pendingWorkOffers ? ` · ${economy.pendingWorkOffers}` : ''}${tab.id === 'stewardship' && stewardship.pendingPlayerRequests ? ` · ${stewardship.pendingPlayerRequests}` : ''}</button>`;
+          }).join('')}
+        </nav>
+        <span class="view-position" aria-label="Section ${activeIndex + 1} of ${TABS.length}">${activeIndex + 1}<i>/</i>${TABS.length}</span>
+        <button class="view-step" data-action="tab-relative" data-direction="1" aria-label="Next section" title="Next section (Right arrow)">›</button>
+      </div>`;
+    },
+
+    navigationTarget(currentId, key) {
+      const index = Math.max(0, TABS.findIndex((tab) => tab.id === currentId));
+      if (key === 'Home') return TABS[0].id;
+      if (key === 'End') return TABS[TABS.length - 1].id;
+      if (key === 'ArrowRight') return TABS[(index + 1) % TABS.length].id;
+      if (key === 'ArrowLeft') return TABS[(index - 1 + TABS.length) % TABS.length].id;
+      return null;
+    },
+
+    activateTab(tabId, focusTab = true) {
+      if (!TABS.some((tab) => tab.id === tabId)) return;
+      if (focusTab) this.pendingFocusKey = `tab:${tabId}`;
+      Game.setTab(tabId);
+    },
+
+    interactionKey(element) {
+      if (!element || element === document.body) return null;
+      if (element.classList?.contains('tab-button') && element.dataset.id) return `tab:${element.dataset.id}`;
+      if (element.id) return `id:${element.id}`;
+      if (!element.dataset?.action) return null;
+      return ['action', 'id', 'value', 'axis', 'kind', 'variant', 'response', 'direction']
+        .map((key) => `${key}:${element.dataset[key] || ''}`)
+        .join('|');
+    },
+
+    findInteraction(key) {
+      if (!key) return null;
+      return Array.from(this.app.querySelectorAll('button, input, select, textarea, [tabindex]'))
+        .find((element) => this.interactionKey(element) === key) || null;
+    },
+
+    captureInteractionState() {
+      const active = document.activeElement;
+      const tabbar = this.app?.querySelector('.tabbar');
+      const state = {
+        focusKey: this.app?.contains(active) ? this.interactionKey(active) : null,
+        tabScrollLeft: tabbar?.scrollLeft || 0,
+        draft: null
+      };
+      if (state.focusKey && active?.matches?.('input, textarea, select')) {
+        state.draft = {
+          value: active.value,
+          selectionStart: typeof active.selectionStart === 'number' ? active.selectionStart : null,
+          selectionEnd: typeof active.selectionEnd === 'number' ? active.selectionEnd : null
+        };
+      }
+      return state;
+    },
+
+    restoreInteractionState(state, reason) {
+      const tabbar = this.app.querySelector('.tabbar');
+      if (tabbar && Number.isFinite(state?.tabScrollLeft)) tabbar.scrollLeft = state.tabScrollLeft;
+      if (reason === 'tab') {
+        this.app.querySelector('#active-view')?.scrollIntoView({ block: 'start' });
+      }
+      const target = this.findInteraction(state?.focusKey);
+      if (target) {
+        if (state.draft && target.matches('input, textarea, select')) {
+          target.value = state.draft.value;
+          if (state.draft.selectionStart != null && target.setSelectionRange) {
+            target.setSelectionRange(state.draft.selectionStart, state.draft.selectionEnd);
+          }
+        }
+        target.focus({ preventScroll: true });
+        if (target.classList.contains('tab-button')) target.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' });
+        return;
+      }
+      if (reason === 'init' || reason === 'tab') {
+        this.app.querySelector('.tab-button.active')?.scrollIntoView({ block: 'nearest', inline: 'center' });
+      }
+    },
+
+    syncStickyOffset() {
+      const topbar = this.app?.querySelector('.topbar');
+      const compact = root.matchMedia?.('(max-width: 720px)').matches;
+      this.app?.style.setProperty('--topbar-height', `${compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0)}px`);
     },
 
     renderView(world) {
@@ -26097,7 +26415,12 @@ select:focus-visible {
         const action = button.dataset.action;
         const id = button.dataset.id;
         switch (action) {
-          case 'tab': Game.setTab(id); break;
+          case 'tab': this.activateTab(id); break;
+          case 'tab-relative': {
+            const key = Number(button.dataset.direction) < 0 ? 'ArrowLeft' : 'ArrowRight';
+            this.activateTab(this.navigationTarget(Game.world.ui.activeTab, key));
+            break;
+          }
           case 'speed': Game.setSpeed(Number(button.dataset.value)); break;
           case 'select-place': Game.selectPlace(id); Game.setTab('town'); break;
           case 'open-street': Game.setTab('street'); break;
@@ -26436,6 +26759,15 @@ select:focus-visible {
           case 'toast-close': Game.clearToast(); break;
           default: break;
         }
+      });
+
+      this.app.addEventListener('keydown', (event) => {
+        const tab = event.target.closest?.('.tab-button');
+        if (!tab) return;
+        const targetId = this.navigationTarget(tab.dataset.id, event.key);
+        if (!targetId) return;
+        event.preventDefault();
+        this.activateTab(targetId);
       });
 
       this.app.addEventListener('change', (event) => {
@@ -28153,6 +28485,381 @@ select:focus-visible {
     UI.__careerSkillsPatched = true;
   }
 }(typeof window !== 'undefined' ? window : globalThis));
+/* ===== src/autosave_conflict_ui.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Game = AXM.Game;
+  const CONFLICT_KIND = 'stale-storage';
+  let lastAnnouncedConflict = null;
+  let started = false;
+
+  function project(game = Game) {
+    const conflict = game?.autosaveConflict;
+    if (!conflict || conflict.kind !== CONFLICT_KIND) return null;
+    const autosaveEnabled = game.world?.settings?.autosave !== false;
+    return {
+      kind: CONFLICT_KIND,
+      autosaveEnabled,
+      baselineKnown: conflict.baselineKnown === true,
+      title: 'This tab will not overwrite a newer local save.',
+      body: autosaveEnabled
+        ? 'Another tab or session changed the current local save after this tab last observed it. Living City is still running in memory, but autosave writes are being held so the newer stored world is not silently replaced.'
+        : 'Another tab or session changed the current local save after this tab last observed it. This tab is continuing in memory with autosave off, so the newer stored world remains untouched.',
+      guidance: 'Nothing has been overwritten. Export this session before reloading if you want to keep its in-memory progress.'
+    };
+  }
+
+  function panelMarkup(view, announce) {
+    return `
+      <section
+        class="card"
+        data-autosave-conflict-panel
+        role="${announce ? 'alert' : 'region'}"
+        aria-labelledby="autosave-conflict-title"
+        style="margin:12px 18px 0;border-color:rgba(214,166,89,.62);background:linear-gradient(180deg,rgba(78,58,31,.96),rgba(36,31,27,.97));box-shadow:0 18px 48px rgba(0,0,0,.34)"
+      >
+        <div class="card-inner stack">
+          <div class="view-title-row" style="margin:0;align-items:center">
+            <div>
+              <div class="brand-kicker" style="color:#f0c66f">LOCAL SAVE HELD · DISPLAY ≠ STORAGE AUTHORITY</div>
+              <h2 id="autosave-conflict-title" style="margin:4px 0 0;font-size:clamp(1.15rem,2.5vw,1.55rem)">${view.title}</h2>
+              <p style="margin:7px 0 0;color:var(--muted);max-width:920px;line-height:1.5">${view.body}</p>
+            </div>
+            <div class="pill-row" aria-label="Autosave conflict state">
+              <span class="pill warn">${view.autosaveEnabled ? 'AUTOSAVE HELD' : 'AUTOSAVE OFF'}</span>
+              <span class="pill good">IN-MEMORY WORLD INTACT</span>
+            </div>
+          </div>
+          <div class="callout" style="margin-top:2px">${view.guidance}</div>
+          <div class="button-grid" style="margin-top:2px">
+            <button class="button primary" data-autosave-conflict-action="export">
+              <strong>Export this session</strong><span>Keep a readable JSON copy of the world currently open in this tab.</span>
+            </button>
+            <button class="button secondary" data-autosave-conflict-action="reload">
+              <strong>Reload changed local save</strong><span>Leave this in-memory branch and reopen the newer stored world.</span>
+            </button>
+            ${view.autosaveEnabled ? `
+              <button class="button" data-autosave-conflict-action="disable-autosave">
+                <strong>Continue with autosave off</strong><span>Keep playing in this tab without repeated write attempts.</span>
+              </button>` : `
+              <button class="button" disabled>
+                <strong>Autosave is off</strong><span>This tab is now memory-only until you explicitly export or reload.</span>
+              </button>`}
+            <button class="button ghost" data-autosave-conflict-action="open-save-tools">
+              <strong>Open save tools</strong><span>Go to Observer Lab without changing either saved world.</span>
+            </button>
+          </div>
+        </div>
+      </section>`;
+  }
+
+  function render(game = Game) {
+    const document = root.document;
+    if (!document) return null;
+    const shell = document.querySelector('#app .shell');
+    if (!shell) return null;
+
+    const existing = shell.querySelector('[data-autosave-conflict-panel]');
+    const view = project(game);
+    if (!view) {
+      existing?.remove();
+      lastAnnouncedConflict = null;
+      return null;
+    }
+
+    existing?.remove();
+    const announce = game.autosaveConflict !== lastAnnouncedConflict;
+    const holder = document.createElement('div');
+    holder.innerHTML = panelMarkup(view, announce).trim();
+    const panel = holder.firstElementChild;
+    const topbar = shell.querySelector('.topbar');
+    if (topbar) topbar.insertAdjacentElement('afterend', panel);
+    else shell.prepend(panel);
+    if (announce) lastAnnouncedConflict = game.autosaveConflict;
+    return panel;
+  }
+
+  function onClick(event) {
+    const button = event.target.closest?.('[data-autosave-conflict-action]');
+    if (!button || button.disabled || !Game?.autosaveConflict) return;
+    const action = button.dataset.autosaveConflictAction;
+
+    if (action === 'export') {
+      Game.exportWorld();
+      return;
+    }
+    if (action === 'open-save-tools') {
+      Game.setTab('lab');
+      return;
+    }
+    if (action === 'disable-autosave') {
+      Game.mutate((world) => {
+        world.settings.autosave = false;
+      }, 'autosave-conflict-disable');
+      return;
+    }
+    if (action === 'reload') {
+      const confirmed = typeof root.confirm !== 'function' || root.confirm(
+        'Reload the changed local save?\n\nThe world currently open in this tab will be left behind unless you exported it first.'
+      );
+      if (confirmed) root.location?.reload?.();
+    }
+  }
+
+  function start() {
+    if (started || !root.document || !Game) return;
+    started = true;
+    Game.subscribe(() => render(Game));
+    root.document.addEventListener('click', onClick);
+    render(Game);
+  }
+
+  AXM.AutosaveConflictUI = {
+    CONFLICT_KIND,
+    project,
+    render,
+    start
+  };
+
+  if (root.document) {
+    if (root.document.readyState === 'loading') root.document.addEventListener('DOMContentLoaded', start);
+    else start();
+  }
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/autosave_clear_recovery_ui.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Game = AXM.Game;
+  const Systems = AXM.Systems;
+  const OWNED_KINDS = new Set([
+    'clear-transaction-held',
+    'clear-transaction-pending',
+    'clear-transaction-unavailable'
+  ]);
+  let lastAnnouncedConflict = null;
+  let started = false;
+
+  function project(game = Game) {
+    const conflict = game?.autosaveConflict;
+    if (!conflict || !OWNED_KINDS.has(conflict.kind)) return null;
+    const autosaveEnabled = game.world?.settings?.autosave !== false;
+
+    if (conflict.kind === 'clear-transaction-held') {
+      return {
+        kind: conflict.kind,
+        autosaveEnabled,
+        fallbackWorld: true,
+        canRetry: false,
+        status: 'LOCAL SAVE CLEANUP HELD',
+        title: 'Local save cleanup needs review.',
+        body: 'Living City found an unfamiliar local-save cleanup marker, so it did not load, delete, or overwrite the stored save set. The world open now is an in-memory fallback, not proof that your previous local save was recovered.',
+        guidance: 'Stored bytes remain outside this world until you deliberately inspect or repair them. Export this in-memory world if you want to keep anything you do here.',
+        tone: 'warn'
+      };
+    }
+
+    if (conflict.kind === 'clear-transaction-pending') {
+      return {
+        kind: conflict.kind,
+        autosaveEnabled,
+        fallbackWorld: true,
+        canRetry: true,
+        status: 'LOCAL SAVE CLEANUP PENDING',
+        title: 'Interrupted local save cleanup can be retried.',
+        body: 'A previously admitted local clear could not finish. Save loading and autosave writes remain held, so the open world is an in-memory fallback until cleanup finishes or you leave autosave off.',
+        guidance: 'Retry only resumes the already-admitted delete intent. It does not widen the clear, merge worlds, or treat this fallback world as saved truth.',
+        tone: 'warn'
+      };
+    }
+
+    return {
+      kind: conflict.kind,
+      autosaveEnabled,
+      fallbackWorld: false,
+      canRetry: false,
+      status: 'LOCAL SAVE CLEANUP NOT STARTED',
+      title: 'Local save cleanup did not start.',
+      body: 'Browser storage refused the delete-intent marker before cleanup began. No cleanup was admitted and no save bytes were intentionally removed by this attempt.',
+      guidance: 'Your current in-memory world remains open. Export it if useful, and inspect local save tools before trying another destructive clear.',
+      tone: 'warn'
+    };
+  }
+
+  function panelMarkup(view, announce) {
+    const retry = view.canRetry
+      ? `<button class="button primary" data-autosave-clear-recovery-action="retry">
+          <strong>Retry safe cleanup</strong><span>Resume only the already-admitted local clear, then report whether it actually finished.</span>
+        </button>`
+      : '';
+    const autosaveChoice = view.autosaveEnabled
+      ? `<button class="button" data-autosave-clear-recovery-action="disable-autosave">
+          <strong>Continue with autosave off</strong><span>Keep this open world memory-only without repeated held writes.</span>
+        </button>`
+      : `<button class="button" disabled>
+          <strong>Autosave is off</strong><span>This world remains memory-only until you explicitly export or resolve local save storage.</span>
+        </button>`;
+
+    return `
+      <section
+        class="card"
+        data-autosave-clear-recovery-panel
+        role="${announce ? 'alert' : 'region'}"
+        aria-labelledby="autosave-clear-recovery-title"
+        style="margin:12px 18px 0;border-color:rgba(214,166,89,.68);background:linear-gradient(180deg,rgba(78,58,31,.97),rgba(31,29,27,.98));box-shadow:0 18px 48px rgba(0,0,0,.34)"
+      >
+        <div class="card-inner stack">
+          <div class="view-title-row" style="margin:0;align-items:center">
+            <div>
+              <div class="brand-kicker" style="color:#f0c66f">${view.status} · DISPLAY ≠ STORAGE AUTHORITY</div>
+              <h2 id="autosave-clear-recovery-title" style="margin:4px 0 0;font-size:clamp(1.15rem,2.5vw,1.55rem)">${view.title}</h2>
+              <p style="margin:7px 0 0;color:var(--muted);max-width:940px;line-height:1.5">${view.body}</p>
+            </div>
+            <div class="pill-row" aria-label="Local save cleanup state">
+              <span class="pill warn">${view.canRetry ? 'RETRY AVAILABLE' : 'STORAGE HELD'}</span>
+              <span class="pill ${view.fallbackWorld ? 'warn' : 'good'}">${view.fallbackWorld ? 'IN-MEMORY FALLBACK' : 'OPEN WORLD INTACT'}</span>
+            </div>
+          </div>
+          <div class="callout" style="margin-top:2px">${view.guidance}</div>
+          <div class="button-grid" style="margin-top:2px">
+            ${retry}
+            <button class="button ${view.canRetry ? 'secondary' : 'primary'}" data-autosave-clear-recovery-action="export">
+              <strong>Export this open world</strong><span>Download readable JSON without changing the held local-save bytes.</span>
+            </button>
+            ${autosaveChoice}
+            <button class="button ghost" data-autosave-clear-recovery-action="diagnostic">
+              <strong>Download cleanup diagnostic</strong><span>Save the bounded conflict kind and reason without exporting stored save contents.</span>
+            </button>
+            <button class="button ghost" data-autosave-clear-recovery-action="open-save-tools">
+              <strong>Open save tools</strong><span>Go to Observer Lab without claiming that storage has been repaired.</span>
+            </button>
+          </div>
+        </div>
+      </section>`;
+  }
+
+  function render(game = Game) {
+    const document = root.document;
+    if (!document) return null;
+    const shell = document.querySelector('#app .shell');
+    if (!shell) return null;
+
+    const existing = shell.querySelector('[data-autosave-clear-recovery-panel]');
+    const view = project(game);
+    if (!view) {
+      existing?.remove();
+      lastAnnouncedConflict = null;
+      return null;
+    }
+
+    existing?.remove();
+    const announce = game.autosaveConflict !== lastAnnouncedConflict;
+    const holder = document.createElement('div');
+    holder.innerHTML = panelMarkup(view, announce).trim();
+    const panel = holder.firstElementChild;
+    const topbar = shell.querySelector('.topbar');
+    if (topbar) topbar.insertAdjacentElement('afterend', panel);
+    else shell.prepend(panel);
+    if (announce) lastAnnouncedConflict = game.autosaveConflict;
+    return panel;
+  }
+
+  function downloadDiagnostic() {
+    if (!Game?.autosaveConflict || !OWNED_KINDS.has(Game.autosaveConflict.kind)) return;
+    const payload = {
+      schema: 'axm.living-city.autosave-clear-experience-diagnostic/v1',
+      observationOnly: true,
+      kind: Game.autosaveConflict.kind,
+      reason: Game.autosaveConflict.reason || null,
+      key: Game.autosaveConflict.key || null,
+      openWorld: Game.world ? {
+        seed: Game.world.seed,
+        day: Game.world.time?.day ?? null,
+        autosaveEnabled: Game.world.settings?.autosave !== false
+      } : null,
+      claims: {
+        storedSaveLoaded: false,
+        storageRepaired: false,
+        canonAuthority: false
+      }
+    };
+    Game.downloadText('AXM_LIVING_CITY_LOCAL_SAVE_CLEANUP_DIAGNOSTIC.json', JSON.stringify(payload, null, 2), 'application/json');
+    Systems?.toast?.(Game.world, 'Local save cleanup diagnostic downloaded. Stored save contents were not included.', 'info');
+    Game.emit?.('autosave-clear-diagnostic-export');
+  }
+
+  function retryPendingCleanup() {
+    if (Game?.autosaveConflict?.kind !== 'clear-transaction-pending') return false;
+    let recovered = false;
+    try {
+      recovered = Boolean(Game.recoverAutosaveClearTransaction(root.localStorage));
+    } catch (error) {
+      recovered = false;
+    }
+    if (recovered) {
+      Systems?.toast?.(Game.world, 'Interrupted local save cleanup finished. Stored autosave slots are now empty; the current in-memory world remains open.', 'success');
+      Game.emit?.('autosave-clear-recovered');
+      return true;
+    }
+    Systems?.toast?.(Game.world, 'Local save cleanup is still held. Stored save loading and overwrite remain blocked.', 'warning');
+    Game.emit?.('autosave-clear-retry-held');
+    return false;
+  }
+
+  function onClick(event) {
+    const button = event.target.closest?.('[data-autosave-clear-recovery-action]');
+    if (!button || button.disabled || !Game?.autosaveConflict) return;
+    const action = button.dataset.autosaveClearRecoveryAction;
+
+    if (action === 'retry') {
+      retryPendingCleanup();
+      return;
+    }
+    if (action === 'export') {
+      Game.exportWorld();
+      return;
+    }
+    if (action === 'diagnostic') {
+      downloadDiagnostic();
+      return;
+    }
+    if (action === 'open-save-tools') {
+      Game.setTab('lab');
+      return;
+    }
+    if (action === 'disable-autosave') {
+      Game.mutate((world) => {
+        world.settings.autosave = false;
+      }, 'autosave-clear-recovery-disable');
+    }
+  }
+
+  function start() {
+    if (started || !root.document || !Game) return;
+    started = true;
+    Game.subscribe(() => render(Game));
+    root.document.addEventListener('click', onClick);
+    render(Game);
+  }
+
+  AXM.AutosaveClearRecoveryUI = {
+    OWNED_KINDS,
+    project,
+    render,
+    retryPendingCleanup,
+    start
+  };
+
+  if (root.document) {
+    if (root.document.readyState === 'loading') root.document.addEventListener('DOMContentLoaded', start);
+    else start();
+  }
+}(typeof window !== 'undefined' ? window : globalThis));
+
   </script>
 </body>
 </html>
