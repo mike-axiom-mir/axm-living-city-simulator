@@ -1,0 +1,88 @@
+name: Living City headless package capability
+
+on:
+  pull_request:
+  push:
+    branches:
+      - automation/capability-weaver-headless-package-v1
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['18', '22']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Prove headless runtime
+        run: npm run test:headless
+      - name: Prove fresh package consumer
+        run: npm run test:package
+      - name: Prove capability registry contract
+        run: npm run test:capability-registry
+      - name: Verify generated registry is current
+        run: npm run capabilities:check
+      - name: Run complete repository tests
+        run: npm test
+
+  discovery-buddy-bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Living City provider
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          path: living-city
+      - name: Checkout pinned Discovery Buddy consumer
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: mike-axiom-mir/axm-discovery-buddy
+          ref: a1e28aba31c453023298e01ce4e54107c3f74583
+          path: discovery-buddy
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Scan and exact-verify Living City public capability
+        env:
+          PYTHONPATH: ${{ github.workspace }}/discovery-buddy
+        run: |
+          python -m discovery_buddy scan living-city --public --output-dir "$RUNNER_TEMP/living-city-discovery"
+          python -m discovery_buddy verify living-city --public --output-dir "$RUNNER_TEMP/living-city-discovery"
+      - name: Require exactly the bounded headless capability
+        env:
+          DISCOVERY_INDEX: ${{ runner.temp }}/living-city-discovery/public-discovery.json
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          index = json.loads(Path(os.environ['DISCOVERY_INDEX']).read_text('utf-8'))
+          assert index['schema'] == 'axm.discovery-index/v0.1'
+          assert index['visibility'] == 'PUBLIC_SAFE_DECLARED_ONLY'
+          assert index['summary']['repositories'] == 1
+          assert index['summary']['capability_records'] == 1
+          repo = index['repositories'][0]
+          records = repo['capabilities']['records']
+          assert len(records) == 1
+          record = records[0]
+          assert record['id'] == 'axm.living-city.headless-simulator.v1'
+          assert record['providers'] == ['axm-living-city-simulator']
+          # Discovery Buddy exposes bounded public declaration fields. Provider
+          # implementation status remains verified by Living City's own source-
+          # bound registry contract and is not required in this public projection.
+          assert 'path' not in repo and 'git' not in repo
+          sources = repo['capabilities']['sources']
+          assert len(sources) == 1 and sources[0]['records'] == 1 and sources[0]['errors'] == 0
+          raw = Path('living-city/registry/capabilities.jsonl').read_bytes()
+          assert sources[0]['sha256'] == hashlib.sha256(raw).hexdigest()
+          print('Living City -> Discovery Buddy exact public bridge: PASS')
+          PY

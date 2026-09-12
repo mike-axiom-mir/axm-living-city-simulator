@@ -1,0 +1,53 @@
+{
+  "schema": "axm.living-city.capability-registry-receipt/v1",
+  "generator": "tools/generate-capability-registry.cjs",
+  "inputs": [
+    {
+      "id": "capability-contract",
+      "path": "capabilities/AXM-CAP-HEADLESS-SIMULATOR-V1.json",
+      "sha256": "ea90cc15f4f299ebde6db4e20f55ada4a8d6683da06a9c88f8136b50ed0d48f2"
+    },
+    {
+      "id": "public-opt-in",
+      "path": ".axm/discovery-public.json",
+      "sha256": "c0afb73ba7463499a01f59979cdfefe3bcf60ea8c5699f553b6fd74f9b88f189"
+    },
+    {
+      "id": "source:package.json",
+      "path": "package.json",
+      "sha256": "e130326892e5114467c5b0b73cda54399a25189f8258818712429be82862fb01"
+    },
+    {
+      "id": "source:runtime/cli.js",
+      "path": "runtime/cli.js",
+      "sha256": "77b28aea29f80581bdd0862c0efa7071663f6270f720d5d7950545a7cef7f28a"
+    },
+    {
+      "id": "source:runtime/file-save-store.js",
+      "path": "runtime/file-save-store.js",
+      "sha256": "5c30af02ecf8ebd72625325252647488cc28cd234968bab6c2ca82c7d3e25d59"
+    },
+    {
+      "id": "source:runtime/headless-simulator.js",
+      "path": "runtime/headless-simulator.js",
+      "sha256": "a1d3c60fb49f5808fa056773f5aaf928158cf3da9932733559ba0b2bd3347df9"
+    },
+    {
+      "id": "source:runtime/load-simulation.js",
+      "path": "runtime/load-simulation.js",
+      "sha256": "6fd3bcf3564cca60540b1d2c9de9126e4caba033ebc41c1ce9614b126f3bf362"
+    }
+  ],
+  "output": {
+    "path": "registry/capabilities.jsonl",
+    "records": 1,
+    "sha256": "ddfb93d349d4db2d92ee33c191adc3f28d98965ec1b12b410be2458cd5b6e1a7"
+  },
+  "truth": {
+    "declarations_are_runtime_proof": false,
+    "package_is_public_registry_release": false,
+    "grants_execution_authority": false,
+    "grants_merge_authority": false,
+    "grants_canon_authority": false
+  }
+}
