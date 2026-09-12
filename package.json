@@ -4,10 +4,26 @@
   "private": true,
   "description": "Casual-realism deterministic local-first one-character life simulation with lawful presence, playable animated interiors, factual activity feedback, transferable career skills, and reward-neutral room, shell, street, and engineering visuals.",
   "license": "Apache-2.0",
+  "main": "runtime/headless-simulator.js",
+  "exports": {
+    ".": "./runtime/headless-simulator.js",
+    "./headless": "./runtime/headless-simulator.js",
+    "./save-store": "./runtime/file-save-store.js",
+    "./load-simulation": "./runtime/load-simulation.js"
+  },
+  "bin": {
+    "axm-living-city": "runtime/cli.js"
+  },
+  "files": [
+    "runtime/*.js",
+    "src/*.js",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "python3 tools/build_standalone.py",
     "examples": "node tools/generate_examples.js",
-    "test": "node tests/identity_cursor_contract_test.js && node tests/simulation_smoke_test.js && node tests/household_agreement_test.js && node tests/habitat_engine_test.js && node tests/stewardship_engine_test.js && node tests/family_continuity_test.js && node tests/community_adventures_test.js && node tests/personal_directions_test.js && node tests/local_economy_test.js && node tests/walkable_places_test.js && node tests/building_shells_test.js && node tests/lived_buildings_test.js && node tests/content_catalog_expansion_test.js && node tests/item_interactions_test.js && node tests/housing_pressure_test.js && node tests/historical_era_test.js && node tests/engineering_ewaste_test.js && node tests/engineering_visuals_ui_test.js && node tests/career_skills_test.js && node tests/career_engineering_bridge_test.js && node tests/object_use_affordances_test.js && node tests/object_use_audit_test.js && node tests/visual_presence_test.js && node tests/playable_interiors_test.js && node tests/navigation_continuity_test.js",
+    "test": "node tests/identity_cursor_contract_test.js && node tests/simulation_smoke_test.js && node tests/household_agreement_test.js && node tests/habitat_engine_test.js && node tests/stewardship_engine_test.js && node tests/family_continuity_test.js && node tests/community_adventures_test.js && node tests/personal_directions_test.js && node tests/local_economy_test.js && node tests/walkable_places_test.js && node tests/building_shells_test.js && node tests/lived_buildings_test.js && node tests/content_catalog_expansion_test.js && node tests/item_interactions_test.js && node tests/housing_pressure_test.js && node tests/historical_era_test.js && node tests/engineering_ewaste_test.js && node tests/engineering_visuals_ui_test.js && node tests/career_skills_test.js && node tests/career_engineering_bridge_test.js && node tests/object_use_affordances_test.js && node tests/object_use_audit_test.js && node tests/visual_presence_test.js && node tests/playable_interiors_test.js && node tests/navigation_continuity_test.js && npm run test:headless && npm run test:package && npm run test:capability-registry && npm run capabilities:check",
     "test:foundation": "node tests/simulation_smoke_test.js",
     "test:households": "node tests/household_agreement_test.js",
     "test:stress": "node tests/multi_seed_stress_test.js",
@@ -49,7 +65,12 @@
     "test:interiors": "node tests/playable_interiors_test.js",
     "qa:visuals-browser": "python3 tests/visual_presence_browser_test.py",
     "test:identity": "node tests/identity_cursor_contract_test.js",
-    "test:navigation": "node tests/navigation_continuity_test.js"
+    "test:navigation": "node tests/navigation_continuity_test.js",
+    "test:headless": "node tests/headless_runtime_intake_test.js",
+    "test:package": "node tests/headless_package_consumer_test.js",
+    "test:capability-registry": "node --test tests/capability_registry.test.cjs",
+    "capabilities:generate": "node tools/generate-capability-registry.cjs",
+    "capabilities:check": "node tools/generate-capability-registry.cjs --check"
   },
   "engines": {
     "node": ">=18"
