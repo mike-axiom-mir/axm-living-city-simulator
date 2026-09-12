@@ -1,6 +1,6 @@
 name: MergeAgent Engineering Chromium diagnostic
 
-# Fast proof for dynamic sticky-rail height and 19-section browser navigation.
+# Fast proof for canonical Engineering rendering, measured sticky offsets, and 19-section navigation.
 on:
   push:
     branches:
