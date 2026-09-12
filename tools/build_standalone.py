@@ -39,6 +39,8 @@ for relative in [
     'src/ui.js',
     'src/engineering_ui.js',
     'src/career_ui.js',
+    'src/autosave_conflict_ui.js',
+    'src/autosave_clear_recovery_ui.js',
 ]:
     scripts.append(f"\n/* ===== {relative} ===== */\n" + (ROOT / relative).read_text(encoding='utf-8'))
 
