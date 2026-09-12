@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#111821">
-  <meta name="description" content="AXM Living City — one controlled life, autonomous residents, lawful lived presence, playable animated interiors, and reward-neutral room, building, and street visuals.">
+  <meta name="description" content="AXM Living City — one controlled life, autonomous residents, lawful lived presence, transferable job skills, playable animated interiors, and reward-neutral room, building, street, and engineering visuals.">
   <title>AXM Living City — Interior Feedback v0.11.3</title>
   <style>
 :root {
@@ -2254,10 +2254,10 @@ select:focus-visible {
         'adventure', 'adventure_history', 'care', 'community_connection', 'community_history',
         'community_member', 'community_opportunity', 'connection_history', 'construction', 'dependent',
         'event', 'family', 'family_event', 'family_proposal', 'family_proposal_event', 'family_room',
-        'habitat_event', 'habitat_intention', 'household', 'household_event', 'household_goal',
+        'ewaste', 'habitat_event', 'habitat_intention', 'household', 'household_event', 'household_goal',
         'household_issue', 'issue_event', 'object', 'object_event', 'opportunity_history',
-        'personal_project', 'project_collaboration', 'project_event', 'property_event', 'proposal',
-        'proposal_event', 'stewardship_request'
+        'personal_project', 'project_collaboration', 'project_event', 'property_event', 'proposal', 'prototype',
+        'proposal_event', 'refurbished', 'stewardship_request'
       ])
     }),
     shell: Object.freeze({
@@ -2704,6 +2704,19 @@ select:focus-visible {
     return JSON.stringify(world, null, 2);
   }
 
+  function projectCanonicalWorld(world) {
+    if (!world || typeof world !== 'object' || Array.isArray(world)) {
+      throw new Error('Canonical world projection requires a world object.');
+    }
+    const projection = deepClone(world);
+    delete projection.ui;
+    return projection;
+  }
+
+  function serializeCanonicalWorld(world) {
+    return JSON.stringify(projectCanonicalWorld(world), null, 2);
+  }
+
   function parseWorld(text) {
     const parsed = JSON.parse(text);
     const supported = [SCHEMA].concat(LEGACY_SCHEMAS);
@@ -2762,6 +2775,8 @@ select:focus-visible {
     average,
     standardDeviation,
     serializeWorld,
+    projectCanonicalWorld,
+    serializeCanonicalWorld,
     parseWorld
   };
 }(typeof window !== 'undefined' ? window : globalThis));
@@ -3120,6 +3135,101 @@ select:focus-visible {
     activityById,
     placeTemplateById
   };
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/content_expansion.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Content = AXM.Content;
+
+  if (!Content || !Array.isArray(Content.FURNITURE_CATALOG)) {
+    throw new Error('Living City content expansion requires the base furniture catalogue.');
+  }
+
+  const EXPANSION_ID = 'axm.living-city.content-expansion/items-60/v1';
+  const VALID_CATEGORIES = new Set(['seat', 'sleep', 'work', 'activity', 'light', 'storage', 'surface', 'decor', 'food']);
+  const VALID_STYLES = new Set((Content.STYLES || []).map((entry) => entry.id));
+  const STAT_KEYS = ['comfort', 'beauty', 'utility', 'durability', 'efficiency'];
+
+  const ITEMS = [
+    { id: 'patched_armchair', name: 'Patched Armchair', category: 'seat', symbol: 'PA', price: 58, footprint: [1, 1], styleTags: ['patched', 'vintage'], baseStats: { comfort: 42, beauty: 26, utility: 30, durability: 33, efficiency: 25 }, signature: ['deep seat', 'visible repair patches', 'easy to keep'], purchaseMaterials: {} },
+    { id: 'reading_chair', name: 'Reading Chair', category: 'seat', symbol: 'RC', price: 145, footprint: [1, 1], styleTags: ['warm', 'green'], baseStats: { comfort: 49, beauty: 41, utility: 37, durability: 43, efficiency: 31 }, signature: ['upright comfort', 'quiet corner', 'good with a lamp'], purchaseMaterials: {} },
+    { id: 'loveseat_sofa', name: 'Compact Loveseat Sofa', category: 'seat', symbol: 'LS', price: 235, footprint: [2, 1], styleTags: ['warm', 'minimal'], baseStats: { comfort: 51, beauty: 43, utility: 43, durability: 40, efficiency: 37 }, signature: ['two seats', 'small-room social anchor'], purchaseMaterials: {} },
+    { id: 'modular_sofa', name: 'Modular Sofa', category: 'seat', symbol: 'MS', price: 690, footprint: [2, 2], styleTags: ['clean', 'playful'], baseStats: { comfort: 67, beauty: 58, utility: 60, durability: 54, efficiency: 36 }, signature: ['reconfigurable', 'four-seat corner', 'large footprint'], purchaseMaterials: {} },
+    { id: 'kitchen_chair', name: 'Plain Kitchen Chair', category: 'seat', symbol: 'KI', price: 32, footprint: [1, 1], styleTags: ['clean', 'minimal'], baseStats: { comfort: 21, beauty: 23, utility: 35, durability: 52, efficiency: 48 }, signature: ['sturdy', 'cheap to replace parts', 'fits almost anywhere'], purchaseMaterials: {} },
+
+    { id: 'double_bed', name: 'Double Bed', category: 'sleep', symbol: 'DB', price: 390, footprint: [2, 2], styleTags: ['warm', 'clean'], baseStats: { comfort: 63, beauty: 49, utility: 52, durability: 55, efficiency: 39 }, signature: ['two sleepers', 'large footprint', 'solid frame'], purchaseMaterials: {} },
+    { id: 'bunk_bed', name: 'Bunk Bed', category: 'sleep', symbol: 'BB', price: 310, footprint: [2, 1], styleTags: ['playful', 'minimal'], baseStats: { comfort: 42, beauty: 31, utility: 68, durability: 57, efficiency: 66 }, signature: ['two sleepers', 'space saving', 'shared-room friendly'], purchaseMaterials: {} },
+    { id: 'futon_bed', name: 'Fold-out Futon Bed', category: 'sleep', symbol: 'FT', price: 175, footprint: [2, 1], styleTags: ['patched', 'minimal'], baseStats: { comfort: 38, beauty: 29, utility: 57, durability: 35, efficiency: 53 }, signature: ['seat by day', 'bed by night', 'small-home compromise'], purchaseMaterials: {} },
+    { id: 'reclaimed_bed', name: 'Reclaimed Wood Bed', category: 'sleep', symbol: 'RB', price: 245, footprint: [2, 1], styleTags: ['vintage', 'patched', 'green'], baseStats: { comfort: 45, beauty: 52, utility: 44, durability: 67, efficiency: 35 }, signature: ['reclaimed frame', 'repairable', 'visible grain'], purchaseMaterials: {} },
+
+    { id: 'writing_desk', name: 'Writing Desk', category: 'work', symbol: 'WD', price: 130, footprint: [2, 1], styleTags: ['vintage', 'warm'], baseStats: { comfort: 31, beauty: 45, utility: 55, durability: 48, efficiency: 46 }, signature: ['drawer space', 'paper work', 'quiet study'], purchaseMaterials: {} },
+    { id: 'drawing_desk', name: 'Tilt Drawing Desk', category: 'work', symbol: 'DD', price: 260, footprint: [2, 1], styleTags: ['playful', 'industrial'], baseStats: { comfort: 29, beauty: 46, utility: 65, durability: 51, efficiency: 52 }, signature: ['tilting surface', 'art and plans', 'tool rail'], purchaseMaterials: {} },
+    { id: 'sewing_table', name: 'Sewing Table', category: 'work', symbol: 'SW', price: 215, footprint: [2, 1], styleTags: ['vintage', 'patched'], baseStats: { comfort: 25, beauty: 39, utility: 61, durability: 56, efficiency: 50 }, signature: ['fabric work', 'folding leaf', 'small storage'], purchaseMaterials: {} },
+    { id: 'maker_workbench', name: 'Maker Workbench', category: 'work', symbol: 'MW', price: 620, footprint: [2, 1], styleTags: ['industrial', 'patched'], baseStats: { comfort: 18, beauty: 37, utility: 78, durability: 76, efficiency: 63 }, signature: ['repair surface', 'clamps and drawers', 'heavy but durable'], purchaseMaterials: {} },
+
+    { id: 'refurbished_laptop', name: 'Refurbished Laptop', category: 'activity', symbol: 'RL', price: 360, footprint: [1, 1], styleTags: ['patched', 'clean'], baseStats: { comfort: 22, beauty: 32, utility: 67, durability: 42, efficiency: 62 }, signature: ['games', 'study', 'replaceable battery'], purchaseMaterials: {} },
+    { id: 'compact_computer', name: 'Compact Computer', category: 'activity', symbol: 'CM', price: 720, footprint: [1, 1], styleTags: ['minimal', 'clean'], baseStats: { comfort: 27, beauty: 44, utility: 74, durability: 50, efficiency: 73 }, signature: ['small desktop', 'quiet fan', 'creation and games'], purchaseMaterials: {} },
+    { id: 'tv_screen', name: 'Small TV Screen', category: 'activity', symbol: 'TV', price: 280, footprint: [1, 1], styleTags: ['clean', 'minimal'], baseStats: { comfort: 36, beauty: 39, utility: 48, durability: 46, efficiency: 45 }, signature: ['shared viewing', 'compact screen', 'no smart-home dependency'], purchaseMaterials: {} },
+    { id: 'record_music_player', name: 'Record Player', category: 'activity', symbol: 'RP', price: 240, footprint: [1, 1], styleTags: ['vintage', 'warm'], baseStats: { comfort: 44, beauty: 55, utility: 38, durability: 44, efficiency: 31 }, signature: ['records', 'shared listening', 'manual controls'], purchaseMaterials: {} },
+    { id: 'handheld_game_screen', name: 'Handheld Game System', category: 'activity', symbol: 'HG', price: 190, footprint: [1, 1], styleTags: ['playful', 'minimal'], baseStats: { comfort: 28, beauty: 38, utility: 51, durability: 40, efficiency: 70 }, signature: ['portable games', 'battery powered', 'personal entertainment'], purchaseMaterials: {} },
+
+    { id: 'desk_lamp', name: 'Desk Lamp', category: 'light', symbol: 'DL', price: 34, footprint: [1, 1], styleTags: ['industrial', 'minimal'], baseStats: { comfort: 24, beauty: 29, utility: 52, durability: 44, efficiency: 72 }, signature: ['focused light', 'adjustable arm', 'low power'], purchaseMaterials: {} },
+    { id: 'paper_lamp', name: 'Paper Shade Lamp', category: 'light', symbol: 'PP', price: 45, footprint: [1, 1], styleTags: ['warm', 'playful'], baseStats: { comfort: 39, beauty: 47, utility: 34, durability: 24, efficiency: 56 }, signature: ['soft glow', 'lightweight', 'cheap shade'], purchaseMaterials: {} },
+    { id: 'clip_lamp', name: 'Clip Lamp', category: 'light', symbol: 'CL', price: 16, footprint: [1, 1], styleTags: ['patched', 'industrial'], baseStats: { comfort: 17, beauty: 18, utility: 43, durability: 31, efficiency: 78 }, signature: ['clips to furniture', 'tiny footprint', 'task light'], purchaseMaterials: {} },
+    { id: 'industrial_lamp', name: 'Industrial Floor Lamp', category: 'light', symbol: 'IL', price: 175, footprint: [1, 1], styleTags: ['industrial', 'vintage'], baseStats: { comfort: 33, beauty: 52, utility: 49, durability: 63, efficiency: 43 }, signature: ['metal shade', 'room light', 'repairable switch'], purchaseMaterials: {} },
+
+    { id: 'book_shelf', name: 'Book Shelf', category: 'storage', symbol: 'BS', price: 115, footprint: [1, 2], styleTags: ['warm', 'vintage'], baseStats: { comfort: 27, beauty: 43, utility: 58, durability: 47, efficiency: 51 }, signature: ['books', 'display storage', 'tall footprint'], purchaseMaterials: {} },
+    { id: 'metal_shelf', name: 'Metal Utility Shelf', category: 'storage', symbol: 'MT', price: 96, footprint: [1, 2], styleTags: ['industrial', 'clean'], baseStats: { comfort: 12, beauty: 25, utility: 64, durability: 70, efficiency: 69 }, signature: ['heavy storage', 'easy cleaning', 'modular shelves'], purchaseMaterials: {} },
+    { id: 'wall_shelf', name: 'Wall Shelf', category: 'storage', symbol: 'WS', price: 38, footprint: [1, 1], styleTags: ['minimal', 'green'], baseStats: { comfort: 15, beauty: 35, utility: 41, durability: 39, efficiency: 72 }, signature: ['small display', 'keeps floor open', 'simple brackets'], purchaseMaterials: {} },
+    { id: 'drawer_crate', name: 'Drawer Crate', category: 'storage', symbol: 'DR', price: 54, footprint: [1, 1], styleTags: ['patched', 'vintage'], baseStats: { comfort: 16, beauty: 28, utility: 50, durability: 46, efficiency: 55 }, signature: ['small-item storage', 'stackable', 'reclaimed drawer'], purchaseMaterials: {} },
+
+    { id: 'coffee_table', name: 'Coffee Table', category: 'surface', symbol: 'CT', price: 85, footprint: [2, 1], styleTags: ['warm', 'minimal'], baseStats: { comfort: 25, beauty: 38, utility: 48, durability: 46, efficiency: 41 }, signature: ['low surface', 'social room', 'magazine shelf'], purchaseMaterials: {} },
+    { id: 'dining_table', name: 'Dining Table', category: 'surface', symbol: 'DT', price: 250, footprint: [2, 1], styleTags: ['clean', 'warm'], baseStats: { comfort: 35, beauty: 47, utility: 62, durability: 58, efficiency: 48 }, signature: ['four places', 'meals and projects', 'solid top'], purchaseMaterials: {} },
+    { id: 'side_table', name: 'Side Table', category: 'surface', symbol: 'ST', price: 42, footprint: [1, 1], styleTags: ['minimal', 'vintage'], baseStats: { comfort: 19, beauty: 32, utility: 39, durability: 40, efficiency: 58 }, signature: ['small surface', 'lamp stand', 'easy to move'], purchaseMaterials: {} },
+
+    { id: 'large_plant', name: 'Large House Plant', category: 'decor', symbol: 'GP', price: 72, footprint: [1, 1], styleTags: ['green', 'warm'], baseStats: { comfort: 39, beauty: 53, utility: 23, durability: 25, efficiency: 23 }, signature: ['large leaves', 'living decor', 'slow growth'], purchaseMaterials: {} },
+    { id: 'hanging_plant', name: 'Hanging Plant', category: 'decor', symbol: 'HP', price: 44, footprint: [1, 1], styleTags: ['green', 'playful'], baseStats: { comfort: 31, beauty: 49, utility: 20, durability: 20, efficiency: 28 }, signature: ['trailing leaves', 'small footprint', 'brightens corners'], purchaseMaterials: {} },
+    { id: 'woven_rug', name: 'Woven Rug', category: 'decor', symbol: 'WG', price: 95, footprint: [2, 1], styleTags: ['warm', 'vintage'], baseStats: { comfort: 42, beauty: 51, utility: 23, durability: 38, efficiency: 21 }, signature: ['soft floor', 'patterned', 'repairable edge'], purchaseMaterials: {} },
+    { id: 'photo_wall_print', name: 'Photo Wall Print', category: 'decor', symbol: 'PW', price: 28, footprint: [1, 1], styleTags: ['playful', 'minimal'], baseStats: { comfort: 21, beauty: 44, utility: 13, durability: 35, efficiency: 25 }, signature: ['personal image', 'wall-mounted', 'cheap expression'], purchaseMaterials: {} },
+
+    { id: 'mini_kitchen', name: 'Mini Kitchen Unit', category: 'food', symbol: 'MK', price: 410, footprint: [2, 1], styleTags: ['minimal', 'clean'], baseStats: { comfort: 27, beauty: 37, utility: 67, durability: 52, efficiency: 65 }, signature: ['sinkless prep unit', 'small appliances', 'compact cooking'], purchaseMaterials: {} },
+    { id: 'induction_stove', name: 'Induction Stove', category: 'food', symbol: 'IS', price: 330, footprint: [1, 1], styleTags: ['clean', 'industrial'], baseStats: { comfort: 18, beauty: 35, utility: 72, durability: 49, efficiency: 82 }, signature: ['fast heat', 'power required', 'small cooking station'], purchaseMaterials: {} },
+    { id: 'mini_fridge', name: 'Mini Fridge', category: 'food', symbol: 'MF', price: 260, footprint: [1, 1], styleTags: ['clean', 'minimal'], baseStats: { comfort: 18, beauty: 30, utility: 66, durability: 50, efficiency: 59 }, signature: ['cold storage', 'small-home scale', 'low capacity'], purchaseMaterials: {} }
+  ];
+
+  function validateDefinition(item) {
+    if (!item || typeof item !== 'object') return 'item is not an object';
+    if (!item.id || !item.name || !item.symbol) return `${String(item.id)} is missing identity fields`;
+    if (!VALID_CATEGORIES.has(item.category)) return `${item.id} has unsupported category ${String(item.category)}`;
+    if (!Number.isFinite(item.price) || item.price < 0) return `${item.id} has invalid price`;
+    if (!Array.isArray(item.footprint) || item.footprint.length !== 2 || item.footprint.some((value) => !Number.isInteger(value) || value < 1 || value > 3)) return `${item.id} has invalid footprint`;
+    if (!Array.isArray(item.styleTags) || !item.styleTags.length || item.styleTags.some((style) => !VALID_STYLES.has(style))) return `${item.id} has invalid style tags`;
+    if (!item.baseStats || STAT_KEYS.some((key) => !Number.isFinite(item.baseStats[key]) || item.baseStats[key] < 0 || item.baseStats[key] > 100)) return `${item.id} has invalid base stats`;
+    if (!Array.isArray(item.signature) || !item.signature.length) return `${item.id} needs at least one signature trait`;
+    return null;
+  }
+
+  const existingIds = new Set(Content.FURNITURE_CATALOG.map((entry) => entry.id));
+  const expansionIds = new Set();
+  ITEMS.forEach((item) => {
+    const error = validateDefinition(item);
+    if (error) throw new Error(`Living City content expansion rejected: ${error}.`);
+    if (existingIds.has(item.id) || expansionIds.has(item.id)) throw new Error(`Living City content expansion duplicates ${item.id}.`);
+    expansionIds.add(item.id);
+  });
+
+  Content.FURNITURE_CATALOG.push(...ITEMS);
+
+  AXM.ContentExpansion = Object.freeze({
+    id: EXPANSION_ID,
+    itemCount: ITEMS.length,
+    totalCatalogueItems: Content.FURNITURE_CATALOG.length,
+    itemIds: Object.freeze(ITEMS.map((item) => item.id)),
+    items: Object.freeze(ITEMS.slice())
+  });
 }(typeof window !== 'undefined' ? window : globalThis));
 
 /* ===== src/world.js ===== */
@@ -6144,6 +6254,296 @@ select:focus-visible {
     renamePlayer,
     objectOwnedByPlayer
   };
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/item_interactions.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const Content = AXM.Content;
+  const World = AXM.World;
+  const Systems = AXM.Systems;
+
+  if (!Core || !Content || !World || !Systems?.performActivity) {
+    throw new Error('Living City item interactions require Core, Content, World and Systems.');
+  }
+  if (AXM.ItemInteractions) return;
+
+  const INTERACTION_SCHEMA = 'axm.living-city.item-interactions/v0.12.0-draft';
+  const ACTIVITY_DEFINITIONS = [
+    {
+      id: 'play_device',
+      name: 'Play on the device',
+      hours: 2,
+      cost: 0,
+      description: 'Use a real laptop, compact computer, or handheld game system already present in your home.',
+      effects: { mood: 20, social: -2, energy: -6 },
+      skill: { creativity: 0.4 }
+    },
+    {
+      id: 'watch_tv',
+      name: 'Watch TV',
+      hours: 2,
+      cost: 0,
+      description: 'Watch something on a real TV in the room. It is leisure time, not a disguised study computer.',
+      effects: { mood: 14, energy: -4, hunger: -3 },
+      skill: {}
+    },
+    {
+      id: 'relax_seated',
+      name: 'Sit and unwind',
+      hours: 1,
+      cost: 0,
+      description: 'Spend a quiet hour on a real chair or sofa instead of treating seating as passive decoration.',
+      effects: { mood: 7, energy: 5 },
+      skill: {}
+    },
+    {
+      id: 'read_books',
+      name: 'Browse some books',
+      hours: 1,
+      cost: 0,
+      description: 'Read from a real book or story shelf already present in the room.',
+      effects: { mood: 5, energy: -2 },
+      skill: { focus: 0.45 }
+    },
+    {
+      id: 'listen_music',
+      name: 'Listen to music',
+      hours: 1,
+      cost: 0,
+      description: 'Put on music using a real music player or record player in the room.',
+      effects: { mood: 10, energy: 1 },
+      skill: { creativity: 0.2 }
+    },
+    {
+      id: 'read_by_lamp',
+      name: 'Read under the light',
+      hours: 1,
+      cost: 0,
+      description: 'Use a real lamp as a quiet reading light for an hour.',
+      effects: { mood: 4, energy: -1 },
+      skill: { focus: 0.3 }
+    },
+    {
+      id: 'care_plant',
+      name: 'Care for the plant',
+      hours: 1,
+      cost: 0,
+      description: 'Spend a little optional time tending a real house plant. Plants do not create a daily maintenance obligation.',
+      effects: { mood: 6, energy: -2 },
+      skill: {}
+    },
+    {
+      id: 'organize_storage',
+      name: 'Browse and organize',
+      hours: 1,
+      cost: 0,
+      description: 'Use a real shelf, wardrobe, chest, or drawer to sort things for a while. This is optional, not a cleanliness quota.',
+      effects: { mood: 2, energy: -3 },
+      skill: { focus: 0.2 }
+    },
+    {
+      id: 'repair_at_bench',
+      name: 'Repair at the home bench',
+      hours: 2,
+      cost: 2,
+      description: 'Practice a small repair at a real workbench in your current home instead of teleporting to the public workshop.',
+      effects: { mood: 2, energy: -9 },
+      skill: { repair: 1.5 }
+    }
+  ];
+
+  ACTIVITY_DEFINITIONS.forEach((definition) => {
+    if (!Content.activityById(definition.id)) Content.ACTIVITIES.push(definition);
+  });
+
+  const ACTION_CATALOGS = Object.freeze({
+    play_device: Object.freeze(['refurbished_laptop', 'compact_computer', 'handheld_game_screen']),
+    watch_tv: Object.freeze(['tv_screen']),
+    relax_seated: Object.freeze([
+      'secondhand_chair', 'folding_chair', 'deep_sofa', 'patched_armchair', 'reading_chair',
+      'loveseat_sofa', 'modular_sofa', 'kitchen_chair'
+    ]),
+    read_books: Object.freeze(['story_shelf', 'book_shelf']),
+    listen_music: Object.freeze(['music_player', 'record_music_player']),
+    read_by_lamp: Object.freeze(['basic_lamp', 'standing_lamp', 'desk_lamp', 'paper_lamp', 'clip_lamp', 'industrial_lamp']),
+    care_plant: Object.freeze(['plant', 'large_plant', 'hanging_plant']),
+    organize_storage: Object.freeze([
+      'crate_shelf', 'wardrobe', 'keepsake_chest', 'story_shelf', 'book_shelf',
+      'metal_shelf', 'wall_shelf', 'drawer_crate'
+    ]),
+    repair_at_bench: Object.freeze(['workbench', 'maker_workbench']),
+    sleep: Object.freeze(['simple_bed', 'floor_mattress', 'small_child_bed', 'double_bed', 'bunk_bed', 'futon_bed', 'reclaimed_bed']),
+    eat_home: Object.freeze(['kitchenette', 'mini_kitchen', 'induction_stove', 'mini_fridge']),
+    study_focus: Object.freeze([
+      'old_laptop', 'fast_computer', 'refurbished_laptop', 'compact_computer',
+      'tiny_desk', 'writing_desk', 'drawing_desk', 'small_table', 'family_table',
+      'dining_table', 'side_table', 'story_shelf', 'book_shelf'
+    ]),
+    creative_time: Object.freeze([
+      'old_laptop', 'fast_computer', 'refurbished_laptop', 'compact_computer',
+      'music_player', 'record_music_player', 'tiny_desk', 'writing_desk', 'drawing_desk',
+      'sewing_table', 'small_table', 'family_table', 'coffee_table', 'dining_table',
+      'side_table', 'story_shelf'
+    ])
+  });
+
+  const REQUIRED_OBJECT_ACTIONS = new Set([
+    'play_device', 'watch_tv', 'relax_seated', 'read_books', 'listen_music',
+    'read_by_lamp', 'care_plant', 'organize_storage', 'repair_at_bench'
+  ]);
+  const REQUIRED_MESSAGES = Object.freeze({
+    play_device: 'There is no usable game-capable device in your current home.',
+    watch_tv: 'There is no usable TV in your current home.',
+    relax_seated: 'There is no usable chair or sofa in your current home.',
+    read_books: 'There is no usable book or story shelf in your current home.',
+    listen_music: 'There is no usable music player in your current home.',
+    read_by_lamp: 'There is no usable lamp in your current home.',
+    care_plant: 'There is no usable house plant in your current home.',
+    organize_storage: 'There is no usable storage object in your current home.',
+    repair_at_bench: 'There is no usable workbench in your current home.'
+  });
+  const originalPerformActivity = Systems.performActivity;
+
+  function objectInCurrentHome(world, objectId) {
+    const home = World.homeOf(world, 'player');
+    if (!home || !objectId) return null;
+    return (home.furniture || []).find((object) => object.id === objectId) || null;
+  }
+
+  function directUseAllowed(object) {
+    if (!object) return false;
+    return object.ownerId === 'player' || object.ownershipMode === 'property_fixture';
+  }
+
+  function objectMatchesAction(object, actionId) {
+    return Boolean(object && (ACTION_CATALOGS[actionId] || []).includes(object.catalogId));
+  }
+
+  function resolveActionObject(world, actionId, request = null) {
+    const home = World.homeOf(world, 'player');
+    if (!home) return { object: null, reason: 'No current home is available.' };
+    const allowed = ACTION_CATALOGS[actionId] || [];
+    if (!allowed.length) return { object: null, reason: null };
+
+    if (request?.objectId) {
+      const selected = objectInCurrentHome(world, request.objectId);
+      if (!selected || !objectMatchesAction(selected, actionId)) {
+        return { object: null, reason: 'The selected object cannot perform that activity.' };
+      }
+      if (!directUseAllowed(selected)) {
+        return { object: null, reason: 'That object is personal to another resident; permission is not assumed.' };
+      }
+      return { object: selected, reason: null };
+    }
+
+    const candidate = (home.furniture || []).find((object) => objectMatchesAction(object, actionId) && directUseAllowed(object)) || null;
+    if (candidate) return { object: candidate, reason: null };
+    return {
+      object: null,
+      reason: REQUIRED_OBJECT_ACTIONS.has(actionId) ? REQUIRED_MESSAGES[actionId] : null
+    };
+  }
+
+  function usageSnapshot(object) {
+    return object ? {
+      usageHours: Number(object.usageHours) || 0,
+      sentimental: Number(object.sentimental) || 0
+    } : null;
+  }
+
+  function familiarityFor(actionId) {
+    const values = {
+      play_device: 0.55,
+      watch_tv: 0.25,
+      relax_seated: 0.2,
+      read_books: 0.3,
+      listen_music: 0.3,
+      read_by_lamp: 0.12,
+      care_plant: 0.18,
+      organize_storage: 0.12,
+      repair_at_bench: 0.35,
+      sleep: 0.3,
+      eat_home: 0.2,
+      study_focus: 0.35,
+      creative_time: 0.35
+    };
+    return values[actionId] ?? 0.2;
+  }
+
+  function recordUse(object, activity) {
+    if (!object || !activity) return null;
+    const before = usageSnapshot(object);
+    object.usageHours = Core.round(before.usageHours + activity.hours, 2);
+    object.sentimental = Core.clamp(Core.round(before.sentimental + familiarityFor(activity.id), 2), 0, 100);
+    return {
+      id: object.id,
+      catalogId: object.catalogId,
+      usageHours: Core.round(object.usageHours - before.usageHours, 2),
+      sentimental: Core.round(object.sentimental - before.sentimental, 2)
+    };
+  }
+
+  function mergeReceiptObjectDelta(world, result, delta) {
+    if (!delta || !result?.visualReceipt?.observedEffects) return;
+    const observed = result.visualReceipt.observedEffects;
+    const existing = observed.object?.id === delta.id ? observed.object : { id: delta.id };
+    observed.object = {
+      ...existing,
+      usageHours: Core.round((Number(existing.usageHours) || 0) + delta.usageHours, 2),
+      sentimental: Core.round((Number(existing.sentimental) || 0) + delta.sentimental, 2)
+    };
+    result.visualReceipt.itemInteraction = {
+      schema: INTERACTION_SCHEMA,
+      objectId: delta.id,
+      catalogId: delta.catalogId,
+      noExtraReward: true
+    };
+    if (world.ui) world.ui.lastVisualActivityReceipt = result.visualReceipt;
+  }
+
+  function performActivity(world, actionId) {
+    const request = world.ui?.pendingVisualActivity ? Core.deepClone(world.ui.pendingVisualActivity) : null;
+    const resolved = resolveActionObject(world, actionId, request);
+    if (resolved.reason) return { ok: false, reason: resolved.reason };
+
+    const result = originalPerformActivity(world, actionId);
+    if (!result?.ok) return result;
+
+    const activity = Content.activityById(actionId);
+    const shouldRecord = Boolean(
+      resolved.object
+      && (REQUIRED_OBJECT_ACTIONS.has(actionId) || (request?.objectId && objectMatchesAction(resolved.object, actionId)))
+    );
+    const delta = shouldRecord ? recordUse(resolved.object, activity) : null;
+    mergeReceiptObjectDelta(world, result, delta);
+    if (delta) {
+      result.itemInteraction = {
+        schema: INTERACTION_SCHEMA,
+        actionId,
+        objectId: delta.id,
+        catalogId: delta.catalogId,
+        usageHoursAdded: delta.usageHours,
+        sentimentalAdded: delta.sentimental,
+        noExtraReward: true
+      };
+    }
+    return result;
+  }
+
+  Systems.performActivity = performActivity;
+
+  AXM.ItemInteractions = Object.freeze({
+    INTERACTION_SCHEMA,
+    ACTION_CATALOGS,
+    activities: Object.freeze(ACTIVITY_DEFINITIONS.map((entry) => entry.id)),
+    objectMatchesAction,
+    resolveActionObject,
+    directUseAllowed
+  });
 }(typeof window !== 'undefined' ? window : globalThis));
 
 /* ===== src/households.js ===== */
@@ -9424,6 +9824,571 @@ select:focus-visible {
     finishById,
     materialById,
     roomPurpose
+  };
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/object_use.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const Content = AXM.Content;
+  const World = AXM.World;
+  const Habitats = AXM.Habitats;
+
+  const AFFORDANCE_SCHEMA = 'axm.living-city.object-use-affordances/v0.12.0-draft';
+
+  const OBJECT_RULES = [
+    {
+      actionId: 'sleep',
+      categories: ['sleep'],
+      reason: 'A persistent sleeping object can ground sleep without inventing a new bed or room.'
+    },
+    {
+      actionId: 'eat_home',
+      categories: ['food'],
+      reason: 'A persistent food-preparation object can ground a home meal.'
+    },
+    {
+      actionId: 'play_pc',
+      catalogIds: ['old_laptop', 'fast_computer'],
+      reason: 'A real computer already placed in the room can ground computer play.'
+    },
+    {
+      actionId: 'study_focus',
+      categories: ['work', 'surface', 'storage'],
+      catalogIds: ['old_laptop', 'fast_computer', 'story_shelf'],
+      reason: 'A persistent work surface, study object, or computer can ground focused study.'
+    },
+    {
+      actionId: 'creative_time',
+      categories: ['work', 'surface'],
+      catalogIds: ['old_laptop', 'fast_computer', 'music_player', 'story_shelf'],
+      reason: 'A persistent creative surface or tool can ground open-ended creative time.'
+    },
+    {
+      actionId: 'practice_repair',
+      catalogIds: ['workbench'],
+      reason: 'A real repair workbench can ground repair practice.'
+    }
+  ];
+
+  function sortedUnique(values) {
+    return Array.from(new Set(values)).sort();
+  }
+
+  function cellsForObject(object) {
+    return World.footprintCells(object).map((key) => Habitats.parseCellKey(key));
+  }
+
+  function objectRoom(property, object) {
+    return Habitats.roomAtCell(property, object.position?.x, object.position?.y);
+  }
+
+  function objectDescriptor(object) {
+    const definition = Content.furnitureById(object.catalogId);
+    return {
+      id: object.id,
+      catalogId: object.catalogId,
+      name: definition?.name || Core.titleCase(object.catalogId || 'object'),
+      category: definition?.category || 'unknown',
+      ownerId: object.ownerId || null,
+      ownershipMode: object.ownershipMode || 'personal',
+      position: {
+        x: Number(object.position?.x) || 0,
+        y: Number(object.position?.y) || 0,
+        rotation: Number(object.position?.rotation) || 0
+      },
+      footprint: Array.isArray(object.footprint) ? object.footprint.slice() : [1, 1],
+      condition: Number(object.condition) || 0,
+      usageHours: Number(object.usageHours) || 0
+    };
+  }
+
+  function objectMatchesRule(object, rule) {
+    const definition = Content.furnitureById(object.catalogId);
+    const categoryMatch = Array.isArray(rule.categories) && rule.categories.includes(definition?.category);
+    const catalogMatch = Array.isArray(rule.catalogIds) && rule.catalogIds.includes(object.catalogId);
+    return Boolean(categoryMatch || catalogMatch);
+  }
+
+  function permissionHint(actorId, object) {
+    if (!object) return 'room_access_still_required';
+    if (object.ownershipMode === 'property_fixture') return 'fixture_use_still_requires_room_access';
+    if (!object.ownerId) return 'unowned_object_still_requires_room_access';
+    if (object.ownerId === actorId) return 'actor_owned_object';
+    if (object.ownershipMode === 'shared') return 'shared_object_still_requires_room_access';
+    return 'other_owned_object_requires_permission';
+  }
+
+  function occupiedCellSet(property, ignoreObjectId = null) {
+    const occupied = new Set();
+    (property.furniture || []).forEach((object) => {
+      if (object.id === ignoreObjectId) return;
+      World.footprintCells(object).forEach((key) => occupied.add(key));
+    });
+    return occupied;
+  }
+
+  function approachCells(property, room, object) {
+    const roomCells = new Set(room.cells || []);
+    const occupied = occupiedCellSet(property, object.id);
+    const objectCells = new Set(World.footprintCells(object));
+    const candidates = [];
+    const seen = new Set();
+
+    cellsForObject(object).forEach((cell) => {
+      [
+        { x: cell.x, y: cell.y - 1 },
+        { x: cell.x + 1, y: cell.y },
+        { x: cell.x, y: cell.y + 1 },
+        { x: cell.x - 1, y: cell.y }
+      ].forEach((candidate) => {
+        const key = Habitats.cellKey(candidate.x, candidate.y);
+        if (seen.has(key) || !roomCells.has(key) || occupied.has(key) || objectCells.has(key)) return;
+        seen.add(key);
+        candidates.push(candidate);
+      });
+    });
+
+    return candidates.sort((a, b) => (a.y - b.y) || (a.x - b.x));
+  }
+
+  function objectUseSpot(property, room, object) {
+    return {
+      kind: 'object',
+      roomId: room.id,
+      objectId: object.id,
+      objectCells: cellsForObject(object),
+      approachCells: approachCells(property, room, object),
+      positionSource: 'persistent_furniture_and_room_graph'
+    };
+  }
+
+  function actionDescriptor(actionId) {
+    const action = Content.activityById(actionId);
+    if (!action) return null;
+    return {
+      actionId: action.id,
+      actionName: action.name,
+      hours: action.hours,
+      cost: action.cost,
+      description: action.description
+    };
+  }
+
+  function objectAffordance(property, room, actorId, object, rule) {
+    const action = actionDescriptor(rule.actionId);
+    if (!action) return null;
+    const descriptor = objectDescriptor(object);
+    return {
+      id: `aff:${room.id}:${rule.actionId}:${object.id}`,
+      source: 'persistent_object',
+      ...action,
+      reason: rule.reason,
+      object: descriptor,
+      objectId: descriptor.id,
+      permissionHint: permissionHint(actorId, object),
+      useSpot: objectUseSpot(property, room, object),
+      noExecutionAuthority: true,
+      noReward: true
+    };
+  }
+
+  function roomUtilityAffordances(room) {
+    const out = [];
+    if (room.purpose === 'bathroom' && room.utilityAccess?.water && room.utilityAccess?.waste) {
+      const action = actionDescriptor('shower');
+      if (action) {
+        out.push({
+          id: `aff:${room.id}:shower:utility`,
+          source: 'room_utility',
+          ...action,
+          reason: 'The existing bathroom room graph exposes real water and waste access.',
+          object: null,
+          objectId: null,
+          permissionHint: 'room_access_still_required',
+          useSpot: {
+            kind: 'room_utility',
+            roomId: room.id,
+            utilities: ['water', 'waste'],
+            positionSource: 'room_utility_graph'
+          },
+          noExecutionAuthority: true,
+          noReward: true
+        });
+      }
+    }
+    const clean = actionDescriptor('clean_home');
+    if (clean) {
+      out.push({
+        id: `aff:${room.id}:clean_home:room`,
+        source: 'room_zone',
+        ...clean,
+        reason: 'The existing room can be the starting context for whole-home care without inventing an object.',
+        object: null,
+        objectId: null,
+        permissionHint: 'room_access_still_required',
+        useSpot: {
+          kind: 'room_zone',
+          roomId: room.id,
+          positionSource: 'persistent_room_graph'
+        },
+        noExecutionAuthority: true,
+        noReward: true
+      });
+    }
+    return out;
+  }
+
+  function affordancesForRoom(world, propertyId, roomId, actorId = 'player') {
+    const property = World.getProperty(world, propertyId);
+    const room = Habitats.roomById(property, roomId);
+    if (!property || !room) return null;
+
+    const objects = (property.furniture || [])
+      .filter((object) => objectRoom(property, object)?.id === room.id)
+      .sort((a, b) => String(a.id).localeCompare(String(b.id)));
+
+    const affordances = [];
+    objects.forEach((object) => {
+      OBJECT_RULES.forEach((rule) => {
+        if (!objectMatchesRule(object, rule)) return;
+        const affordance = objectAffordance(property, room, actorId, object, rule);
+        if (affordance) affordances.push(affordance);
+      });
+    });
+    affordances.push(...roomUtilityAffordances(room));
+    affordances.sort((a, b) => a.actionId.localeCompare(b.actionId) || String(a.objectId || '').localeCompare(String(b.objectId || '')));
+
+    return {
+      schema: AFFORDANCE_SCHEMA,
+      actorId,
+      placeId: property.id,
+      roomId: room.id,
+      roomPurpose: room.purpose,
+      habitatRevision: Number(property.habitat?.revision) || 0,
+      evidence: 'persistent furniture + room graph + utility graph',
+      affordances,
+      actionIds: sortedUnique(affordances.map((entry) => entry.actionId)),
+      noExecutionAuthority: true,
+      permissionResolutionDeferred: true,
+      noReward: true
+    };
+  }
+
+  function validateProjection(world, projection) {
+    const errors = [];
+    const add = (message) => { if (errors.length < 80) errors.push(message); };
+    if (!projection || projection.schema !== AFFORDANCE_SCHEMA) return { ok: false, errors: ['Invalid object-use affordance schema.'] };
+    if (projection.noExecutionAuthority !== true) add('Affordance projection must not claim execution authority.');
+    if (projection.permissionResolutionDeferred !== true) add('Permission resolution must remain explicit and deferred in this stage.');
+    const property = World.getProperty(world, projection.placeId);
+    const room = Habitats.roomById(property, projection.roomId);
+    if (!property || !room) return { ok: false, errors: ['Projection references an unknown residential room.'] };
+    const roomCells = new Set(room.cells || []);
+    const objectIds = new Set((property.furniture || []).filter((object) => objectRoom(property, object)?.id === room.id).map((object) => object.id));
+    const ids = new Set();
+
+    (projection.affordances || []).forEach((entry) => {
+      if (!entry.id || ids.has(entry.id)) add(`Duplicate or missing affordance id ${String(entry.id)}.`);
+      ids.add(entry.id);
+      if (!Content.activityById(entry.actionId)) add(`${entry.id} references unknown activity ${String(entry.actionId)}.`);
+      if (entry.noExecutionAuthority !== true) add(`${entry.id} claims execution authority.`);
+      if (entry.noReward !== true) add(`${entry.id} must remain reward-neutral.`);
+      if (entry.source === 'persistent_object') {
+        if (!entry.objectId || !objectIds.has(entry.objectId)) add(`${entry.id} references an object outside the room.`);
+        if (entry.useSpot?.objectId !== entry.objectId) add(`${entry.id} use spot does not match its object.`);
+        (entry.useSpot?.objectCells || []).concat(entry.useSpot?.approachCells || []).forEach((cell) => {
+          const key = Habitats.cellKey(cell.x, cell.y);
+          if (!roomCells.has(key)) add(`${entry.id} contains a use cell outside the room graph.`);
+        });
+      } else if (!['room_utility', 'room_zone'].includes(entry.source)) {
+        add(`${entry.id} has unsupported source ${String(entry.source)}.`);
+      }
+    });
+
+    return { ok: errors.length === 0, errors };
+  }
+
+  AXM.ObjectUse = {
+    AFFORDANCE_SCHEMA,
+    OBJECT_RULES,
+    permissionHint,
+    approachCells,
+    affordancesForRoom,
+    validateProjection
+  };
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/object_use_item_expansion.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const ObjectUse = AXM.ObjectUse;
+  const Content = AXM.Content;
+  const Expansion = AXM.ContentExpansion;
+  const ItemInteractions = AXM.ItemInteractions;
+
+  if (!ObjectUse?.OBJECT_RULES || !Expansion || !ItemInteractions) {
+    throw new Error('Living City object-use item expansion requires ObjectUse, ContentExpansion and ItemInteractions.');
+  }
+
+  const additions = [
+    ['play_device', ['refurbished_laptop', 'compact_computer', 'handheld_game_screen'], 'A real game-capable device can ground leisure play.'],
+    ['watch_tv', ['tv_screen'], 'A real TV can ground television leisure without pretending it is a work computer.'],
+    ['relax_seated', ['secondhand_chair', 'folding_chair', 'deep_sofa', 'patched_armchair', 'reading_chair', 'loveseat_sofa', 'modular_sofa', 'kitchen_chair'], 'A real chair or sofa can ground a quiet rest.'],
+    ['read_books', ['story_shelf', 'book_shelf'], 'A real book or story shelf can ground reading.'],
+    ['listen_music', ['music_player', 'record_music_player'], 'A real music device can ground listening time.'],
+    ['read_by_lamp', ['basic_lamp', 'standing_lamp', 'desk_lamp', 'paper_lamp', 'clip_lamp', 'industrial_lamp'], 'A real lamp can ground a reading-light activity.'],
+    ['care_plant', ['plant', 'large_plant', 'hanging_plant'], 'A real plant can ground optional care without creating a maintenance streak.'],
+    ['organize_storage', ['crate_shelf', 'wardrobe', 'keepsake_chest', 'story_shelf', 'book_shelf', 'metal_shelf', 'wall_shelf', 'drawer_crate'], 'A real storage object can ground optional sorting without a cleanliness quota.'],
+    ['repair_at_bench', ['workbench', 'maker_workbench'], 'A real home workbench can ground repair practice without routing to the public workshop.'],
+    ['sleep', ['double_bed', 'bunk_bed', 'futon_bed', 'reclaimed_bed'], 'Expanded sleeping objects ground the same ordinary sleep action.'],
+    ['eat_home', ['mini_kitchen', 'induction_stove', 'mini_fridge'], 'Expanded kitchen objects can ground the ordinary home-meal action.'],
+    ['study_focus', ['refurbished_laptop', 'compact_computer', 'writing_desk', 'drawing_desk', 'dining_table', 'side_table', 'book_shelf'], 'Real study-capable devices and surfaces can ground focused study.'],
+    ['creative_time', ['refurbished_laptop', 'compact_computer', 'record_music_player', 'writing_desk', 'drawing_desk', 'sewing_table', 'coffee_table', 'dining_table', 'side_table'], 'Real creative devices and surfaces can ground open-ended creative time.']
+  ].map(([actionId, catalogIds, reason]) => ({ actionId, catalogIds, reason }));
+
+  additions.forEach((addition) => {
+    if (!Content.activityById(addition.actionId)) throw new Error(`Object-use expansion cannot find activity ${addition.actionId}.`);
+    addition.catalogIds.forEach((id) => {
+      if (!Content.furnitureById(id)) throw new Error(`Object-use expansion references missing catalogue item ${id}.`);
+    });
+    let rule = ObjectUse.OBJECT_RULES.find((entry) => entry.actionId === addition.actionId);
+    if (!rule) {
+      rule = { actionId: addition.actionId, catalogIds: [], reason: addition.reason };
+      ObjectUse.OBJECT_RULES.push(rule);
+    }
+    rule.catalogIds = Array.from(new Set([...(rule.catalogIds || []), ...addition.catalogIds])).sort();
+    rule.reason = addition.reason;
+  });
+
+  // v0.11.x's generic repair activity routes to the public workshop. Once a
+  // real home-bench action exists, the object-use projection must not claim
+  // that the old public-workshop activity happens at the home workbench.
+  const publicRepairRule = ObjectUse.OBJECT_RULES.find((entry) => entry.actionId === 'practice_repair');
+  if (publicRepairRule?.catalogIds) {
+    publicRepairRule.catalogIds = publicRepairRule.catalogIds.filter((id) => !['workbench', 'maker_workbench'].includes(id));
+  }
+
+  AXM.ObjectUseItemExpansion = Object.freeze({
+    id: 'axm.living-city.object-use-item-expansion/v3',
+    additions: Object.freeze(additions.map((entry) => Object.freeze({
+      actionId: entry.actionId,
+      catalogIds: Object.freeze(entry.catalogIds.slice()),
+      reason: entry.reason
+    })))
+  });
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/object_use_audit.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const World = AXM.World;
+  const Habitats = AXM.Habitats;
+  const ObjectUse = AXM.ObjectUse;
+
+  const AUDIT_SCHEMA = 'axm.living-city.object-use-audit/v0.12.0-draft';
+
+  function sortedUnique(values) {
+    return Array.from(new Set(values)).sort();
+  }
+
+  function roomPermissionEvidence(room, actorId) {
+    const snapshot = room?.permissionSnapshot && typeof room.permissionSnapshot === 'object'
+      ? room.permissionSnapshot
+      : null;
+    const holderIds = sortedUnique((snapshot?.holderIds || []).filter(Boolean));
+    const actorListed = holderIds.includes(actorId);
+    let status = 'unresolved';
+    if (snapshot) {
+      if (actorListed) status = 'actor_listed_in_snapshot';
+      else if (holderIds.length) status = 'actor_not_listed_in_snapshot';
+      else status = 'no_explicit_holders_in_snapshot';
+    }
+    return {
+      status,
+      kind: snapshot?.kind || 'unspecified',
+      source: snapshot?.source || 'none',
+      holderIds,
+      actorListed,
+      advisoryOnly: true
+    };
+  }
+
+  function occupiedCells(property, ignoreObjectId = null) {
+    const occupied = new Set();
+    (property?.furniture || []).forEach((object) => {
+      if (object.id === ignoreObjectId) return;
+      World.footprintCells(object).forEach((key) => occupied.add(key));
+    });
+    return occupied;
+  }
+
+  function objectCells(entry) {
+    return new Set((entry?.useSpot?.objectCells || []).map((cell) => Habitats.cellKey(cell.x, cell.y)));
+  }
+
+  function reachableRoomCells(property, room) {
+    if (!property || !room) return [];
+    const reachable = Habitats.reachableCells(property);
+    return (room.cells || [])
+      .filter((key) => reachable.has(key))
+      .map((key) => Habitats.parseCellKey(key))
+      .sort((a, b) => (a.y - b.y) || (a.x - b.x));
+  }
+
+  function reachableFreeRoomCells(property, room, ignoreObjectId = null) {
+    if (!property || !room) return [];
+    const occupied = occupiedCells(property, ignoreObjectId);
+    return reachableRoomCells(property, room)
+      .filter((cell) => !occupied.has(Habitats.cellKey(cell.x, cell.y)));
+  }
+
+  function auditedApproachCells(property, room, entry) {
+    const roomCells = new Set(room.cells || []);
+    const reachable = Habitats.reachableCells(property);
+    const occupied = occupiedCells(property, entry.objectId || null);
+    const blockedByOwnObject = objectCells(entry);
+    const supplied = Array.isArray(entry?.useSpot?.approachCells) ? entry.useSpot.approachCells : [];
+
+    if (supplied.length) {
+      return supplied.filter((cell) => {
+        const key = Habitats.cellKey(cell.x, cell.y);
+        return roomCells.has(key) && reachable.has(key) && !occupied.has(key) && !blockedByOwnObject.has(key);
+      }).sort((a, b) => (a.y - b.y) || (a.x - b.x));
+    }
+
+    // Room-level utility/zone affordances deliberately do not claim an exact
+    // standing position. Their spatial evidence is only that the room itself
+    // is structurally reachable. Requiring an unoccupied cell here would turn
+    // coarse room evidence into false object-level precision and could hide a
+    // legitimate bathroom/kitchen utility merely because furniture occupies
+    // every cell in a tiny room.
+    if (entry.source !== 'persistent_object') {
+      return reachableRoomCells(property, room).slice(0, 12);
+    }
+
+    return reachableFreeRoomCells(property, room, entry.objectId || null).slice(0, 12);
+  }
+
+  function auditAffordance(property, room, actorId, entry) {
+    const approachCells = auditedApproachCells(property, room, entry);
+    const exactObject = entry.source === 'persistent_object';
+    const permission = {
+      objectHint: entry.permissionHint || (entry.objectId ? 'object_permission_unspecified' : 'room_access_still_required'),
+      room: roomPermissionEvidence(room, actorId),
+      requiresResolution: true,
+      noAuthorityGranted: true
+    };
+    return {
+      ...Core.deepClone(entry),
+      audit: {
+        spatiallyGrounded: approachCells.length > 0,
+        positionPrecision: exactObject ? 'exact_object_plus_reachable_approach' : 'reachable_room_zone_only',
+        approachCells,
+        permission,
+        evidence: exactObject
+          ? 'persistent object + room graph + structural reachability'
+          : 'persistent room/utility graph + structural reachability'
+      },
+      noExecutionAuthority: true,
+      noReward: true
+    };
+  }
+
+  function auditForRoom(world, propertyId, roomId, actorId = 'player') {
+    const property = World.getProperty(world, propertyId);
+    const room = Habitats.roomById(property, roomId);
+    if (!property || !room || !ObjectUse?.affordancesForRoom) return null;
+
+    const before = Core.serializeWorld(world);
+    const base = ObjectUse.affordancesForRoom(world, propertyId, roomId, actorId);
+    if (!base) return null;
+    const audited = (base.affordances || []).map((entry) => auditAffordance(property, room, actorId, entry));
+    const grounded = audited.filter((entry) => entry.audit.spatiallyGrounded);
+    const blocked = audited.filter((entry) => !entry.audit.spatiallyGrounded).map((entry) => ({
+      id: entry.id,
+      actionId: entry.actionId,
+      objectId: entry.objectId || null,
+      source: entry.source,
+      reason: entry.source === 'persistent_object'
+        ? 'No structurally reachable free approach position was found for this persistent object.'
+        : 'The authoritative room graph is not structurally reachable.',
+      permission: entry.audit.permission,
+      noExecutionAuthority: true
+    }));
+    const after = Core.serializeWorld(world);
+
+    return {
+      schema: AUDIT_SCHEMA,
+      sourceSchema: base.schema,
+      actorId,
+      placeId: property.id,
+      roomId: room.id,
+      habitatRevision: Number(property.habitat?.revision) || 0,
+      roomPermission: roomPermissionEvidence(room, actorId),
+      affordances: grounded,
+      blockedCandidates: blocked,
+      actionIds: sortedUnique(grounded.map((entry) => entry.actionId)),
+      readOnly: before === after,
+      noExecutionAuthority: true,
+      permissionResolutionDeferred: true,
+      noReward: true
+    };
+  }
+
+  function validateAudit(world, audit) {
+    const errors = [];
+    const add = (message) => { if (errors.length < 80) errors.push(message); };
+    if (!audit || audit.schema !== AUDIT_SCHEMA) return { ok: false, errors: ['Invalid object-use audit schema.'] };
+    if (audit.readOnly !== true) add('Object-use audit mutated authoritative world state.');
+    if (audit.noExecutionAuthority !== true) add('Audit must not claim execution authority.');
+    if (audit.permissionResolutionDeferred !== true) add('Permission resolution must remain deferred.');
+    if (audit.noReward !== true) add('Audit must remain reward-neutral.');
+
+    const property = World.getProperty(world, audit.placeId);
+    const room = Habitats.roomById(property, audit.roomId);
+    if (!property || !room) return { ok: false, errors: ['Audit references an unknown residential room.'] };
+    const roomCells = new Set(room.cells || []);
+    const reachable = Habitats.reachableCells(property);
+    const ids = new Set();
+
+    (audit.affordances || []).forEach((entry) => {
+      if (!entry.id || ids.has(entry.id)) add(`Duplicate or missing audited affordance id ${String(entry.id)}.`);
+      ids.add(entry.id);
+      if (entry.audit?.spatiallyGrounded !== true) add(`${entry.id} was exposed without grounded room evidence.`);
+      if (!Array.isArray(entry.audit?.approachCells) || !entry.audit.approachCells.length) add(`${entry.id} has no audited spatial evidence cells.`);
+      if (entry.audit?.permission?.requiresResolution !== true || entry.audit?.permission?.noAuthorityGranted !== true) add(`${entry.id} permission evidence overreaches.`);
+      (entry.audit?.approachCells || []).forEach((cell) => {
+        const key = Habitats.cellKey(cell.x, cell.y);
+        if (!roomCells.has(key)) add(`${entry.id} spatial evidence escaped the room.`);
+        if (!reachable.has(key)) add(`${entry.id} spatial evidence is not structurally reachable.`);
+      });
+    });
+
+    (audit.blockedCandidates || []).forEach((entry) => {
+      if (!entry.id || ids.has(entry.id)) add(`Duplicate or missing blocked candidate id ${String(entry.id)}.`);
+      ids.add(entry.id);
+      if (entry.noExecutionAuthority !== true) add(`${entry.id} blocked candidate claims execution authority.`);
+    });
+
+    return { ok: errors.length === 0, errors };
+  }
+
+  AXM.ObjectUseAudit = {
+    AUDIT_SCHEMA,
+    roomPermissionEvidence,
+    reachableRoomCells,
+    reachableFreeRoomCells,
+    auditForRoom,
+    validateAudit
   };
 }(typeof window !== 'undefined' ? window : globalThis));
 
@@ -19776,6 +20741,1661 @@ select:focus-visible {
   };
 }(typeof window !== 'undefined' ? window : globalThis));
 
+/* ===== src/housing_pressure.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const Content = AXM.Content;
+  const World = AXM.World;
+  const Systems = AXM.Systems;
+
+  if (!Core || !Content || !World || !Systems) {
+    throw new Error('Living City housing pressure requires Core, Content, World and Systems.');
+  }
+  if (AXM.HousingPressure) return;
+
+  const SCHEMA = 'axm.living-city.housing-pressure/v0.12.0-draft';
+  const FREE_PERSONAL_OBJECTS = 6;
+  const MONTHLY_CAP_RATIO = 0.25;
+  const MINIMUM_CAP = 18;
+  const activeDepth = new WeakMap();
+
+  function playerPersonalObjects(world) {
+    const home = World.homeOf(world, 'player');
+    if (!home) return [];
+    return (home.furniture || [])
+      .filter((object) => object.ownerId === 'player' && object.ownershipMode !== 'property_fixture')
+      .slice()
+      .sort((a, b) => String(a.id).localeCompare(String(b.id)));
+  }
+
+  function objectMonthlyPressure(object) {
+    const definition = Content.furnitureById(object?.catalogId);
+    if (!definition) return 0;
+    const area = Math.max(1, Number(object.footprint?.[0] || definition.footprint?.[0] || 1) * Number(object.footprint?.[1] || definition.footprint?.[1] || 1));
+    const price = Math.max(0, Number(definition.price) || 0);
+    return Core.round(2.25 + Math.max(0, area - 1) * 0.75 + Math.min(6, price * 0.006), 2);
+  }
+
+  function summary(world) {
+    const home = World.homeOf(world, 'player');
+    if (!home) {
+      return {
+        schema: SCHEMA,
+        homeId: null,
+        ownerOccupied: false,
+        personalPlacedObjects: 0,
+        freeObjectAllowance: FREE_PERSONAL_OBJECTS,
+        chargeableObjects: 0,
+        monthlySurcharge: 0,
+        weeklySurcharge: 0,
+        capMonthly: 0,
+        noPassiveDecay: true
+      };
+    }
+
+    const objects = playerPersonalObjects(world);
+    const chargeable = objects.slice(FREE_PERSONAL_OBJECTS);
+    const ownerOccupied = home.ownerId === 'player';
+    const baseRent = Math.max(0, Number(home.currentRent) || Number(home.rent) || 0);
+    const capMonthly = Core.round(Math.max(MINIMUM_CAP, baseRent * MONTHLY_CAP_RATIO), 2);
+    const rawMonthly = chargeable.reduce((sum, object) => sum + objectMonthlyPressure(object), 0);
+    const monthlySurcharge = ownerOccupied ? 0 : Core.round(Math.min(rawMonthly, capMonthly), 2);
+
+    return {
+      schema: SCHEMA,
+      homeId: home.id,
+      ownerOccupied,
+      personalPlacedObjects: objects.length,
+      freeObjectAllowance: FREE_PERSONAL_OBJECTS,
+      chargeableObjects: Math.max(0, objects.length - FREE_PERSONAL_OBJECTS),
+      monthlySurcharge,
+      weeklySurcharge: Core.round(monthlySurcharge / 4.2, 2),
+      capMonthly,
+      noPassiveDecay: true,
+      roommateObjectsExcluded: true,
+      propertyFixturesExcluded: true,
+      storedObjectsExcluded: true
+    };
+  }
+
+  function snapshotResidentialConditions(world) {
+    const out = new Map();
+    (world.places || []).filter((place) => place.kind === 'residential').forEach((property) => {
+      (property.furniture || []).forEach((object) => {
+        out.set(object.id, Number(object.condition) || 0);
+      });
+    });
+    return out;
+  }
+
+  function preventPassiveConditionLoss(world, before) {
+    if (!before) return;
+    (world.places || []).filter((place) => place.kind === 'residential').forEach((property) => {
+      (property.furniture || []).forEach((object) => {
+        if (!before.has(object.id)) return;
+        const earlier = before.get(object.id);
+        if ((Number(object.condition) || 0) < earlier) object.condition = earlier;
+      });
+    });
+  }
+
+  function weekIndex(day) {
+    return Math.floor((Math.max(1, Number(day) || 1) - 1) / 7);
+  }
+
+  function chargeOneWeek(world, cycleIndex) {
+    const pressure = summary(world);
+    const due = pressure.weeklySurcharge;
+    if (due <= 0) return { due: 0, paid: 0, shortfall: 0, pressure };
+
+    const player = world.player;
+    const paid = Math.min(Math.max(0, Number(player.money) || 0), due);
+    const shortfall = Core.round(Math.max(0, due - paid), 2);
+    player.money = Core.round(player.money - paid, 2);
+    player.lifetimeSpend = Core.round((Number(player.lifetimeSpend) || 0) + paid, 2);
+    if (shortfall > 0) player.rentArrears = Core.round((Number(player.rentArrears) || 0) + shortfall, 2);
+
+    Core.appendLedger(world, 'housing', `Your extra belongings added ${Core.formatMoney(due)} to this week's rent pressure; ${Core.formatMoney(paid)} was paid${shortfall > 0 ? ` and ${Core.formatMoney(shortfall)} remains visible as rent arrears` : ''}.`, {
+      actorIds: ['player'],
+      placeId: pressure.homeId,
+      causes: ['placed personal belongings above the starter allowance', 'weekly furnishing rent pressure'],
+      evidence: {
+        schema: SCHEMA,
+        cycleIndex,
+        monthlySurcharge: pressure.monthlySurcharge,
+        weeklySurcharge: due,
+        personalPlacedObjects: pressure.personalPlacedObjects,
+        chargeableObjects: pressure.chargeableObjects,
+        paid,
+        shortfall,
+        noLateFee: true
+      }
+    });
+
+    return { due, paid, shortfall, pressure };
+  }
+
+  function settleCrossedWeeks(world, beforeDay, afterDay, options = {}) {
+    if (options.freezePlayer) return [];
+    const start = weekIndex(beforeDay);
+    const end = weekIndex(afterDay);
+    const receipts = [];
+    for (let cycle = start + 1; cycle <= end; cycle += 1) receipts.push(chargeOneWeek(world, cycle));
+    return receipts;
+  }
+
+  function pressureMutationReceipt(before, after) {
+    return {
+      schema: SCHEMA,
+      beforeMonthly: before.monthlySurcharge,
+      afterMonthly: after.monthlySurcharge,
+      deltaMonthly: Core.round(after.monthlySurcharge - before.monthlySurcharge, 2),
+      chargeableObjects: after.chargeableObjects,
+      freeObjectAllowance: FREE_PERSONAL_OBJECTS,
+      noPassiveDecay: true
+    };
+  }
+
+  function wrapPressureMutation(name) {
+    const original = Systems[name];
+    if (typeof original !== 'function') return;
+    Systems[name] = function wrappedHousingPressureMutation(world, ...args) {
+      const before = summary(world);
+      const result = original.call(Systems, world, ...args);
+      const after = summary(world);
+      if (result && typeof result === 'object' && result.ok !== false) {
+        result.housingPressure = pressureMutationReceipt(before, after);
+        const delta = result.housingPressure.deltaMonthly;
+        if (Math.abs(delta) >= 0.01) {
+          const direction = delta > 0 ? 'increased' : 'decreased';
+          Core.appendLedger(world, 'housing', `Your placed belongings ${direction} projected furnishing rent pressure by ${Core.formatMoney(Math.abs(delta))} per month.`, {
+            actorIds: ['player'], placeId: after.homeId,
+            causes: [`${name} changed placed personal belongings`],
+            evidence: result.housingPressure
+          });
+          Systems.toast(world, `Projected furnishing rent pressure: ${Core.formatMoney(after.monthlySurcharge)}/month.`, delta > 0 ? 'warning' : 'info');
+        }
+      }
+      return result;
+    };
+  }
+
+  function freezeRequested(name, args) {
+    if (name === 'simulateHour') return args[0]?.freezePlayer === true;
+    if (name === 'advanceHours' || name === 'advanceMinutes') return args[1]?.freezePlayer === true;
+    return false;
+  }
+
+  function wrapTimeMethod(name, settleRent = true) {
+    const original = Systems[name];
+    if (typeof original !== 'function') return;
+    Systems[name] = function wrappedHousingPressureTime(world, ...args) {
+      const depth = activeDepth.get(world) || 0;
+      if (depth > 0) return original.call(Systems, world, ...args);
+      activeDepth.set(world, depth + 1);
+      const beforeDay = Number(world.time?.day) || 1;
+      const conditions = snapshotResidentialConditions(world);
+      try {
+        const result = original.call(Systems, world, ...args);
+        preventPassiveConditionLoss(world, conditions);
+        if (settleRent && !freezeRequested(name, args)) {
+          const afterDay = Number(world.time?.day) || beforeDay;
+          const receipts = settleCrossedWeeks(world, beforeDay, afterDay);
+          if (result && typeof result === 'object' && !Array.isArray(result) && result !== world && receipts.length) {
+            result.furnishingRentReceipts = receipts;
+          }
+        }
+        return result;
+      } finally {
+        activeDepth.delete(world);
+      }
+    };
+  }
+
+  ['buyFurniture', 'storeFurniture', 'placeStoredFurniture'].forEach(wrapPressureMutation);
+
+  [
+    'simulateHour',
+    'advanceHours',
+    'advanceMinutes',
+    'performActivity',
+    'startInteractiveShift',
+    'performWorkTask',
+    'skipShift',
+    'interactWithNpc',
+    'startPlayerTravel',
+    'stepPlayerTravel',
+    'finishPlayerTravelCompressed',
+    'endPlayerTravelEarly'
+  ].forEach((name) => wrapTimeMethod(name, true));
+  wrapTimeMethod('runObserverDays', false);
+
+  if (typeof Systems.computeMetrics === 'function') {
+    const originalComputeMetrics = Systems.computeMetrics;
+    Systems.computeMetrics = function computeMetricsWithHousingPressure(world, ...args) {
+      return { ...originalComputeMetrics.call(Systems, world, ...args), housingPressure: summary(world) };
+    };
+  }
+
+  AXM.HousingPressure = Object.freeze({
+    SCHEMA,
+    FREE_PERSONAL_OBJECTS,
+    MONTHLY_CAP_RATIO,
+    objectMonthlyPressure,
+    playerPersonalObjects,
+    summary,
+    chargeOneWeek,
+    settleCrossedWeeks,
+    noPassiveDecay: true
+  });
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/historical_era.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const Content = AXM.Content;
+  const World = AXM.World;
+  const Systems = AXM.Systems;
+
+  if (!Core || !Content || !World || !Systems) {
+    throw new Error('Living City historical era progression requires Core, Content, World and Systems.');
+  }
+  if (AXM.HistoricalEra) return;
+
+  const SCHEMA = 'axm.living-city.historical-era/v0.12.0-draft';
+  const START_YEAR = 1980;
+  const END_YEAR = 2026;
+  const DAYS_PER_ERA_YEAR = 7;
+
+  const ERAS = Object.freeze([
+    Object.freeze({ id: 'eighties', start: 1980, end: 1989, label: 'Analog Eighties' }),
+    Object.freeze({ id: 'nineties', start: 1990, end: 1999, label: 'Digital Nineties' }),
+    Object.freeze({ id: 'connected_2000s', start: 2000, end: 2009, label: 'Connected 2000s' }),
+    Object.freeze({ id: 'mobile_2010s', start: 2010, end: 2019, label: 'Mobile 2010s' }),
+    Object.freeze({ id: 'present_2020s', start: 2020, end: 2026, label: 'Present Era' })
+  ]);
+
+  const INTRO_YEARS = Object.freeze({
+    handheld_game_screen: 1990,
+    old_laptop: 1995,
+    refurbished_laptop: 2000,
+    fast_computer: 2005,
+    induction_stove: 2005,
+    compact_computer: 2010
+  });
+
+  function yearForDay(day) {
+    const normalizedDay = Math.max(1, Math.floor(Number(day) || 1));
+    return Math.min(END_YEAR, START_YEAR + Math.floor((normalizedDay - 1) / DAYS_PER_ERA_YEAR));
+  }
+
+  function dayForYear(year) {
+    const boundedYear = Core.clamp(Math.floor(Number(year) || START_YEAR), START_YEAR, END_YEAR);
+    return 1 + (boundedYear - START_YEAR) * DAYS_PER_ERA_YEAR;
+  }
+
+  function currentYear(world) {
+    return yearForDay(world?.time?.day || 1);
+  }
+
+  function eraForYear(year) {
+    const boundedYear = Core.clamp(Math.floor(Number(year) || START_YEAR), START_YEAR, END_YEAR);
+    return ERAS.find((era) => boundedYear >= era.start && boundedYear <= era.end) || ERAS[ERAS.length - 1];
+  }
+
+  function introYear(catalogId) {
+    return INTRO_YEARS[catalogId] || START_YEAR;
+  }
+
+  function furnitureAvailability(world, catalogId) {
+    const definition = Content.furnitureById(catalogId);
+    if (!definition) return { ok: false, catalogId, reason: 'Unknown furniture.', introducedYear: null, currentYear: currentYear(world) };
+    const introducedYear = introYear(catalogId);
+    const year = currentYear(world);
+    return {
+      ok: year >= introducedYear,
+      catalogId,
+      introducedYear,
+      currentYear: year,
+      reason: year >= introducedYear ? null : `${definition.name} enters this timeline in ${introducedYear}; the city is currently in ${year}.`
+    };
+  }
+
+  function availableFurniture(world) {
+    return Content.FURNITURE_CATALOG.filter((definition) => furnitureAvailability(world, definition.id).ok);
+  }
+
+  function historicalizeNewWorld(world) {
+    const home = World.homeOf(world, 'player');
+    if (!home) return world;
+    const futureStarter = (home.furniture || []).find((object) => object.ownerId === 'player' && object.catalogId === 'old_laptop');
+    if (futureStarter) {
+      const replacement = Content.furnitureById('music_player');
+      futureStarter.catalogId = 'music_player';
+      futureStarter.acquiredPrice = replacement?.price || futureStarter.acquiredPrice;
+      futureStarter.sentimental = Math.max(8, Number(futureStarter.sentimental) || 0);
+      Core.appendObjectHistory(world, futureStarter, 'historical_start', 'The 1980 starting room uses a music player here; personal computing arrives later in the timeline.', {
+        actorId: 'player', causes: ['historical start year 1980', 'technology availability']
+      });
+    }
+    return world;
+  }
+
+  const originalCreateWorld = World.createWorld;
+  World.createWorld = function createHistoricalWorld(...args) {
+    return historicalizeNewWorld(originalCreateWorld.apply(World, args));
+  };
+
+  const originalBuyFurniture = Systems.buyFurniture;
+  Systems.buyFurniture = function buyFurnitureForEra(world, catalogId, ...args) {
+    const availability = furnitureAvailability(world, catalogId);
+    if (!availability.ok) {
+      return { ok: false, reason: availability.reason, historicalEra: availability };
+    }
+    const result = originalBuyFurniture.call(Systems, world, catalogId, ...args);
+    if (result && typeof result === 'object') result.historicalEra = availability;
+    return result;
+  };
+
+  const originalFormatDateTime = Core.formatDateTime;
+  Core.formatDateTime = function formatHistoricalDateTime(world) {
+    const year = currentYear(world);
+    return `${year} · ${eraForYear(year).label} · ${originalFormatDateTime(world)}`;
+  };
+
+  if (typeof Systems.computeMetrics === 'function') {
+    const originalComputeMetrics = Systems.computeMetrics;
+    Systems.computeMetrics = function computeMetricsWithHistoricalEra(world, ...args) {
+      return { ...originalComputeMetrics.call(Systems, world, ...args), historicalEra: summary(world) };
+    };
+  }
+
+  function summary(world) {
+    const year = currentYear(world);
+    const era = eraForYear(year);
+    return {
+      schema: SCHEMA,
+      startYear: START_YEAR,
+      endYear: END_YEAR,
+      currentYear: year,
+      eraId: era.id,
+      eraLabel: era.label,
+      daysPerEraYear: DAYS_PER_ERA_YEAR,
+      atPresent: year === END_YEAR,
+      availableFurniture: availableFurniture(world).length,
+      totalFurniture: Content.FURNITURE_CATALOG.length,
+      playerAgePressure: false,
+      lifeCourseStillChoiceBased: true,
+      existingFutureObjectsArePreserved: true
+    };
+  }
+
+  AXM.HistoricalEra = Object.freeze({
+    SCHEMA,
+    START_YEAR,
+    END_YEAR,
+    DAYS_PER_ERA_YEAR,
+    ERAS,
+    INTRO_YEARS,
+    yearForDay,
+    dayForYear,
+    currentYear,
+    eraForYear,
+    introYear,
+    furnitureAvailability,
+    availableFurniture,
+    historicalizeNewWorld,
+    summary
+  });
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/engineering_ewaste.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const World = AXM.World;
+  const Systems = AXM.Systems;
+  const HistoricalEra = AXM.HistoricalEra;
+  const ItemInteractions = AXM.ItemInteractions;
+
+  if (!Core || !World || !Systems || !HistoricalEra || !ItemInteractions) {
+    throw new Error('Living City engineering/e-waste requires Core, World, Systems, HistoricalEra and ItemInteractions.');
+  }
+  if (AXM.EngineeringEwaste) return;
+
+  const SCHEMA = 'axm.living-city.engineering-ewaste/v0.12.0-draft';
+  const MAX_LOTS = 6;
+  const COMPONENT_KEYS = Object.freeze(['wire', 'motor', 'board', 'sensor', 'cell', 'optics', 'casing']);
+
+  const SOURCE_TEMPLATES = Object.freeze([
+    Object.freeze({ id: 'cassette_player_scrap', name: 'Discarded cassette player', introducedYear: 1980, refurbishCost: 2, resaleBase: 12, components: { wire: 2, motor: 1, casing: 1 } }),
+    Object.freeze({ id: 'toy_motor_scrap', name: 'Broken motorized toy', introducedYear: 1980, refurbishCost: 2, resaleBase: 10, components: { wire: 1, motor: 2, casing: 1 } }),
+    Object.freeze({ id: 'crt_television_scrap', name: 'Old CRT television', introducedYear: 1985, refurbishCost: 5, resaleBase: 26, components: { wire: 2, board: 1, casing: 1 } }),
+    Object.freeze({ id: 'game_console_scrap', name: 'Discarded game console', introducedYear: 1995, refurbishCost: 4, resaleBase: 31, components: { wire: 1, board: 2, casing: 1 } }),
+    Object.freeze({ id: 'desktop_pc_scrap', name: 'Retired desktop computer', introducedYear: 2000, refurbishCost: 6, resaleBase: 44, components: { wire: 2, board: 2, motor: 1, casing: 1 } }),
+    Object.freeze({ id: 'router_scrap', name: 'Discarded network box', introducedYear: 2005, refurbishCost: 3, resaleBase: 22, components: { wire: 1, board: 1, casing: 1 } }),
+    Object.freeze({ id: 'laptop_scrap', name: 'Retired laptop', introducedYear: 2005, refurbishCost: 7, resaleBase: 56, components: { wire: 1, board: 2, cell: 1, casing: 1 } }),
+    Object.freeze({ id: 'mobile_phone_scrap', name: 'Discarded mobile phone', introducedYear: 2010, refurbishCost: 5, resaleBase: 38, components: { board: 1, sensor: 1, cell: 1, casing: 1 } }),
+    Object.freeze({ id: 'camera_scrap', name: 'Broken compact camera', introducedYear: 2010, refurbishCost: 5, resaleBase: 36, components: { board: 1, sensor: 1, optics: 1, casing: 1 } })
+  ]);
+
+  const BLUEPRINTS = Object.freeze([
+    Object.freeze({
+      id: 'bench_blinker', name: 'Bench Blinker', introducedYear: 1985, kind: 'electronics', hours: 2, minimumEngineering: 0,
+      components: { wire: 2, board: 1, casing: 1 },
+      description: 'A tiny visible-light electronics project built from reclaimed parts. It proves the bench and salvaged components can become something new.'
+    }),
+    Object.freeze({
+      id: 'motor_bug', name: 'Motor Bug', introducedYear: 2000, kind: 'kinetic_prototype', hours: 3, minimumEngineering: 1,
+      components: { wire: 2, motor: 1, board: 1, casing: 1 },
+      description: 'A small motorized desk creature. It can jitter and move when explicitly activated, but has no autonomy or schedule.'
+    }),
+    Object.freeze({
+      id: 'mini_scrap_crawler', name: 'Mini Scrap Crawler', introducedYear: 2015, kind: 'miniature_robotica', hours: 4, minimumEngineering: 3,
+      components: { wire: 2, motor: 2, board: 1, sensor: 1, casing: 1 },
+      description: 'The first miniature-robotica seed: a palm-sized crawler made from reclaimed motors, board, sensor and casing. It is a built object, not an autonomous resident.'
+    })
+  ]);
+
+  function emptyComponents() {
+    return Object.fromEntries(COMPONENT_KEYS.map((key) => [key, 0]));
+  }
+
+  function freshState() {
+    return {
+      schema: SCHEMA,
+      sequence: 0,
+      lots: [],
+      components: emptyComponents(),
+      refurbished: [],
+      prototypes: [],
+      history: []
+    };
+  }
+
+  function ensureState(world) {
+    if (world.engineeringEwaste && world.engineeringEwaste.schema !== SCHEMA) {
+      throw new Error(`Engineering state uses unrecognized schema ${String(world.engineeringEwaste.schema || 'unknown')}; refusing to overwrite it.`);
+    }
+    if (!world.engineeringEwaste) world.engineeringEwaste = freshState();
+    COMPONENT_KEYS.forEach((key) => {
+      if (!Number.isFinite(world.engineeringEwaste.components[key])) world.engineeringEwaste.components[key] = 0;
+    });
+    return world.engineeringEwaste;
+  }
+
+  function peekState(world) {
+    const state = world.engineeringEwaste;
+    if (state && state.schema === SCHEMA) return state;
+    return freshState();
+  }
+
+  function addSkill(world, key, amount) {
+    const before = Core.safeNumber(world.player.skills[key], 0);
+    world.player.skills[key] = Core.clamp(Core.round(before + amount, 2), 0, 100);
+  }
+
+  function engineeringLevel(world) {
+    return Core.safeNumber(world.player.skills.engineering, 0);
+  }
+
+  function sourcePool(world) {
+    const year = HistoricalEra.currentYear(world);
+    return SOURCE_TEMPLATES.filter((template) => year >= template.introducedYear);
+  }
+
+  function sourceById(sourceId) {
+    return SOURCE_TEMPLATES.find((template) => template.id === sourceId) || null;
+  }
+
+  function blueprintById(blueprintId) {
+    return BLUEPRINTS.find((blueprint) => blueprint.id === blueprintId) || null;
+  }
+
+  function deterministicIndex(world, state, label, length) {
+    if (!length) return -1;
+    const hash = Core.hashString(`${world.seed}|engineering-ewaste|${HistoricalEra.currentYear(world)}|${state.sequence}|${label}`);
+    return hash % length;
+  }
+
+  function deterministicCondition(world, state, sourceId) {
+    const hash = Core.hashString(`${world.seed}|engineering-condition|${state.sequence}|${sourceId}|${world.time.day}`);
+    return 35 + (hash % 46);
+  }
+
+  function findLot(state, lotId) {
+    return state.lots.find((lot) => lot.id === lotId) || null;
+  }
+
+  function benchStatus(world) {
+    const home = World.homeOf(world, 'player');
+    const homeBench = (home?.furniture || []).find((object) => (
+      ItemInteractions.objectMatchesAction(object, 'repair_at_bench') && ItemInteractions.directUseAllowed(object)
+    )) || null;
+    if (homeBench && world.player.locationId === home.id) {
+      return { ok: true, mode: 'home_bench', placeId: home.id, objectId: homeBench.id };
+    }
+    if (world.player.locationId === 'place_workshop') {
+      return { ok: true, mode: 'public_workshop', placeId: 'place_workshop', objectId: null };
+    }
+    const reason = homeBench
+      ? 'Your workbench is at home; return home or go to the public repair workshop before engineering there.'
+      : 'Engineering salvage needs your usable home workbench or your physical presence at the public repair workshop.';
+    return { ok: false, mode: null, placeId: null, objectId: null, reason };
+  }
+
+  function advance(world, hours) {
+    Systems.advanceHours(world, hours);
+  }
+
+  function collectEwaste(world) {
+    const state = ensureState(world);
+    if (state.lots.length >= MAX_LOTS) return { ok: false, reason: `Your salvage queue already holds ${MAX_LOTS} lots. Inspect, refurbish or dismantle something first.` };
+    const pool = sourcePool(world);
+    if (!pool.length) return { ok: false, reason: 'No era-appropriate electronic salvage is available.' };
+
+    const source = pool[deterministicIndex(world, state, 'collect', pool.length)];
+    const year = HistoricalEra.currentYear(world);
+    const lot = {
+      id: Core.uniqueId(world, 'ewaste'),
+      sourceId: source.id,
+      name: source.name,
+      foundYear: year,
+      condition: deterministicCondition(world, state, source.id),
+      inspected: false,
+      estimatedResaleValue: null,
+      expectedComponents: null,
+      provenance: [`found as discarded electronics in ${year}`, `source class: ${source.id}`]
+    };
+    state.sequence += 1;
+    state.lots.push(lot);
+    advance(world, 1);
+    addSkill(world, 'focus', 0.1);
+    Core.appendLedger(world, 'engineering', `You collected ${source.name} as an e-waste lot instead of turning it into instant money or parts.`, {
+      actorIds: ['player'], placeId: world.player.locationId,
+      causes: ['explicit e-waste collection choice'],
+      evidence: { schema: SCHEMA, lotId: lot.id, sourceId: source.id, foundYear: year, noPassiveGeneration: true }
+    });
+    return { ok: true, lot: Core.deepClone(lot), hours: 1 };
+  }
+
+  function inspectEwaste(world, lotId) {
+    const state = ensureState(world);
+    const lot = findLot(state, lotId);
+    if (!lot) return { ok: false, reason: 'That e-waste lot is not in your current salvage queue.' };
+    if (lot.inspected) return { ok: false, reason: 'That lot is already inspected.' };
+    const source = sourceById(lot.sourceId);
+    if (!source) return { ok: false, reason: 'The source class for that lot is unknown; it is preserved rather than guessed.' };
+
+    advance(world, 1);
+    lot.inspected = true;
+    lot.expectedComponents = { ...source.components };
+    const conditionFactor = 0.55 + lot.condition / 200;
+    lot.estimatedResaleValue = Core.round(source.resaleBase * conditionFactor, 2);
+    addSkill(world, 'focus', 0.25);
+    addSkill(world, 'repair', 0.2);
+    addSkill(world, 'engineering', 0.2);
+    Core.appendLedger(world, 'engineering', `You inspected ${lot.name}; its salvage components and refurbishment value are now visible.`, {
+      actorIds: ['player'], placeId: world.player.locationId,
+      causes: ['explicit inspection'],
+      evidence: { schema: SCHEMA, lotId: lot.id, expectedComponents: lot.expectedComponents, estimatedResaleValue: lot.estimatedResaleValue }
+    });
+    return { ok: true, lot: Core.deepClone(lot), hours: 1 };
+  }
+
+  function addComponents(state, components) {
+    Object.entries(components || {}).forEach(([key, amount]) => {
+      if (!COMPONENT_KEYS.includes(key)) return;
+      state.components[key] = Math.max(0, Math.floor(Core.safeNumber(state.components[key], 0) + Core.safeNumber(amount, 0)));
+    });
+  }
+
+  function removeLot(state, lotId) {
+    const index = state.lots.findIndex((lot) => lot.id === lotId);
+    if (index < 0) return null;
+    return state.lots.splice(index, 1)[0];
+  }
+
+  function salvageEwaste(world, lotId) {
+    const state = ensureState(world);
+    const lot = findLot(state, lotId);
+    if (!lot) return { ok: false, reason: 'That e-waste lot is not in your current salvage queue.' };
+    if (!lot.inspected) return { ok: false, reason: 'Inspect the lot first so dismantling is an informed choice.' };
+    const bench = benchStatus(world);
+    if (!bench.ok) return { ok: false, reason: bench.reason };
+    const source = sourceById(lot.sourceId);
+    if (!source) return { ok: false, reason: 'Unknown source class; nothing is dismantled by guesswork.' };
+
+    advance(world, 2);
+    removeLot(state, lotId);
+    addComponents(state, source.components);
+    addSkill(world, 'repair', 0.7);
+    addSkill(world, 'focus', 0.2);
+    addSkill(world, 'engineering', 0.6);
+    const receipt = {
+      schema: SCHEMA,
+      lotId,
+      sourceId: source.id,
+      components: { ...source.components },
+      bench,
+      destructiveChoice: true,
+      reversibleBeforeAction: true
+    };
+    state.history.push({ type: 'salvaged', day: world.time.day, receipt: Core.deepClone(receipt) });
+    Core.appendLedger(world, 'engineering', `You dismantled ${lot.name} and kept its reusable components.`, {
+      actorIds: ['player'], placeId: bench.placeId,
+      causes: ['explicit salvage choice'], evidence: receipt
+    });
+    return { ok: true, receipt, components: { ...source.components }, hours: 2 };
+  }
+
+  function refurbishEwaste(world, lotId) {
+    const state = ensureState(world);
+    const lot = findLot(state, lotId);
+    if (!lot) return { ok: false, reason: 'That e-waste lot is not in your current salvage queue.' };
+    if (!lot.inspected) return { ok: false, reason: 'Inspect the lot before deciding to refurbish it.' };
+    const bench = benchStatus(world);
+    if (!bench.ok) return { ok: false, reason: bench.reason };
+    const source = sourceById(lot.sourceId);
+    if (!source) return { ok: false, reason: 'Unknown source class; it is preserved rather than repaired by guesswork.' };
+    if (world.player.money < source.refurbishCost) return { ok: false, reason: `Refurbishment needs ${Core.formatMoney(source.refurbishCost)} for small replacement consumables.` };
+
+    world.player.money = Core.round(world.player.money - source.refurbishCost, 2);
+    world.player.lifetimeSpend = Core.round((Number(world.player.lifetimeSpend) || 0) + source.refurbishCost, 2);
+    advance(world, 3);
+    removeLot(state, lotId);
+    const skillFactor = 1 + Math.min(0.45, (Core.safeNumber(world.player.skills.repair, 0) + engineeringLevel(world)) / 220);
+    const conditionFactor = 0.72 + lot.condition / 250;
+    const saleValue = Core.round(Math.max(source.refurbishCost + 2, source.resaleBase * skillFactor * conditionFactor), 2);
+    const stock = {
+      id: Core.uniqueId(world, 'refurbished'),
+      sourceLotId: lot.id,
+      sourceId: source.id,
+      name: `Refurbished ${source.name.replace(/^Discarded |^Broken |^Old |^Retired /, '')}`,
+      refurbishedYear: HistoricalEra.currentYear(world),
+      saleValue,
+      provenance: lot.provenance.concat([`refurbished by player in ${HistoricalEra.currentYear(world)}`])
+    };
+    state.refurbished.push(stock);
+    addSkill(world, 'repair', 0.9);
+    addSkill(world, 'engineering', 0.8);
+    addSkill(world, 'focus', 0.2);
+    Core.appendLedger(world, 'engineering', `You refurbished ${lot.name} into a sellable second-life item worth about ${Core.formatMoney(saleValue)}.`, {
+      actorIds: ['player'], placeId: bench.placeId,
+      causes: ['explicit refurbishment choice'],
+      evidence: { schema: SCHEMA, lotId: lot.id, stockId: stock.id, cost: source.refurbishCost, saleValue, bench }
+    });
+    return { ok: true, stock: Core.deepClone(stock), cost: source.refurbishCost, hours: 3 };
+  }
+
+  function sellRefurbished(world, stockId) {
+    const state = ensureState(world);
+    const index = state.refurbished.findIndex((item) => item.id === stockId);
+    if (index < 0) return { ok: false, reason: 'That refurbished item is not in your sellable stock.' };
+    const stock = state.refurbished[index];
+    advance(world, 1);
+    state.refurbished.splice(index, 1);
+    world.player.money = Core.round(world.player.money + stock.saleValue, 2);
+    world.player.lifetimeEarnings = Core.round((Number(world.player.lifetimeEarnings) || 0) + stock.saleValue, 2);
+    addSkill(world, 'social', 0.15);
+    Core.appendLedger(world, 'engineering', `${stock.name} found a new owner for ${Core.formatMoney(stock.saleValue)}.`, {
+      actorIds: ['player'], placeId: world.player.locationId,
+      causes: ['explicit local resale'],
+      evidence: { schema: SCHEMA, stockId: stock.id, saleValue: stock.saleValue, sideIncome: true, provenancePreserved: true }
+    });
+    return { ok: true, amount: stock.saleValue, stock: Core.deepClone(stock), hours: 1 };
+  }
+
+  function blueprintAvailability(world, blueprintId) {
+    const blueprint = blueprintById(blueprintId);
+    if (!blueprint) return { ok: false, reason: 'Unknown engineering blueprint.', blueprintId };
+    const year = HistoricalEra.currentYear(world);
+    const level = engineeringLevel(world);
+    if (year < blueprint.introducedYear) {
+      return { ok: false, reason: `${blueprint.name} belongs to ${blueprint.introducedYear} or later in this timeline.`, blueprintId, introducedYear: blueprint.introducedYear, currentYear: year, engineering: level };
+    }
+    if (level < blueprint.minimumEngineering) {
+      return { ok: false, reason: `${blueprint.name} needs engineering ${blueprint.minimumEngineering}; current engineering is ${Core.round(level, 1)}.`, blueprintId, introducedYear: blueprint.introducedYear, currentYear: year, engineering: level };
+    }
+    return { ok: true, reason: null, blueprintId, introducedYear: blueprint.introducedYear, currentYear: year, engineering: level };
+  }
+
+  function missingComponents(state, requirements) {
+    const missing = {};
+    Object.entries(requirements || {}).forEach(([key, amount]) => {
+      const deficit = Math.max(0, amount - Core.safeNumber(state.components[key], 0));
+      if (deficit > 0) missing[key] = deficit;
+    });
+    return missing;
+  }
+
+  function buildPrototype(world, blueprintId) {
+    const state = ensureState(world);
+    const blueprint = blueprintById(blueprintId);
+    const availability = blueprintAvailability(world, blueprintId);
+    if (!availability.ok) return { ok: false, reason: availability.reason, availability };
+    const bench = benchStatus(world);
+    if (!bench.ok) return { ok: false, reason: bench.reason };
+    const missing = missingComponents(state, blueprint.components);
+    if (Object.keys(missing).length) return { ok: false, reason: `Missing reclaimed components: ${Object.entries(missing).map(([key, amount]) => `${key} x${amount}`).join(', ')}.`, missing };
+
+    Object.entries(blueprint.components).forEach(([key, amount]) => {
+      state.components[key] -= amount;
+    });
+    advance(world, blueprint.hours);
+    const prototype = {
+      id: Core.uniqueId(world, 'prototype'),
+      blueprintId: blueprint.id,
+      name: blueprint.name,
+      kind: blueprint.kind,
+      builtYear: HistoricalEra.currentYear(world),
+      autonomous: false,
+      scheduleAuthority: false,
+      consumedComponents: { ...blueprint.components },
+      provenance: [`built by player from reclaimed e-waste components in ${HistoricalEra.currentYear(world)}`],
+      description: blueprint.description
+    };
+    state.prototypes.push(prototype);
+    addSkill(world, 'engineering', blueprint.kind === 'miniature_robotica' ? 1.4 : 1.0);
+    addSkill(world, 'repair', 0.45);
+    addSkill(world, 'creativity', 0.5);
+    Core.appendLedger(world, 'engineering', `You built ${blueprint.name} from reclaimed electronics.`, {
+      actorIds: ['player'], placeId: bench.placeId,
+      causes: ['explicit engineering build'],
+      evidence: { schema: SCHEMA, prototypeId: prototype.id, blueprintId: blueprint.id, kind: blueprint.kind, components: prototype.consumedComponents, autonomous: false, scheduleAuthority: false }
+    });
+    return { ok: true, prototype: Core.deepClone(prototype), hours: blueprint.hours };
+  }
+
+  function availableBlueprints(world) {
+    return BLUEPRINTS.map((blueprint) => ({ ...blueprint, availability: blueprintAvailability(world, blueprint.id) }));
+  }
+
+  function summary(world) {
+    const state = peekState(world);
+    return {
+      schema: SCHEMA,
+      currentYear: HistoricalEra.currentYear(world),
+      engineering: engineeringLevel(world),
+      queuedLots: state.lots.length,
+      maxLots: MAX_LOTS,
+      refurbishedStock: state.refurbished.length,
+      prototypes: state.prototypes.length,
+      miniatureRobotica: state.prototypes.filter((entry) => entry.kind === 'miniature_robotica').length,
+      components: { ...state.components },
+      availableSourceTypes: sourcePool(world).map((entry) => entry.id),
+      availableBlueprints: availableBlueprints(world).filter((entry) => entry.availability.ok).map((entry) => entry.id),
+      noPassiveEwasteGeneration: true,
+      noMaintenanceObligation: true,
+      robotAutonomyEnabled: false,
+      existingWorldStateIsNotRewrittenByInspection: true
+    };
+  }
+
+  const originalCreateWorld = World.createWorld;
+  World.createWorld = function createWorldWithEngineering(...args) {
+    const world = originalCreateWorld.apply(World, args);
+    ensureState(world);
+    return world;
+  };
+
+  if (typeof Systems.computeMetrics === 'function') {
+    const originalComputeMetrics = Systems.computeMetrics;
+    Systems.computeMetrics = function computeMetricsWithEngineering(world, ...args) {
+      return { ...originalComputeMetrics.call(Systems, world, ...args), engineeringEwaste: summary(world) };
+    };
+  }
+
+  AXM.EngineeringEwaste = Object.freeze({
+    SCHEMA,
+    MAX_LOTS,
+    COMPONENT_KEYS,
+    SOURCE_TEMPLATES,
+    BLUEPRINTS,
+    ensureState,
+    peekState,
+    engineeringLevel,
+    sourcePool,
+    sourceById,
+    blueprintById,
+    blueprintAvailability,
+    availableBlueprints,
+    benchStatus,
+    collectEwaste,
+    inspectEwaste,
+    salvageEwaste,
+    refurbishEwaste,
+    sellRefurbished,
+    buildPrototype,
+    summary
+  });
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/career_skills.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const Content = AXM.Content;
+  const World = AXM.World;
+  const Systems = AXM.Systems;
+
+  if (!Core || !Content || !World || !Systems) {
+    throw new Error('Living City career/skills requires Core, Content, World and Systems.');
+  }
+  if (AXM.CareerSkills) return;
+
+  const SCHEMA = 'axm.living-city.career-skills/v0.12.0-draft';
+  const SKILL_KEYS = Object.freeze(['focus', 'social', 'repair', 'creativity', 'cooking', 'engineering']);
+  const SKILL_DEFINITIONS = Object.freeze([
+    Object.freeze({ id: 'focus', name: 'Focus', description: 'Attention, sequencing and seeing a task through without turning speed into the only measure.', routes: ['study practical topics', 'parcel routing', 'cataloguing', 'market tracing'] }),
+    Object.freeze({ id: 'social', name: 'Social', description: 'Listening, explaining, coordinating and building trust while other people keep their own agency.', routes: ['ordinary conversations', 'café service', 'peer review', 'learning-house support'] }),
+    Object.freeze({ id: 'repair', name: 'Repair', description: 'Diagnosis, restoration and preserving useful objects instead of treating replacement as progression.', routes: ['practice repairs', 'repair workshop', 'park maintenance', 'e-waste salvage'] }),
+    Object.freeze({ id: 'creativity', name: 'Creativity', description: 'Making, adapting and trying alternative forms without requiring a creative career.', routes: ['make something small', 'design work', 'process experiments', 'learning projects'] }),
+    Object.freeze({ id: 'cooking', name: 'Cooking', description: 'Food preparation, timing and care for practical meals—from home basics to café kitchen work.', routes: ['cook at home', 'gentle routine', 'café kitchen shifts'] }),
+    Object.freeze({ id: 'engineering', name: 'Engineering', description: 'Combining diagnosed parts into testable systems with explicit provenance and bounded authority.', routes: ['inspect e-waste', 'refurbish electronics', 'dismantle components', 'build prototypes'] })
+  ]);
+
+  const EXTRA_JOBS = Object.freeze([
+    Object.freeze({
+      id: 'cafe_kitchen', name: 'Café Kitchen', placeId: 'place_cafe', wage: 15, shiftStart: 7, hours: 6,
+      primarySkill: 'cooking', requirement: 10, slots: 4,
+      skillProfile: { cooking: 0.5, focus: 0.25, social: 0.15, creativity: 0.1 },
+      entryRequirements: { cooking: 10, focus: 6 },
+      summary: 'Prepare a small changing menu, keep waste visible, and learn food work without turning it into a restaurant empire.',
+      actions: [
+        { id: 'prep_basic_menu', name: 'Prep the basic menu', note: 'Steady food practice and sequencing.', style: 'craft', performance: 11, skill: { cooking: 1.3, focus: 0.4 }, needs: { energy: -8, hunger: -3 } },
+        { id: 'handle_meal_rush', name: 'Handle the meal rush', note: 'Fast coordination with a heavier energy cost.', style: 'pace', performance: 15, skill: { cooking: 1, focus: 0.8 }, needs: { energy: -11, hunger: -5 } },
+        { id: 'reduce_food_waste', name: 'Reduce food waste', note: 'Adapt ingredients instead of hiding waste in a score.', style: 'improvement', performance: 10, skill: { cooking: 0.8, creativity: 0.7, focus: 0.4 }, innovation: 1, needs: { energy: -7 } },
+        { id: 'share_kitchen_method', name: 'Share a kitchen method', note: 'Teach a coworker without becoming their controller.', style: 'people', performance: 8, skill: { cooking: 0.7, social: 0.8 }, coworker: true, needs: { energy: -7, mood: 2 } }
+      ]
+    }),
+    Object.freeze({
+      id: 'material_market', name: 'Material Market', placeId: 'place_market', wage: 15, shiftStart: 9, hours: 6,
+      primarySkill: 'focus', requirement: 10, slots: 5,
+      skillProfile: { focus: 0.4, repair: 0.25, social: 0.2, creativity: 0.15 },
+      entryRequirements: { focus: 10, repair: 6 },
+      summary: 'Sort secondhand materials, recognize useful leftovers, and keep source history readable for local makers.',
+      actions: [
+        { id: 'sort_material_stock', name: 'Sort material stock', note: 'Precision and provenance in ordinary stock work.', style: 'precision', performance: 11, skill: { focus: 1.2, repair: 0.4 }, needs: { energy: -7 } },
+        { id: 'assess_reuse_value', name: 'Assess reuse value', note: 'Look for repairable value before treating something as waste.', style: 'craft', performance: 12, skill: { repair: 1, focus: 0.6 }, needs: { energy: -8 } },
+        { id: 'help_local_maker', name: 'Help a local maker', note: 'Explain options without pushing a purchase.', style: 'people', performance: 9, skill: { social: 0.9, focus: 0.4 }, coworker: true, needs: { energy: -7, mood: 1 } },
+        { id: 'trace_material_source', name: 'Trace a material source', note: 'Keep where-things-came-from evidence useful.', style: 'improvement', performance: 10, skill: { focus: 0.9, creativity: 0.5 }, innovation: 1, needs: { energy: -6 } }
+      ]
+    }),
+    Object.freeze({
+      id: 'park_steward', name: 'Pocket Park Steward', placeId: 'place_park', wage: 16, shiftStart: 8, hours: 6,
+      primarySkill: 'repair', requirement: 10, slots: 3,
+      skillProfile: { repair: 0.4, focus: 0.25, social: 0.2, creativity: 0.15 },
+      entryRequirements: { repair: 10, focus: 8 },
+      summary: 'Keep a small public place usable through repair, observation and light-touch stewardship rather than constant optimization.',
+      actions: [
+        { id: 'repair_park_fixture', name: 'Repair a park fixture', note: 'Preserve an existing bench, bin or sign.', style: 'craft', performance: 12, skill: { repair: 1.3, focus: 0.4 }, needs: { energy: -9 } },
+        { id: 'walk_condition_round', name: 'Walk a condition round', note: 'Notice real problems before inventing work.', style: 'precision', performance: 10, skill: { focus: 1.1, repair: 0.4 }, needs: { energy: -8 } },
+        { id: 'help_park_visitor', name: 'Help a park visitor', note: 'Small public-facing guidance, not surveillance.', style: 'people', performance: 8, skill: { social: 0.9, focus: 0.3 }, needs: { energy: -6, mood: 1 } },
+        { id: 'reuse_park_material', name: 'Reuse a leftover material', note: 'A bounded practical improvement using what already exists.', style: 'improvement', performance: 10, skill: { repair: 0.7, creativity: 0.8 }, innovation: 1, materialChance: 0.15, needs: { energy: -8 } }
+      ]
+    }),
+    Object.freeze({
+      id: 'learning_house', name: 'Learning House Guide', placeId: 'place_school', wage: 17, shiftStart: 10, hours: 6,
+      primarySkill: 'social', requirement: 18, slots: 5,
+      skillProfile: { social: 0.4, focus: 0.25, creativity: 0.2, repair: 0.15 },
+      entryRequirements: { social: 18, focus: 10, creativity: 10 },
+      summary: 'Support practical learning, questions and small projects without deciding another person’s path for them.',
+      actions: [
+        { id: 'guide_learning_project', name: 'Guide a learning project', note: 'Ask useful questions and let the learner keep authorship.', style: 'people', performance: 10, skill: { social: 1, focus: 0.6 }, needs: { energy: -7, mood: 1 } },
+        { id: 'prepare_learning_material', name: 'Prepare learning material', note: 'Turn a topic into something understandable and usable.', style: 'precision', performance: 11, skill: { focus: 1, creativity: 0.7 }, needs: { energy: -7 } },
+        { id: 'repair_learning_tool', name: 'Repair a learning tool', note: 'Keep an existing tool in service and explain what failed.', style: 'craft', performance: 10, skill: { repair: 0.9, social: 0.4 }, needs: { energy: -8 } },
+        { id: 'host_open_project_table', name: 'Host an open project table', note: 'Support a mixed group without creating attendance pressure.', style: 'people', performance: 9, skill: { social: 1, creativity: 0.6 }, coworker: true, needs: { energy: -8, mood: 2 } }
+      ]
+    })
+  ]);
+
+  const EXISTING_PROFILES = Object.freeze({
+    corner_cafe: { skillProfile: { social: 0.45, focus: 0.25, cooking: 0.2, creativity: 0.1 }, entryRequirements: { social: 0 }, family: 'hospitality' },
+    parcel_depot: { skillProfile: { focus: 0.5, repair: 0.2, social: 0.15, creativity: 0.15 }, entryRequirements: { focus: 8 }, family: 'logistics' },
+    repair_workshop: { skillProfile: { repair: 0.5, focus: 0.2, creativity: 0.15, social: 0.1, engineering: 0.05 }, entryRequirements: { repair: 18, focus: 8 }, family: 'repair' },
+    neighborhood_library: { skillProfile: { social: 0.35, focus: 0.35, creativity: 0.15, repair: 0.15 }, entryRequirements: { social: 15, focus: 12 }, family: 'civic' },
+    design_coop: { skillProfile: { creativity: 0.5, focus: 0.25, social: 0.15, repair: 0.1 }, entryRequirements: { creativity: 30, focus: 20 }, family: 'design' }
+  });
+
+  function installJobProfiles() {
+    Content.JOBS.forEach((job) => {
+      const profile = EXISTING_PROFILES[job.id];
+      if (profile) Object.assign(job, Core.deepClone(profile));
+      if (!job.skillProfile) job.skillProfile = { [job.primarySkill]: 1 };
+      if (!job.entryRequirements) job.entryRequirements = { [job.primarySkill]: job.requirement || 0 };
+      if (!job.family) job.family = job.id;
+      (job.actions || []).forEach((action) => { if (!action.style) action.style = 'work'; });
+    });
+    EXTRA_JOBS.forEach((definition) => {
+      if (!Content.JOBS.some((job) => job.id === definition.id)) Content.JOBS.push(Core.deepClone(definition));
+    });
+  }
+
+  function emptySkillEvidence() {
+    return Object.fromEntries(SKILL_KEYS.map((key) => [key, { events: 0, hours: 0, totalGain: 0, sources: [] }]));
+  }
+
+  function freshState() {
+    return {
+      schema: SCHEMA,
+      jobRecords: {},
+      skillEvidence: emptySkillEvidence(),
+      history: [],
+      noSkillDecay: true,
+      noCareerDeadline: true,
+      noMandatoryPromotion: true
+    };
+  }
+
+  function ensureState(world) {
+    if (world.careerSkills && world.careerSkills.schema !== SCHEMA) {
+      throw new Error(`Career/skills state uses unrecognized schema ${String(world.careerSkills.schema || 'unknown')}; refusing to overwrite it.`);
+    }
+    if (!world.careerSkills) world.careerSkills = freshState();
+    SKILL_KEYS.forEach((key) => {
+      if (!world.careerSkills.skillEvidence[key]) world.careerSkills.skillEvidence[key] = { events: 0, hours: 0, totalGain: 0, sources: [] };
+    });
+    return world.careerSkills;
+  }
+
+  function peekState(world) {
+    if (world.careerSkills?.schema === SCHEMA) return world.careerSkills;
+    return freshState();
+  }
+
+  function entitySkill(entity, key) {
+    return Core.safeNumber(entity?.skills?.[key], 0);
+  }
+
+  function skillDefinition(key) {
+    return SKILL_DEFINITIONS.find((entry) => entry.id === key) || null;
+  }
+
+  function skillTier(value) {
+    const amount = Core.clamp(Core.safeNumber(value, 0), 0, 100);
+    if (amount < 10) return 'Starting';
+    if (amount < 25) return 'Growing';
+    if (amount < 45) return 'Practiced';
+    if (amount < 65) return 'Skilled';
+    if (amount < 82) return 'Deep practice';
+    return 'Highly developed';
+  }
+
+  function skillSnapshot(entity) {
+    return Object.fromEntries(SKILL_KEYS.map((key) => [key, entitySkill(entity, key)]));
+  }
+
+  function jobById(jobId) {
+    return Content.JOBS.find((job) => job.id === jobId) || null;
+  }
+
+  function jobRecord(world, jobId, create = false) {
+    const state = create ? ensureState(world) : peekState(world);
+    if (!state.jobRecords[jobId] && create) {
+      state.jobRecords[jobId] = {
+        jobId,
+        shifts: 0,
+        hours: 0,
+        interactiveShifts: 0,
+        compressedShifts: 0,
+        taskHours: 0,
+        tasks: {},
+        totalPayObserved: 0,
+        firstWorkedDay: null,
+        lastWorkedDay: null,
+        history: []
+      };
+    }
+    return state.jobRecords[jobId] || null;
+  }
+
+  function practiceStage(record) {
+    const hours = Core.safeNumber(record?.hours, 0);
+    if (hours < 12) return 'New to this work';
+    if (hours < 48) return 'Familiar';
+    if (hours < 120) return 'Practiced';
+    if (hours < 240) return 'Deeply experienced';
+    return 'Long-practiced';
+  }
+
+  function jobEligibility(world, jobId, entity = world.player) {
+    const job = jobById(jobId);
+    if (!job) return { ok: false, reason: 'Unknown job.', missing: {}, jobId };
+    const requirements = job.entryRequirements || { [job.primarySkill]: job.requirement || 0 };
+    const missing = {};
+    Object.entries(requirements).forEach(([key, required]) => {
+      const current = entitySkill(entity, key);
+      if (current < required) missing[key] = Core.round(required - current, 1);
+    });
+    return {
+      ok: Object.keys(missing).length === 0,
+      reason: Object.keys(missing).length ? `Needs ${Object.entries(missing).map(([key, amount]) => `${amount} more ${key}`).join(', ')}.` : null,
+      missing,
+      requirements: { ...requirements },
+      jobId
+    };
+  }
+
+  function jobFit(world, jobId, entity = world.player) {
+    const job = jobById(jobId);
+    if (!job) return { score: 0, band: 'Unknown', contributions: [] };
+    const record = entity.id === 'player' ? jobRecord(world, job.id, false) : null;
+    const contributions = Object.entries(job.skillProfile || { [job.primarySkill]: 1 }).map(([key, weight]) => ({
+      skill: key,
+      weight,
+      value: entitySkill(entity, key),
+      contribution: entitySkill(entity, key) * weight
+    }));
+    const skillScore = contributions.reduce((sum, entry) => sum + entry.contribution, 0);
+    const experienceSignal = Math.min(15, Core.safeNumber(record?.hours, 0) / 12);
+    const score = Core.round(Core.clamp(skillScore * 0.85 + experienceSignal, 0, 100), 1);
+    const band = score < 15 ? 'Emerging fit' : score < 30 ? 'Grounded fit' : score < 50 ? 'Strong fit' : score < 70 ? 'Deep fit' : 'Highly developed fit';
+    return { score, band, contributions, experienceSignal: Core.round(experienceSignal, 1) };
+  }
+
+  function recordSkillDeltas(world, before, after, source = {}) {
+    const state = ensureState(world);
+    const hours = Math.max(0, Core.safeNumber(source.hours, 0));
+    const changed = [];
+    SKILL_KEYS.forEach((key) => {
+      const delta = Core.round(entitySkill({ skills: after }, key) - entitySkill({ skills: before }, key), 2);
+      if (delta <= 0) return;
+      const evidence = state.skillEvidence[key];
+      evidence.events += 1;
+      evidence.hours = Core.round(evidence.hours + hours, 2);
+      evidence.totalGain = Core.round(evidence.totalGain + delta, 2);
+      evidence.sources.push({
+        day: world.time.day,
+        type: source.type || 'practice',
+        id: source.id || null,
+        label: source.label || source.id || 'practice',
+        gain: delta,
+        hours
+      });
+      if (evidence.sources.length > 24) evidence.sources.splice(0, evidence.sources.length - 24);
+      changed.push({ key, delta });
+    });
+    return changed;
+  }
+
+  function recordTask(world, job, task) {
+    const record = jobRecord(world, job.id, true);
+    record.taskHours = Core.round(record.taskHours + 1, 2);
+    record.tasks[task.id] = (record.tasks[task.id] || 0) + 1;
+    record.lastWorkedDay = world.time.day;
+  }
+
+  function recordCompletedShift(world, job, mode, pay) {
+    const record = jobRecord(world, job.id, true);
+    record.shifts += 1;
+    record.hours = Core.round(record.hours + job.hours, 2);
+    if (mode === 'interactive') record.interactiveShifts += 1;
+    else record.compressedShifts += 1;
+    record.totalPayObserved = Core.round(record.totalPayObserved + Core.safeNumber(pay, 0), 2);
+    if (record.firstWorkedDay == null) record.firstWorkedDay = world.time.day;
+    record.lastWorkedDay = world.time.day;
+    record.history.push({ type: 'shift', day: world.time.day, mode, hours: job.hours, pay: Core.safeNumber(pay, 0) });
+    if (record.history.length > 32) record.history.splice(0, record.history.length - 32);
+    return record;
+  }
+
+  function addSocialPractice(world, action) {
+    const gains = {
+      talk: { social: 0.25 },
+      spend_time: { social: 0.35 },
+      help: { social: 0.2, focus: 0.08 },
+      flirt: { social: 0.12 },
+      ask_date: { social: 0.15 },
+      decor_suggestion: { social: 0.12, creativity: 0.15 }
+    };
+    const gain = gains[action];
+    if (!gain) return;
+    Systems.applySkillEffects(world.player, gain);
+  }
+
+  function summary(world) {
+    const state = peekState(world);
+    const currentJob = jobById(world.player.jobId);
+    const currentRecord = currentJob ? jobRecord(world, currentJob.id, false) : null;
+    return {
+      schema: SCHEMA,
+      jobCount: Content.JOBS.length,
+      skillCount: SKILL_KEYS.length,
+      currentJobId: currentJob?.id || null,
+      currentJobStage: practiceStage(currentRecord),
+      currentJobHours: Core.safeNumber(currentRecord?.hours, 0),
+      currentJobShifts: Core.safeNumber(currentRecord?.shifts, 0),
+      skillTiers: Object.fromEntries(SKILL_KEYS.map((key) => [key, skillTier(entitySkill(world.player, key))])),
+      eligibleJobs: Content.JOBS.filter((job) => jobEligibility(world, job.id).ok).map((job) => job.id),
+      noSkillDecay: state.noSkillDecay !== false,
+      noCareerDeadline: state.noCareerDeadline !== false,
+      noMandatoryPromotion: state.noMandatoryPromotion !== false,
+      inspectionMutatesState: false
+    };
+  }
+
+  function validate(world, add) {
+    const state = world.careerSkills;
+    if (!state || state.schema !== SCHEMA) return;
+    if (!state.noSkillDecay) add('Career state cannot enable skill decay.');
+    if (!state.noCareerDeadline) add('Career state cannot create a career deadline.');
+    if (!state.noMandatoryPromotion) add('Career state cannot require promotion.');
+    Object.entries(state.jobRecords || {}).forEach(([jobId, record]) => {
+      if (!jobById(jobId)) add(`Career record references unknown job ${jobId}.`);
+      if (Core.safeNumber(record.hours, -1) < 0 || Core.safeNumber(record.shifts, -1) < 0) add(`Career record ${jobId} has invalid hours or shifts.`);
+    });
+    Object.entries(state.skillEvidence || {}).forEach(([key, evidence]) => {
+      if (!SKILL_KEYS.includes(key)) add(`Career evidence references unknown skill ${key}.`);
+      if (Core.safeNumber(evidence.totalGain, -1) < 0) add(`Career evidence ${key} has invalid accumulated gain.`);
+    });
+  }
+
+  installJobProfiles();
+
+  const originalCreateWorld = World.createWorld;
+  World.createWorld = function createWorldWithCareerSkills(...args) {
+    const world = originalCreateWorld.apply(World, args);
+    if (world.player.skills.engineering == null) world.player.skills.engineering = 0;
+    world.people.forEach((person) => { if (person.skills.engineering == null) person.skills.engineering = 0; });
+    ensureState(world);
+    jobRecord(world, world.player.jobId, true);
+    return world;
+  };
+
+  const originalStartInteractiveShift = Systems.startInteractiveShift;
+  Systems.startInteractiveShift = function startInteractiveShiftWithCareer(world, ...args) {
+    const result = originalStartInteractiveShift.call(Systems, world, ...args);
+    if (result?.ok && world.activeShift) jobRecord(world, world.activeShift.jobId, true);
+    return result;
+  };
+
+  const originalPerformWorkTask = Systems.performWorkTask;
+  Systems.performWorkTask = function performWorkTaskWithCareer(world, taskId, ...args) {
+    const shift = world.activeShift;
+    const job = shift ? jobById(shift.jobId) : null;
+    const task = job?.actions?.find((entry) => entry.id === taskId) || null;
+    const before = skillSnapshot(world.player);
+    const result = originalPerformWorkTask.call(Systems, world, taskId, ...args);
+    if (result?.ok && job && task) {
+      recordTask(world, job, task);
+      recordSkillDeltas(world, before, skillSnapshot(world.player), { type: 'job_task', id: task.id, label: `${job.name}: ${task.name}`, hours: 1 });
+      if (!world.activeShift) recordCompletedShift(world, job, 'interactive', result.pay || 0);
+    }
+    return result;
+  };
+
+  const originalSkipShift = Systems.skipShift;
+  Systems.skipShift = function skipShiftWithCareer(world, ...args) {
+    const job = jobById(world.player.jobId);
+    const before = skillSnapshot(world.player);
+    const result = originalSkipShift.call(Systems, world, ...args);
+    if (result?.ok && job) {
+      recordSkillDeltas(world, before, skillSnapshot(world.player), { type: 'compressed_job', id: job.id, label: `${job.name}: compressed shift`, hours: job.hours });
+      recordCompletedShift(world, job, 'compressed', result.pay || 0);
+    }
+    return result;
+  };
+
+  const originalPerformActivity = Systems.performActivity;
+  Systems.performActivity = function performActivityWithSkillEvidence(world, actionId, ...args) {
+    const activity = Content.activityById(actionId);
+    const before = skillSnapshot(world.player);
+    const result = originalPerformActivity.call(Systems, world, actionId, ...args);
+    if (result?.ok && activity) recordSkillDeltas(world, before, skillSnapshot(world.player), { type: 'life_activity', id: activity.id, label: activity.name, hours: activity.hours });
+    return result;
+  };
+
+  const originalInteractWithNpc = Systems.interactWithNpc;
+  Systems.interactWithNpc = function interactWithNpcWithSkillEvidence(world, npcId, action, options = {}, ...args) {
+    const before = skillSnapshot(world.player);
+    const result = originalInteractWithNpc.call(Systems, world, npcId, action, options, ...args);
+    if (result?.ok) {
+      addSocialPractice(world, action);
+      recordSkillDeltas(world, before, skillSnapshot(world.player), { type: 'social_practice', id: action, label: Core.titleCase(action.replaceAll('_', ' ')), hours: action === 'spend_time' || action === 'help' ? 2 : 1 });
+    }
+    return result;
+  };
+
+  const originalApplyForJob = Systems.applyForJob;
+  Systems.applyForJob = function applyForJobWithTransferableRequirements(world, jobId, ...args) {
+    const eligibility = jobEligibility(world, jobId);
+    if (!eligibility.ok) return { ok: false, reason: eligibility.reason, eligibility };
+    const oldJobId = world.player.jobId;
+    const result = originalApplyForJob.call(Systems, world, jobId, ...args);
+    if (result?.ok) {
+      const state = ensureState(world);
+      jobRecord(world, jobId, true);
+      state.history.push({ type: 'job_change', day: world.time.day, fromJobId: oldJobId, toJobId: jobId });
+      if (state.history.length > 40) state.history.splice(0, state.history.length - 40);
+    }
+    return result;
+  };
+
+  if (typeof Systems.computeMetrics === 'function') {
+    const originalComputeMetrics = Systems.computeMetrics;
+    Systems.computeMetrics = function computeMetricsWithCareerSkills(world, ...args) {
+      return { ...originalComputeMetrics.call(Systems, world, ...args), careerSkills: summary(world) };
+    };
+  }
+
+  if (typeof Systems.validateWorld === 'function') {
+    const originalValidateWorld = Systems.validateWorld;
+    Systems.validateWorld = function validateWorldWithCareerSkills(world, ...args) {
+      const result = originalValidateWorld.call(Systems, world, ...args);
+      const errors = Array.isArray(result?.errors) ? result.errors.slice() : [];
+      validate(world, (message) => { if (!errors.includes(message)) errors.push(message); });
+      return { ...result, ok: errors.length === 0, errors };
+    };
+  }
+
+  AXM.CareerSkills = Object.freeze({
+    SCHEMA,
+    SKILL_KEYS,
+    SKILL_DEFINITIONS,
+    EXTRA_JOBS,
+    ensureState,
+    peekState,
+    skillDefinition,
+    skillTier,
+    skillSnapshot,
+    jobById,
+    jobRecord,
+    practiceStage,
+    jobEligibility,
+    jobFit,
+    recordSkillDeltas,
+    summary,
+    validate
+  });
+}(typeof window !== 'undefined' ? window : globalThis));
+/* ===== src/career_engineering_bridge.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Career = AXM.CareerSkills;
+  const Engineering = AXM.EngineeringEwaste;
+
+  if (!Career || !Engineering) throw new Error('Living City career engineering bridge requires CareerSkills and EngineeringEwaste.');
+  if (AXM.CareerEngineeringBridge) return;
+
+  const ACTION_LABELS = Object.freeze({
+    collectEwaste: 'Collect e-waste intact',
+    inspectEwaste: 'Inspect e-waste',
+    salvageEwaste: 'Dismantle e-waste',
+    refurbishEwaste: 'Refurbish e-waste',
+    sellRefurbished: 'Sell refurbished electronics',
+    buildPrototype: 'Build engineering prototype'
+  });
+
+  function wrapAction(name) {
+    const original = Engineering[name];
+    if (typeof original !== 'function') return null;
+    return function careerAwareEngineeringAction(world, ...args) {
+      // This is an explicit engineering mutation, so installing missing current
+      // career state is allowed. An unknown/future career schema must refuse
+      // before the engineering backend changes time, money, parts or lots.
+      Career.ensureState(world);
+      const before = Career.skillSnapshot(world.player);
+      const result = original.call(Engineering, world, ...args);
+      if (result?.ok) {
+        Career.recordSkillDeltas(world, before, Career.skillSnapshot(world.player), {
+          type: 'engineering_work',
+          id: name,
+          label: ACTION_LABELS[name] || name,
+          hours: Number(result.hours) || 0
+        });
+      }
+      return result;
+    };
+  }
+
+  const wrapped = { ...Engineering };
+  Object.keys(ACTION_LABELS).forEach((name) => {
+    const action = wrapAction(name);
+    if (action) wrapped[name] = action;
+  });
+
+  AXM.EngineeringEwaste = Object.freeze(wrapped);
+  AXM.CareerEngineeringBridge = Object.freeze({
+    ACTION_LABELS,
+    sourceSchema: Engineering.SCHEMA,
+    careerSchema: Career.SCHEMA,
+    recordsSkillEvidenceOnly: true,
+    addsNoEngineeringReward: true,
+    refusesUnknownCareerSchemaBeforeEngineeringMutation: true
+  });
+}(typeof window !== 'undefined' ? window : globalThis));
+/* ===== src/engineering_visuals.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const World = AXM.World;
+  const HistoricalEra = AXM.HistoricalEra;
+  const EngineeringEwaste = AXM.EngineeringEwaste;
+
+  if (!Core || !World || !HistoricalEra || !EngineeringEwaste) {
+    throw new Error('Living City engineering visuals require Core, World, HistoricalEra and EngineeringEwaste.');
+  }
+  if (AXM.EngineeringVisuals) return;
+
+  const SCHEMA = 'axm.living-city.engineering-visuals/v0.12.0-draft';
+  const WIDTH = 960;
+  const HEIGHT = 420;
+
+  function engineeringStateStatus(world) {
+    const state = world?.engineeringEwaste;
+    if (!state) return { ok: true, initialized: false, state: EngineeringEwaste.peekState(world) };
+    if (state.schema !== EngineeringEwaste.SCHEMA) {
+      return {
+        ok: false,
+        initialized: true,
+        state: null,
+        reason: `Engineering visuals held: unrecognized state schema ${String(state.schema || 'unknown')}.`
+      };
+    }
+    return { ok: true, initialized: true, state };
+  }
+
+  function sceneFor(world) {
+    const status = engineeringStateStatus(world);
+    const year = HistoricalEra.currentYear(world);
+    const era = HistoricalEra.eraForYear(year);
+    if (!status.ok) {
+      return {
+        schema: SCHEMA,
+        kind: 'held',
+        year,
+        eraLabel: era.label,
+        reason: status.reason,
+        prototypes: [],
+        visualOnly: true,
+        noRewardAuthority: true,
+        noWorldMutation: true
+      };
+    }
+
+    const bench = EngineeringEwaste.benchStatus(world);
+    const state = status.state;
+    return {
+      schema: SCHEMA,
+      kind: 'workbench',
+      year,
+      eraLabel: era.label,
+      bench: {
+        availableHere: bench.ok,
+        mode: bench.mode,
+        placeId: bench.placeId,
+        objectId: bench.objectId,
+        reason: bench.reason || null
+      },
+      queueCount: state.lots.length,
+      componentCount: Object.values(state.components || {}).reduce((sum, value) => sum + (Number(value) || 0), 0),
+      prototypes: (state.prototypes || []).map((prototype) => ({
+        id: prototype.id,
+        blueprintId: prototype.blueprintId,
+        name: prototype.name,
+        kind: prototype.kind,
+        builtYear: prototype.builtYear,
+        autonomous: prototype.autonomous === true,
+        scheduleAuthority: prototype.scheduleAuthority === true,
+        provenance: Array.isArray(prototype.provenance) ? prototype.provenance.slice() : []
+      })),
+      visualOnly: true,
+      noRewardAuthority: true,
+      noWorldMutation: true
+    };
+  }
+
+  function validateScene(scene) {
+    const errors = [];
+    if (!scene || scene.schema !== SCHEMA) errors.push('Engineering visual scene schema mismatch.');
+    if (!['held', 'workbench'].includes(scene?.kind)) errors.push('Unknown engineering visual scene kind.');
+    if (scene?.visualOnly !== true || scene?.noRewardAuthority !== true || scene?.noWorldMutation !== true) {
+      errors.push('Engineering visual scene must remain presentation-only.');
+    }
+    (scene?.prototypes || []).forEach((prototype) => {
+      if (prototype.autonomous) errors.push(`${prototype.name || prototype.id} unexpectedly claims autonomy.`);
+      if (prototype.scheduleAuthority) errors.push(`${prototype.name || prototype.id} unexpectedly claims schedule authority.`);
+    });
+    return { ok: errors.length === 0, errors };
+  }
+
+  function motionForPrototype(prototype, timestamp = 0, motionAmount = 1) {
+    const amount = Core.clamp(Number(motionAmount) || 0, 0, 1);
+    const time = Math.max(0, Number(timestamp) || 0);
+    if (!prototype || amount <= 0) return { x: 0, y: 0, rotation: 0, light: 0.58 };
+    if (prototype.blueprintId === 'bench_blinker') {
+      return { x: 0, y: 0, rotation: 0, light: 0.35 + (Math.sin(time / 260) + 1) * 0.3 * amount };
+    }
+    if (prototype.blueprintId === 'motor_bug') {
+      return {
+        x: Math.sin(time / 78) * 3.2 * amount,
+        y: Math.cos(time / 104) * 1.2 * amount,
+        rotation: Math.sin(time / 115) * 0.035 * amount,
+        light: 0.62
+      };
+    }
+    if (prototype.blueprintId === 'mini_scrap_crawler') {
+      return {
+        x: Math.sin(time / 920) * 72 * amount,
+        y: Math.sin(time / 410) * 2 * amount,
+        rotation: Math.sin(time / 920) >= 0 ? 0.025 : -0.025,
+        light: 0.7
+      };
+    }
+    return { x: 0, y: 0, rotation: 0, light: 0.6 };
+  }
+
+  function roundedRect(ctx, x, y, width, height, radius) {
+    const r = Math.min(radius, width / 2, height / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + width, y, x + width, y + height, r);
+    ctx.arcTo(x + width, y + height, x, y + height, r);
+    ctx.arcTo(x, y + height, x, y, r);
+    ctx.arcTo(x, y, x + width, y, r);
+    ctx.closePath();
+  }
+
+  function drawBenchBlinker(ctx, x, y, motion) {
+    ctx.save();
+    ctx.translate(x + motion.x, y + motion.y);
+    ctx.fillStyle = '#303944';
+    roundedRect(ctx, -32, -18, 64, 36, 7);
+    ctx.fill();
+    ctx.strokeStyle = '#9c7a54';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.strokeStyle = '#b6c1c8';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-18, 4);
+    ctx.lineTo(-5, -6);
+    ctx.lineTo(8, 5);
+    ctx.lineTo(19, -3);
+    ctx.stroke();
+    ctx.globalAlpha = Core.clamp(motion.light, 0.18, 1);
+    ctx.fillStyle = '#ffe27a';
+    ctx.beginPath();
+    ctx.arc(20, -7, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawMotorBug(ctx, x, y, motion) {
+    ctx.save();
+    ctx.translate(x + motion.x, y + motion.y);
+    ctx.rotate(motion.rotation);
+    ctx.fillStyle = '#59656a';
+    roundedRect(ctx, -30, -13, 60, 26, 12);
+    ctx.fill();
+    ctx.strokeStyle = '#d0a86e';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.strokeStyle = '#9faeb1';
+    ctx.beginPath();
+    ctx.moveTo(-22, 11); ctx.lineTo(-32, 24);
+    ctx.moveTo(-7, 12); ctx.lineTo(-13, 25);
+    ctx.moveTo(10, 12); ctx.lineTo(16, 25);
+    ctx.moveTo(24, 10); ctx.lineTo(33, 22);
+    ctx.stroke();
+    ctx.fillStyle = '#9dd7c1';
+    ctx.beginPath();
+    ctx.arc(19, -3, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawCrawler(ctx, x, y, motion) {
+    ctx.save();
+    ctx.translate(x + motion.x, y + motion.y);
+    ctx.rotate(motion.rotation);
+    ctx.fillStyle = '#46535b';
+    roundedRect(ctx, -38, -17, 76, 34, 9);
+    ctx.fill();
+    ctx.strokeStyle = '#c28e5b';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.fillStyle = '#20272d';
+    [-25, 25].forEach((wheelX) => {
+      ctx.beginPath();
+      ctx.arc(wheelX, 18, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#83939a';
+      ctx.stroke();
+    });
+    ctx.strokeStyle = '#a4b8b8';
+    ctx.beginPath();
+    ctx.moveTo(16, -16);
+    ctx.lineTo(26, -31);
+    ctx.stroke();
+    ctx.fillStyle = '#8fd8c5';
+    ctx.beginPath();
+    ctx.arc(27, -33, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawPrototype(ctx, prototype, x, y, timestamp, motionAmount) {
+    const motion = motionForPrototype(prototype, timestamp, motionAmount);
+    if (prototype.blueprintId === 'bench_blinker') drawBenchBlinker(ctx, x, y, motion);
+    else if (prototype.blueprintId === 'motor_bug') drawMotorBug(ctx, x, y, motion);
+    else if (prototype.blueprintId === 'mini_scrap_crawler') drawCrawler(ctx, x, y, motion);
+    else {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.fillStyle = '#4c5861';
+      roundedRect(ctx, -28, -15, 56, 30, 6);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function draw(ctx, scene, timestamp = 0, options = {}) {
+    const validation = validateScene(scene);
+    const width = Number(options.width) || WIDTH;
+    const height = Number(options.height) || HEIGHT;
+    const motionAmount = options.motion === 'still' ? 0 : options.motion === 'gentle' ? 0.38 : 1;
+
+    ctx.clearRect(0, 0, width, height);
+    const background = ctx.createLinearGradient(0, 0, 0, height);
+    background.addColorStop(0, '#18222b');
+    background.addColorStop(1, '#0d1319');
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, width, height);
+
+    if (!validation.ok || scene.kind === 'held') {
+      ctx.fillStyle = '#d9e2e5';
+      ctx.font = '700 22px system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Engineering view held at the truth boundary', width / 2, height / 2 - 8);
+      ctx.fillStyle = '#9caeb5';
+      ctx.font = '500 13px system-ui, sans-serif';
+      ctx.fillText(String(scene?.reason || validation.errors.join(' · ')).slice(0, 120), width / 2, height / 2 + 20);
+      return validation;
+    }
+
+    ctx.fillStyle = '#202b33';
+    roundedRect(ctx, 35, 42, width - 70, height - 84, 20);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(224,235,238,0.14)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    const benchY = height - 112;
+    ctx.fillStyle = '#6d5945';
+    roundedRect(ctx, 72, benchY, width - 144, 58, 12);
+    ctx.fill();
+    ctx.fillStyle = '#46382d';
+    ctx.fillRect(105, benchY + 50, 28, 55);
+    ctx.fillRect(width - 133, benchY + 50, 28, 55);
+
+    ctx.fillStyle = '#dfe8ea';
+    ctx.font = '800 17px system-ui, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(`WORKSHOP DISPLAY · ${scene.year} · ${scene.eraLabel}`, 68, 78);
+    ctx.fillStyle = '#9eafb5';
+    ctx.font = '600 12px system-ui, sans-serif';
+    ctx.fillText(scene.bench.availableHere ? `Physical engineering access: ${scene.bench.mode === 'home_bench' ? 'home workbench' : 'public repair workshop'}` : 'Display only here — engineering actions still require a real bench/workshop location', 68, 100);
+
+    const prototypes = scene.prototypes.slice(-6);
+    if (!prototypes.length) {
+      ctx.fillStyle = '#91a2aa';
+      ctx.font = '600 16px system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('The bench is waiting for something weird made from reclaimed parts.', width / 2, benchY - 54);
+    } else {
+      const spacing = Math.min(170, (width - 180) / Math.max(1, prototypes.length));
+      const startX = width / 2 - ((prototypes.length - 1) * spacing) / 2;
+      prototypes.forEach((prototype, index) => {
+        const baseX = startX + index * spacing;
+        drawPrototype(ctx, prototype, baseX, benchY - 30, timestamp + index * 97, motionAmount);
+        ctx.fillStyle = '#dbe4e6';
+        ctx.font = '700 11px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(prototype.name, baseX, benchY + 34, Math.max(90, spacing - 8));
+        ctx.fillStyle = '#8fa2aa';
+        ctx.font = '600 9px system-ui, sans-serif';
+        ctx.fillText(`built ${prototype.builtYear}`, baseX, benchY + 48);
+      });
+    }
+
+    ctx.fillStyle = 'rgba(8,13,18,0.78)';
+    roundedRect(ctx, 58, height - 42, width - 116, 26, 8);
+    ctx.fill();
+    ctx.fillStyle = '#9cc9bb';
+    ctx.font = '700 10px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('DISPLAY MOTION ONLY · NO TASKS · NO SCHEDULE · NO REWARD · NO WORLD MUTATION FROM WATCHING', width / 2, height - 25);
+    return validation;
+  }
+
+  AXM.EngineeringVisuals = Object.freeze({
+    SCHEMA,
+    WIDTH,
+    HEIGHT,
+    engineeringStateStatus,
+    sceneFor,
+    validateScene,
+    motionForPrototype,
+    draw
+  });
+}(typeof window !== 'undefined' ? window : globalThis));
+
 /* ===== src/visuals.js ===== */
 (function (root) {
   'use strict';
@@ -20189,6 +22809,143 @@ select:focus-visible {
     describeScene,
     validateScene
   };
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/item_visual_interactions.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Content = AXM.Content;
+  const World = AXM.World;
+  const Habitats = AXM.Habitats;
+  const Visuals = AXM.Visuals;
+  const ItemInteractions = AXM.ItemInteractions;
+
+  if (!Content || !World || !Habitats || !Visuals || !ItemInteractions) {
+    throw new Error('Living City visual item interactions require Content, World, Habitats, Visuals and ItemInteractions.');
+  }
+  if (AXM.ItemVisualInteractions) return;
+
+  const originalRoomActivityOptions = Visuals.roomActivityOptions;
+  const LEGACY_PLAY_IDS = new Set(['old_laptop', 'fast_computer']);
+  const PRECISE_ACTIONS = [
+    'play_device', 'watch_tv', 'relax_seated', 'read_books', 'listen_music',
+    'read_by_lamp', 'care_plant', 'organize_storage', 'repair_at_bench'
+  ];
+
+  function persistentObject(world, visualObject) {
+    const home = World.homeOf(world, 'player');
+    return home?.furniture?.find((object) => object.id === visualObject?.id) || null;
+  }
+
+  function actionName(activityId, object) {
+    const names = {
+      play_device: `Play on ${object.name}`,
+      watch_tv: `Watch ${object.name}`,
+      relax_seated: `Relax on ${object.name}`,
+      read_books: `Read from ${object.name}`,
+      listen_music: `Listen on ${object.name}`,
+      read_by_lamp: `Read by ${object.name}`,
+      care_plant: `Care for ${object.name}`,
+      organize_storage: `Organize ${object.name}`,
+      repair_at_bench: `Repair at ${object.name}`
+    };
+    return names[activityId] || Content.activityById(activityId)?.name || activityId;
+  }
+
+  function reasonFor(activityId) {
+    const reasons = {
+      play_device: 'Use this real game-capable device for leisure.',
+      watch_tv: 'Watch the real TV in this room; it remains leisure rather than a study shortcut.',
+      relax_seated: 'Use this real chair or sofa to rest for a while.',
+      read_books: 'Use this real shelf as the source for a quiet reading hour.',
+      listen_music: 'Use this real music device for listening time.',
+      read_by_lamp: 'Use this real lamp as a reading light.',
+      care_plant: 'Spend optional time tending this real plant; no daily care streak is created.',
+      organize_storage: 'Use this real storage object without creating a cleanliness quota.',
+      repair_at_bench: 'Use this real home workbench instead of teleporting to the public workshop.'
+    };
+    return reasons[activityId] || 'Use the real object already present in this room.';
+  }
+
+  function activityOption(activityId, object) {
+    const activity = Content.activityById(activityId);
+    if (!activity || !object) return null;
+    return {
+      id: activity.id,
+      name: actionName(activityId, object),
+      hours: activity.hours,
+      cost: activity.cost,
+      description: activity.description,
+      reason: reasonFor(activityId),
+      objectId: object.id,
+      objectName: object.name
+    };
+  }
+
+  function allowedVisualObject(world, visualObject, actionId) {
+    const persistent = persistentObject(world, visualObject);
+    return Boolean(
+      persistent
+      && ItemInteractions.objectMatchesAction(persistent, actionId)
+      && ItemInteractions.directUseAllowed(persistent)
+    );
+  }
+
+  function roomActivityOptions(world, scene) {
+    const base = originalRoomActivityOptions(world, scene);
+    if (!scene || scene.kind !== 'room' || scene.placeId !== world.player.homePropertyId) return base;
+
+    const out = base.filter((entry) => {
+      if (entry.id === 'play_pc') return Boolean((scene.objects || []).find((object) => object.id === entry.objectId && LEGACY_PLAY_IDS.has(object.catalogId)));
+      if (['study_focus', 'creative_time', 'eat_home', 'sleep'].includes(entry.id) && entry.objectId) {
+        const visualObject = (scene.objects || []).find((object) => object.id === entry.objectId);
+        return Boolean(visualObject && allowedVisualObject(world, visualObject, entry.id));
+      }
+      return true;
+    });
+
+    PRECISE_ACTIONS.forEach((actionId) => {
+      (scene.objects || []).forEach((object) => {
+        if (!allowedVisualObject(world, object, actionId)) return;
+        const option = activityOption(actionId, object);
+        if (option) out.push(option);
+      });
+    });
+
+    const seen = new Set();
+    return out.filter((entry) => {
+      const key = `${entry.id}|${entry.objectId || ''}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function groundedActivityForRoom(world, roomId, actionId, objectId = null) {
+    const property = World.getProperty(world, world.player.homePropertyId);
+    const room = Habitats.roomById(property, roomId);
+    if (!property || !room) return null;
+    const scene = {
+      kind: 'room',
+      placeId: property.id,
+      purpose: room.purpose,
+      utilities: { ...(room.utilityAccess || {}) },
+      objects: Visuals.objectsInRoom(property, room)
+    };
+    return roomActivityOptions(world, scene)
+      .find((entry) => entry.id === actionId && (entry.objectId || null) === (objectId || null)) || null;
+  }
+
+  Visuals.roomActivityOptions = roomActivityOptions;
+  Visuals.groundedActivityForRoom = groundedActivityForRoom;
+
+  AXM.ItemVisualInteractions = Object.freeze({
+    id: 'axm.living-city.item-visual-interactions/v0.12.0-draft',
+    roomActivityOptions,
+    groundedActivityForRoom
+  });
 }(typeof window !== 'undefined' ? window : globalThis));
 
 /* ===== src/game.js ===== */
@@ -24862,6 +27619,540 @@ select:focus-visible {
   AXM.UI = UI;
 }(typeof window !== 'undefined' ? window : globalThis));
 
+/* ===== src/engineering_ui.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const Systems = AXM.Systems;
+  const HistoricalEra = AXM.HistoricalEra;
+  const EngineeringEwaste = AXM.EngineeringEwaste;
+  const EngineeringVisuals = AXM.EngineeringVisuals;
+  const Game = AXM.Game;
+  const UI = AXM.UI;
+
+  if (!Core || !Systems || !HistoricalEra || !EngineeringEwaste || !EngineeringVisuals || !Game || !UI) {
+    throw new Error('Living City engineering UI requires Core, Systems, HistoricalEra, EngineeringEwaste, EngineeringVisuals, Game and UI.');
+  }
+  if (AXM.EngineeringUI) return;
+
+  const SCHEMA = 'axm.living-city.engineering-ui/v0.12.0-draft';
+  let engineeringFrame = null;
+  let engineeringLastDraw = 0;
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function escapeAttr(value) {
+    return escapeHtml(value).replace(/`/g, '&#096;');
+  }
+
+  function formatComponents(components) {
+    const entries = Object.entries(components || {}).filter(([, amount]) => Number(amount) > 0);
+    return entries.length
+      ? entries.map(([key, amount]) => `${Core.titleCase(key)} x${amount}`).join(' · ')
+      : 'none';
+  }
+
+  function installStyles() {
+    if (typeof document === 'undefined' || document.getElementById('axm-engineering-ui-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'axm-engineering-ui-styles';
+    style.textContent = `
+      .engineering-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:16px;align-items:start}
+      .engineering-workshop-canvas{display:block;width:100%;height:auto;aspect-ratio:16/7;border-radius:14px;background:#0d1319;border:1px solid rgba(224,235,238,.12)}
+      .engineering-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+      .engineering-summary-tile{padding:12px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+      .engineering-summary-tile span{display:block;font-size:11px;opacity:.68;text-transform:uppercase;letter-spacing:.08em}
+      .engineering-summary-tile strong{display:block;margin-top:5px;font-size:18px}
+      .engineering-lot,.engineering-stock,.engineering-blueprint,.engineering-prototype{padding:13px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+      .engineering-item-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+      .engineering-item-head h4{margin:0 0 3px}
+      .engineering-item-head p{margin:0;opacity:.72;font-size:12px}
+      .engineering-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+      .engineering-reason{margin-top:8px;font-size:11px;opacity:.72}
+      .engineering-components{display:flex;flex-wrap:wrap;gap:7px}
+      .engineering-component{padding:7px 9px;border-radius:999px;background:rgba(132,184,167,.09);border:1px solid rgba(132,184,167,.2);font-size:12px}
+      .engineering-provenance{margin-top:8px;padding:9px 10px;border-left:2px solid rgba(221,177,105,.6);background:rgba(221,177,105,.05);font-size:11px;line-height:1.45}
+      .engineering-held{padding:18px;border-radius:14px;border:1px solid rgba(220,137,130,.35);background:rgba(220,137,130,.07)}
+      .engineering-section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+      .engineering-section-title h3{margin:0}
+      .engineering-empty{padding:15px;border-radius:12px;border:1px dashed rgba(255,255,255,.14);opacity:.7}
+      .engineering-policy{font-size:11px;line-height:1.5;opacity:.72}
+      @media (max-width:900px){.engineering-layout{grid-template-columns:1fr}.engineering-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+      @media (max-width:520px){.engineering-summary-grid{grid-template-columns:1fr 1fr}.engineering-actions .button{flex:1 1 auto}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function stateStatus(world) {
+    const state = world.engineeringEwaste;
+    if (state && state.schema !== EngineeringEwaste.SCHEMA) {
+      return {
+        ok: false,
+        reason: `This save contains engineering state schema ${String(state.schema || 'unknown')}. The UI will not interpret or overwrite it.`
+      };
+    }
+    return { ok: true, state: state || EngineeringEwaste.peekState(world), initialized: Boolean(state) };
+  }
+
+  function missingComponents(state, requirements) {
+    const missing = {};
+    Object.entries(requirements || {}).forEach(([key, amount]) => {
+      const deficit = Math.max(0, Number(amount) - (Number(state.components?.[key]) || 0));
+      if (deficit > 0) missing[key] = deficit;
+    });
+    return missing;
+  }
+
+  function lotActionReason(world, state, lot, action) {
+    if (action === 'inspect') return lot.inspected ? 'Already inspected.' : null;
+    if (!lot.inspected) return 'Inspect first so this stays an informed choice.';
+    const bench = EngineeringEwaste.benchStatus(world);
+    if (!bench.ok) return bench.reason;
+    if (action === 'refurbish') {
+      const source = EngineeringEwaste.sourceById(lot.sourceId);
+      if (!source) return 'Unknown source class; preserved rather than guessed.';
+      if (world.player.money < source.refurbishCost) return `Needs ${Core.formatMoney(source.refurbishCost)} for replacement consumables.`;
+    }
+    return null;
+  }
+
+  function blueprintBuildReason(world, state, blueprint) {
+    if (!blueprint.availability.ok) return blueprint.availability.reason;
+    const bench = EngineeringEwaste.benchStatus(world);
+    if (!bench.ok) return bench.reason;
+    const missing = missingComponents(state, blueprint.components);
+    if (Object.keys(missing).length) return `Missing ${formatComponents(missing)}.`;
+    return null;
+  }
+
+  function renderLot(world, state, lot) {
+    const inspectReason = lotActionReason(world, state, lot, 'inspect');
+    const refurbishReason = lotActionReason(world, state, lot, 'refurbish');
+    const dismantleReason = lotActionReason(world, state, lot, 'dismantle');
+    const source = EngineeringEwaste.sourceById(lot.sourceId);
+    return `
+      <article class="engineering-lot">
+        <div class="engineering-item-head">
+          <div><h4>${escapeHtml(lot.name)}</h4><p>Found ${lot.foundYear} · condition ${Math.round(lot.condition)}%</p></div>
+          <span class="pill ${lot.inspected ? 'good' : 'info'}">${lot.inspected ? 'inspected' : 'intact / unknown'}</span>
+        </div>
+        ${lot.inspected ? `
+          <div class="kv-list" style="margin-top:9px">
+            <div class="kv-row"><span>Expected reclaimed parts</span><strong>${escapeHtml(formatComponents(lot.expectedComponents))}</strong></div>
+            <div class="kv-row"><span>Estimated refurb resale</span><strong>${Core.formatMoney(lot.estimatedResaleValue || 0)}</strong></div>
+            <div class="kv-row"><span>Consumables to refurbish</span><strong>${Core.formatMoney(source?.refurbishCost || 0)}</strong></div>
+          </div>` : '<div class="engineering-reason">Inspection reveals the choice without destroying the item.</div>'}
+        <div class="engineering-actions">
+          <button class="button small secondary" data-engineering-action="inspect" data-id="${escapeAttr(lot.id)}" ${inspectReason ? 'disabled' : ''}>Inspect</button>
+          <button class="button small primary" data-engineering-action="refurbish" data-id="${escapeAttr(lot.id)}" ${refurbishReason ? 'disabled' : ''}>Refurbish</button>
+          <button class="button small ghost" data-engineering-action="dismantle" data-id="${escapeAttr(lot.id)}" ${dismantleReason ? 'disabled' : ''}>Dismantle</button>
+        </div>
+        ${refurbishReason && lot.inspected ? `<div class="engineering-reason">Refurbish: ${escapeHtml(refurbishReason)}</div>` : ''}
+        ${dismantleReason && lot.inspected ? `<div class="engineering-reason">Dismantle: ${escapeHtml(dismantleReason)}</div>` : ''}
+        <div class="engineering-provenance">${escapeHtml((lot.provenance || []).join(' → '))}</div>
+      </article>`;
+  }
+
+  function renderBlueprint(world, state, blueprint) {
+    const reason = blueprintBuildReason(world, state, blueprint);
+    return `
+      <article class="engineering-blueprint">
+        <div class="engineering-item-head">
+          <div><h4>${escapeHtml(blueprint.name)}</h4><p>${escapeHtml(blueprint.kind)} · introduced ${blueprint.introducedYear} · ${blueprint.hours}h bench time</p></div>
+          <span class="pill ${blueprint.availability.ok ? 'good' : 'warning'}">${blueprint.availability.ok ? 'era ready' : blueprint.introducedYear}</span>
+        </div>
+        <p>${escapeHtml(blueprint.description)}</p>
+        <div class="engineering-components">${Object.entries(blueprint.components).map(([key, amount]) => `<span class="engineering-component">${escapeHtml(Core.titleCase(key))} x${amount}</span>`).join('')}</div>
+        <div class="engineering-actions">
+          <button class="button small primary" data-engineering-action="build" data-id="${escapeAttr(blueprint.id)}" ${reason ? 'disabled' : ''}>Build prototype</button>
+        </div>
+        ${reason ? `<div class="engineering-reason">${escapeHtml(reason)}</div>` : '<div class="engineering-reason">All requirements are physically present. Building consumes the listed reclaimed components.</div>'}
+      </article>`;
+  }
+
+  function renderEngineering(world) {
+    const status = stateStatus(world);
+    const era = HistoricalEra.summary(world);
+    if (!status.ok) {
+      return `
+        <div class="view-title-row"><div><h2>Engineering & Salvage</h2><p>Read-only hold. Unknown future engineering state is preserved exactly rather than guessed.</p></div></div>
+        <section class="engineering-held"><h3>Future-schema boundary</h3><p>${escapeHtml(status.reason)}</p><p>No engineering action is enabled and no state is initialized by opening this tab.</p></section>`;
+    }
+
+    const state = status.state;
+    const summary = EngineeringEwaste.summary(world);
+    const bench = EngineeringEwaste.benchStatus(world);
+    const blueprints = EngineeringEwaste.availableBlueprints(world);
+    const queueFull = state.lots.length >= EngineeringEwaste.MAX_LOTS;
+    const componentTotal = Object.values(state.components).reduce((sum, value) => sum + (Number(value) || 0), 0);
+
+    return `
+      <div class="view-title-row">
+        <div>
+          <h2>Engineering & Salvage</h2>
+          <p>Find era-appropriate dead electronics, inspect them, then choose: keep them intact, refurbish for side income, dismantle for real parts, or slowly turn those parts into weird little prototypes.</p>
+        </div>
+        <div class="pill-row">
+          <span class="pill info">${era.currentYear} · ${escapeHtml(era.eraLabel)}</span>
+          <span class="pill good">Engineering ${Core.round(summary.engineering, 1)}</span>
+          <span class="pill ${bench.ok ? 'good' : 'warning'}">${bench.ok ? (bench.mode === 'home_bench' ? 'at home bench' : 'at public workshop') : 'no bench access here'}</span>
+        </div>
+      </div>
+
+      <div class="engineering-layout">
+        <div class="stack">
+          <section class="card"><div class="card-inner stack">
+            <div class="engineering-section-title"><h3>Workshop display</h3><span class="pill">presentation only</span></div>
+            <canvas id="engineeringWorkshopCanvas" class="engineering-workshop-canvas" width="960" height="420" aria-label="Reward-neutral animated display of built engineering prototypes"></canvas>
+            <div class="engineering-policy">Bench Blinker pulses, Motor Bug jitters, and Mini Scrap Crawler rolls along a short bounded display path. These animations execute no tasks, earn nothing, create no schedule, and do not mutate the world merely because you watch.</div>
+          </div></section>
+
+          <section class="card"><div class="card-inner stack">
+            <div class="engineering-section-title">
+              <div><h3>Salvage queue</h3><p>${state.lots.length}/${EngineeringEwaste.MAX_LOTS} intact lots · nothing arrives passively</p></div>
+              <button class="button small primary" data-engineering-action="collect" ${queueFull ? 'disabled' : ''}>Find e-waste</button>
+            </div>
+            ${queueFull ? '<div class="callout">The bounded queue is full. That is a capacity limit, not an overdue-cleanup meter.</div>' : ''}
+            ${state.lots.length ? state.lots.map((lot) => renderLot(world, state, lot)).join('') : '<div class="engineering-empty">No salvage waiting. Leaving it empty creates no penalty.</div>'}
+          </div></section>
+
+          <section class="card"><div class="card-inner stack">
+            <div class="engineering-section-title"><div><h3>Blueprint bench</h3><p>Availability follows the historical city and your demonstrated engineering skill.</p></div></div>
+            ${blueprints.map((blueprint) => renderBlueprint(world, state, blueprint)).join('')}
+          </div></section>
+        </div>
+
+        <aside class="stack">
+          <section class="card"><div class="card-inner stack">
+            <div class="engineering-section-title"><h3>Engineering state</h3><span class="pill ${status.initialized ? 'good' : 'info'}">${status.initialized ? 'initialized by prior action/world start' : 'read-only projection'}</span></div>
+            <div class="engineering-summary-grid">
+              <div class="engineering-summary-tile"><span>Salvage lots</span><strong>${state.lots.length}/${EngineeringEwaste.MAX_LOTS}</strong></div>
+              <div class="engineering-summary-tile"><span>Parts</span><strong>${componentTotal}</strong></div>
+              <div class="engineering-summary-tile"><span>Refurb stock</span><strong>${state.refurbished.length}</strong></div>
+              <div class="engineering-summary-tile"><span>Prototypes</span><strong>${state.prototypes.length}</strong></div>
+            </div>
+            <div class="callout">${escapeHtml(bench.ok ? `Physical authority confirmed at ${bench.mode === 'home_bench' ? 'your usable home workbench' : 'the public repair workshop'}.` : bench.reason)}</div>
+          </div></section>
+
+          <section class="card"><div class="card-inner stack">
+            <div class="engineering-section-title"><h3>Reclaimed components</h3><span class="pill">real stock</span></div>
+            <div class="engineering-components">
+              ${EngineeringEwaste.COMPONENT_KEYS.map((key) => `<span class="engineering-component">${escapeHtml(Core.titleCase(key))} <strong>x${Number(state.components[key]) || 0}</strong></span>`).join('')}
+            </div>
+            <div class="engineering-policy">Components enter this stock only through explicit dismantling and leave it when a prototype is actually built.</div>
+          </div></section>
+
+          <section class="card"><div class="card-inner stack">
+            <div class="engineering-section-title"><h3>Refurbished stock</h3><span class="pill">normal money</span></div>
+            ${state.refurbished.length ? state.refurbished.map((stock) => `
+              <article class="engineering-stock">
+                <div class="engineering-item-head"><div><h4>${escapeHtml(stock.name)}</h4><p>Refurbished ${stock.refurbishedYear}</p></div><strong>${Core.formatMoney(stock.saleValue)}</strong></div>
+                <div class="engineering-actions"><button class="button small primary" data-engineering-action="sell" data-id="${escapeAttr(stock.id)}">Sell locally</button></div>
+                <div class="engineering-provenance">${escapeHtml((stock.provenance || []).join(' → '))}</div>
+              </article>`).join('') : '<div class="engineering-empty">Nothing refurbished for sale. This is optional side income, not a second currency.</div>'}
+          </div></section>
+
+          <section class="card"><div class="card-inner stack">
+            <div class="engineering-section-title"><h3>Built prototypes</h3><span class="pill ${state.prototypes.some((entry) => entry.kind === 'miniature_robotica') ? 'good' : ''}">${state.prototypes.length}</span></div>
+            ${state.prototypes.length ? state.prototypes.slice().reverse().map((prototype) => `
+              <article class="engineering-prototype">
+                <div class="engineering-item-head"><div><h4>${escapeHtml(prototype.name)}</h4><p>${escapeHtml(prototype.kind)} · built ${prototype.builtYear}</p></div><span class="pill good">non-autonomous</span></div>
+                <p>${escapeHtml(prototype.description || '')}</p>
+                <div class="engineering-provenance">${escapeHtml((prototype.provenance || []).join(' → '))}</div>
+                <div class="engineering-reason">Consumed: ${escapeHtml(formatComponents(prototype.consumedComponents))} · autonomous: false · schedule authority: false</div>
+              </article>`).join('') : '<div class="engineering-empty">No prototypes yet. Nothing unlocks itself merely because time passes.</div>'}
+          </div></section>
+        </aside>
+      </div>`;
+  }
+
+  function installSystemBridges() {
+    const bridges = {
+      collectEwaste: ['collectEwaste', 'E-waste lot collected intact.'],
+      inspectEwaste: ['inspectEwaste', 'Inspection complete; the choice is now visible.'],
+      refurbishEwaste: ['refurbishEwaste', 'Second-life item refurbished.'],
+      salvageEwaste: ['salvageEwaste', 'Lot dismantled into reclaimed components.'],
+      sellRefurbished: ['sellRefurbished', 'Refurbished item sold through normal world money.'],
+      buildPrototype: ['buildPrototype', 'Prototype built from reclaimed components.']
+    };
+    Object.entries(bridges).forEach(([systemName, [engineeringName, successMessage]]) => {
+      if (typeof Systems[systemName] === 'function') return;
+      Systems[systemName] = function engineeringSystemBridge(world, ...args) {
+        const result = EngineeringEwaste[engineeringName](world, ...args);
+        if (result?.ok) Systems.toast(world, successMessage, 'success');
+        return result;
+      };
+    });
+  }
+
+  function decorateTabs(world) {
+    const nav = UI.app?.querySelector('.tabbar');
+    if (!nav) return;
+    let button = nav.querySelector('[data-action="engineering-tab"]');
+    if (!button) {
+      button = document.createElement('button');
+      button.className = 'tab-button';
+      button.dataset.action = 'engineering-tab';
+      button.textContent = 'Engineering';
+      const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
+      nav.insertBefore(button, anchor || null);
+    }
+    nav.querySelectorAll('.tab-button').forEach((entry) => entry.classList.remove('active'));
+    if (world.ui.activeTab === 'engineering') button.classList.add('active');
+    else nav.querySelector(`[data-action="tab"][data-id="${String(world.ui.activeTab).replace(/"/g, '')}"]`)?.classList.add('active');
+  }
+
+  function drawEngineeringCanvas(world, canvas, timestamp, motion) {
+    if (!canvas) return;
+    const logicalW = EngineeringVisuals.WIDTH;
+    const logicalH = EngineeringVisuals.HEIGHT;
+    const dpr = Math.min(root.devicePixelRatio || 1, 2);
+    const desiredW = Math.round(logicalW * dpr);
+    const desiredH = Math.round(logicalH * dpr);
+    if (canvas.width !== desiredW || canvas.height !== desiredH) {
+      canvas.width = desiredW;
+      canvas.height = desiredH;
+    }
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    EngineeringVisuals.draw(ctx, EngineeringVisuals.sceneFor(world), timestamp, { width: logicalW, height: logicalH, motion });
+  }
+
+  function cancelEngineeringLoop() {
+    if (engineeringFrame) root.cancelAnimationFrame(engineeringFrame);
+    engineeringFrame = null;
+    engineeringLastDraw = 0;
+  }
+
+  function startEngineeringLoop(world) {
+    cancelEngineeringLoop();
+    const canvas = document.getElementById('engineeringWorkshopCanvas');
+    if (!canvas) return;
+    const systemReduced = Boolean(root.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+    const motion = AXM.Visuals?.motionLevel ? AXM.Visuals.motionLevel(world, systemReduced) : (systemReduced ? 'still' : 'full');
+    const staticQuery = typeof location !== 'undefined' && new URLSearchParams(location.search).get('static') === '1';
+    if (motion === 'still' || staticQuery) {
+      drawEngineeringCanvas(world, canvas, 0, 'still');
+      return;
+    }
+    const interval = motion === 'gentle' ? 120 : 42;
+    const drawFrame = (timestamp) => {
+      const liveCanvas = document.getElementById('engineeringWorkshopCanvas');
+      if (Game.world?.ui?.activeTab !== 'engineering' || !liveCanvas) return;
+      if (timestamp - engineeringLastDraw >= interval) {
+        drawEngineeringCanvas(Game.world, liveCanvas, timestamp, motion);
+        engineeringLastDraw = timestamp;
+      }
+      engineeringFrame = root.requestAnimationFrame(drawFrame);
+    };
+    engineeringFrame = root.requestAnimationFrame(drawFrame);
+  }
+
+  function bindEngineeringEvents() {
+    UI.app.addEventListener('click', (event) => {
+      const tab = event.target.closest('[data-action="engineering-tab"]');
+      if (tab) {
+        event.preventDefault();
+        Game.setTab('engineering');
+        return;
+      }
+      const button = event.target.closest('[data-engineering-action]');
+      if (!button || button.disabled) return;
+      event.preventDefault();
+      const action = button.dataset.engineeringAction;
+      const id = button.dataset.id;
+      if (action === 'collect') Game.invoke('collectEwaste');
+      else if (action === 'inspect') Game.invoke('inspectEwaste', id);
+      else if (action === 'refurbish') Game.invoke('refurbishEwaste', id);
+      else if (action === 'dismantle') Game.invoke('salvageEwaste', id);
+      else if (action === 'sell') Game.invoke('sellRefurbished', id);
+      else if (action === 'build') Game.invoke('buildPrototype', id);
+    });
+  }
+
+  installStyles();
+  installSystemBridges();
+
+  const originalBindEvents = UI.bindEvents;
+  UI.bindEvents = function bindEventsWithEngineering(...args) {
+    originalBindEvents.apply(this, args);
+    bindEngineeringEvents();
+  };
+
+  const originalRender = UI.render;
+  UI.render = function renderWithEngineering(world, ...args) {
+    const engineeringActive = world?.ui?.activeTab === 'engineering';
+    cancelEngineeringLoop();
+    if (!engineeringActive) {
+      originalRender.call(this, world, ...args);
+      decorateTabs(world);
+      return;
+    }
+
+    world.ui.activeTab = 'lab';
+    try {
+      originalRender.call(this, world, ...args);
+    } finally {
+      world.ui.activeTab = 'engineering';
+    }
+    this.cancelMapLoop?.();
+    this.cancelLivingLoop?.();
+    decorateTabs(world);
+    const main = this.app?.querySelector('main.view');
+    if (main) main.innerHTML = renderEngineering(world);
+    startEngineeringLoop(world);
+  };
+
+  AXM.EngineeringUI = Object.freeze({
+    SCHEMA,
+    stateStatus,
+    missingComponents,
+    lotActionReason,
+    blueprintBuildReason,
+    renderEngineering,
+    drawEngineeringCanvas
+  });
+}(typeof window !== 'undefined' ? window : globalThis));
+
+/* ===== src/career_ui.js ===== */
+(function (root) {
+  'use strict';
+
+  const AXM = root.AXM = root.AXM || {};
+  const Core = AXM.Core;
+  const Content = AXM.Content;
+  const Career = AXM.CareerSkills;
+
+  if (!Core || !Content || !Career) throw new Error('Living City career UI requires Core, Content and CareerSkills.');
+  if (AXM.CareerUI) return;
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function escapeAttr(value) {
+    return escapeHtml(value).replace(/`/g, '&#096;');
+  }
+
+  function requirementText(job, world) {
+    const eligibility = Career.jobEligibility(world, job.id);
+    return Object.entries(eligibility.requirements || {})
+      .map(([key, value]) => `${Core.titleCase(key)} ${value}`)
+      .join(' · ');
+  }
+
+  function skillMixText(job) {
+    return Object.entries(job.skillProfile || { [job.primarySkill]: 1 })
+      .sort((a, b) => b[1] - a[1])
+      .map(([key, weight]) => `${Core.titleCase(key)} ${Math.round(weight * 100)}%`)
+      .join(' · ');
+  }
+
+  function renderSkillEvidence(world) {
+    const state = Career.peekState(world);
+    return `<section class="card"><div class="card-inner stack">
+      <div class="proposal-head"><div><h3>Transferable skills</h3><p>Skills grow through things you actually do, then travel with you between jobs. They never decay because you chose another direction.</p></div><span class="pill good">No skill decay</span></div>
+      <div class="grid-3">${Career.SKILL_DEFINITIONS.map((definition) => {
+        const value = Core.safeNumber(world.player.skills?.[definition.id], 0);
+        const evidence = state.skillEvidence?.[definition.id] || { events: 0, hours: 0, totalGain: 0, sources: [] };
+        const latest = (evidence.sources || []).slice(-2).reverse();
+        return `<article class="stat-card">
+          <span class="stat-label">${escapeHtml(definition.name)}</span>
+          <span class="stat-value">${Core.round(value, 1)}</span>
+          <div class="meter"><span style="--value:${Core.clamp(value, 0, 100)}%"></span></div>
+          <div class="stat-note"><strong>${escapeHtml(Career.skillTier(value))}</strong> · ${evidence.events || 0} evidenced practice event${evidence.events === 1 ? '' : 's'}</div>
+          <p class="muted small-text">${escapeHtml(definition.description)}</p>
+          ${latest.length ? `<div class="history-list">${latest.map((entry) => `<div class="history-entry"><div class="meta">Day ${entry.day} · +${Core.round(entry.gain, 2)}</div><div class="message">${escapeHtml(entry.label)}</div></div>`).join('')}</div>` : `<div class="causes">Ways to grow: ${definition.routes.map(escapeHtml).join(' · ')}</div>`}
+        </article>`;
+      }).join('')}</div>
+    </div></section>`;
+  }
+
+  function renderCurrentJobDepth(world) {
+    const job = Content.jobById(world.player.jobId);
+    if (!job) return '';
+    const record = Career.jobRecord(world, job.id, false);
+    const fit = Career.jobFit(world, job.id);
+    const taskEntries = Object.entries(record?.tasks || {}).sort((a, b) => b[1] - a[1]);
+    return `<section class="card"><div class="card-inner stack">
+      <div class="proposal-head"><div><h3>Your history with ${escapeHtml(job.name)}</h3><p>Practice is preserved per job. Leaving and returning does not erase what you already learned here.</p></div><span class="pill info">${escapeHtml(Career.practiceStage(record))}</span></div>
+      <div class="grid-4">
+        <div class="metric-card"><span>Worked</span><strong>${Core.round(record?.hours || 0, 1)}h</strong><small>${record?.shifts || 0} completed shifts</small></div>
+        <div class="metric-card"><span>Entered / compressed</span><strong>${record?.interactiveShifts || 0} / ${record?.compressedShifts || 0}</strong><small>Both remain valid work modes.</small></div>
+        <div class="metric-card"><span>Skill fit</span><strong>${fit.score}/100</strong><small>${escapeHtml(fit.band)} · descriptive, not destiny.</small></div>
+        <div class="metric-card"><span>Recorded pay</span><strong>${Core.formatMoney(record?.totalPayObserved || 0)}</strong><small>Evidence only; no hidden promotion ladder.</small></div>
+      </div>
+      <div class="grid-2">
+        <div class="subtle-card"><strong>Transferable skill mix</strong><p>${escapeHtml(skillMixText(job))}</p><div class="pill-row">${Object.entries(job.entryRequirements || {}).map(([key, value]) => `<span class="pill">${escapeHtml(Core.titleCase(key))} ${value} entry</span>`).join('')}</div></div>
+        <div class="subtle-card"><strong>Ways you have worked here</strong>${taskEntries.length ? `<div class="pill-row">${taskEntries.slice(0, 8).map(([taskId, count]) => { const task = job.actions.find((entry) => entry.id === taskId); return `<span class="pill">${escapeHtml(task?.name || taskId)} ×${count}</span>`; }).join('')}</div>` : '<p class="muted small-text">No entered task history yet. Compressed work still counts as real completed work.</p>'}</div>
+      </div>
+      <div class="callout">There is no mandatory promotion, career deadline, prestige track, or “wrong” job. Deep experience makes your history richer; it does not make changing direction a failure.</div>
+    </div></section>`;
+  }
+
+  function renderCareerDepth(world) {
+    return `<div class="stack" style="margin-top:16px">
+      ${renderCurrentJobDepth(world)}
+      ${renderSkillEvidence(world)}
+    </div>`;
+  }
+
+  function renderJobCard(world, job) {
+    const eligibility = Career.jobEligibility(world, job.id);
+    const fit = Career.jobFit(world, job.id);
+    const record = Career.jobRecord(world, job.id, false);
+    const current = world.player.jobId === job.id;
+    const styles = Array.from(new Set((job.actions || []).map((action) => action.style).filter(Boolean)));
+    return `<article class="job-card ${current ? 'selected' : ''}">
+      <div class="job-head"><div><h4>${escapeHtml(job.name)}</h4><p>${escapeHtml(job.summary)}</p></div><span class="pill ${eligibility.ok ? 'good' : 'warn'}">${Core.formatMoney(job.wage)}/h</span></div>
+      <div class="pill-row" style="margin-top:8px">
+        <span class="pill info">${escapeHtml(fit.band)} · ${fit.score}</span>
+        <span class="pill">${job.hours}h</span>
+        <span class="pill">${escapeHtml(Core.titleCase(job.family || 'work'))}</span>
+        ${record ? `<span class="pill good">${escapeHtml(Career.practiceStage(record))}</span>` : ''}
+      </div>
+      <div class="causes">Entry: ${escapeHtml(requirementText(job, world))}</div>
+      <div class="causes">Skill mix: ${escapeHtml(skillMixText(job))}</div>
+      ${styles.length ? `<div class="pill-row">${styles.map((style) => `<span class="pill">${escapeHtml(Core.titleCase(style))}</span>`).join('')}</div>` : ''}
+      <div class="job-actions">${current ? '<span class="pill good">Current job</span>' : `<button class="button small ${eligibility.ok ? 'primary' : ''}" data-action="apply-job" data-id="${escapeAttr(job.id)}" ${eligibility.ok ? '' : 'disabled'}>${eligibility.ok ? 'Take job' : escapeHtml(eligibility.reason)}</button>`}</div>
+    </article>`;
+  }
+
+  const CareerUI = Object.freeze({
+    renderSkillEvidence,
+    renderCurrentJobDepth,
+    renderCareerDepth,
+    renderJobCard
+  });
+  AXM.CareerUI = CareerUI;
+
+  if (AXM.UI && !AXM.UI.__careerSkillsPatched) {
+    const UI = AXM.UI;
+    const originalRenderWork = UI.renderWork;
+    UI.renderWork = function renderWorkWithCareerDepth(world) {
+      return `${originalRenderWork.call(this, world)}${renderCareerDepth(world)}`;
+    };
+    UI.renderJobCard = function renderJobCardWithCareerDepth(world, job) {
+      return renderJobCard(world, job);
+    };
+    UI.__careerSkillsPatched = true;
+  }
+}(typeof window !== 'undefined' ? window : globalThis));
   </script>
 </body>
 </html>
