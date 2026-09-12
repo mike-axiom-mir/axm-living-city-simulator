@@ -1,4 +1,6 @@
 {
-  "schema": "axm.discovery-public/v0.1",
-  "public_discovery": true
+  "schema": "axm.discovery-public/v1",
+  "public": true,
+  "repo": "mike-axiom-mir/axm-living-city-simulator",
+  "display_name": "AXM Living City Simulator"
 }
