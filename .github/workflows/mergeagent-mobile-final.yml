@@ -70,6 +70,22 @@ jobs:
             fi
             git cherry-pick --continue
           fi
+
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('tests/visual_presence_browser_test.py')
+          s = p.read_text('utf-8')
+          old = "        page.wait_for_timeout(300)\n\n        assert page.locator('.tab-button').count() == 18"
+          new = "        page.wait_for_function(\"() => document.querySelectorAll('.tab-button').length === 18\", timeout=10000)\n\n        assert page.locator('.tab-button').count() == 18"
+          if old not in s:
+              if new not in s:
+                  raise SystemExit('Expected browser readiness seam not found; refuse broad rewrite.')
+          else:
+              p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+          git add tests/visual_presence_browser_test.py
+          if ! git diff --cached --quiet; then git commit -m "Wait for Living View shell readiness in Chromium witness"; fi
+
           python3 tools/build_standalone.py
           git add standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
           if ! git diff --cached --quiet; then git commit -m "Rebuild standalone after mobile Living View integration"; fi
