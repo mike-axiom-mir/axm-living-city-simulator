@@ -313,6 +313,19 @@
     return JSON.stringify(world, null, 2);
   }
 
+  function projectCanonicalWorld(world) {
+    if (!world || typeof world !== 'object' || Array.isArray(world)) {
+      throw new Error('Canonical world projection requires a world object.');
+    }
+    const projection = deepClone(world);
+    delete projection.ui;
+    return projection;
+  }
+
+  function serializeCanonicalWorld(world) {
+    return JSON.stringify(projectCanonicalWorld(world), null, 2);
+  }
+
   function parseWorld(text) {
     const parsed = JSON.parse(text);
     const supported = [SCHEMA].concat(LEGACY_SCHEMAS);
@@ -363,6 +376,8 @@
     average,
     standardDeviation,
     serializeWorld,
+    projectCanonicalWorld,
+    serializeCanonicalWorld,
     parseWorld
   };
 }(typeof window !== 'undefined' ? window : globalThis));
