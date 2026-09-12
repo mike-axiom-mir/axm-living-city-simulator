@@ -14,12 +14,76 @@
   const STORAGE_KEY = 'axm.living-city-sim.autosave.v0.11.3';
   const LEGACY_STORAGE_KEYS = [
     'axm.living-city-sim.autosave.v0.11.2', 'axm.living-city-sim.autosave.v0.11.1', 'axm.living-city-sim.autosave.v0.11.0', 'axm.living-city-sim.autosave.v0.10.0', 'axm.living-city-sim.autosave.v0.9.0', 'axm.living-city-sim.autosave.v0.8.0','axm.living-city-sim.autosave.v0.7.0','axm.living-city-sim.autosave.v0.6.0', 'axm.living-city-sim.autosave.v0.5.0', 'axm.living-city-sim.autosave.v0.4.0', 'axm.living-city-sim.autosave.v0.3.0', 'axm.living-city-sim.autosave.v0.2.0', 'axm.living-city-sim.autosave.v0.1.0'];
+  const CLEAR_TRANSACTION_KEY = 'axm.living-city-sim.autosave.clear-transaction.v1';
+  const CLEAR_TRANSACTION_MARKER = 'axm.living-city.autosave-clear-transaction/v1:DELETE_INTENT';
 
   const Game = {
     world: null,
     listeners: [],
     timer: null,
     initialized: false,
+    autosaveBaselineKnown: false,
+    autosaveBaseText: null,
+    autosaveConflict: null,
+
+    rememberAutosaveBaseline(text) {
+      this.autosaveBaselineKnown = true;
+      this.autosaveBaseText = text == null ? null : String(text);
+      this.autosaveConflict = null;
+    },
+
+    inspectAutosaveClearTransaction(storage) {
+      const marker = storage.getItem(CLEAR_TRANSACTION_KEY);
+      if (marker === null) return { state: 'absent' };
+      if (marker !== CLEAR_TRANSACTION_MARKER) return { state: 'held', marker: String(marker) };
+      return { state: 'pending' };
+    },
+
+    holdAutosaveClearTransaction(reason) {
+      this.autosaveConflict = {
+        kind: 'clear-transaction-held',
+        key: CLEAR_TRANSACTION_KEY,
+        reason: String(reason || 'invalid-marker')
+      };
+      console.warn('Autosave clear transaction held: ' + this.autosaveConflict.reason + '.');
+      return false;
+    },
+
+    completeAutosaveClearTransaction(storage) {
+      let transaction;
+      try {
+        transaction = this.inspectAutosaveClearTransaction(storage);
+      } catch (error) {
+        this.autosaveConflict = {
+          kind: 'clear-transaction-pending',
+          key: CLEAR_TRANSACTION_KEY,
+          reason: 'marker-read-failed'
+        };
+        console.warn('Autosave clear transaction pending: marker could not be read:', error.message);
+        return false;
+      }
+      if (transaction.state === 'absent') return true;
+      if (transaction.state === 'held') return this.holdAutosaveClearTransaction('unexpected-marker');
+      try {
+        for (const key of LEGACY_STORAGE_KEYS) storage.removeItem(key);
+        storage.removeItem(STORAGE_KEY);
+        storage.removeItem(CLEAR_TRANSACTION_KEY);
+        this.rememberAutosaveBaseline(null);
+        return true;
+      } catch (error) {
+        this.autosaveConflict = {
+          kind: 'clear-transaction-pending',
+          key: CLEAR_TRANSACTION_KEY,
+          reason: 'physical-cleanup-failed'
+        };
+        console.warn('Autosave clear transaction pending: physical cleanup could not complete:', error.message);
+        return false;
+      }
+    },
+
+    recoverAutosaveClearTransaction(storage) {
+      return this.completeAutosaveClearTransaction(storage);
+    },
 
     init(options = {}) {
       if (this.initialized) return this.world;
@@ -194,7 +258,25 @@
     writeAutosave() {
       if (!this.world) return false;
       try {
-        root.localStorage?.setItem(STORAGE_KEY, Core.serializeWorld(this.world));
+        const storage = root.localStorage;
+        if (!storage) return false;
+        if (!this.recoverAutosaveClearTransaction(storage)) return false;
+        const observed = storage.getItem(STORAGE_KEY);
+        const staleObservedBaseline = this.autosaveBaselineKnown
+          ? observed !== this.autosaveBaseText
+          : observed !== null;
+        if (staleObservedBaseline) {
+          this.autosaveConflict = {
+            kind: 'stale-storage',
+            key: STORAGE_KEY,
+            baselineKnown: this.autosaveBaselineKnown
+          };
+          console.warn('Autosave refused: current local save changed since this session last observed it.');
+          return false;
+        }
+        const serialized = Core.serializeWorld(this.world);
+        storage.setItem(STORAGE_KEY, serialized);
+        this.rememberAutosaveBaseline(serialized);
         return true;
       } catch (error) {
         console.warn('Autosave unavailable:', error.message);
@@ -203,37 +285,112 @@
     },
 
     readAutosave() {
+      const candidates = [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS);
+      this.autosaveBaselineKnown = false;
+      this.autosaveBaseText = null;
+      this.autosaveConflict = null;
+      let currentObserved = null;
+      let currentObservedKnown = false;
       try {
-        const candidates = [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS);
+        const storage = root.localStorage;
+        if (!storage) return null;
+        if (!this.recoverAutosaveClearTransaction(storage)) return null;
         for (const key of candidates) {
-          const text = root.localStorage?.getItem(key);
-          if (!text) continue;
-          const parsed = Core.parseWorld(text);
-          const sourceSchema = parsed.schema;
-          const world = Systems.migrateWorld(parsed);
-          const validation = Systems.validateWorld(world);
-          if (!validation.ok) {
-            console.warn(`Autosave ${key} rejected due to invariant errors:`, validation.errors);
-            continue;
+          const text = storage.getItem(key);
+          if (key === STORAGE_KEY) {
+            currentObserved = text == null ? null : String(text);
+            currentObservedKnown = true;
           }
-          if (sourceSchema !== Core.SCHEMA) root.localStorage?.setItem(STORAGE_KEY, Core.serializeWorld(world));
-          return world;
+          if (!text) continue;
+          try {
+            const parsed = Core.parseWorld(text);
+            const sourceSchema = parsed.schema;
+            const world = Systems.migrateWorld(parsed);
+            const validation = Systems.validateWorld(world);
+            if (!validation.ok) {
+              console.warn(`Autosave ${key} rejected due to invariant errors:`, validation.errors);
+              continue;
+            }
+            if (sourceSchema !== Core.SCHEMA) {
+              const promoted = Core.serializeWorld(world);
+              storage.setItem(STORAGE_KEY, promoted);
+              this.rememberAutosaveBaseline(promoted);
+            } else if (key === STORAGE_KEY) {
+              this.rememberAutosaveBaseline(text);
+            } else {
+              const promoted = Core.serializeWorld(world);
+              storage.setItem(STORAGE_KEY, promoted);
+              this.rememberAutosaveBaseline(promoted);
+            }
+            return world;
+          } catch (error) {
+            console.warn(`Autosave ${key} rejected:`, error.message);
+          }
         }
+        if (currentObservedKnown) this.rememberAutosaveBaseline(currentObserved);
         return null;
       } catch (error) {
-        console.warn('Autosave could not be loaded:', error.message);
+        console.warn('Autosave storage unavailable:', error.message);
         return null;
       }
     },
 
     clearAutosave() {
       try {
-        [STORAGE_KEY].concat(LEGACY_STORAGE_KEYS).forEach((key) => root.localStorage?.removeItem(key));
+        const storage = root.localStorage;
+        if (!storage) return false;
+        const transaction = this.inspectAutosaveClearTransaction(storage);
+        if (transaction.state === 'held') {
+          return this.holdAutosaveClearTransaction('unexpected-marker');
+        }
+        if (transaction.state === 'pending') {
+          if (!this.completeAutosaveClearTransaction(storage)) {
+            Systems.toast(this.world, 'Local autosave clear is pending because browser storage interrupted cleanup. Save loading and overwrite remain held until cleanup can resume.', 'warning');
+            this.emit('autosave-clear-pending');
+            return false;
+          }
+          Systems.toast(this.world, 'Local autosave cleared. Current in-memory world remains open.', 'info');
+          this.emit('autosave-clear');
+          return true;
+        }
+        const observed = storage.getItem(STORAGE_KEY);
+        const staleObservedBaseline = this.autosaveBaselineKnown
+          ? observed !== this.autosaveBaseText
+          : observed !== null;
+        if (staleObservedBaseline) {
+          this.autosaveConflict = {
+            kind: 'stale-storage',
+            key: STORAGE_KEY,
+            baselineKnown: this.autosaveBaselineKnown
+          };
+          console.warn('Autosave clear refused: current local save changed since this session last observed it.');
+          Systems.toast(this.world, 'Local autosave was not cleared because the stored save changed in another session. Current in-memory world remains open.', 'warning');
+          this.emit('autosave-clear-refused');
+          return false;
+        }
+        try {
+          storage.setItem(CLEAR_TRANSACTION_KEY, CLEAR_TRANSACTION_MARKER);
+        } catch (error) {
+          this.autosaveConflict = {
+            kind: 'clear-transaction-unavailable',
+            key: CLEAR_TRANSACTION_KEY,
+            reason: 'intent-write-failed'
+          };
+          console.warn('Could not begin autosave clear transaction:', error.message);
+          return false;
+        }
+        if (!this.completeAutosaveClearTransaction(storage)) {
+          Systems.toast(this.world, 'Local autosave clear is pending because browser storage interrupted cleanup. Save loading and overwrite remain held until cleanup can resume.', 'warning');
+          this.emit('autosave-clear-pending');
+          return false;
+        }
       } catch (error) {
         console.warn('Could not clear autosave:', error.message);
+        return false;
       }
       Systems.toast(this.world, 'Local autosave cleared. Current in-memory world remains open.', 'info');
       this.emit('autosave-clear');
+      return true;
     },
 
     downloadText(filename, text, mime = 'text/plain') {
