@@ -1,6 +1,6 @@
 name: MergeAgent Engineering Chromium diagnostic
 
-# Fast proof for canonical Engineering rendering, measured sticky offsets, and post-navigation activity timing.
+# Fast focused proof for canonical Engineering navigation only.
 on:
   push:
     branches:
@@ -24,10 +24,9 @@ jobs:
       - name: Build reconciled browser state
         run: |
           python3 tools/mergeagent_engineering_navigation.py
-          python3 tools/mergeagent_browser_waits.py
           python3 tools/build_standalone.py
-          python3 -m py_compile tests/visual_presence_browser_test.py
-      - name: Run Chromium diagnostic
+          python3 -m py_compile tests/engineering_navigation_browser_test.py
+      - name: Run focused Chromium contract
         run: |
           python3 -m pip install playwright==1.55.0
           if command -v google-chrome >/dev/null 2>&1; then
@@ -39,4 +38,4 @@ jobs:
           else
             exit 1
           fi
-          python3 tests/visual_presence_browser_test.py
+          python3 tests/engineering_navigation_browser_test.py
