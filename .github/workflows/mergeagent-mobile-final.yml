@@ -1,0 +1,116 @@
+name: MergeAgent final mobile Living View integration
+
+on:
+  push:
+    branches:
+      - mergeagent/mobile-living-final-20260912
+    paths:
+      - .github/workflows/mergeagent-mobile-final.yml
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout final mobile branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          ref: mergeagent/mobile-living-final-20260912
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Apply exact mobile Living View commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin automation/experience-mobile-living-loop-20260910-0456
+          set +e
+          git cherry-pick 77f11c80ed4f693c7250fe7cdfa4b6039736b203
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ]; then
+            echo "Cherry-pick conflicts:"
+            git diff --name-only --diff-filter=U
+            unexpected="$(git diff --name-only --diff-filter=U | grep -Ev '^(src/economy.js|standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html)$' || true)"
+            if [ -n "$unexpected" ]; then
+              echo "Unexpected semantic conflicts; fail closed:"
+              echo "$unexpected"
+              exit 1
+            fi
+            if git diff --name-only --diff-filter=U | grep -qx 'src/economy.js'; then
+              git checkout --ours src/economy.js
+              python3 - <<'PY'
+          from pathlib import Path
+          p=Path('src/economy.js')
+          s=p.read_text('utf-8')
+          old="    Systems.toast(world, `${enterprise.name} began as an optional direction.`, 'success');"
+          new="    // Starting-town businesses are background world facts. Announce a new\n    // direction only when it belongs to the directly controlled player; an\n    // NPC seed must not masquerade as the player's latest action.\n    if (ownerId === 'player') Systems.toast(world, `${enterprise.name} began as an optional direction.`, 'success');"
+          if old not in s:
+              if new not in s:
+                  raise SystemExit('Expected player-toast seam not found; refuse broad rewrite.')
+          else:
+              s=s.replace(old,new,1)
+              p.write_text(s,encoding='utf-8')
+          PY
+              git add src/economy.js
+            fi
+            if git diff --name-only --diff-filter=U | grep -qx 'standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html'; then
+              git checkout --ours standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+              git add standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+            fi
+            git cherry-pick --continue
+          fi
+          python3 tools/build_standalone.py
+          git add standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+          if ! git diff --cached --quiet; then git commit -m "Rebuild standalone after mobile Living View integration"; fi
+      - name: Verify mobile/gamefeel contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tests/playable_interiors_test.js
+          node tests/local_economy_test.js
+          node tests/navigation_continuity_test.js
+          node tests/autosave_conflict_experience_test.js
+          node tests/autosave_clear_recovery_experience_test.js
+          node tests/identity_cursor_contract_test.js
+          node tests/current_save_admission_test.js
+          node tests/canonical_world_projection_test.js
+          node tests/headless_runtime_intake_test.js
+          npm test
+          node --check src/ui.js
+          node --check src/economy.js
+          python3 -m py_compile tests/visual_presence_browser_test.py
+          git diff --check
+      - name: Exercise real Chromium mobile loop
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install playwright==1.55.0
+          if command -v google-chrome >/dev/null 2>&1; then
+            export CHROMIUM_EXECUTABLE="$(command -v google-chrome)"
+          elif command -v google-chrome-stable >/dev/null 2>&1; then
+            export CHROMIUM_EXECUTABLE="$(command -v google-chrome-stable)"
+          elif command -v chromium >/dev/null 2>&1; then
+            export CHROMIUM_EXECUTABLE="$(command -v chromium)"
+          else
+            echo "No runner Chromium/Chrome executable found" >&2
+            exit 1
+          fi
+          python3 tests/visual_presence_browser_test.py
+      - name: Finalize tested mobile branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/mergeagent-mobile-final.yml
+          git commit -m "[mergeagent-bot] Finalize mobile Living View integration"
+          git push origin HEAD:mergeagent/mobile-living-final-20260912
