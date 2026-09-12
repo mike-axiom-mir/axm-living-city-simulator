@@ -77,7 +77,7 @@ jobs:
           )
           visuals.write_text(s, encoding='utf-8')
 
-          # Browser QA must select a sleeping room that actually exposes a lawful Sleep action.
+          # Browser QA must select a room that actually exposes a lawful Sleep action.
           browser = Path('tests/visual_presence_browser_test.py')
           s = browser.read_text('utf-8')
           old = '''        sleep_room = page.locator('[data-action="visual-room"]', has_text='Sleeping Room').first
@@ -103,6 +103,22 @@ jobs:
               if old not in s:
                   raise SystemExit('Expected browser Sleep selection seam missing; refuse broad rewrite.')
               s = s.replace(old, new, 1)
+
+          # The mobile wrapper makes loose text selectors match ancestor containers.
+          # Assert the semantic elements instead of counting substring matches.
+          replacements = {
+              "        assert page.locator('text=COMPLETED MOMENT ECHO').count() == 1":
+                  "        assert page.locator('.living-stage-overlay > span', has_text='COMPLETED MOMENT ECHO').count() == 1",
+              "        assert page.locator('text=What actually changed').count() == 1":
+                  "        assert page.get_by_role('heading', name='What actually changed', exact=True).count() == 1",
+              "        assert page.locator('text=Factual receipt').count() == 1":
+                  "        assert page.locator('.visual-effect-card .pill', has_text='Factual receipt').count() == 1",
+          }
+          for old_selector, new_selector in replacements.items():
+              if new_selector not in s:
+                  if old_selector not in s:
+                      raise SystemExit(f'Expected completed-moment selector missing: {old_selector}')
+                  s = s.replace(old_selector, new_selector, 1)
           browser.write_text(s, encoding='utf-8')
           PY
 
