@@ -1,6 +1,6 @@
 name: MergeAgent engineering navigation reconciliation
 
-# Re-run with the browser invariant defined as visible + unobscured, not exact y-placement.
+# Diagnostic rerun: capture real Chromium landing geometry before the final scroll repair.
 on:
   push:
     branches:
