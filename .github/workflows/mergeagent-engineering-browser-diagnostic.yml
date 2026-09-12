@@ -1,6 +1,6 @@
 name: MergeAgent Engineering Chromium diagnostic
 
-# Fast proof for canonical Engineering rendering, measured sticky offsets, and 19-section navigation.
+# Fast proof for canonical Engineering rendering, measured sticky offsets, and post-navigation activity timing.
 on:
   push:
     branches:
