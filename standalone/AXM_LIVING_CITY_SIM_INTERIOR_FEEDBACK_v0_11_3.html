@@ -284,7 +284,7 @@ select:focus-visible {
 
 .view {
   padding: 18px;
-  scroll-margin-top: calc(var(--topbar-height, 92px) + 60px);
+  scroll-margin-top: calc(var(--topbar-height, 92px) + var(--switcher-height, 60px));
 }
 
 .view-title-row {
@@ -1161,7 +1161,7 @@ select:focus-visible {
 
   .view {
     padding: 12px;
-    scroll-margin-top: 60px;
+    scroll-margin-top: calc(var(--topbar-height, 0px) + var(--switcher-height, 60px));
   }
 
   .view-title-row {
@@ -1931,6 +1931,13 @@ select:focus-visible {
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.18);
 }
 
+.living-view-flow {
+  display: flex;
+  flex-direction: column;
+}
+
+.living-intro-compact { display: none; }
+
 .visual-mode-group {
   display: flex;
   align-items: center;
@@ -2037,6 +2044,40 @@ select:focus-visible {
 .visual-activity-list {
   display: grid;
   gap: 7px;
+}
+
+.visual-action-pulse {
+  display: grid;
+  gap: 3px;
+  padding: 10px 11px;
+  border: 1px solid rgba(130, 183, 154, .28);
+  border-radius: 11px;
+  background: rgba(130, 183, 154, .07);
+}
+
+.visual-action-pulse > span {
+  color: #9bcfb0;
+  font-size: .62rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.visual-action-pulse > strong {
+  font-size: .9rem;
+  line-height: 1.25;
+}
+
+.visual-action-pulse > small {
+  color: var(--muted);
+  font-size: .72rem;
+  line-height: 1.4;
+}
+
+.visual-action-pulse.recorded {
+  border-color: rgba(139, 224, 175, .5);
+  background: linear-gradient(135deg, rgba(139, 224, 175, .14), rgba(130, 183, 154, .055));
+  box-shadow: inset 3px 0 0 rgba(139, 224, 175, .72);
 }
 
 .visual-activity-button {
@@ -2269,6 +2310,31 @@ select:focus-visible {
 }
 
 @media (max-width: 720px) {
+  .living-view-title { order: 0; }
+  .living-view-title .living-intro-full,
+  .living-view-title > .pill-row { display: none; }
+  .living-view-title .living-intro-compact { display: block; }
+  .visual-room-browser > div:first-child { display: none; }
+  .visual-room-browser { order: 1; padding-block: 8px; }
+  .living-visual-split {
+    order: 2;
+    display: grid;
+  }
+  .living-visual-toolbar { order: 3; margin-top: 14px; }
+  .living-visual-split > aside { display: contents; }
+  .living-visual-split > aside > .visual-activity-card { order: -2; }
+  .living-visual-split > aside > .visual-effect-card { order: -1; }
+  .living-stage-card { order: 0; }
+  .living-visual-split > aside > .card:not(.visual-activity-card):not(.visual-effect-card) { order: 1; }
+  .visual-activity-card .proposal-head {
+    flex-direction: row;
+    align-items: center;
+  }
+  .visual-activity-card .proposal-head > .pill { align-self: auto; }
+  .visual-activity-card .proposal-head p,
+  .visual-activity-card .callout { display: none; }
+  .visual-activity-card .card-inner { gap: 10px; }
+  .visual-activity-button { min-height: 50px; padding-block: 8px; }
   .living-visual-toolbar { align-items: stretch; }
   .visual-mode-group { width: 100%; }
   .visual-mode-group > span { flex: 0 0 100%; }
@@ -16307,7 +16373,10 @@ select:focus-visible {
       }
     }
 
-    Systems.toast(world, `${enterprise.name} began as an optional direction.`, 'success');
+    // Starting-town businesses are background world facts. Announce a new
+    // direction only when it belongs to the directly controlled player; an
+    // NPC seed must not masquerade as the player's latest action.
+    if (ownerId === 'player') Systems.toast(world, `${enterprise.name} began as an optional direction.`, 'success');
     return { ok: true, enterprise };
   }
 
@@ -22566,6 +22635,7 @@ select:focus-visible {
       sentimental: Number(object.sentimental) || 0,
       usageHours: Number(object.usageHours) || 0,
       ownerId: object.ownerId || null,
+      ownershipMode: object.ownershipMode || null,
       historyCount: Array.isArray(object.history) ? object.history.length : 0,
       rotation: Number(object.rotation) || 0,
       nx: Core.clamp(((object.position?.x || bounds.minX) - bounds.minX + 0.5) / bounds.width, 0.05, 0.95),
@@ -22586,7 +22656,13 @@ select:focus-visible {
 
   function ruleObject(rule, objects) {
     if (!rule.kinds.length) return null;
-    return objects.find((object) => rule.kinds.includes(object.kind)) || null;
+    return objects.find((object) => {
+      if (!rule.kinds.includes(object.kind)) return false;
+      const itemInteractions = AXM.ItemInteractions;
+      if (itemInteractions?.objectMatchesAction && !itemInteractions.objectMatchesAction(object, rule.actionId)) return false;
+      if (itemInteractions?.directUseAllowed && !itemInteractions.directUseAllowed(object)) return false;
+      return true;
+    }) || null;
   }
 
   function roomActivityOptions(world, scene) {
@@ -22597,6 +22673,8 @@ select:focus-visible {
       const purposeMatch = rule.purposes.includes(scene.purpose);
       const utilityMatch = rule.utility && scene.utilities?.[rule.utility] === true;
       const objectMatch = Boolean(object);
+      const itemObjectRequired = Boolean(AXM.ItemInteractions?.ACTION_CATALOGS?.[rule.actionId]?.length);
+      if (itemObjectRequired && !objectMatch) return [];
       if (!objectMatch && !purposeMatch && !utilityMatch) return [];
       const activity = Content.activityById(rule.actionId);
       if (!activity) return [];
@@ -23548,6 +23626,7 @@ select:focus-visible {
     { id: 'community', label: 'Community' },
     { id: 'directions', label: 'Directions' },
     { id: 'economy', label: 'Local Economy' },
+    { id: 'engineering', label: 'Engineering' },
     { id: 'stewardship', label: 'Stewardship' },
     { id: 'work', label: 'Workday' },
     { id: 'housing', label: 'Housing' },
@@ -23730,8 +23809,12 @@ select:focus-visible {
 
     syncStickyOffset() {
       const topbar = this.app?.querySelector('.topbar');
+      const switcher = this.app?.querySelector('.view-switcher');
       const compact = root.matchMedia?.('(max-width: 720px)').matches;
-      this.app?.style.setProperty('--topbar-height', `${compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0)}px`);
+      const topbarHeight = compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0);
+      const switcherHeight = Math.ceil(switcher?.getBoundingClientRect().height || 0);
+      this.app?.style.setProperty('--topbar-height', `${topbarHeight}px`);
+      this.app?.style.setProperty('--switcher-height', `${switcherHeight}px`);
     },
 
     renderView(world) {
@@ -24067,16 +24150,28 @@ select:focus-visible {
         : null;
       const needDeltas = observed ? Object.entries(observed.needs || {}) : [];
       const skillDeltas = observed ? Object.entries(observed.skills || {}) : [];
+      const actionPulseFacts = observed ? [
+        compactDuration(observed.timeMinutes || 0),
+        observed.moneyDelta ? `${observed.moneyDelta > 0 ? '+' : '−'}${Core.formatMoney(Math.abs(observed.moneyDelta))}` : 'Money unchanged',
+        observed.homeConditionDelta ? `Home ${signedDelta(observed.homeConditionDelta)}` : null,
+        observed.object ? Object.entries(observed.object)
+          .filter(([key]) => key !== 'id')
+          .map(([key, value]) => `${Core.titleCase(key)} ${signedDelta(value)}`)
+          .join(', ') : null,
+        ...needDeltas.map(([key, value]) => `${Core.titleCase(key)} ${signedDelta(value)}`),
+        ...skillDeltas.map(([key, value]) => `${Core.titleCase(key)} ${signedDelta(value)}`)
+      ].filter(Boolean) : [];
       const objectSummary = scene?.kind === 'room' ? scene.objects.slice(0, 16).map((object) => `
         <button class="visual-object-chip ${scene.selectedObjectId === object.id ? 'active' : ''}" data-action="visual-object" data-id="${escapeAttr(object.id)}" aria-pressed="${scene.selectedObjectId === object.id}">
           <span>${escapeHtml(object.name)}</span><small>${Math.round(object.condition)}%</small>
         </button>`).join('') : '';
-      return `
+      return `<div class="living-view-flow">
         <div class="view-title-row living-view-title">
           <div>
             <div class="brand-kicker">Playable interiors steward pass · v${Core.VERSION}</div>
             <h2>Start inside a room, look around, and choose what feels worth doing</h2>
-            <p>Browse your real rooms and objects, focus the scene, or complete a grounded activity through the existing simulation. Ambient motion stays atmosphere; a completed-moment echo appears only after the real activity engine has finished the action.</p>
+            <p class="living-intro-full">Browse your real rooms and objects, focus the scene, or complete a grounded activity through the existing simulation. Ambient motion stays atmosphere; a completed-moment echo appears only after the real activity engine has finished the action.</p>
+            <p class="living-intro-compact">Choose a real room and one grounded activity. The ordinary engine resolves it; the nearby receipt reports what actually changed.</p>
           </div>
           <div class="pill-row">
             <span class="pill good">Playable room choices</span>
@@ -24110,6 +24205,11 @@ select:focus-visible {
           <aside class="stack">
             ${scene?.kind === 'room' ? `<section class="card visual-activity-card"><div class="card-inner stack">
               <div class="proposal-head"><div><h3>Things to do here</h3><p>These buttons use the real activity engine: time, money, needs, skills, routes, and consequences resolve exactly as they do in One Life.</p></div><span class="pill good">${activities.length} grounded</span></div>
+              <div class="visual-action-pulse ${observed ? 'recorded' : 'ready'}" role="status" aria-live="polite" aria-atomic="true">
+                <span>${observed ? 'Recorded' : 'Ready'}</span>
+                <strong>${escapeHtml(observed ? (moment?.label || 'Grounded activity completed') : `${scene.title} is ready`)}</strong>
+                <small>${escapeHtml(observed ? `${actionPulseFacts.join(' · ') || 'No bounded player or home values changed'} · Ordinary engine result; watching added nothing.` : 'Choose a grounded activity. Its exact result will stay here beside the same controls.')}</small>
+              </div>
               ${activities.length ? `<div class="visual-activity-list">${activities.map((activity) => {
                 const unaffordable = activity.cost > world.player.money;
                 return `<button class="visual-activity-button" data-action="visual-activity" data-id="${escapeAttr(activity.id)}" data-room="${escapeAttr(scene.roomId)}" data-object="${escapeAttr(activity.objectId || '')}" ${unaffordable ? 'disabled' : ''}>
@@ -24166,7 +24266,7 @@ select:focus-visible {
             ${validation.ok ? '' : `<section class="card"><div class="card-inner"><h3>Scene held</h3><div class="history-list">${validation.errors.map((error) => `<div class="history-entry"><div class="message">${escapeHtml(error)}</div></div>`).join('')}</div></div></section>`}
           </aside>
         </div>
-      `;
+      </div>`;
     },
 
     renderBuildingShell(world, building) {
@@ -28229,18 +28329,33 @@ select:focus-visible {
   function decorateTabs(world) {
     const nav = UI.app?.querySelector('.tabbar');
     if (!nav) return;
-    let button = nav.querySelector('[data-action="engineering-tab"]');
+    let button = nav.querySelector('[data-action="tab"][data-id="engineering"]');
     if (!button) {
-      button = document.createElement('button');
-      button.className = 'tab-button';
-      button.dataset.action = 'engineering-tab';
-      button.textContent = 'Engineering';
-      const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
-      nav.insertBefore(button, anchor || null);
+      // Compatibility fallback for older host UIs. Current Living City owns
+      // Engineering in the canonical section registry.
+      button = nav.querySelector('[data-action="engineering-tab"]');
+      if (!button) {
+        button = document.createElement('button');
+        button.className = 'tab-button';
+        button.id = 'tab-engineering';
+        button.setAttribute('role', 'tab');
+        button.setAttribute('aria-controls', 'active-view');
+        button.dataset.action = 'engineering-tab';
+        button.dataset.id = 'engineering';
+        button.textContent = 'Engineering';
+        const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
+        nav.insertBefore(button, anchor || null);
+      }
     }
-    nav.querySelectorAll('.tab-button').forEach((entry) => entry.classList.remove('active'));
-    if (world.ui.activeTab === 'engineering') button.classList.add('active');
-    else nav.querySelector(`[data-action="tab"][data-id="${String(world.ui.activeTab).replace(/"/g, '')}"]`)?.classList.add('active');
+    nav.querySelectorAll('.tab-button').forEach((entry) => {
+      const entryId = entry.dataset.id || (entry.dataset.action === 'engineering-tab' ? 'engineering' : null);
+      const active = entryId === world.ui.activeTab;
+      entry.classList.toggle('active', active);
+      if (entry.getAttribute('role') === 'tab') {
+        entry.setAttribute('aria-selected', String(active));
+        entry.tabIndex = active ? 0 : -1;
+      }
+    });
   }
 
   function drawEngineeringCanvas(world, canvas, timestamp, motion) {
@@ -28321,28 +28436,18 @@ select:focus-visible {
     bindEngineeringEvents();
   };
 
+  const originalRenderView = UI.renderView;
+  UI.renderView = function renderViewWithEngineering(world, ...args) {
+    if (world?.ui?.activeTab === 'engineering') return renderEngineering(world);
+    return originalRenderView.call(this, world, ...args);
+  };
+
   const originalRender = UI.render;
   UI.render = function renderWithEngineering(world, ...args) {
-    const engineeringActive = world?.ui?.activeTab === 'engineering';
     cancelEngineeringLoop();
-    if (!engineeringActive) {
-      originalRender.call(this, world, ...args);
-      decorateTabs(world);
-      return;
-    }
-
-    world.ui.activeTab = 'lab';
-    try {
-      originalRender.call(this, world, ...args);
-    } finally {
-      world.ui.activeTab = 'engineering';
-    }
-    this.cancelMapLoop?.();
-    this.cancelLivingLoop?.();
+    originalRender.call(this, world, ...args);
     decorateTabs(world);
-    const main = this.app?.querySelector('main.view');
-    if (main) main.innerHTML = renderEngineering(world);
-    startEngineeringLoop(world);
+    if (world?.ui?.activeTab === 'engineering') startEngineeringLoop(world);
   };
 
   AXM.EngineeringUI = Object.freeze({

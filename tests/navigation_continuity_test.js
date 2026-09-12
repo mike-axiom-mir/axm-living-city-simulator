@@ -21,6 +21,9 @@ assert.equal(UI.navigationTarget('town', 'ArrowRight'), 'street');
 assert.equal(UI.navigationTarget('town', 'ArrowLeft'), 'lab');
 assert.equal(UI.navigationTarget('visuals', 'Home'), 'town');
 assert.equal(UI.navigationTarget('visuals', 'End'), 'lab');
+assert.equal(UI.navigationTarget('economy', 'ArrowRight'), 'engineering');
+assert.equal(UI.navigationTarget('engineering', 'ArrowLeft'), 'economy');
+assert.equal(UI.navigationTarget('engineering', 'ArrowRight'), 'stewardship');
 assert.equal(UI.navigationTarget('visuals', 'Tab'), null);
 
 world.ui.activeTab = 'visuals';
@@ -28,11 +31,16 @@ const markup = UI.renderTabs(world);
 assert.match(markup, /role="tablist"/);
 assert.match(markup, /id="tab-visuals" role="tab" aria-selected="true" aria-controls="active-view" tabindex="0"/);
 assert.match(markup, /id="tab-town" role="tab" aria-selected="false" aria-controls="active-view" tabindex="-1"/);
-assert.match(markup, /aria-label="Section 5 of 18"/);
+assert.match(markup, /aria-label="Section 5 of 19"/);
 assert.match(markup, /data-action="tab-relative" data-direction="-1"/);
 assert.match(markup, /data-action="tab-relative" data-direction="1"/);
+
+world.ui.activeTab = 'engineering';
+const engineeringMarkup = UI.renderTabs(world);
+assert.match(engineeringMarkup, /id="tab-engineering" role="tab" aria-selected="true" aria-controls="active-view" tabindex="0"/);
+assert.match(engineeringMarkup, /aria-label="Section 14 of 19"/);
 
 assert.equal(UI.interactionKey({ classList: { contains: (name) => name === 'tab-button' }, dataset: { id: 'visuals' } }), 'tab:visuals');
 assert.equal(UI.interactionKey({ classList: { contains: () => false }, id: 'seedInput', dataset: {} }), 'id:seedInput');
 
-console.log('PASS navigation continuity: 18-view semantics, bounded arrow/Home/End routing, position receipt, and stable interaction keys');
+console.log('PASS navigation continuity: 19-view semantics, bounded arrow/Home/End routing, position receipt, and stable interaction keys');
