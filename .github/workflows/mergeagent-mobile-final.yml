@@ -73,18 +73,154 @@ jobs:
 
           python3 - <<'PY'
           from pathlib import Path
-          p = Path('tests/visual_presence_browser_test.py')
-          s = p.read_text('utf-8')
-          old = "        page.wait_for_timeout(300)\n\n        assert page.locator('.tab-button').count() == 18"
-          new = "        page.wait_for_function(\"() => document.querySelectorAll('.tab-button').length === 18\", timeout=10000)\n\n        assert page.locator('.tab-button').count() == 18"
+
+          engineering = Path('src/engineering_ui.js')
+          s = engineering.read_text('utf-8')
+          old = r'''  function decorateTabs(world) {
+            const nav = UI.app?.querySelector('.tabbar');
+            if (!nav) return;
+            let button = nav.querySelector('[data-action="engineering-tab"]');
+            if (!button) {
+              button = document.createElement('button');
+              button.className = 'tab-button';
+              button.dataset.action = 'engineering-tab';
+              button.textContent = 'Engineering';
+              const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
+              nav.insertBefore(button, anchor || null);
+            }
+            nav.querySelectorAll('.tab-button').forEach((entry) => entry.classList.remove('active'));
+            if (world.ui.activeTab === 'engineering') button.classList.add('active');
+            else nav.querySelector(`[data-action="tab"][data-id="${String(world.ui.activeTab).replace(/"/g, '')}"]`)?.classList.add('active');
+          }
+          '''
+          new = r'''  function decorateTabs(world) {
+            const nav = UI.app?.querySelector('.tabbar');
+            if (!nav) return;
+            let button = nav.querySelector('[data-action="engineering-tab"]');
+            if (!button) {
+              button = document.createElement('button');
+              button.className = 'tab-button';
+              button.id = 'tab-engineering';
+              button.dataset.action = 'engineering-tab';
+              button.dataset.id = 'engineering';
+              button.textContent = 'Engineering';
+              button.setAttribute('role', 'tab');
+              button.setAttribute('aria-controls', 'active-view');
+              const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
+              nav.insertBefore(button, anchor || null);
+            }
+            const buttons = Array.from(nav.querySelectorAll('.tab-button'));
+            buttons.forEach((entry) => {
+              const active = entry.dataset.id === world.ui.activeTab;
+              entry.classList.toggle('active', active);
+              entry.setAttribute('role', 'tab');
+              entry.setAttribute('aria-selected', String(active));
+              entry.setAttribute('aria-controls', 'active-view');
+              entry.tabIndex = active ? 0 : -1;
+            });
+            const activeIndex = Math.max(0, buttons.findIndex((entry) => entry.dataset.id === world.ui.activeTab));
+            const position = UI.app?.querySelector('.view-position');
+            if (position) {
+              position.innerHTML = `${activeIndex + 1}<i>/</i>${buttons.length}`;
+              position.setAttribute('aria-label', `Section ${activeIndex + 1} of ${buttons.length}`);
+            }
+            const main = UI.app?.querySelector('#active-view');
+            if (main) main.setAttribute('aria-labelledby', `tab-${world.ui.activeTab}`);
+          }
+          '''
           if old not in s:
               if new not in s:
+                  raise SystemExit('Expected Engineering tab decoration seam not found; refuse broad rewrite.')
+          else:
+              s = s.replace(old, new, 1)
+
+          old_bind = r'''      if (tab) {
+                event.preventDefault();
+                Game.setTab('engineering');
+                return;
+              }
+          '''
+          new_bind = r'''      if (tab) {
+                event.preventDefault();
+                if (typeof UI.activateTab === 'function') UI.activateTab('engineering');
+                else Game.setTab('engineering');
+                return;
+              }
+          '''
+          if old_bind not in s:
+              if new_bind not in s:
+                  raise SystemExit('Expected Engineering click seam not found; refuse broad rewrite.')
+          else:
+              s = s.replace(old_bind, new_bind, 1)
+
+          old_install = '''  installStyles();
+            installSystemBridges();
+
+            const originalBindEvents = UI.bindEvents;
+          '''
+          new_install = '''  installStyles();
+            installSystemBridges();
+
+            const originalNavigationTarget = typeof UI.navigationTarget === 'function' ? UI.navigationTarget : null;
+            if (originalNavigationTarget) {
+              UI.navigationTarget = function navigationTargetWithEngineering(currentId, key) {
+                const ids = Array.from(this.app?.querySelectorAll('.tabbar .tab-button') || [])
+                  .map((entry) => entry.dataset.id)
+                  .filter(Boolean);
+                if (!ids.includes('engineering') || !ids.includes(currentId)) {
+                  return originalNavigationTarget.call(this, currentId, key);
+                }
+                const index = ids.indexOf(currentId);
+                if (key === 'Home') return ids[0];
+                if (key === 'End') return ids[ids.length - 1];
+                if (key === 'ArrowRight') return ids[(index + 1) % ids.length];
+                if (key === 'ArrowLeft') return ids[(index - 1 + ids.length) % ids.length];
+                return null;
+              };
+            }
+
+            const originalActivateTab = typeof UI.activateTab === 'function' ? UI.activateTab : null;
+            if (originalActivateTab) {
+              UI.activateTab = function activateTabWithEngineering(tabId, focusTab = true) {
+                if (tabId === 'engineering') {
+                  if (focusTab) this.pendingFocusKey = 'tab:engineering';
+                  Game.setTab('engineering');
+                  return;
+                }
+                return originalActivateTab.call(this, tabId, focusTab);
+              };
+            }
+
+            const originalBindEvents = UI.bindEvents;
+          '''
+          if old_install not in s:
+              if new_install not in s:
+                  raise SystemExit('Expected Engineering navigation install seam not found; refuse broad rewrite.')
+          else:
+              s = s.replace(old_install, new_install, 1)
+          engineering.write_text(s, encoding='utf-8')
+
+          test = Path('tests/visual_presence_browser_test.py')
+          t = test.read_text('utf-8')
+          old_wait = "        page.wait_for_timeout(300)\n\n        assert page.locator('.tab-button').count() == 18"
+          new_wait = "        page.wait_for_function(\"() => document.querySelectorAll('.tab-button').length === 19\", timeout=10000)\n\n        assert page.locator('.tab-button').count() == 19\n        engineering_tab = page.locator('[data-action=\"engineering-tab\"]')\n        assert engineering_tab.count() == 1\n        assert engineering_tab.get_attribute('role') == 'tab'\n        assert engineering_tab.get_attribute('data-id') == 'engineering'\n        assert engineering_tab.get_attribute('aria-selected') == 'false'\n        assert engineering_tab.get_attribute('tabindex') == '-1'\n        assert page.locator('.view-position').get_attribute('aria-label') == 'Section 5 of 19'"
+          if old_wait not in t:
+              if new_wait not in t:
                   raise SystemExit('Expected browser readiness seam not found; refuse broad rewrite.')
           else:
-              p.write_text(s.replace(old, new, 1), encoding='utf-8')
+              t = t.replace(old_wait, new_wait, 1)
+
+          anchor = "        assert page.locator('[data-action=\"visual-activity\"]').count() >= 1\n\n        # The 18-view rail is one roving tab stop, supports standard tab keys,\n"
+          replacement = "        assert page.locator('[data-action=\"visual-activity\"]').count() >= 1\n\n        # The v0.12 Engineering extension participates in the same roving-tab contract.\n        economy_tab = page.locator('[role=\"tab\"][data-id=\"economy\"]')\n        economy_tab.focus()\n        economy_tab.press('ArrowRight')\n        page.wait_for_timeout(100)\n        assert page.locator('[role=\"tab\"][aria-selected=\"true\"]').get_attribute('data-id') == 'engineering'\n        assert page.evaluate('() => document.activeElement?.dataset?.id') == 'engineering'\n        assert page.locator('.view-position').get_attribute('aria-label') == 'Section 14 of 19'\n        page.locator('[role=\"tab\"][data-id=\"engineering\"]').press('ArrowRight')\n        page.wait_for_timeout(100)\n        assert page.locator('[role=\"tab\"][aria-selected=\"true\"]').get_attribute('data-id') == 'stewardship'\n        page.locator('[role=\"tab\"][data-id=\"visuals\"]').click()\n        page.wait_for_timeout(100)\n\n        # The complete rail is one roving tab stop, supports standard tab keys,\n"
+          if anchor not in t:
+              if replacement not in t:
+                  raise SystemExit('Expected navigation browser assertion seam not found; refuse broad rewrite.')
+          else:
+              t = t.replace(anchor, replacement, 1)
+          test.write_text(t, encoding='utf-8')
           PY
-          git add tests/visual_presence_browser_test.py
-          if ! git diff --cached --quiet; then git commit -m "Wait for Living View shell readiness in Chromium witness"; fi
+          git add src/engineering_ui.js tests/visual_presence_browser_test.py
+          if ! git diff --cached --quiet; then git commit -m "Integrate Engineering into human-context navigation"; fi
 
           python3 tools/build_standalone.py
           git add standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
@@ -104,6 +240,7 @@ jobs:
           node tests/headless_runtime_intake_test.js
           npm test
           node --check src/ui.js
+          node --check src/engineering_ui.js
           node --check src/economy.js
           python3 -m py_compile tests/visual_presence_browser_test.py
           git diff --check
@@ -122,30 +259,6 @@ jobs:
             echo "No runner Chromium/Chrome executable found" >&2
             exit 1
           fi
-          python3 - <<'PY'
-          from pathlib import Path
-          import os
-          from playwright.sync_api import sync_playwright
-          html = Path('standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html').read_text('utf-8')
-          errors = []
-          with sync_playwright() as p:
-              browser = p.chromium.launch(headless=True, executable_path=os.environ['CHROMIUM_EXECUTABLE'], args=['--no-sandbox','--disable-dev-shm-usage'])
-              page = browser.new_page(viewport={'width': 1440, 'height': 1000})
-              page.on('pageerror', lambda error: errors.append('pageerror: ' + str(error)))
-              page.on('console', lambda message: errors.append('console: ' + message.text) if message.type == 'error' else None)
-              page.set_content(html, wait_until='load')
-              page.wait_for_timeout(1500)
-              count = page.locator('.tab-button').count()
-              axm = page.evaluate("() => typeof window.AXM === 'object' ? Object.keys(window.AXM) : []")
-              app_text = page.locator('#app').inner_text()[:600] if page.locator('#app').count() else '<missing #app>'
-              print('BOOT tab-count=', count)
-              print('BOOT AXM keys=', axm)
-              print('BOOT errors=', errors)
-              print('BOOT app=', app_text)
-              browser.close()
-              if count != 18:
-                  raise SystemExit('Browser shell did not boot; diagnostics printed above.')
-          PY
           python3 tests/visual_presence_browser_test.py
       - name: Finalize tested mobile branch
         shell: bash
