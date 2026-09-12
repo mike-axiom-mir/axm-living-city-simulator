@@ -38,9 +38,17 @@ check(simulator.serializeCanonical() === beforeUiChange, 'UI-only changes do not
 simulator.world.player.money -= 1;
 check(simulator.serializeCanonical() !== beforeUiChange, 'simulation-state changes do change canonical bytes');
 
-const resumed = HeadlessSimulator.fromText(beforeUiChange);
-check(resumed.serializeCanonical() === beforeUiChange, 'canonical projection reconstructs through normal migration');
-check(resumed.world.ui && typeof resumed.world.ui === 'object', 'migration reconstructs disposable UI defaults');
+let ordinaryProjectionRejected = false;
+try {
+  HeadlessSimulator.fromText(beforeUiChange);
+} catch (error) {
+  ordinaryProjectionRejected = /Current save failed invariant validation/.test(String(error && error.message));
+}
+check(ordinaryProjectionRejected, 'canonical projection is not admitted as an ordinary current save');
+
+const resumed = HeadlessSimulator.fromCanonicalText(beforeUiChange);
+check(resumed.serializeCanonical() === beforeUiChange, 'canonical projection reconstructs through explicit projection rehydration');
+check(resumed.world.ui && typeof resumed.world.ui === 'object', 'projection rehydration restores disposable UI defaults');
 
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'axm-living-city-canonical-'));
 try {

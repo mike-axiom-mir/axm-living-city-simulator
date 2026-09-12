@@ -41,9 +41,16 @@ world truth.
 
 Ordinary `serializeWorld()` saves deliberately remain byte-compatible and
 continue to include `ui`. Every other root field, including settings that can
-change simulation policy, remains in the projection. A projected world can be
-loaded through the normal migration path, which reconstructs disposable UI
-defaults without changing the projected bytes.
+change simulation policy, remains in the projection.
+
+A canonical projection is deliberately **not** admitted through the ordinary
+current-save path: missing `ui` would require normalization, and current-save
+admission fails closed rather than silently repairing current-schema bytes.
+Headless consumers that intentionally possess canonical projection bytes may
+use `HeadlessSimulator.fromCanonicalText()`. That explicit projection path
+rehydrates only disposable UI defaults from the same deterministic seed and
+then runs the normal strict migration and validation checks. Re-serializing the
+rehydrated world canonically must reproduce the original projection bytes.
 
 The projection is not a second save schema, a content signature, authorship
 proof, merge decision, or CANON designation. Consumers that need identity must

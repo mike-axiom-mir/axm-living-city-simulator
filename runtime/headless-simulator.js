@@ -44,6 +44,19 @@ class HeadlessSimulator {
     return new HeadlessSimulator(axm, world);
   }
 
+  static fromCanonicalText(text, options = {}) {
+    const axm = loadSimulation(options);
+    const parsed = axm.Core.parseWorld(String(text));
+    if (Object.hasOwn(parsed, 'ui')) {
+      throw new Error('Canonical world projection input must omit root ui realization state.');
+    }
+    const template = axm.World.createWorld(String(parsed.seed || DEFAULT_SEED));
+    parsed.ui = axm.Core.deepClone(template.ui);
+    const world = axm.Systems.migrateWorld(parsed);
+    assertValid(axm, world, 'rehydrated canonical world');
+    return new HeadlessSimulator(axm, world);
+  }
+
   validate() {
     return this.axm.Systems.validateWorld(this.world);
   }
