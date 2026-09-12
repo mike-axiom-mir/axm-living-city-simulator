@@ -39,15 +39,22 @@ old_geometry = """        assert page.locator('#active-view').evaluate('''(view)
           const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
           return Math.abs(view.getBoundingClientRect().top - (topbar.height + switcher.height)) <= 2;
         }''')"""
-new_geometry = """        assert page.locator('#active-view').evaluate('''(view) => {
+previous_geometry = """        assert page.locator('#active-view').evaluate('''(view) => {
           const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
           const viewTop = view.getBoundingClientRect().top;
           const delta = viewTop - switcher.bottom;
           return delta >= -2 && delta <= 16;
         }'''), 'Changed section heading is obscured by or detached from the sticky section controls.'"""
+new_geometry = """        assert page.locator('#active-view').evaluate('''(view) => {
+          const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
+          const viewTop = view.getBoundingClientRect().top;
+          return viewTop >= switcher.bottom - 2 && viewTop < window.innerHeight;
+        }'''), 'Changed section heading is obscured by the sticky section controls or outside the viewport.'"""
 if old_geometry in s:
     s = s.replace(old_geometry, new_geometry, 1)
+elif previous_geometry in s:
+    s = s.replace(previous_geometry, new_geometry, 1)
 elif new_geometry not in s:
-    raise SystemExit('Expected sticky non-overlap assertion seam missing; refuse broad rewrite.')
+    raise SystemExit('Expected sticky visibility assertion seam missing; refuse broad rewrite.')
 
 path.write_text(s, encoding='utf-8')
