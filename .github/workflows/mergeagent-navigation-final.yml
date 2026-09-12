@@ -1,0 +1,92 @@
+name: MergeAgent final navigation integration
+
+on:
+  push:
+    branches:
+      - mergeagent/navigation-final-20260912
+    paths:
+      - .github/workflows/mergeagent-navigation-final.yml
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout final integration branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          ref: mergeagent/navigation-final-20260912
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Apply exact navigation lane over current body
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin automation/persistent-view-navigation-20260909-1156
+          set +e
+          git cherry-pick 1b3bbf661a05bc3a8f549f3a5b481dcc30e25cb7
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ]; then
+            echo "Cherry-pick conflicts:"
+            git diff --name-only --diff-filter=U
+            unexpected="$(git diff --name-only --diff-filter=U | grep -Ev '^(index.html|package.json|standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html)$' || true)"
+            if [ -n "$unexpected" ]; then
+              echo "Unexpected semantic conflicts; fail closed:"
+              echo "$unexpected"
+              exit 1
+            fi
+            git checkout --ours index.html package.json standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+            git add index.html package.json standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+            git cherry-pick --continue
+          fi
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          index = Path('index.html')
+          html = index.read_text('utf-8').replace('<div id="app" aria-live="polite"></div>', '<div id="app"></div>')
+          index.write_text(html, encoding='utf-8')
+          package = Path('package.json')
+          data = json.loads(package.read_text('utf-8'))
+          scripts = data.setdefault('scripts', {})
+          nav = 'node tests/navigation_continuity_test.js'
+          current = scripts.get('test', '')
+          if nav not in current:
+              scripts['test'] = current + (' && ' if current else '') + nav
+          scripts['test:navigation'] = nav
+          data['license'] = 'Apache-2.0'
+          package.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+          PY
+          git add index.html package.json
+          git commit -m "Reconcile navigation with current Living City body" || true
+          python3 tools/build_standalone.py
+          git add standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
+          if ! git diff --cached --quiet; then git commit -m "Rebuild standalone with navigation and recovery layers"; fi
+      - name: Verify final navigation integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tests/navigation_continuity_test.js
+          node tests/autosave_conflict_experience_test.js
+          node tests/autosave_clear_recovery_experience_test.js
+          node tests/current_save_admission_test.js
+          node tests/canonical_world_projection_test.js
+          node tests/identity_cursor_contract_test.js
+          node tests/headless_runtime_intake_test.js
+          npm test
+          node --check src/ui.js
+          git diff --check
+      - name: Finalize tested branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/mergeagent-navigation-final.yml
+          git commit -m "[mergeagent-bot] Finalize navigation integration"
+          git push origin HEAD:mergeagent/navigation-final-20260912
