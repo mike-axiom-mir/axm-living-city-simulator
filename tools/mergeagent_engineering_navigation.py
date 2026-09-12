@@ -17,7 +17,29 @@ s = replace_once(
     "    { id: 'economy', label: 'Local Economy' },\n    { id: 'engineering', label: 'Engineering' },\n    { id: 'stewardship', label: 'Stewardship' },",
     "section registry",
 )
+s = replace_once(
+    s,
+    "    syncStickyOffset() {\n      const topbar = this.app?.querySelector('.topbar');\n      const compact = root.matchMedia?.('(max-width: 720px)').matches;\n      this.app?.style.setProperty('--topbar-height', `${compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0)}px`);\n    },",
+    "    syncStickyOffset() {\n      const topbar = this.app?.querySelector('.topbar');\n      const switcher = this.app?.querySelector('.view-switcher');\n      const compact = root.matchMedia?.('(max-width: 720px)').matches;\n      const topbarHeight = compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0);\n      const switcherHeight = Math.ceil(switcher?.getBoundingClientRect().height || 0);\n      this.app?.style.setProperty('--topbar-height', `${topbarHeight}px`);\n      this.app?.style.setProperty('--switcher-height', `${switcherHeight}px`);\n    },",
+    "sticky offset measurement",
+)
 ui.write_text(s, encoding="utf-8")
+
+styles = Path("styles.css")
+s = styles.read_text("utf-8")
+s = replace_once(
+    s,
+    "  scroll-margin-top: calc(var(--topbar-height, 92px) + 60px);",
+    "  scroll-margin-top: calc(var(--topbar-height, 92px) + var(--switcher-height, 60px));",
+    "desktop section scroll margin",
+)
+s = replace_once(
+    s,
+    "    scroll-margin-top: 60px;",
+    "    scroll-margin-top: calc(var(--topbar-height, 0px) + var(--switcher-height, 60px));",
+    "mobile section scroll margin",
+)
+styles.write_text(s, encoding="utf-8")
 
 engineering = Path("src/engineering_ui.js")
 s = engineering.read_text("utf-8")
