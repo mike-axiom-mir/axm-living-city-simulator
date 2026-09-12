@@ -15,10 +15,10 @@
         'adventure', 'adventure_history', 'care', 'community_connection', 'community_history',
         'community_member', 'community_opportunity', 'connection_history', 'construction', 'dependent',
         'event', 'family', 'family_event', 'family_proposal', 'family_proposal_event', 'family_room',
-        'habitat_event', 'habitat_intention', 'household', 'household_event', 'household_goal',
+        'ewaste', 'habitat_event', 'habitat_intention', 'household', 'household_event', 'household_goal',
         'household_issue', 'issue_event', 'object', 'object_event', 'opportunity_history',
-        'personal_project', 'project_collaboration', 'project_event', 'property_event', 'proposal',
-        'proposal_event', 'stewardship_request'
+        'personal_project', 'project_collaboration', 'project_event', 'property_event', 'proposal', 'prototype',
+        'proposal_event', 'refurbished', 'stewardship_request'
       ])
     }),
     shell: Object.freeze({
