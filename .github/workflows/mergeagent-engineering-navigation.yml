@@ -1,6 +1,6 @@
 name: MergeAgent engineering navigation reconciliation
 
-# Re-run after replacing brittle exact-y assertion with sticky non-overlap evidence.
+# Re-run with the browser invariant defined as visible + unobscured, not exact y-placement.
 on:
   push:
     branches:
