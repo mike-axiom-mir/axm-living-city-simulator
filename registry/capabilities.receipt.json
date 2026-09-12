@@ -10,7 +10,7 @@
     {
       "id": "public-opt-in",
       "path": ".axm/discovery-public.json",
-      "sha256": "112688feee4ce58e61f0ffb82d746367fe445bdfac0dfa2205dc10aa4d281a14"
+      "sha256": "c0afb73ba7463499a01f59979cdfefe3bcf60ea8c5699f553b6fd74f9b88f189"
     },
     {
       "id": "source:package.json",
