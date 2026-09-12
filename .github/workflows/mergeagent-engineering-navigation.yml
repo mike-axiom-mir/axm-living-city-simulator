@@ -34,6 +34,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           python3 tools/mergeagent_engineering_navigation.py
+          python3 tools/mergeagent_browser_waits.py
           python3 tools/build_standalone.py
           git add src/ui.js src/engineering_ui.js tests/navigation_continuity_test.js tests/visual_presence_browser_test.py standalone/AXM_LIVING_CITY_SIM_INTERIOR_FEEDBACK_v0_11_3.html
           git commit -m "Integrate Engineering into canonical section navigation"
@@ -72,6 +73,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git rm .github/workflows/mergeagent-engineering-navigation.yml tools/mergeagent_engineering_navigation.py
+          git rm .github/workflows/mergeagent-engineering-navigation.yml tools/mergeagent_engineering_navigation.py tools/mergeagent_browser_waits.py
           git commit -m "[mergeagent-bot] Finalize Engineering navigation reconciliation"
           git push origin HEAD:mergeagent/engineering-navigation-reconcile-20260912
