@@ -80,4 +80,15 @@ if diagnostic not in s:
     if not replaced:
         raise SystemExit('Expected section geometry assertion seam missing; refuse broad rewrite.')
 
+timing_old = """        receipt = page.evaluate('() => window.AXM.Game.world.ui.lastVisualActivityReceipt')
+        assert after_day - before_day == 480"""
+timing_new = """        receipt = page.evaluate('() => window.AXM.Game.world.ui.lastVisualActivityReceipt')
+        timing_state = page.evaluate('() => ({ speed: window.AXM.Game.world.settings.simulationSpeed, timer: Boolean(window.AXM.Game.timer) })')
+        print('SLEEP_TIMING', {'before': before_day, 'after': after_day, 'delta': after_day - before_day, 'timing': timing_state, 'receipt': receipt})
+        assert after_day - before_day == 480"""
+if timing_new not in s:
+    if timing_old not in s:
+        raise SystemExit('Expected sleep timing assertion seam missing; refuse broad rewrite.')
+    s = s.replace(timing_old, timing_new, 1)
+
 path.write_text(s, encoding='utf-8')
