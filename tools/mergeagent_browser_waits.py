@@ -33,4 +33,21 @@ for old, new in replacements:
         s = s.replace(old, new, 1)
     elif new not in s:
         raise SystemExit('Expected Chromium navigation wait seam missing; refuse broad rewrite.')
+
+old_geometry = """        assert page.locator('#active-view').evaluate('''(view) => {
+          const topbar = document.querySelector('.topbar').getBoundingClientRect();
+          const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
+          return Math.abs(view.getBoundingClientRect().top - (topbar.height + switcher.height)) <= 2;
+        }''')"""
+new_geometry = """        assert page.locator('#active-view').evaluate('''(view) => {
+          const switcher = document.querySelector('.view-switcher').getBoundingClientRect();
+          const viewTop = view.getBoundingClientRect().top;
+          const delta = viewTop - switcher.bottom;
+          return delta >= -2 && delta <= 16;
+        }'''), 'Changed section heading is obscured by or detached from the sticky section controls.'"""
+if old_geometry in s:
+    s = s.replace(old_geometry, new_geometry, 1)
+elif new_geometry not in s:
+    raise SystemExit('Expected sticky non-overlap assertion seam missing; refuse broad rewrite.')
+
 path.write_text(s, encoding='utf-8')
