@@ -10,10 +10,15 @@ scripts = []
 for relative in [
     'src/core.js',
     'src/content.js',
+    'src/content_expansion.js',
     'src/world.js',
     'src/systems.js',
+    'src/item_interactions.js',
     'src/households.js',
     'src/habitats.js',
+    'src/object_use.js',
+    'src/object_use_item_expansion.js',
+    'src/object_use_audit.js',
     'src/stewardship.js',
     'src/family.js',
     'src/community.js',
@@ -22,9 +27,18 @@ for relative in [
     'src/exteriors.js',
     'src/shells.js',
     'src/presence.js',
+    'src/housing_pressure.js',
+    'src/historical_era.js',
+    'src/engineering_ewaste.js',
+    'src/career_skills.js',
+    'src/career_engineering_bridge.js',
+    'src/engineering_visuals.js',
     'src/visuals.js',
+    'src/item_visual_interactions.js',
     'src/game.js',
     'src/ui.js',
+    'src/engineering_ui.js',
+    'src/career_ui.js',
 ]:
     scripts.append(f"\n/* ===== {relative} ===== */\n" + (ROOT / relative).read_text(encoding='utf-8'))
 
@@ -34,7 +48,7 @@ html = f'''<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#111821">
-  <meta name="description" content="AXM Living City — one controlled life, autonomous residents, lawful lived presence, playable animated interiors, and reward-neutral room, building, and street visuals.">
+  <meta name="description" content="AXM Living City — one controlled life, autonomous residents, lawful lived presence, transferable job skills, playable animated interiors, and reward-neutral room, building, street, and engineering visuals.">
   <title>AXM Living City — Interior Feedback v0.11.3</title>
   <style>\n{css}\n  </style>
 </head>
