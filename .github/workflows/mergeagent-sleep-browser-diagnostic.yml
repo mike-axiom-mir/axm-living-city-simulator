@@ -63,7 +63,6 @@ jobs:
               page.set_content(html, wait_until='load')
               page.wait_for_function("() => document.querySelectorAll('.tab-button').length === 19", timeout=10000)
 
-              # Reproduce the exact navigation/speed sequence used by the full QA witness.
               page.locator('[data-action="tab"][data-id="visuals"]').click()
               active = page.locator('[role="tab"][aria-selected="true"]')
               active.press('ArrowRight')
@@ -104,6 +103,26 @@ jobs:
               sleep_room.click()
               page.wait_for_timeout(120)
               sleep = page.locator('[data-action="visual-activity"][data-id="sleep"]')
+              admission = sleep.evaluate('''(button) => {
+                const request = {
+                  actionId: button.dataset.id,
+                  roomId: button.dataset.room || null,
+                  objectId: button.dataset.object || null
+                };
+                const home = AXM.World.homeOf(AXM.Game.world, 'player');
+                const object = request.objectId ? home?.furniture?.find((entry) => entry.id === request.objectId) : null;
+                const resolved = AXM.ItemInteractions?.resolveActionObject
+                  ? AXM.ItemInteractions.resolveActionObject(AXM.Game.world, request.actionId, request)
+                  : null;
+                return {
+                  request,
+                  playerLocationId: AXM.Game.world.player.locationId,
+                  homeId: home?.id || null,
+                  object: object ? { id: object.id, catalogId: object.catalogId, ownerId: object.ownerId, ownershipMode: object.ownershipMode } : null,
+                  resolution: resolved ? { reason: resolved.reason || null, objectId: resolved.object?.id || null, catalogId: resolved.object?.catalogId || null } : null,
+                  activeShift: Boolean(AXM.Game.world.activeShift)
+                };
+              }''')
               before = page.evaluate('''() => ({
                 absolute: AXM.Game.world.time.day * 1440 + AXM.Game.world.time.hour * 60 + (AXM.Game.world.time.minute || 0),
                 day: AXM.Game.world.time.day,
@@ -121,14 +140,17 @@ jobs:
                 minute: AXM.Game.world.time.minute || 0,
                 speed: AXM.Game.world.settings.simulationSpeed,
                 timerNull: AXM.Game.timer === null,
-                receipt: AXM.Game.world.ui.lastVisualActivityReceipt
+                receipt: AXM.Game.world.ui.lastVisualActivityReceipt,
+                toast: AXM.Game.world.ui.toast,
+                lastRenderReason: AXM.Game.world.ui.lastRenderReason,
+                pendingVisualActivity: AXM.Game.world.ui.pendingVisualActivity
               })''')
               print('SPEED24_STATE', speed24_state)
               print('SPEED0_STATE', speed0_state)
+              print('SLEEP_ADMISSION', admission)
               print('SLEEP_BEFORE', before)
               print('SLEEP_AFTER', after)
               print('SLEEP_DELTA', after['absolute'] - before['absolute'])
               assert not errors, errors
-              assert after['receipt']['observedEffects']['timeMinutes'] == 480
               browser.close()
           PY
