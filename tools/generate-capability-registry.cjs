@@ -9,6 +9,7 @@ const CAPABILITY_PATH = 'capabilities/AXM-CAP-HEADLESS-SIMULATOR-V1.json';
 const MARKER_PATH = '.axm/discovery-public.json';
 const REGISTRY_PATH = 'registry/capabilities.jsonl';
 const RECEIPT_PATH = 'registry/capabilities.receipt.json';
+const PUBLIC_REPO = 'mike-axiom-mir/axm-living-city-simulator';
 const PROVIDER = 'axm-living-city-simulator';
 const CAPABILITY_ID = 'axm.living-city.headless-simulator.v1';
 const STATUS = 'IMPLEMENTED_REFERENCE';
@@ -82,8 +83,8 @@ function validatePackage(pkg) {
 
 function deriveRegistry(root) {
   const marker = readJson(root, MARKER_PATH);
-  if (marker.value.schema !== 'axm.discovery-public/v0.1' || marker.value.public_discovery !== true) {
-    throw new Error('public discovery marker must be explicit axm.discovery-public/v0.1 opt-in');
+  if (marker.value.schema !== 'axm.discovery-public/v1' || marker.value.public !== true || marker.value.repo !== PUBLIC_REPO) {
+    throw new Error(`public discovery marker must be explicit axm.discovery-public/v1 opt-in for ${PUBLIC_REPO}`);
   }
 
   const capability = readJson(root, CAPABILITY_PATH);
