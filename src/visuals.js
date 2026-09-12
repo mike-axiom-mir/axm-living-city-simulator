@@ -99,6 +99,7 @@
       sentimental: Number(object.sentimental) || 0,
       usageHours: Number(object.usageHours) || 0,
       ownerId: object.ownerId || null,
+      ownershipMode: object.ownershipMode || null,
       historyCount: Array.isArray(object.history) ? object.history.length : 0,
       rotation: Number(object.rotation) || 0,
       nx: Core.clamp(((object.position?.x || bounds.minX) - bounds.minX + 0.5) / bounds.width, 0.05, 0.95),
@@ -119,7 +120,13 @@
 
   function ruleObject(rule, objects) {
     if (!rule.kinds.length) return null;
-    return objects.find((object) => rule.kinds.includes(object.kind)) || null;
+    return objects.find((object) => {
+      if (!rule.kinds.includes(object.kind)) return false;
+      const itemInteractions = AXM.ItemInteractions;
+      if (itemInteractions?.objectMatchesAction && !itemInteractions.objectMatchesAction(object, rule.actionId)) return false;
+      if (itemInteractions?.directUseAllowed && !itemInteractions.directUseAllowed(object)) return false;
+      return true;
+    }) || null;
   }
 
   function roomActivityOptions(world, scene) {
@@ -130,6 +137,8 @@
       const purposeMatch = rule.purposes.includes(scene.purpose);
       const utilityMatch = rule.utility && scene.utilities?.[rule.utility] === true;
       const objectMatch = Boolean(object);
+      const itemObjectRequired = Boolean(AXM.ItemInteractions?.ACTION_CATALOGS?.[rule.actionId]?.length);
+      if (itemObjectRequired && !objectMatch) return [];
       if (!objectMatch && !purposeMatch && !utilityMatch) return [];
       const activity = Content.activityById(rule.actionId);
       if (!activity) return [];

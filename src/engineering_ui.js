@@ -275,18 +275,33 @@
   function decorateTabs(world) {
     const nav = UI.app?.querySelector('.tabbar');
     if (!nav) return;
-    let button = nav.querySelector('[data-action="engineering-tab"]');
+    let button = nav.querySelector('[data-action="tab"][data-id="engineering"]');
     if (!button) {
-      button = document.createElement('button');
-      button.className = 'tab-button';
-      button.dataset.action = 'engineering-tab';
-      button.textContent = 'Engineering';
-      const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
-      nav.insertBefore(button, anchor || null);
+      // Compatibility fallback for older host UIs. Current Living City owns
+      // Engineering in the canonical section registry.
+      button = nav.querySelector('[data-action="engineering-tab"]');
+      if (!button) {
+        button = document.createElement('button');
+        button.className = 'tab-button';
+        button.id = 'tab-engineering';
+        button.setAttribute('role', 'tab');
+        button.setAttribute('aria-controls', 'active-view');
+        button.dataset.action = 'engineering-tab';
+        button.dataset.id = 'engineering';
+        button.textContent = 'Engineering';
+        const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
+        nav.insertBefore(button, anchor || null);
+      }
     }
-    nav.querySelectorAll('.tab-button').forEach((entry) => entry.classList.remove('active'));
-    if (world.ui.activeTab === 'engineering') button.classList.add('active');
-    else nav.querySelector(`[data-action="tab"][data-id="${String(world.ui.activeTab).replace(/"/g, '')}"]`)?.classList.add('active');
+    nav.querySelectorAll('.tab-button').forEach((entry) => {
+      const entryId = entry.dataset.id || (entry.dataset.action === 'engineering-tab' ? 'engineering' : null);
+      const active = entryId === world.ui.activeTab;
+      entry.classList.toggle('active', active);
+      if (entry.getAttribute('role') === 'tab') {
+        entry.setAttribute('aria-selected', String(active));
+        entry.tabIndex = active ? 0 : -1;
+      }
+    });
   }
 
   function drawEngineeringCanvas(world, canvas, timestamp, motion) {
@@ -367,28 +382,18 @@
     bindEngineeringEvents();
   };
 
+  const originalRenderView = UI.renderView;
+  UI.renderView = function renderViewWithEngineering(world, ...args) {
+    if (world?.ui?.activeTab === 'engineering') return renderEngineering(world);
+    return originalRenderView.call(this, world, ...args);
+  };
+
   const originalRender = UI.render;
   UI.render = function renderWithEngineering(world, ...args) {
-    const engineeringActive = world?.ui?.activeTab === 'engineering';
     cancelEngineeringLoop();
-    if (!engineeringActive) {
-      originalRender.call(this, world, ...args);
-      decorateTabs(world);
-      return;
-    }
-
-    world.ui.activeTab = 'lab';
-    try {
-      originalRender.call(this, world, ...args);
-    } finally {
-      world.ui.activeTab = 'engineering';
-    }
-    this.cancelMapLoop?.();
-    this.cancelLivingLoop?.();
+    originalRender.call(this, world, ...args);
     decorateTabs(world);
-    const main = this.app?.querySelector('main.view');
-    if (main) main.innerHTML = renderEngineering(world);
-    startEngineeringLoop(world);
+    if (world?.ui?.activeTab === 'engineering') startEngineeringLoop(world);
   };
 
   AXM.EngineeringUI = Object.freeze({

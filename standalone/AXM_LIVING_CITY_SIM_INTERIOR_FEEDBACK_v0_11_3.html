@@ -284,7 +284,7 @@ select:focus-visible {
 
 .view {
   padding: 18px;
-  scroll-margin-top: calc(var(--topbar-height, 92px) + 60px);
+  scroll-margin-top: calc(var(--topbar-height, 92px) + var(--switcher-height, 60px));
 }
 
 .view-title-row {
@@ -1161,7 +1161,7 @@ select:focus-visible {
 
   .view {
     padding: 12px;
-    scroll-margin-top: 60px;
+    scroll-margin-top: calc(var(--topbar-height, 0px) + var(--switcher-height, 60px));
   }
 
   .view-title-row {
@@ -22635,6 +22635,7 @@ select:focus-visible {
       sentimental: Number(object.sentimental) || 0,
       usageHours: Number(object.usageHours) || 0,
       ownerId: object.ownerId || null,
+      ownershipMode: object.ownershipMode || null,
       historyCount: Array.isArray(object.history) ? object.history.length : 0,
       rotation: Number(object.rotation) || 0,
       nx: Core.clamp(((object.position?.x || bounds.minX) - bounds.minX + 0.5) / bounds.width, 0.05, 0.95),
@@ -22655,7 +22656,13 @@ select:focus-visible {
 
   function ruleObject(rule, objects) {
     if (!rule.kinds.length) return null;
-    return objects.find((object) => rule.kinds.includes(object.kind)) || null;
+    return objects.find((object) => {
+      if (!rule.kinds.includes(object.kind)) return false;
+      const itemInteractions = AXM.ItemInteractions;
+      if (itemInteractions?.objectMatchesAction && !itemInteractions.objectMatchesAction(object, rule.actionId)) return false;
+      if (itemInteractions?.directUseAllowed && !itemInteractions.directUseAllowed(object)) return false;
+      return true;
+    }) || null;
   }
 
   function roomActivityOptions(world, scene) {
@@ -22666,6 +22673,8 @@ select:focus-visible {
       const purposeMatch = rule.purposes.includes(scene.purpose);
       const utilityMatch = rule.utility && scene.utilities?.[rule.utility] === true;
       const objectMatch = Boolean(object);
+      const itemObjectRequired = Boolean(AXM.ItemInteractions?.ACTION_CATALOGS?.[rule.actionId]?.length);
+      if (itemObjectRequired && !objectMatch) return [];
       if (!objectMatch && !purposeMatch && !utilityMatch) return [];
       const activity = Content.activityById(rule.actionId);
       if (!activity) return [];
@@ -23617,6 +23626,7 @@ select:focus-visible {
     { id: 'community', label: 'Community' },
     { id: 'directions', label: 'Directions' },
     { id: 'economy', label: 'Local Economy' },
+    { id: 'engineering', label: 'Engineering' },
     { id: 'stewardship', label: 'Stewardship' },
     { id: 'work', label: 'Workday' },
     { id: 'housing', label: 'Housing' },
@@ -23799,8 +23809,12 @@ select:focus-visible {
 
     syncStickyOffset() {
       const topbar = this.app?.querySelector('.topbar');
+      const switcher = this.app?.querySelector('.view-switcher');
       const compact = root.matchMedia?.('(max-width: 720px)').matches;
-      this.app?.style.setProperty('--topbar-height', `${compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0)}px`);
+      const topbarHeight = compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0);
+      const switcherHeight = Math.ceil(switcher?.getBoundingClientRect().height || 0);
+      this.app?.style.setProperty('--topbar-height', `${topbarHeight}px`);
+      this.app?.style.setProperty('--switcher-height', `${switcherHeight}px`);
     },
 
     renderView(world) {
@@ -28315,18 +28329,33 @@ select:focus-visible {
   function decorateTabs(world) {
     const nav = UI.app?.querySelector('.tabbar');
     if (!nav) return;
-    let button = nav.querySelector('[data-action="engineering-tab"]');
+    let button = nav.querySelector('[data-action="tab"][data-id="engineering"]');
     if (!button) {
-      button = document.createElement('button');
-      button.className = 'tab-button';
-      button.dataset.action = 'engineering-tab';
-      button.textContent = 'Engineering';
-      const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
-      nav.insertBefore(button, anchor || null);
+      // Compatibility fallback for older host UIs. Current Living City owns
+      // Engineering in the canonical section registry.
+      button = nav.querySelector('[data-action="engineering-tab"]');
+      if (!button) {
+        button = document.createElement('button');
+        button.className = 'tab-button';
+        button.id = 'tab-engineering';
+        button.setAttribute('role', 'tab');
+        button.setAttribute('aria-controls', 'active-view');
+        button.dataset.action = 'engineering-tab';
+        button.dataset.id = 'engineering';
+        button.textContent = 'Engineering';
+        const anchor = nav.querySelector('[data-action="tab"][data-id="stewardship"]');
+        nav.insertBefore(button, anchor || null);
+      }
     }
-    nav.querySelectorAll('.tab-button').forEach((entry) => entry.classList.remove('active'));
-    if (world.ui.activeTab === 'engineering') button.classList.add('active');
-    else nav.querySelector(`[data-action="tab"][data-id="${String(world.ui.activeTab).replace(/"/g, '')}"]`)?.classList.add('active');
+    nav.querySelectorAll('.tab-button').forEach((entry) => {
+      const entryId = entry.dataset.id || (entry.dataset.action === 'engineering-tab' ? 'engineering' : null);
+      const active = entryId === world.ui.activeTab;
+      entry.classList.toggle('active', active);
+      if (entry.getAttribute('role') === 'tab') {
+        entry.setAttribute('aria-selected', String(active));
+        entry.tabIndex = active ? 0 : -1;
+      }
+    });
   }
 
   function drawEngineeringCanvas(world, canvas, timestamp, motion) {
@@ -28407,28 +28436,18 @@ select:focus-visible {
     bindEngineeringEvents();
   };
 
+  const originalRenderView = UI.renderView;
+  UI.renderView = function renderViewWithEngineering(world, ...args) {
+    if (world?.ui?.activeTab === 'engineering') return renderEngineering(world);
+    return originalRenderView.call(this, world, ...args);
+  };
+
   const originalRender = UI.render;
   UI.render = function renderWithEngineering(world, ...args) {
-    const engineeringActive = world?.ui?.activeTab === 'engineering';
     cancelEngineeringLoop();
-    if (!engineeringActive) {
-      originalRender.call(this, world, ...args);
-      decorateTabs(world);
-      return;
-    }
-
-    world.ui.activeTab = 'lab';
-    try {
-      originalRender.call(this, world, ...args);
-    } finally {
-      world.ui.activeTab = 'engineering';
-    }
-    this.cancelMapLoop?.();
-    this.cancelLivingLoop?.();
+    originalRender.call(this, world, ...args);
     decorateTabs(world);
-    const main = this.app?.querySelector('main.view');
-    if (main) main.innerHTML = renderEngineering(world);
-    startEngineeringLoop(world);
+    if (world?.ui?.activeTab === 'engineering') startEngineeringLoop(world);
   };
 
   AXM.EngineeringUI = Object.freeze({

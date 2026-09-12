@@ -33,6 +33,7 @@
     { id: 'community', label: 'Community' },
     { id: 'directions', label: 'Directions' },
     { id: 'economy', label: 'Local Economy' },
+    { id: 'engineering', label: 'Engineering' },
     { id: 'stewardship', label: 'Stewardship' },
     { id: 'work', label: 'Workday' },
     { id: 'housing', label: 'Housing' },
@@ -215,8 +216,12 @@
 
     syncStickyOffset() {
       const topbar = this.app?.querySelector('.topbar');
+      const switcher = this.app?.querySelector('.view-switcher');
       const compact = root.matchMedia?.('(max-width: 720px)').matches;
-      this.app?.style.setProperty('--topbar-height', `${compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0)}px`);
+      const topbarHeight = compact ? 0 : Math.ceil(topbar?.getBoundingClientRect().height || 0);
+      const switcherHeight = Math.ceil(switcher?.getBoundingClientRect().height || 0);
+      this.app?.style.setProperty('--topbar-height', `${topbarHeight}px`);
+      this.app?.style.setProperty('--switcher-height', `${switcherHeight}px`);
     },
 
     renderView(world) {

@@ -28,9 +28,9 @@ def main() -> int:
         page.on('pageerror', lambda error: errors.append(f'pageerror: {error}'))
         page.on('console', lambda message: errors.append(f'console: {message.text}') if message.type == 'error' else None)
         page.set_content(html, wait_until='load')
-        page.wait_for_timeout(300)
+        page.wait_for_function("() => document.querySelectorAll('.tab-button').length === 19", timeout=10000)
 
-        assert page.locator('.tab-button').count() == 18
+        assert page.locator('.tab-button').count() == 19
         page.locator('[data-action="tab"][data-id="visuals"]').click()
         page.wait_for_timeout(180)
         assert page.locator('#livingCanvas').count() == 1
@@ -67,6 +67,19 @@ def main() -> int:
           return Math.abs(view.getBoundingClientRect().top - (topbar.height + switcher.height)) <= 2;
         }''')
 
+        engineering_tab = page.locator('[role="tab"][data-id="engineering"]')
+        engineering_tab.click()
+        page.wait_for_timeout(120)
+        assert engineering_tab.get_attribute('aria-selected') == 'true'
+        assert page.locator('#active-view').get_attribute('aria-labelledby') == 'tab-engineering'
+        assert page.locator('.view-position').get_attribute('aria-label') == 'Section 14 of 19'
+        assert page.locator('[role="tab"][tabindex="0"]').count() == 1
+        engineering_tab.press('ArrowRight')
+        page.wait_for_timeout(100)
+        assert page.locator('[role="tab"][aria-selected="true"]').get_attribute('data-id') == 'stewardship'
+        page.locator('[role="tab"][data-id="visuals"]').click()
+        page.wait_for_timeout(100)
+
         before_world = page.evaluate('() => JSON.stringify(window.AXM.Game.world)')
         frame_one = canvas_digest(page)
         page.wait_for_timeout(520)
@@ -76,10 +89,17 @@ def main() -> int:
         assert before_world == after_world, 'Animation loop mutated authoritative world state.'
         page.screenshot(path=str(OUTPUT / 'living_view_room_desktop.png'), full_page=False)
 
-        sleep_room = page.locator('[data-action="visual-room"]', has_text='Sleeping Room').first
-        sleep_room.click()
-        page.wait_for_timeout(120)
         sleep_action = page.locator('[data-action="visual-activity"][data-id="sleep"]')
+        sleep_rooms = page.locator('[data-action="visual-room"]')
+        lawful_sleep_room_found = False
+        for room_index in range(sleep_rooms.count()):
+            candidate = sleep_rooms.nth(room_index)
+            candidate.click()
+            page.wait_for_timeout(80)
+            if sleep_action.count() == 1:
+                lawful_sleep_room_found = True
+                break
+        assert lawful_sleep_room_found, 'No lawful room/object combination exposed the grounded Sleep action.'
         assert sleep_action.count() == 1
         before_day = page.evaluate('() => window.AXM.Game.world.time.day * 1440 + window.AXM.Game.world.time.hour * 60 + window.AXM.Game.world.time.minute')
         sleep_action.click()
@@ -92,9 +112,9 @@ def main() -> int:
         assert receipt['noExtraReward'] is True
         assert receipt['observedEffects']['effectsObserved'] is True
         assert receipt['observedEffects']['timeMinutes'] == 480
-        assert page.locator('text=COMPLETED MOMENT ECHO').count() == 1
-        assert page.locator('text=What actually changed').count() == 1
-        assert page.locator('text=Factual receipt').count() == 1
+        assert page.locator('.living-stage-overlay > span', has_text='COMPLETED MOMENT ECHO').count() == 1
+        assert page.get_by_role('heading', name='What actually changed', exact=True).count() == 1
+        assert page.locator('.visual-effect-card .pill', has_text='Factual receipt').count() == 1
         assert page.locator('[data-action="visual-open-object"]').count() == 1
         page.screenshot(path=str(OUTPUT / 'living_view_completed_moment.png'), full_page=False)
 
@@ -155,7 +175,7 @@ def main() -> int:
         browser.close()
 
     assert not errors, '\n'.join(errors)
-    print('PASS interior-feedback browser QA: room play resolves real time with factual effect feedback, receipt is grounded, motion advances without mutation, still/device-reduced modes freeze, 18 views, mobile overflow 0')
+    print('PASS interior-feedback browser QA: room play resolves real time with factual effect feedback, receipt is grounded, motion advances without mutation, still/device-reduced modes freeze, 19 views including Engineering, mobile overflow 0')
     print(f'Captured 4 temporary visual QA screenshots in {OUTPUT}')
     return 0
 
